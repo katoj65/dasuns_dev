@@ -185,7 +185,8 @@ return $query->select('appointment.date',
 'payment.amount',
 'users.firstname',
 'users.lastname',
-'dasuns_user_number.number')
+'dasuns_user_number.number',
+'appointment.status')
 ->join('users','appointment.providerID','=','users.id')
 ->join('support_service','appointment.serviceID','=','support_service.ID')
 ->join('payment','appointment.id','=','payment.appointmentID')

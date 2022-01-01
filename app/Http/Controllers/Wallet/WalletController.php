@@ -261,11 +261,7 @@ return Inertia::render('WalletWithdrawPage',$data);
 //wallet histroy
 public function wallet_history(PaymentModel $payment){
 if(Auth::user()->role=='pssp'){
-$model=$payment->select('*')
-->where('payment.userID',Auth::user()->id)
-->join('appointment','payment.userID','=','appointment.userID')
-->get();
-}else{
+
 $model=$payment->select('payment.amount',
 'support_service.name',
 'payment.created_at')
@@ -274,10 +270,21 @@ $model=$payment->select('payment.amount',
 ->join('support_service','appointment.serviceID','=','support_service.id')
 ->orderby('payment.created_at','DESC')
 ->get();
+
+}else{
+
+$model=$payment->select('payment.amount',
+'support_service.name',
+'payment.created_at')
+->where('payment.userID',Auth::user()->id)
+->join('appointment','payment.userID','=','appointment.userID')
+->join('support_service','appointment.serviceID','=','support_service.id')
+->orderby('payment.created_at','DESC')
+->get();
+
 }
 
-
-$data['title']='Wallet history';
+$data['title']='Payment history';
 $data['response']=['payments'=>$model];
 return Inertia::render('WalletHistoryPage',$data);
 }

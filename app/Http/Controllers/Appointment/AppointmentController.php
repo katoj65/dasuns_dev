@@ -606,6 +606,7 @@ $content[]=[
 'tel'=>$row->tel,
 'email'=>$row->email,
 'service'=>$row->name,
+'status'=>$row->status
 
 
 ];

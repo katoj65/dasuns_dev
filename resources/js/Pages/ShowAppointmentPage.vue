@@ -105,7 +105,7 @@
 
 
 </div>
-<div class="card-footer header_bg text-white" v-if="a.success!='completed'">
+<div class="card-footer header_bg text-white" v-if="a.status=='completed'">
 Service has been provided successfully
 </div>
 

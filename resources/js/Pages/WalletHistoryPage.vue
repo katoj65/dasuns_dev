@@ -29,7 +29,7 @@ Wallet
 <thead>
 <tr>
 <th>Date</th>
-<th>Item</th>
+<th>Service</th>
 <th>amount</th>
 </tr>
 </thead>
