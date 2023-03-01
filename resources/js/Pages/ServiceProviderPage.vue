@@ -6,7 +6,6 @@
 </div>
 
 
-
 <div class="card-inner" style="margin-top:-60px;">
 <div class="team">
 

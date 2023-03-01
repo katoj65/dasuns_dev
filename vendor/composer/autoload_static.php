@@ -619,6 +619,7 @@ class ComposerStaticInit6ca39d84c378fa455e59eb566042b810
         'App\\Models\\InterviewPanelistModel' => __DIR__ . '/../..' . '/app/Models/InterviewPanelistModel.php',
         'App\\Models\\LogInterviewApprovalModel' => __DIR__ . '/../..' . '/app/Models/LogInterviewApprovalModel.php',
         'App\\Models\\LogPSSPApplicationModel' => __DIR__ . '/../..' . '/app/Models/LogPSSPApplicationModel.php',
+        'App\\Models\\LogWalletModel' => __DIR__ . '/../..' . '/app/Models/LogWalletModel.php',
         'App\\Models\\MenuModel' => __DIR__ . '/../..' . '/app/Models/MenuModel.php',
         'App\\Models\\NotificationModel' => __DIR__ . '/../..' . '/app/Models/NotificationModel.php',
         'App\\Models\\OrganisationContactPersonModel' => __DIR__ . '/../..' . '/app/Models/OrganisationContactPersonModel.php',

@@ -254,6 +254,37 @@ background:#F4F6F6;
 .border-4{
  border:solid 4px #0B5345
 }
+
+
+a{
+text-decoration: none;
+
+}
+a:hover{
+text-decoration: none;
+color:black;
+}
+a:focus{
+text-decoration: none;
+}
+
+.text-decoartion-none{
+text-decoration: none;
+color:black;
+}
+.text-decoartion-none:hover{
+color:back;
+}
+.border-none{
+border-radius: 0;
+}
+.box-shadow-none{
+box-shadow: none;
+}
+
+.bold{
+font-weight: bold;
+}
 </style>
 
 

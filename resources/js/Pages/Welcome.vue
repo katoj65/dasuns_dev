@@ -1,5 +1,6 @@
 
 <template>
+
 <layout-un-auth>
 <div class="nk-content nk-content-lg nk-content-fluid"  style="background:#07372F;">
 <div class="container-xl wide-lg">
