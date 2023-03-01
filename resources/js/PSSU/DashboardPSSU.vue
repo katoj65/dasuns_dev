@@ -84,8 +84,8 @@
 <div class="form-control-wrap">
 <select class="form-control form-control-lg" @change="select_disability($event)">
 <option>-- Select Answer --</option>
-<option value="no">No</option>
-<option value="yes">Yes</option>
+<option value="false">No</option>
+<option value="true">Yes</option>
 </select>
 </div>
 </div>

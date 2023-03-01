@@ -211,14 +211,21 @@ $request->validate([
 'location'=>['required'],
 'disability_status'=>['required'],
 'countryID'=>['required']],['required'=>'* Field is required.']);
+
+
+
+
+//
 $id=Auth::user()->id;
-UserProfileModel::insert(['userID'=>$id,
+UserProfileModel::insert(
+['userID'=>$id,
 'location'=>$request->location,
 'countryID'=>$request->countryID,
 'disability'=>$request->disability_status]);
+
 //PSSU array
 foreach($request->serviceID as $service){
-    UserSupportServiceModel::insert(['userID'=>$id,'serviceID'=>$service]);
+UserSupportServiceModel::insert(['userID'=>$id,'serviceID'=>$service]);
 }
 
 //disability
@@ -241,6 +248,9 @@ DasunsUserNumberModel::insert([
 ]);
 
 //
+
+
+
 User::where('id',Auth::user()->id)->update(['status'=>'active']);
 
 
