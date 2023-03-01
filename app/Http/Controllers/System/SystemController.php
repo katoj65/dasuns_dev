@@ -74,9 +74,9 @@ function get_system_information(){
 $get=SystemModel::get();
 if(count($get)==1){
 foreach($get as $row);
-    return $row;
+return $row;
 }else{
-    return null;
+    return [];
 }
 
 
