@@ -146,25 +146,22 @@ if($first_string>0){
 $first_string=$first_string+1;
 }
 //count user
-$count_user=User::count();
+$count_user=Auth::user()->id;
 //get num length vs count user length
 $num_len=strlen($min);
 $count_len=strlen($count_user);
-if($count_user==1){
-$count_len=1;
-}else{
-$count_len=$count_len+1;
-}
+$count_len=$count_user;
 //reduce first number
 $reduce_first=substr($min,1,5);
 //concat first string
 $concat=strval($first_string).$reduce_first;
 //subtract user count from reduced number
 $len=strlen($count_user);
-$x=-$count_len;
+$x=-strlen($count_user);
 $subtract=substr($concat,0,$x);
 }
 }
+
 $initial=Auth::user()->role=='pssp'?'P':'U';
 return $subtract.strval($count_len).$initial;
 

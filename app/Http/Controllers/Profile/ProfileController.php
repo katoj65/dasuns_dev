@@ -212,9 +212,6 @@ $request->validate([
 'disability_status'=>['required'],
 'countryID'=>['required']],['required'=>'* Field is required.']);
 
-
-
-
 //
 $id=Auth::user()->id;
 UserProfileModel::insert(
