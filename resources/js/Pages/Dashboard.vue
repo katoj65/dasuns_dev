@@ -1,6 +1,5 @@
 <template>
 <app-layout>
-
 <DashboardPSSU v-if="user.role=='pssu'" :response="response" :errors="errors"></DashboardPSSU>
 <DashboardPSSP v-if="user.role=='pssp'" :response="response" :errors="errors"></DashboardPSSP>
 <DashboardAdmin v-if="user.role=='admin'" :response="response"></DashboardAdmin>
@@ -17,7 +16,6 @@ import DashboardAdmin from '@/Admin/DashboardAdmin';
 import DashboardReception from '@/Reception/DashboardReception.vue';
 import DashboardFinance from '@/Finance/DashboardFinance';
 import DashboardPanelist from '@/Panelist/DashboardPanelist';
-
 
 
 export default {

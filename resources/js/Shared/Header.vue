@@ -1,6 +1,6 @@
 <template>
 
-<div class="nk-header nk-header-fixed is-light shadow" style="border:none;">
+<div class="nk-header nk-header-fixed is-light" style="border:none;border-bottom:solid 1px #EBEEF5">
 <div class="container-fluid">
 <div class="nk-header-wrap">
 <div class="nk-menu-trigger d-xl-none ml-n1">
