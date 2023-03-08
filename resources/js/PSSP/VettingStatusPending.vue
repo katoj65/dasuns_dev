@@ -1,23 +1,7 @@
 <template>
-<div class="nk-block pt-1">
-
-
-<!-- {{ response.user_data.pssp_attributes.interview.panelists }}
-
- -->
-
-
-
-
-
-
-
-
-<div class="card">
-<div class="card-body">
-<div class="row">
+<div class="row pt-2">
 <div class="col-12 col-md-4">
-<div class="card card-full h-100">
+<el-card shadow="never" class="card h-100">
 <div class="card-inner">
 <div class="team">
 <div class="user-card user-card-s2">
@@ -48,35 +32,22 @@
 </div>
 </div>
 </div>
-</div>
-
+</el-card>
 </div>
 <div class="col-12 col-md-8">
-<h4 class="nk-block-title p-2" style="font-size:20px;">
-Perofessional Service Provider Account
-</h4>
+<el-card shadow="never" class="card h-100">
+  <div slot="header" class="clearfix">
+    <h4>Professional Service Provider Account</h4>
+    <!-- <el-button style="float: right; padding: 3px 0" type="text">Operation button</el-button> -->
+  </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="card mt-3 thick-border">
-
-<div class="card-header d-sm-inline  p-3 bg-warning-dim" v-if="response.user_data.pssp_attributes.identification_documents.length==0 || response.user_data.pssp_attributes.experience.length==0 || response.user_data.pssp_attributes.references.length==0 || response.user_data.pssp_attributes.services.length==0">
+<div class="p-3 bg-warning-dim" style="margin:-20px;"  v-if="response.user_data.pssp_attributes.identification_documents.length==0 || response.user_data.pssp_attributes.experience.length==0 || response.user_data.pssp_attributes.references.length==0 || response.user_data.pssp_attributes.services.length==0">
 <em class="icon ni ni-alert-circle text-warning" style="margin-right:10px;"></em>
 Fill in all missing information
 </div>
-<div class="card-header d-sm-inline  p-3 bg-warning-dim" v-else>
+
+<div class="p-3 bg-warning-dim" style="margin:-20px;" v-else>
 
 <div v-if="$page.props.auth.user.status=='pending'">
 <em class="icon ni ni-alert-circle text-warning" style="margin-right:10px;"></em>
@@ -114,33 +85,14 @@ Interview has been scheduled
 Your application was declined
 
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
 </div>
 
-
-
-
-<div class="card-header d-sm-inline  p-3 bg-warning-dim" v-if="message!=null && decline==null && interview==null">
+<div class="p-3 bg-warning-dim" v-if="message!=null && decline==null && interview==null">
 <em class="icon ni ni-alert-circle"></em>
 {{ message }}
 </div>
 
-
-
-
-
-<div class="card-header d-sm-inline  p-3 bg-warning-dim" v-else-if="decline!=null && interview==null">
+<div class="p-3 bg-warning-dim" v-else-if="decline!=null && interview==null">
 <div><strong>
 Your application was declined
 </strong></div>
@@ -151,35 +103,44 @@ Your application was declined
 
 
 
-
-
-
-
-
-
-
-
-
-
-<div style="margin:-20px;margin-top:-30px;">
-<div class="data-item p-0 border-0">
-<table class="table mt-3">
+<div>
+<table class="table mt-5">
 <thead style="border:none;">
 <tr style="border:none;">
 <th scope="col" colspan="8" style="border:none;color:#07372F;">
-<div class="thick-bg">
-<em class="icon ni ni-caret-right-fill text-success"></em>
+<div>
+<em class="icon ni ni-caret-right-fill"></em>
+Personal Statement
+</div>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="font-size:13px;" class="text-muted">
+{{ response.user_data.pssp_attributes.profile.about!=null?response.user_data.pssp_attributes.profile.about:'Missing' }}
+</td>
+</tr>
+</tbody>
+</table>
+
+<el-divider></el-divider>
+<table class="table mt-2">
+<thead style="border:none;">
+<tr style="border:none;">
+<th scope="col" colspan="8" style="border:none;color:#07372F;">
+<div>
+<em class="icon ni ni-caret-right-fill"></em>
 Professional Services I Provide
 </div>
 </th>
 </tr>
 </thead>
 
-
 <tbody v-if="attributes.services.length>0" style="border:none;">
 <tr v-for="s in attributes.services" :key="s.id" style="border:none;">
 <td colspan="8" style="border:none;" class="pl-5">
- {{ s.name }}
+<em class="icon ni ni-bullet-fill"></em> {{ s.name }}
 </td>
 </tr>
 <tr>
@@ -194,8 +155,8 @@ Professional Services I Provide
 <thead>
 <tr>
 <th scope="col" colspan="8" style="border:none;color:#07372F;" class="pt-2">
-<div class="thick-bg">
-<em class="icon ni ni-caret-right-fill text-success"></em>
+<div>
+<em class="icon ni ni-caret-right-fill"></em>
 Identification Documents
 </div>
 </th>
@@ -223,13 +184,16 @@ Identification Documents
 <div class="p-2">Missing</div>
 </td></tr></tbody>
 </table>
-</div><!-- data-item -->
-<div class="data-item p-0 border-0">
+
+
+   <el-divider></el-divider>
+
+
 <table class="table mt-3">
 <thead>
 <th colspan="8" style="border:none;color:#07372F;">
-<div class="thick-bg">
-<em class="icon ni ni-caret-right-fill text-success"></em> Work Experience
+<div>
+<em class="icon ni ni-caret-right-fill"></em> Work Experience
 </div>
 </th>
 </thead>
@@ -244,7 +208,7 @@ Identification Documents
 <td>
 {{ a.position }}
 </td>
-<th>Dates</th>
+<th style="border:none;">Dates</th>
 <td colspan="2" style="font-size:13px;">
 {{ a.from_date }} - {{ a.to_date }}
 </td>
@@ -255,14 +219,17 @@ Identification Documents
 <div class="p-2">Missing</div>
 </td></tr></tbody>
 </table>
-</div>
-<div class="data-item p-0 border-0">
+
+
+
+
+   <el-divider></el-divider>
 <table class="table mt-2">
 <thead>
 <tr>
 <th scope="col" colspan="8" style="border:none;color:#07372F;">
-<div class="thick-bg">
-<em class="icon ni ni-caret-right-fill text-success"></em> Profession References
+<div>
+<em class="icon ni ni-caret-right-fill"></em> Profession References
 </div>
 </th>
 </tr>
@@ -300,21 +267,11 @@ Names
 </td></tr>
 </tbody>
 </table>
-</div>
 
 
 
 
 
-
-</div>
-
-
-</div>
-</div>
-</div>
-<!-- .card -->
-</div>
 </div>
 
 
@@ -326,18 +283,8 @@ Names
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+</el-card>
+</div>
 </div>
 </template>
 <script>

@@ -73,7 +73,7 @@
 {{ user.account_type }} Account
 </span>
 <div class="sub-text text-transform pt-0 pb-1" v-if="user.dasuns_number!=null">
-<strong style="margin-right:10px;">Dasuns No:</strong>
+<strong style="margin-right:10px;">Service No:</strong>
 {{ user.dasuns_number.number }}
 </div>
 </div>

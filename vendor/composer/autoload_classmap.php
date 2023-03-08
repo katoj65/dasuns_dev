@@ -73,6 +73,7 @@ return array(
     'App\\Models\\DisabilityModel' => $baseDir . '/app/Models/DisabilityModel.php',
     'App\\Models\\EmployeeModel' => $baseDir . '/app/Models/EmployeeModel.php',
     'App\\Models\\EmployeeProfessionModel' => $baseDir . '/app/Models/EmployeeProfessionModel.php',
+    'App\\Models\\EmployeeProfileModel' => $baseDir . '/app/Models/EmployeeProfileModel.php',
     'App\\Models\\EmployeeRolesModel' => $baseDir . '/app/Models/EmployeeRolesModel.php',
     'App\\Models\\InstitutionTypeModel' => $baseDir . '/app/Models/InstitutionTypeModel.php',
     'App\\Models\\InterviewDeclineMessageModel' => $baseDir . '/app/Models/InterviewDeclineMessageModel.php',

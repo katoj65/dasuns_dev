@@ -177,29 +177,16 @@ $dasuns=DasunsUserNumberModel::select('pssp_interview_rejection.title','pssp_int
 
 
 
-//
+//request
 $requests=AppointmentModel::select('appointment.date',
 'appointment.from',
 'appointment.to',
 'appointment.created_at',
 'appointment.end_date')
-// ->join('')
 ->where('appointment.providerID',Auth::user()->id)
 ->where('appointment.status','pending')
 ->orderby('appointment.created_at','ASC')
 ->get();
-// //
-// if(count($requests)>0){
-// foreach($requests as $r){
-// $request_item[]=$r;
-// }
-// }else{
-// $requests=[];
-// }
-
-
-
-
 
 return['identification_documents'=>ServiceProviderSecurityDetailsModel::where('userID',$id)->get(),
 'services'=>$get_services,
@@ -210,9 +197,30 @@ return['identification_documents'=>ServiceProviderSecurityDetailsModel::where('u
 'interview_decline'=>InterviewController::get_declined_interview_by_userID(Auth::user()->id),
 'interview_failure'=>Auth::user()->status=='failed'?$dasuns:[],
 'requests'=>$requests,
+'profile'=>$this->get_pssp_profile(),
 
 ];
 }
+
+
+
+
+//get profile
+function get_pssp_profile(){
+$get=ServiceProviderProfileModel::select('about')->where('userID',Auth::user()->id)->get();
+if(count($get)==1){
+foreach($get as $row);
+$payload=$row;
+}else{
+$payload=[];
+}
+return $payload;
+}
+
+
+
+
+
 
 
 

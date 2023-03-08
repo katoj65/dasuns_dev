@@ -643,6 +643,7 @@ class ComposerStaticInit6ca39d84c378fa455e59eb566042b810
         'App\\Models\\DisabilityModel' => __DIR__ . '/../..' . '/app/Models/DisabilityModel.php',
         'App\\Models\\EmployeeModel' => __DIR__ . '/../..' . '/app/Models/EmployeeModel.php',
         'App\\Models\\EmployeeProfessionModel' => __DIR__ . '/../..' . '/app/Models/EmployeeProfessionModel.php',
+        'App\\Models\\EmployeeProfileModel' => __DIR__ . '/../..' . '/app/Models/EmployeeProfileModel.php',
         'App\\Models\\EmployeeRolesModel' => __DIR__ . '/../..' . '/app/Models/EmployeeRolesModel.php',
         'App\\Models\\InstitutionTypeModel' => __DIR__ . '/../..' . '/app/Models/InstitutionTypeModel.php',
         'App\\Models\\InterviewDeclineMessageModel' => __DIR__ . '/../..' . '/app/Models/InterviewDeclineMessageModel.php',

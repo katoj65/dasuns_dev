@@ -191,3 +191,11 @@ Route::middleware(['auth:sanctum', 'verified'])->post('/appointment/add-work-day
 Route::middleware(['auth:sanctum', 'verified'])->post('/cart/remove-item',[AppointmentController::class,'remove_from_cart'])->name('cart.remove');
 
 Route::middleware(['auth:sanctum', 'verified'])->post('/cart/make-payment',[CartController::class,'make_payment'])->name('cart.make_payment');
+
+Route::middleware(['auth:sanctum','verified'])->post('/reception/add-about',[ReceptionController::class,'add_reception_about'])->name('reception.create_about');
+
+Route::middleware(['auth:sanctum', 'verified'])->post('/reception/edit',[ReceptionController::class,'update'])->name('reception.edit_user');
+
+Route::middleware(['auth:sanctum', 'verified'])->post('/reception/delete',[ReceptionController::class,'destroy'])->name('reception.delete');
+
+Route::middleware(['auth:sanctum', 'verified'])->post('/reception/edit-reception-profile',[ReceptionController::class,'edit_reception_profile'])->name('reception.edit_profile');
