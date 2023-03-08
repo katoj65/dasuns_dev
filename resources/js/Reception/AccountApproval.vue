@@ -20,10 +20,10 @@
 <a href="#" class="dropdown-toggle btn btn-sm btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
 <div class="dropdown-menu dropdown-menu-right">
 <ul class="link-list-opt no-bdr">
+<li><a href="#" @click="dialog.edit_info=true"><span>Edit User Information</span></a></li>
 <li><a href="#"><span>Upload Picture</span></a></li>
 <li v-if="profile==null"><a href="#" @click="dialog.create_profile=true"><span>Add Profile</span></a></li>
 <li v-else><a href="#" @click="dialog.edit_profile=true"><span>Edit Profile</span></a></li>
-<li><a href="#" @click="dialog.edit_info=true"><span>Edit User Information</span></a></li>
 <li><a href="#" @click="dialog.delete_account=true"><span>Delete Account</span></a></li>
 </ul>
 </div>
