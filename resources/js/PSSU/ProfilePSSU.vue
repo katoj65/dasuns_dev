@@ -4,7 +4,7 @@
 
 
 
-<div class="card h-100">
+<el-card class="card h-100" shadow="never">
 <div class="card-inner">
 <div class="team">
 <div class="team-options">
@@ -61,7 +61,7 @@ Wallet</span></Inertia-link>
 </div>
 </div><!-- .team -->
 </div><!-- .card-inner -->
-</div>
+</el-card>
 
 
 
@@ -69,22 +69,13 @@ Wallet</span></Inertia-link>
 <div class="col-12 col-md-8">
 
 
-<div class="card h-100 pt-2" style="min-height:700px;">
-<div class="card-header" style="background:white;">
-<div class="card-title-group">
-<div class="card-title">
-<h6 class="title size20">Service User Profile</h6>
-</div>
-<!-- <div class="card-tools">
-<a href="#" class="link">All Tickets</a>
-</div> -->
-</div>
-</div>
-<div class="card-inner">
+<el-card class="card h-100 pt-2" style="min-height:700px;" shadow="never">
 
-
-<!-- {{ contact_person }} -->
-
+<div slot="header" class="clearfix">
+<h3>Service User Profile</h3>
+<!-- <el-button style="float: right; padding: 3px 0" type="text">Operation button</el-button> -->
+</div>
+<div class="card-inner p-0">
 <table style="width:100%;">
 <thead>
 <tr>
@@ -258,7 +249,7 @@ Joined Dasuns Platform
 
 
 </div>
-</div>
+</el-card>
 </div>
 
 

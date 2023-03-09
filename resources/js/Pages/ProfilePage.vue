@@ -3,21 +3,9 @@
 
 <div>
 <div v-if="user.role=='admin' || user.role=='reception' || user.role=='finance'">
-<profile-reception :errors="errors" :response="response" v-if="user.role=='reception'"></profile-reception>
+<employee-profile-component :response="response" :flash="flash" :errors="errors"></employee-profile-component>
 </div>
 <div v-else>
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -628,6 +616,7 @@ import ProfileReception from '@/Reception/ProfileReception';
 import ProfilePanelist from '@/Panelist/ProfilePanelist';
 import ProfilePSSU from '@/PSSU/ProfilePSSU';
 import PageTitle from '@/Shared/PageTitle';
+import EmployeeProfileComponent from '@/Components/EmployeeProfileComponent';
 
 
 
@@ -647,6 +636,7 @@ ProfileReception,
 ProfilePanelist,
 ProfilePSSU,
 PageTitle,
+EmployeeProfileComponent
 
 
 

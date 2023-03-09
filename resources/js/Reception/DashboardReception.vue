@@ -1,7 +1,6 @@
 <template>
 <div>
 
-
 <account-approval v-if="admin_profile.length==0" :response="response"></account-approval>
 <div class="nk-content p-0" v-else>
 <div class="container-fluid pt-0">

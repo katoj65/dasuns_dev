@@ -10,6 +10,7 @@ use App\Models\EmployeeRolesModel;
 use Inertia\Inertia;
 use App\Models\User;
 use App\Models\UserRoleModel;
+use App\Models\EmployeeProfileModel;
 
 class EmployeeController extends Controller
 {
@@ -55,10 +56,24 @@ return Inertia::render('EmployeesPage',$data);
         //
 $get=User::find($request->segment(2));
 if($get!=null){
+$profile=EmployeeProfileModel::select('*')
+->join('country','employee_profile.countryID','=','country.id')
+->where('employee_profile.userID',$request->segment(2))->get();
+if(count($profile)==1){
+foreach($profile as $row);
+$prof=$row;
+}else{
+$prof=[];
+}
+
+
+
 $data['title']='Employee Information';
 $data['response']=[
 'employee'=>$get,
 'roles'=>UserRoleModel::get(),
+'profile'=>$prof,
+
 
 ];
 

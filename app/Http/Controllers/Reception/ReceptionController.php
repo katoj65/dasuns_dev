@@ -422,7 +422,6 @@ EmployeeProfileModel::where('userID',Auth::user()->id)->update([
 'location'=>$request->location
 ]);
 
-
 return redirect('/')->with('success','Profile has been updated.');
 }else{
 return redirect('/')->with('warning','Prifile was not edited.');
@@ -437,6 +436,30 @@ return redirect('/')->with('warning','Prifile was not edited.');
 
 
 
+//reception profile
+static function reception_profile(){
+$get=EmployeeProfileModel::select('country.name as country','employee_profile.about','employee_profile.location','employee_profile.designation','users.status')
+->join('country','employee_profile.countryID','=','country.id')
+->join('users','employee_profile.userID','=','users.id')
+->where('employee_profile.userID',Auth::user()->id)
+->get();
+if(count($get)==1){
+foreach($get as $row);
+return $row;
+}else{
+return[];
+}
+}
+
+
+
+
+//approve employee account
+public function approve_employ_account(Request $request){
+User::where('id',$request->id)->update(['status'=>'active']);
+return redirect('/employee/'.$request->id)->with('success','Accout has been aprroved.');
+
+}
 
 
 

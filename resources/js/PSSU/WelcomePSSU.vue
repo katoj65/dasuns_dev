@@ -5,8 +5,8 @@
 
 
 <div class="row g-gs">
-<div class="col-md-3" v-for="t in tabs" :key="t.id">
-<div class="card  card-full">
+<div class="col-md-3" v-for="t in tabs" :key="t.id" shadow="never">
+<el-card class="card  card-full" shadow="never">
 <div class="card-inner">
 <div class="card-title-group align-start mb-0">
 <div class="card-title">
@@ -40,7 +40,7 @@
 
 </div>
 </div>
-</div><!-- .card -->
+</el-card><!-- .card -->
 </div>
 
 
@@ -49,7 +49,7 @@
 
 
 <div class="col-md-8 col-xxl-4">
-<div class="card card-full">
+<el-card class="card card-full" shadow="never">
 <div class="card-inner">
 <div class="card-title-group mb-1">
 <div class="card-title">
@@ -173,10 +173,14 @@
 </div>
 </div>
 </div>
-</div>
+</el-card>
 </div><!-- .col -->
+
+
+
+
 <div class="col-md-4 col-xxl-4">
-<div class="card card-full">
+<el-card class="card card-full" shadow="never">
 <div class="card-inner d-flex flex-column h-100">
 <div class="card-title-group mb-3">
 <div class="card-title">
@@ -247,7 +251,7 @@
 <canvas class="iv-plan-purchase" id="planPurchase"></canvas>
 </div>
 </div>
-</div>
+</el-card>
 </div><!-- .col -->
 
 
@@ -257,7 +261,7 @@
 
 
 <div class="col-md-4 col-xxl-4">
-<div class="card card-full">
+<el-card class="card card-full" shadow="never">
 <div class="card-inner d-flex flex-column h-100">
 <div class="card-title-group mb-3">
 <div class="card-title">
@@ -327,7 +331,7 @@
 <canvas class="iv-plan-purchase" id="planPurchase"></canvas>
 </div>
 </div>
-</div>
+</el-card>
 </div><!-- .col -->
 
 
@@ -348,7 +352,7 @@
 
 
 <div class="col-md-4 col-xxl-4">
-<div class="card card-full">
+<el-card class="card card-full" shadow="never">
 <div class="card-inner d-flex flex-column h-100">
 <div class="card-title-group mb-3">
 <div class="card-title">
@@ -419,7 +423,7 @@
 <canvas class="iv-plan-purchase" id="planPurchase"></canvas>
 </div>
 </div>
-</div>
+</el-card>
 </div><!-- .col -->
 
 
@@ -443,7 +447,7 @@
 
 
 <div class="col-md-4 col-xxl-4">
-<div class="card card-full">
+<el-card class="card card-full" shadow="never">
 <div class="card-inner d-flex flex-column h-100">
 <div class="card-title-group mb-3">
 <div class="card-title">
@@ -514,7 +518,7 @@
 <canvas class="iv-plan-purchase" id="planPurchase"></canvas>
 </div>
 </div>
-</div>
+</el-card>
 </div><!-- .col -->
 
 

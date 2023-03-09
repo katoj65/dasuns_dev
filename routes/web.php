@@ -199,3 +199,5 @@ Route::middleware(['auth:sanctum', 'verified'])->post('/reception/edit',[Recepti
 Route::middleware(['auth:sanctum', 'verified'])->post('/reception/delete',[ReceptionController::class,'destroy'])->name('reception.delete');
 
 Route::middleware(['auth:sanctum', 'verified'])->post('/reception/edit-reception-profile',[ReceptionController::class,'edit_reception_profile'])->name('reception.edit_profile');
+
+Route::middleware(['auth:sanctum', 'verified'])->post('/employee/approve',[ReceptionController::class,'approve_employ_account'])->name('employee.approve');

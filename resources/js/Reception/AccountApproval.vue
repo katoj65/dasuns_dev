@@ -3,8 +3,6 @@
 <div class="nk-block pt-2">
 <el-card class="card" shadow="never">
 
-
-
 <div slot="header" class="clearfix">
 <h4 class="nk-block-title">Welcome to Reception Account</h4>
 <!-- <el-button style="float: right; padding: 3px 0" type="text">Operation button</el-button> -->
