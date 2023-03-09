@@ -1,10 +1,24 @@
 <template>
 <app-layout>
-<div class="card card-full h-100">
+<el-card class="card card-full h-100 mt-1" shadow="never">
+<form slot="header" class="clearfix" @submit.prevent="submit_approve">
+<span class="bold">
+Approve Employee Account
+</span>
+<span style="float: right; padding: 0px 0">
+<button class="btn btn-success" style="margin:0;" v-if="profile.designation!=null && profile.location!=null && profile.name!=null">
+Approve account
+</button>
+<button class="btn btn-success" type="submit" style="margin:0;" v-else disabled>
+Approve account
+</button>
+</span>
+</form>
+
+
+
 
 <div class="card-body pb-5">
-
-
 <div class="row">
 <div class="col-12 col-md-4">
 
@@ -27,13 +41,13 @@
 </div>
 </div>
 <div class="user-card user-card-s2 ">
-    <div class="user-avatar lg bg-success">
-        <span><em class="icon ni ni-user-alt-fill"></em></span>
-    </div>
-    <div class="user-info">
-        <h6 class="text-transform">{{ response.employee.firstname }} {{ response.employee.lastname }} </h6>
-        <span class="sub-text text-transform">{{ response.employee.role }} </span>
-    </div>
+<div class="user-avatar lg bg-success">
+<span><em class="icon ni ni-user-alt-fill"></em></span>
+</div>
+<div class="user-info">
+<h6 class="text-transform">{{ response.employee.firstname }} {{ response.employee.lastname }} </h6>
+<span class="sub-text text-transform">{{ response.employee.role }} </span>
+</div>
 </div>
 <ul class="team-info">
 <li><span>Gender</span><span class="text-transform">{{ response.employee.gender}} </span></li>
@@ -56,95 +70,100 @@
 
 
 
-<div class="card border" style="min-height:600px;">
-<div class="card-header mb-0 border-bottom pb-0 card-header-bg">
-<div class="card-title p-0">
-<h2>
-<el-page-header @back="back()" content="Employee Profile Information">
-</el-page-header>
-</h2>
+
+<el-card class="box-card" shadow="never">
+<div slot="header" class="clearfix">
+<span><h4>Employee Profile Information</h4></span>
+<!-- <el-button style="float: right; padding: 3px 0" type="text">Operation button</el-button> -->
 </div>
-</div>
+<div>
 
 
 
 
-<ul class="data-list is-compact ">
-<li class="data-item border-0">
+
+
+
+
+
+<div class="card-inner card-inner-lg p-0">
+<div class="nk-block">
+<div class="nk-data data-list">
+<!-- <div class="data-head">
+<h6 class="overline-title">Basics</h6>
+</div> -->
+
+
+<div class="data-item" data-toggle="modal" data-target="#profile-edit">
 <div class="data-col">
-<div class="data-label">Joined Dasuns </div>
-<div class="data-value">
-{{ e.created_at.substring(0,10).split('-').reverse().join('/') }}
+<span class="data-label">Joined </span>
+<span class="data-value">{{ e.created_at.substring(0,10).split('-').reverse().join('/') }}</span>
+</div>
+</div><!-- data-item -->
 
-</div>
-</div>
-</li>
-<li class="data-item border-0">
+
+<div class="data-item" data-toggle="modal" data-target="#profile-edit">
 <div class="data-col">
-<div class="data-label">Employee Position</div>
-<div class="data-value text-transform">{{ response.employee.role }} </div>
+<span class="data-label">Employee Position </span>
+<span class="data-value text-transform">{{ response.employee.role }} </span>
 </div>
-</li>
-<li class="data-item border-0">
+</div><!-- data-item -->
+
+
+<div class="data-item" data-toggle="modal" data-target="#profile-edit">
 <div class="data-col">
-<div class="data-label">Account Type</div>
-<div class="data-value text-transform">{{ e.account_type }} </div>
+<span class="data-label">Account Type </span>
+<span class="data-value text-transform"> {{ e.account_type }}  </span>
 </div>
-</li>
-<li class="data-item border-0">
+</div><!-- data-item -->
+
+
+
+
+<div class="data-item" data-toggle="modal" data-target="#profile-edit">
 <div class="data-col">
-<div class="data-label">Account Status</div>
-<div class="data-value text-soft text-transform"><em>
-{{ e.status }}
-</em></div>
+<span class="data-label">Personal Statement </span>
+<span class="data-value text-transform text-muted" style="font-size:14px;"> {{ profile.about!=null?profile.about:'missing' }}  </span>
 </div>
-</li>
-<li class="data-item border-0">
+</div><!-- data-item -->
+
+
+<div class="data-item" data-toggle="modal" data-target="#profile-edit">
 <div class="data-col">
-<div class="data-label"></div>
-<div class="data-value"></div>
+<span class="data-label">Counntry </span>
+<span class="data-value text-transform"> {{ profile.name!=null?profile.name:'missing' }}  </span>
 </div>
-</li>
-<!-- <li class="data-item">
+</div><!-- data-item -->
+
+
+<div class="data-item" data-toggle="modal" data-target="#profile-edit">
 <div class="data-col">
-<div class="data-label">Full Address</div>
-<div class="data-value">6516, Eldoret, Uasin Gishu, 30100</div>
+<span class="data-label">Location </span>
+<span class="data-value text-transform"> {{ profile.location!=null?profile.location:'missing' }}  </span>
 </div>
-</li>
-<li class="data-item">
-<div class="data-col">
-<div class="data-label">Country of Residence</div>
-<div class="data-value">Kenya</div>
-</div>
-</li>
-<li class="data-item">
-<div class="data-col">
-<div class="data-label">Full Address</div>
-<div class="data-value">6516, Eldoret, Uasin Gishu, 30100</div>
-</div>
-</li>
-<li class="data-item">
-<div class="data-col">
-<div class="data-label">Wallet Type</div>
-<div class="data-value">Bitcoin</div>
-</div>
-</li>
-<li class="data-item">
-<div class="data-col">
-<div class="data-label">Wallet Address</div>
-<div class="data-value text-break">1F1tAaz5x1HUXrCNLbtMDqcw6o5GNn4xqX</div>
-</div>
-</li>
-<li class="data-item">
-<div class="data-col">
-<div class="data-label">Telegram</div>
-<div class="data-value">
-<span>@tokenlite</span> <a href="https://t.me/tokenlite" target="_blank"><em class="icon ni ni-telegram"></em></a>
-</div>
-</div>
-</li> -->
-</ul>
+</div><!-- data-item -->
 
+
+
+
+
+
+
+
+</div><!-- data-list -->
+</div><!-- .nk-block -->
+</div>
+
+
+
+
+
+
+
+
+
+</div>
+</el-card>
 
 
 
@@ -161,15 +180,10 @@
 
 </div>
 
-
-
-
 </div>
 
 </div>
-
-</div>
-</div>
+</el-card>
 
 
 
@@ -249,7 +263,6 @@ response:{},
 title:{},
 },
 data(){return{
-e:this.response.employee,
 roles:this.response.roles,
 //dialog box
 dialog:{
@@ -266,6 +279,9 @@ role:null,
 id:this.response.employee.id
 }),
 
+form_approve:this.$inertia.form({
+id:null,
+}),
 
 
 
@@ -319,8 +335,42 @@ position:'bottom-right'
 });
 },
 
+//
 select_role(event){
 this.form_change.role=event.target.value;
+},
+
+
+
+//approve account
+submit_approve(){
+this.form_approve.id=this.response.employee.id;
+this.form_approve.post(this.route('employee.approve'),{
+onSuccess:()=>{
+this.$notify({
+title:'Successful',
+message:this.$page.props.flash.success,
+type:'success',
+position:'bottom-right'
+});
+}
+});
+}
+
+
+
+
+
+},
+
+
+computed:{
+profile(){
+return this.response.profile;
+},
+e(){
+return this.response.employee;
+}
 }
 
 
@@ -328,13 +378,5 @@ this.form_change.role=event.target.value;
 
 
 
-
-
-
-
-
-
-
-}
 }
 </script>

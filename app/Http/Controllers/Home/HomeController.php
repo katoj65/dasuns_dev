@@ -21,9 +21,6 @@ use App\Http\Controllers\PSSU\PSSUController;
 use App\Http\Controllers\Wallet\WalletController;
 
 
-
-
-
 class HomeController extends Controller
 {
     /**
@@ -33,70 +30,59 @@ class HomeController extends Controller
      */
 public function index(Request $request){
         //
+if(Auth::user()!=null){
 WalletController::new_user_wallet();
-$auth=Auth::user();
-WalletController::new_user_wallet();
-$data['title']='welcome';
-if($auth!=''){
-//pssu
-if($auth->role=='pssu'){
-$user_data=[
-'dashboard'=>PSSUController::dashboard(),
 
+//role
+$role=Auth::user()->role;
+$user_data=[];
 
+//pssu account
+if($role=='pssu'){
+$user_data=['dashboard'=>PSSUController::dashboard()];
+}
 
-];
-
-
-//pssp
-}elseif($auth->role=='pssp'){
+//pssp account
+elseif($role=='pssp'){
 $pssp=new PSSPController;
-$user_data['pssp_attributes']=$pssp->get_pssp_attributes($auth->id);
+$user_data['pssp_attributes']=$pssp->get_pssp_attributes(Auth::user()->id);
 $user_data['number']=null;
+}
 
+//admin account
 
-
-
-
-}elseif($auth->role=='admin'){
-
-//statistics
+elseif($role=='admin'){
 $user_data['statistics']=[
 'count_user'=>count(User::get()),
 'count_PSSP'=>count(User::where('role','pssp')->get()),
 'count_admin'=>count(User::where('role','!=','pssu')->where('role','!=','pssp')->get()),
 'count_services'=>count(SupportServiceModel::get()),
-$user_data['get_pssp_services']=$this->get_registered_positions(),
+$user_data['get_pssp_services']=$this->get_registered_positions()];
 
-];
+}
 
-
-}elseif($auth->role=='reception'){
-//reception
-
+//reception account
+elseif($role=='reception'){
 $reception_controller=new ReceptionController;
 $user_data=$reception_controller->dashboard_content();
+}
 
 //finance
-}elseif($auth->role=='finance'){
-$user_data=[];
-
-
-
-}elseif($auth->role=='panelist'){
-//panelist
-
-$user_data=[
-'dashboard'=>PanelistController::dashboard(),
-
-];
-
-
-
-
-}else{
+elseif($role=='finance'){
 $user_data=[];
 }
+
+//panelist
+elseif($role=='panelist'){
+$user_data=['dashboard'=>PanelistController::dashboard()];
+}
+
+//else side
+else{
+$user_data=[];
+}
+
+
 
 //service formation
 $service=SupportServiceModel::get();
@@ -104,12 +90,11 @@ if(count($service)>0){
 foreach($service as $s){
 $sv[]=['value'=>$s->id,'text'=>$s->name];
 }
-
-
-
-}else{
-return [];
 }
+else{
+$sv=[];
+}
+
 
 
 //disability information
@@ -119,11 +104,13 @@ foreach($disabilities as $d){
 $ds[]=['value'=>$d->id,'text'=>$d->name];
 }
 }else{
-return[];
+$ds=[];
 }
 
 
 
+//
+$data['title']='Welcome';
 $data['response']=[
 'services'=>$sv,
 'country'=>CountryModel::get(),
@@ -132,15 +119,13 @@ $data['response']=[
 'user_data'=>$user_data,
 ];
 
-
+//
 return Inertia::render('Dashboard',$data);
 
-
 }else{
-$data['response']=[
-'services'=>SupportServiceModel::get(),
-'recommendation'=>DasunsRecommendationsModel::get(),
-];
+
+$data['response']=['services'=>SupportServiceModel::get(),
+'recommendation'=>DasunsRecommendationsModel::get()];
 return Inertia::render('Welcome',$data);
 
 }

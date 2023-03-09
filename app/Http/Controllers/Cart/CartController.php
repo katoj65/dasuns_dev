@@ -110,6 +110,7 @@ $item=[
 'balance_amount'=>number_format(WalletController::get_wallet_balance()->amount),
 'deadline'=>$this->payment_deadline($row->date),
 'status'=>$this->transactable($row),
+'currency'=>WalletController::get_wallet_balance()->currency
 ]
 
 

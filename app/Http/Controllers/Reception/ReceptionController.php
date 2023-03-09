@@ -22,6 +22,8 @@ use App\Http\Controllers\PSSP\PSSPController;
 use App\Http\Controllers\Interview\InterviewController;
 use App\Models\PSSPInterviewRecommendationModel;
 use App\Models\InterviewPanelistModel;
+use App\Models\EmployeeProfileModel;
+use App\Models\CountryModel;
 
 
 
@@ -70,10 +72,31 @@ class ReceptionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
-    }
+//
+$request->validate([
+'firstname'=>['required'],
+'lastname'=>['required'],
+'gender'=>['required'],
+'tel'=>['required']],['required'=>'* Field is required']);
+$user=Auth::user();
+if($user->firstname!=$request->firstname or $user->lastname!=$request->lastname or $user->gender!=$request->gender or $user->tel!=$request->tel){
+
+User::where('id',Auth::user()->id)->update([
+'firstname'=>$request->firstname,
+'lastname'=>$request->lastname,
+'gender'=>$request->gender,
+'tel'=>$request->tel]);
+
+return redirect('/')->with('success','User information has been updated.');
+}else{
+return redirect('/')->with('warning','User information was not updated.');
+}
+
+
+
+}
 
     /**
      * Remove the specified resource from storage.
@@ -81,10 +104,13 @@ class ReceptionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
-    }
+public function destroy(Request $request)
+{
+//
+return $request;
+User::where('id',Auth::user()->id)->delete();
+return redirect('/');
+}
 
 
 
@@ -126,7 +152,7 @@ foreach($get as $row){
 
 $data[]=[
 'number'=>$row->number,
-'date'=>$date->date_format($row->created_at),
+'date'=>$row->created_at,
 'services'=>count(ServiceProviderServicesModel::where('userID',$row->userID)->get()),
 'id'=>$row->id
 ];
@@ -160,7 +186,7 @@ $applicant=DasunsUserNumberModel::select('*')
 $pssp=DasunsUserNumberModel::where('account_status','pending')
 ->where('role','pssp')->get();
 
-
+// get user information
 $get_pssp=User::select('*')
 ->join('service_provider_profile','users.id','=','service_provider_profile.userID')
 ->join('dasuns_user_number','users.id','=','dasuns_user_number.userID')
@@ -183,6 +209,8 @@ return [
 'interviews'=>$this->get_interviews(),
 'declined_application'=>InterviewController::get_all_declined_interview(),
 'count_interviews'=>User::where('status','interview')->count(),
+'profile'=>$this->get_profile(),
+'country'=>CountryModel::get(),
 
 
 
@@ -190,6 +218,30 @@ return [
 ];
 
 }
+
+
+//profile information
+function get_profile(){
+$get=EmployeeProfileModel::select('employee_profile.countryID','employee_profile.location','employee_profile.designation','country.name as country','employee_profile.about','employee_profile.countryID')
+->join('country','employee_profile.countryID','=','country.id')
+->where('employee_profile.userID',Auth::user()->id)->get();
+if(count($get)==1){
+foreach($get as $row);
+$playload=$row;
+}else{
+$playload=[];
+}
+return $playload;
+}
+
+
+
+
+
+
+
+
+
 
 
 
@@ -333,18 +385,81 @@ return Inertia::render('ShowInterviewPage',$data);
 
 
 
+//add about the reception
+public function add_reception_about(Request $request){
+$request->validate([
+'country'=>['required'],
+'location'=>['required'],
+'designation'=>['required']],['required'=>'* Field is required.']);
+EmployeeProfileModel::insert([
+'userID'=>Auth::user()->id,
+'countryID'=>$request->country,
+'about'=>$request->about,
+'location'=>$request->location,
+'designation'=>$request->designation
+]);
+return redirect('/')->with('success','Your profile information has been added.');
+
+}
+
+
+
+//edit reception profile.
+public function edit_reception_profile(Request $request){
+$request->validate([
+'designation'=>['required'],
+'country'=>['required'],
+'location'=>['required']],['required'=>'* Field is required']);
+$get=EmployeeProfileModel::where('userID',Auth::user()->id)->get();
+if(count($get)==1){
+foreach($get as $row);
+
+if($row->designation!=$request->designation or $row->countryID!=$request->country or $row->location!=$request->location or $row->about!=$request->about){
+EmployeeProfileModel::where('userID',Auth::user()->id)->update([
+'designation'=>$request->designation,
+'about'=>$request->about,
+'countryID'=>$request->country,
+'location'=>$request->location
+]);
+
+return redirect('/')->with('success','Profile has been updated.');
+}else{
+return redirect('/')->with('warning','Prifile was not edited.');
+}
+}else{
+    return redirect('/')->with('warning','Could not find profile');
+}
+}
 
 
 
 
 
 
+//reception profile
+static function reception_profile(){
+$get=EmployeeProfileModel::select('country.name as country','employee_profile.about','employee_profile.location','employee_profile.designation','users.status')
+->join('country','employee_profile.countryID','=','country.id')
+->join('users','employee_profile.userID','=','users.id')
+->where('employee_profile.userID',Auth::user()->id)
+->get();
+if(count($get)==1){
+foreach($get as $row);
+return $row;
+}else{
+return[];
+}
+}
 
 
 
 
+//approve employee account
+public function approve_employ_account(Request $request){
+User::where('id',$request->id)->update(['status'=>'active']);
+return redirect('/employee/'.$request->id)->with('success','Accout has been aprroved.');
 
-
+}
 
 
 

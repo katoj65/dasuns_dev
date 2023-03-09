@@ -10,7 +10,7 @@
 
 
 <div class="col-md-3" v-for="t in tabs" :key="t.id">
-<div class="card  card-full">
+<el-card class="card  card-full" shadow="never">
 <div class="card-inner">
 <div class="card-title-group align-start mb-0">
 <div class="card-title">
@@ -43,7 +43,7 @@
 
 </div>
 </div>
-</div><!-- .card -->
+</el-card><!-- .card -->
 </div>
 
 
@@ -67,7 +67,7 @@
 
 
 <div class="col-md-8 col-xxl-4">
-<div class="card card-full">
+<el-card class="card card-full" shadow="never">
 <div class="card-inner">
 <div class="card-title-group mb-1">
 <div class="card-title">
@@ -191,7 +191,7 @@
 </div>
 </div>
 </div>
-</div>
+</el-card>
 </div><!-- .col -->
 
 
@@ -218,14 +218,13 @@
 
 
 <div class="col-md-4 col-xxl-4">
-<div class="card card-full">
+<el-card class="card card-full" shadow="never">
 <div class="card-inner d-flex flex-column h-100">
 <div class="card-title-group mb-4">
 <div class="card-title">
 <h6 class="title">Registered Positions ({{ positions.length }}) </h6>
 <!-- <p>In last 30 days top invested schemes.</p> -->
 </div>
-
 </div>
 <div class="progress-list gy-3" v-if="positions.length>0">
 <div class="card-inner card-inner-md m-0 p-0" style="border-bottom:solid thin #F2F3F4;" v-for="p in positions" :key="p.id">
@@ -233,7 +232,7 @@
 <div class="user-avatar sq bg-success-dim">
 <span><em class="icon ni ni-sign-xrp-old" style="color:#07372F;"></em></span>
 </div>
-<div class="user-info">
+<div class="user-info p-0">
 <span class="lead-text">{{ p.service }} </span>
 <span class="sub-text">
 {{ p.providers }}
@@ -248,7 +247,7 @@
 <canvas class="iv-plan-purchase" id="planPurchase"></canvas>
 </div>
 </div>
-</div>
+</el-card>
 </div><!-- .col -->
 
 
@@ -280,7 +279,7 @@
 
 
 <div class="col-md-4 col-xxl-4">
-<div class="card card-full">
+<el-card class="card card-full" shadow="never">
 <div class="card-inner d-flex flex-column h-100">
 <div class="card-title-group mb-3">
 <div class="card-title">
@@ -353,7 +352,7 @@ Payments</h6>
 <canvas class="iv-plan-purchase" id="planPurchase"></canvas>
 </div>
 </div>
-</div>
+</el-card>
 </div><!-- .col -->
 
 
@@ -372,7 +371,7 @@ Payments</h6>
 
 
 <div class="col-md-4 col-xxl-4">
-<div class="card card-full">
+<el-card class="card card-full" shadow="never">
 <div class="card-inner d-flex flex-column h-100">
 <div class="card-title-group mb-3">
 <div class="card-title">
@@ -443,7 +442,7 @@ Payments</h6>
 <canvas class="iv-plan-purchase" id="planPurchase"></canvas>
 </div>
 </div>
-</div>
+</el-card>
 </div><!-- .col -->
 
 
@@ -465,7 +464,7 @@ Payments</h6>
 
 
 <div class="col-md-4 col-xxl-4">
-<div class="card card-full">
+<el-card class="card card-full" shadow="never">
 <div class="card-inner d-flex flex-column h-100">
 <div class="card-title-group mb-3">
 <div class="card-title">
@@ -536,7 +535,7 @@ Payments</h6>
 <canvas class="iv-plan-purchase" id="planPurchase"></canvas>
 </div>
 </div>
-</div>
+</el-card>
 </div><!-- .col -->
 
 

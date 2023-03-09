@@ -1,20 +1,10 @@
 <template>
 <app-layout>
-<div class="card card-full h-100">
-<div class="card-header" style="background:white;">
-<div class="card-title-group">
-<div class="card-title">
-<h6 class="title">
-<span class="mr-1">
-Employees
-</span>
-</h6>
-</div>
-<div class="card-tools">
-<ul class="card-tools-nav">
-<li>
+<el-card class="card card-full h-100 mt-2" shadow="never">
+<div slot="header" class="clearfix">
+<span style="font-weight:bold;">Employees</span>
 
-<el-dropdown trigger="click">
+<el-dropdown trigger="click" style="float: right; padding: 3px 0;margin-top:-20px;">
 <span class="el-dropdown-link btn-success btn mt-2">
 <span style="font-weight:bold;"> New</span>
 <em class="icon ni ni-user-add-fill" style="font-size:20px;"></em>
@@ -23,83 +13,43 @@ Employees
 <el-dropdown-item>
 <a href="#" @click="open=true" style="padding:10px;width:100%;"> Add system Administrator</a>
 </el-dropdown-item>
-
 </el-dropdown-menu>
 </el-dropdown>
-
-
-</li>
-</ul>
 </div>
-</div>
-</div><!-- .card-inner -->
 
-
-
-
-<div class="card-body" style="min-height:700px;">
-
-<div class="card card-bordered card-preview">
-<table class="table table-tranx is-compact" v-if="employee.length>0">
+<div class="card-body p-0" style="min-height:700px;">
+<table class="table table-borderless">
 <thead>
-<tr class="tb-tnx-head">
-<th class="tb-tnx-info">
-Names
-</th>
-<th class="tb-tnx-info">
-Gender
-</th>
-<th class="tb-tnx-info">
-Date of Birth
-</th>
-<th class="tb-tnx-info">
-Contact Information
-</th>
-<th class="tb-tnx-info">
-Role
-</th>
+<tr>
+<th scope="col">First name</th>
+<th scope="col">Last name</th>
+<th scope="col">Gender</th>
+<th scope="col">Email</th>
+<th scope="col">Role</th>
+<th></th>
+
 </tr>
 </thead>
-
-
-
 <tbody>
-<tr class="tb-tnx-item"  v-for="e in employee" :key="e.id">
-<td class="tb-tnx-info text-transform">
-<Inertia-link :href="route('employee.show',[e.id])">
- {{ e.firstname }}  {{ e.lastname }}
-</Inertia-link>
-</td>
-<td class="tb-tnx-info text-transform">
-{{ e.gender }}
-</td>
-<td class="tb-tnx-info text-transform">
-{{ e.dob.split('-').reverse().join('/')}}
-</td>
-<td class="tb-tnx-info">
-<em class="icon ni ni-call-fill"></em> {{ e.tel }} <span class="pl-2"> <em class="icon ni ni-mail-fill"></em> {{ e.email }}</span>
-</td>
-<td class="tb-tnx-info text-transform">
-{{ e.role }}
+<tr  v-for="e in employee" :key="e.id">
+<td><Inertia-link :href="route('employee.show',[e.id])">{{ e.firstname }}</Inertia-link> </td>
+<td><Inertia-link :href="route('employee.show',[e.id])">{{ e.lastname }}</Inertia-link> </td>
+<td>{{ e.gender }} </td>
+<td class="text">{{ e.email }} </td>
+<td>{{ e.role }} </td>
+<td>
+<Inertia-link :href="route('employee.show',[e.id])" class="btn btn-dim btn-success">View Profile</Inertia-link>
 </td>
 </tr>
+
 </tbody>
 </table>
-<div v-else>No content</div>
-</div>
 
 </div>
 
 
 
-
-
-
-
-<div class="card-inner-sm border-top text-center d-sm-none">
-<a href="#" class="btn btn-link btn-block">See History</a>
-</div><!-- .card-inner -->
-</div>
+</el-card>
 
 
 
@@ -211,7 +161,7 @@ delete_article(id){
 this.$inertia.post(this.route('delete.admin'),{id:id},{
 onSuccess:()=>{
 this.$notify({
-    position: 'bottom-right',
+position: 'bottom-right',
 title: 'Successful',
 message:this.$page.props.flash.success,
 type: 'success'
@@ -255,5 +205,12 @@ console.log(this.$page.props);
 <style scoped>
 .nk-tb-col{
 text-transform: capitalize;
+}
+
+table tbody td{
+text-transform: capitalize;
+}
+.text{
+   text-transform:lowercase;
 }
 </style>

@@ -34,7 +34,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+{{-- <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet"> --}}
 
 <style type="text/css">
 .form-control,input, select{
@@ -254,6 +254,51 @@ background:#F4F6F6;
 .border-4{
  border:solid 4px #0B5345
 }
+
+
+a{
+text-decoration: none;
+
+}
+a:hover{
+text-decoration: none;
+color:black;
+}
+a:focus{
+text-decoration: none;
+}
+
+.text-decoartion-none{
+text-decoration: none;
+color:black;
+}
+.text-decoartion-none:hover{
+color:back;
+}
+.border-none{
+border-radius: 0;
+}
+.box-shadow-none{
+box-shadow: none;
+}
+
+.bold{
+font-weight: bold;
+}
+
+.border{
+border:solid 1px #EBEEF5
+}
+
+.border-bottom{
+border-bottom:solid 1px #EBEEF5
+}
+
+.border-top{
+    border-top:solid 1px #EBEEF5
+}
+
+
 </style>
 
 

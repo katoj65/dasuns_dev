@@ -221,16 +221,24 @@ components:{
 
 
 
-    },
-    props:{
+},
+props:{
 
 
-    },
-    data(){return{
-system:this.$page.props.system.details,
+},
+data(){return{
 
 
-    }}
+}},
+
+computed:{
+system(){
+return this.$page.props.system.details;
+}
+}
+
+
+
 }
 </script>
 

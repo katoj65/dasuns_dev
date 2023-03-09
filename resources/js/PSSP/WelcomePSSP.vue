@@ -16,7 +16,6 @@
 <div class="row g-gs">
 
 
-
 <div class="col-md-3" v-for="t in tabs" :key="t.id">
 <div class="card  card-full">
 <div class="card-inner">

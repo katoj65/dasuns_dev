@@ -29,6 +29,8 @@ use App\Models\DasunsUserNumberModel;
 use App\Http\Controllers\Panelist\PanelistController;
 use App\Http\Controllers\DasunsNumber\DasunsNumberController;
 use App\Http\Controllers\PSSU\PSSUController;
+use App\Http\Controllers\Reception\ReceptionController;
+use App\Models\CountryModel;
 
 
 
@@ -77,7 +79,6 @@ public function index(){
 
 //create dasuns number
 
-
 $list=SupportServiceModel::get();
 $user=Auth::user();
 
@@ -104,11 +105,12 @@ $user_data=[
 $user_data=[
 'list_services'=>$list,
 'list_disabilities'=>DisabilityModel::get(),
-'profile'=>PSSUController::profile(),
-
+'profile'=>PSSUController::profile()
 ];
 
-
+}elseif($user->role=='reception'){
+$user_data['profile']=ReceptionController::reception_profile();
+$user_data['country']=CountryModel::get();
 }
 
 
@@ -119,7 +121,6 @@ else{
 $user_data=['list_services'=>$list,
 'list_disabilities'=>DisabilityModel::get(),
 'institutional_contact_person'=>Auth::user()->account_type?OrganisationContactPersonModel::where('organisationID',Auth::user()->id)->get():null,
-
 'organisation_profile'=>Auth::user()->account_type=='institutional'?$this->get_institution_profile():null,
 
 
@@ -211,14 +212,18 @@ $request->validate([
 'location'=>['required'],
 'disability_status'=>['required'],
 'countryID'=>['required']],['required'=>'* Field is required.']);
+
+//
 $id=Auth::user()->id;
-UserProfileModel::insert(['userID'=>$id,
+UserProfileModel::insert(
+['userID'=>$id,
 'location'=>$request->location,
 'countryID'=>$request->countryID,
 'disability'=>$request->disability_status]);
+
 //PSSU array
 foreach($request->serviceID as $service){
-    UserSupportServiceModel::insert(['userID'=>$id,'serviceID'=>$service]);
+UserSupportServiceModel::insert(['userID'=>$id,'serviceID'=>$service]);
 }
 
 //disability
@@ -241,6 +246,9 @@ DasunsUserNumberModel::insert([
 ]);
 
 //
+
+
+
 User::where('id',Auth::user()->id)->update(['status'=>'active']);
 
 

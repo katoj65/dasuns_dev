@@ -2,18 +2,4 @@
 
 ## About the Template
 
-This template is an easy-to-use blank template for those who wants to develop in Laravel with InertiaJs, Vue2 and the massive capabilities of Jetstream. Although InertiaJs is supported by the latest versions of Breeze and Jetstream, these are only supporting Vue3 which is not quiet productive at this early stage as most of the UI frameworks and useful libraries that we get used to is not supporting Vue3. 
-
-You can clone this template and work on it without any efforts to start up a project from scratch.
-
-## How It Works
-`git clone https://github.com/furkanmeraloglu/Laravel-inertiajs-jetstream-template.git`
-
-`composer install`
-
-`npm install && npm run dev`
-
-`php artisan migrate`
-
-Enjoy! 
-
+Dasuns is a professional disability support service platform that provides a one stop center for service providers ready to offer support to disabled people.

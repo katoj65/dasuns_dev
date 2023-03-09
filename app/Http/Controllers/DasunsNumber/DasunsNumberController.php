@@ -101,35 +101,71 @@ return $row;
 //create dasuns number
 static function create_dasuns_user_number(){
 
+
+
+
+// if(Auth::user()!=null){
+// $id=Auth::user()->id;
+// $role=Auth::user()->role;
+// $get=count(User::where('role',Auth::user()->role)->get());
+// $dasuns=DasunsNumberModel::get();
+// if(count($dasuns)==1){
+// foreach($dasuns as $row);
+// $sum=$get+1;
+// $num=Auth::user()->role=='pssp'?$row->service_provider_number:$row->service_user_number;
+// $count_num=strlen($num);
+// $count_sum=strlen($sum);
+// $substr=$count_num-$count_sum;
+// $get_first_number=substr($num,0,$substr);
+// $actual_num=$get_first_number.strval($sum);
+// //add role code
+// $initial=$role=='pssp'?$actual_num.'P':$actual_num.'U';
+
+// return $initial;
+
+// }else{
+// return null;
+// }
+// }else{
+//     return null;
+// }
+
+
 if(Auth::user()!=null){
-
-$id=Auth::user()->id;
-$role=Auth::user()->role;
-$get=count(User::where('role',Auth::user()->role)->get());
-$dasuns=DasunsNumberModel::get();
-if(count($dasuns)==1){
-foreach($dasuns as $row);
-$sum=$get+1;
-$num=Auth::user()->role=='pssp'?$row->service_provider_number:$row->service_user_number;
-$count_num=strlen($num);
-$count_sum=strlen($sum);
-$substr=$count_num-$count_sum;
-$get_first_number=substr($num,0,$substr);
-$actual_num=$get_first_number.strval($sum);
-//add role code
-$initial=$role=='pssp'?$actual_num.'P':$actual_num.'U';
-
-return $initial;
-
-}else{
-return null;
+$sn=DasunsNumberModel::get();
+if(count($sn)==1){
+foreach($sn as $row);
+$max=Auth::user()->role=='pssp'?$row->service_provider_number:$row->service_user_number;
+//
+$number=$max;
+$num_users=User::count();
+$min='00000';
+$first_string=substr($min,0,1);
+//get the length and contactnate with the default number;
+if($first_string>0){
+$first_string=$first_string+1;
 }
-}else{
-    return null;
+//count user
+$count_user=Auth::user()->id;
+//get num length vs count user length
+$num_len=strlen($min);
+$count_len=strlen($count_user);
+$count_len=$count_user;
+//reduce first number
+$reduce_first=substr($min,1,5);
+//concat first string
+$concat=strval($first_string).$reduce_first;
+//subtract user count from reduced number
+$len=strlen($count_user);
+$x=-strlen($count_user);
+$subtract=substr($concat,0,$x);
 }
 }
 
+$initial=Auth::user()->role=='pssp'?'P':'U';
+return $subtract.strval($count_len).$initial;
 
+}
 
 
 

@@ -1,6 +1,6 @@
 <template>
 <div>
-<button type="button" @click="show()" style="padding:0;margin:0;font-size:14px;padding-left:15px;padding-right:15px;">Add</button>
+<button type="button" @click="show()" style="padding:0;margin:0;font-size:14px;padding-left:15px;padding-right:15px;" class="btn btn-outline-primary border-radius">Add</button>
 
 
 <form class=""  v-if="open==true" style="position:fixed;width:100%;left:0;top:0;z-index:10000;height:100%;background-color: hsla(210, 29%, 18%, 0.3);" @submit.prevent="submit">
