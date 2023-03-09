@@ -69,3 +69,51 @@
 #66 /Applications/XAMPP/xamppfiles/htdocs/dasuns_dev/index.php(21): require_once('/Applications/X...')
 #67 {main}
 "} 
+[2023-03-09 13:04:36] local.ERROR: During class fetch: Uncaught ErrorException: include(/Applications/XAMPP/xamppfiles/htdocs/dasuns_dev/vendor/composer/../laravel/sail/src/Console/Concerns/InteractsWithDockerComposeServices.php): Failed to open stream: No such file or directory in /Applications/XAMPP/xamppfiles/htdocs/dasuns_dev/vendor/composer/ClassLoader.php:578
+Stack trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/dasuns_dev/vendor/composer/ClassLoader.php(578): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'include(/Applic...', '/Applications/X...', 578)
+#1 /Applications/XAMPP/xamppfiles/htdocs/dasuns_dev/vendor/composer/ClassLoader.php(578): include()
+#2 /Applications/XAMPP/xamppfiles/htdocs/dasuns_dev/vendor/composer/ClassLoader.php(432): Composer\Autoload\ClassLoader::Composer\Autoload\{closure}('/Applications/X...')
+#3 /Applications/XAMPP/xamppfiles/htdocs/dasuns_dev/vendor/laravel/sail/src/Console/InstallCommand.php(9): Composer\Autoload\ClassLoader->loadClass('Laravel\\Sail\\Co...')
+#4 /Applications/XAMPP/xamppfiles/htdocs/dasuns_dev/vendor/composer/ClassLoader.php(578): include('/Applications/X...')
+#5 /Applications/XAMPP/xamppfiles/htdocs/dasuns_dev/vendor/composer/ClassLoader.php(432): Composer\Autoload\ClassLoader::Composer\Autoload\{closure}('/Applications/X...')
+#6 [internal function]: Composer\Autoload\ClassLoader->loadClass('Laravel\\Sail\\Co...')
+#7 /Applications/XAMPP/xamppfiles/htdocs/dasuns_dev/vendor/laravel/framework/src/Illuminate/Container/Container.php(877): ReflectionClass->__construct('Laravel\\Sail\\Co...')
+#8 /Applications/XAMPP/xamppfiles/htdocs/dasuns_dev/vendor/laravel/framework/src/Illuminate/Container/Container.php(758): Illuminate\Container\Container->build('Laravel\\Sail\\Co...')
+#9 /Applications/XAMPP/xamppfiles/htdocs/dasuns_dev/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(851): Illuminate\Container\Container->resolve('Laravel\\Sail\\Co...', Array, true)
+#10 /Applications/XAMPP/xamppfiles/htdocs/dasuns_dev/vendor/laravel/framework/src/Illuminate/Container/Container.php(694): Illuminate\Foundation\Application->resolve('Laravel\\Sail\\Co...', Array)
+#11 /Applications/XAMPP/xamppfiles/htdocs/dasuns_dev/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(836): Illuminate\Container\Container->make('Laravel\\Sail\\Co...', Array)
+#12 /Applications/XAMPP/xamppfiles/htdocs/dasuns_dev/vendor/laravel/framework/src/Illuminate/Console/Application.php(262): Illuminate\Foundation\Application->make('Laravel\\Sail\\Co...')
+#13 /Applications/XAMPP/xamppfiles/htdocs/dasuns_dev/vendor/laravel/framework/src/Illuminate/Console/Application.php(276): Illuminate\Console\Application->resolve('Laravel\\Sail\\Co...')
+#14 /Applications/XAMPP/xamppfiles/htdocs/dasuns_dev/vendor/laravel/framework/src/Illuminate/Support/ServiceProvider.php(404): Illuminate\Console\Application->resolveCommands(Array)
+#15 /Applications/XAMPP/xamppfiles/htdocs/dasuns_dev/vendor/laravel/framework/src/Illuminate/Console/Application.php(153): Illuminate\Support\ServiceProvider->Illuminate\Support\{closure}(Object(Illuminate\Console\Application))
+#16 /Applications/XAMPP/xamppfiles/htdocs/dasuns_dev/vendor/laravel/framework/src/Illuminate/Console/Application.php(74): Illuminate\Console\Application->bootstrap()
+#17 /Applications/XAMPP/xamppfiles/htdocs/dasuns_dev/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(330): Illuminate\Console\Application->__construct(Object(Illuminate\Foundation\Application), Object(Illuminate\Events\Dispatcher), '8.83.27')
+#18 /Applications/XAMPP/xamppfiles/htdocs/dasuns_dev/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(129): Illuminate\Foundation\Console\Kernel->getArtisan()
+#19 Command line code(1): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#20 {main} {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): During class fetch: Uncaught ErrorException: include(/Applications/XAMPP/xamppfiles/htdocs/dasuns_dev/vendor/composer/../laravel/sail/src/Console/Concerns/InteractsWithDockerComposeServices.php): Failed to open stream: No such file or directory in /Applications/XAMPP/xamppfiles/htdocs/dasuns_dev/vendor/composer/ClassLoader.php:578
+Stack trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/dasuns_dev/vendor/composer/ClassLoader.php(578): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(2, 'include(/Applic...', '/Applications/X...', 578)
+#1 /Applications/XAMPP/xamppfiles/htdocs/dasuns_dev/vendor/composer/ClassLoader.php(578): include()
+#2 /Applications/XAMPP/xamppfiles/htdocs/dasuns_dev/vendor/composer/ClassLoader.php(432): Composer\\Autoload\\ClassLoader::Composer\\Autoload\\{closure}('/Applications/X...')
+#3 /Applications/XAMPP/xamppfiles/htdocs/dasuns_dev/vendor/laravel/sail/src/Console/InstallCommand.php(9): Composer\\Autoload\\ClassLoader->loadClass('Laravel\\\\Sail\\\\Co...')
+#4 /Applications/XAMPP/xamppfiles/htdocs/dasuns_dev/vendor/composer/ClassLoader.php(578): include('/Applications/X...')
+#5 /Applications/XAMPP/xamppfiles/htdocs/dasuns_dev/vendor/composer/ClassLoader.php(432): Composer\\Autoload\\ClassLoader::Composer\\Autoload\\{closure}('/Applications/X...')
+#6 [internal function]: Composer\\Autoload\\ClassLoader->loadClass('Laravel\\\\Sail\\\\Co...')
+#7 /Applications/XAMPP/xamppfiles/htdocs/dasuns_dev/vendor/laravel/framework/src/Illuminate/Container/Container.php(877): ReflectionClass->__construct('Laravel\\\\Sail\\\\Co...')
+#8 /Applications/XAMPP/xamppfiles/htdocs/dasuns_dev/vendor/laravel/framework/src/Illuminate/Container/Container.php(758): Illuminate\\Container\\Container->build('Laravel\\\\Sail\\\\Co...')
+#9 /Applications/XAMPP/xamppfiles/htdocs/dasuns_dev/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(851): Illuminate\\Container\\Container->resolve('Laravel\\\\Sail\\\\Co...', Array, true)
+#10 /Applications/XAMPP/xamppfiles/htdocs/dasuns_dev/vendor/laravel/framework/src/Illuminate/Container/Container.php(694): Illuminate\\Foundation\\Application->resolve('Laravel\\\\Sail\\\\Co...', Array)
+#11 /Applications/XAMPP/xamppfiles/htdocs/dasuns_dev/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(836): Illuminate\\Container\\Container->make('Laravel\\\\Sail\\\\Co...', Array)
+#12 /Applications/XAMPP/xamppfiles/htdocs/dasuns_dev/vendor/laravel/framework/src/Illuminate/Console/Application.php(262): Illuminate\\Foundation\\Application->make('Laravel\\\\Sail\\\\Co...')
+#13 /Applications/XAMPP/xamppfiles/htdocs/dasuns_dev/vendor/laravel/framework/src/Illuminate/Console/Application.php(276): Illuminate\\Console\\Application->resolve('Laravel\\\\Sail\\\\Co...')
+#14 /Applications/XAMPP/xamppfiles/htdocs/dasuns_dev/vendor/laravel/framework/src/Illuminate/Support/ServiceProvider.php(404): Illuminate\\Console\\Application->resolveCommands(Array)
+#15 /Applications/XAMPP/xamppfiles/htdocs/dasuns_dev/vendor/laravel/framework/src/Illuminate/Console/Application.php(153): Illuminate\\Support\\ServiceProvider->Illuminate\\Support\\{closure}(Object(Illuminate\\Console\\Application))
+#16 /Applications/XAMPP/xamppfiles/htdocs/dasuns_dev/vendor/laravel/framework/src/Illuminate/Console/Application.php(74): Illuminate\\Console\\Application->bootstrap()
+#17 /Applications/XAMPP/xamppfiles/htdocs/dasuns_dev/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(330): Illuminate\\Console\\Application->__construct(Object(Illuminate\\Foundation\\Application), Object(Illuminate\\Events\\Dispatcher), '8.83.27')
+#18 /Applications/XAMPP/xamppfiles/htdocs/dasuns_dev/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(129): Illuminate\\Foundation\\Console\\Kernel->getArtisan()
+#19 Command line code(1): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#20 {main} at /Applications/XAMPP/xamppfiles/htdocs/dasuns_dev/vendor/laravel/sail/src/Console/InstallCommand.php:9)
+[stacktrace]
+#0 {main}
+"} 
