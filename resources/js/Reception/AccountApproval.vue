@@ -13,7 +13,7 @@
 <div class="card">
 <div class="card-inner">
 <div class="team">
-<div class="team-options">
+<!-- <div class="team-options">
 <div class="drodown">
 <a href="#" class="dropdown-toggle btn btn-sm btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
 <div class="dropdown-menu dropdown-menu-right">
@@ -26,7 +26,7 @@
 </ul>
 </div>
 </div>
-</div>
+</div> -->
 <div class="user-card user-card-s2">
 <div class="user-avatar lg bg-success">
 <span><em class="icon ni ni-user-alt-fill"></em></span>
@@ -47,7 +47,7 @@
 <li><span>Email</span><span>{{ user.email }} </span></li>
 </ul>
 <div class="team-view">
-<Inertia-link :href="route('profile')" class="btn btn-block btn-dim btn-success"><span>View Profile</span></Inertia-link>
+<Inertia-link :href="route('profile')" class="btn btn-block btn-dim btn-success"><span>Edit Profile</span></Inertia-link>
 </div>
 </div><!-- .team -->
 </div><!-- .card-inner -->
@@ -160,7 +160,7 @@ Not Approved
 
 
 <!-------Dialog boxes------>
-<form  v-if="dialog.create_profile==true" style="position:fixed;width:100%;left:0;top:0;z-index:10000;height:100%;background-color: hsla(210, 29%, 18%, 0.3);" @submit.prevent="submit">
+<!-- <form  v-if="dialog.create_profile==true" style="position:fixed;width:100%;left:0;top:0;z-index:10000;height:100%;background-color: hsla(210, 29%, 18%, 0.3);" @submit.prevent="submit">
 <div class="modal-dialog" role="document">
 <div class="modal-content">
 <div class="modal-header" style="background: #37BEA7;border:none;">
@@ -226,13 +226,13 @@ Not Approved
 </div>
 </div>
 </div>
-</form>
+</form> -->
 
 
 
 
 <!----------------->
-<form  v-if="dialog.edit_info==true" style="position:fixed;width:100%;left:0;top:0;z-index:10000;height:100%;background-color: hsla(210, 29%, 18%, 0.3);" @submit.prevent="submit2">
+<!-- <form  v-if="dialog.edit_info==true" style="position:fixed;width:100%;left:0;top:0;z-index:10000;height:100%;background-color: hsla(210, 29%, 18%, 0.3);" @submit.prevent="submit2">
 <div class="modal-dialog" role="document">
 <div class="modal-content">
 
@@ -297,7 +297,7 @@ Not Approved
 </div>
 </div>
 </div>
-</form>
+</form> -->
 
 
 
@@ -305,7 +305,7 @@ Not Approved
 
 <!-------------->
 
-<form v-if="dialog.delete_account==true" style="position:fixed;width:100%;left:0;top:0;z-index:10000;height:100%;background-color: hsla(210, 29%, 18%, 0.3);" @submit.prevent="submit3">
+<!-- <form v-if="dialog.delete_account==true" style="position:fixed;width:100%;left:0;top:0;z-index:10000;height:100%;background-color: hsla(210, 29%, 18%, 0.3);" @submit.prevent="submit3">
 <div class="modal-dialog" role="document">
 <div class="modal-content">
 <div class="modal-header">
@@ -322,13 +322,13 @@ Not Approved
 </div>
 </div>
 </div>
-</form>
+</form> -->
 
 
 
 
 <!------------->
-<form  v-if="dialog.edit_profile==true" style="position:fixed;width:100%;left:0;top:0;z-index:10000;height:100%;background-color: hsla(210, 29%, 18%, 0.3);" @submit.prevent="submit3">
+<!-- <form  v-if="dialog.edit_profile==true" style="position:fixed;width:100%;left:0;top:0;z-index:10000;height:100%;background-color: hsla(210, 29%, 18%, 0.3);" @submit.prevent="submit3">
 <div class="modal-dialog" role="document">
 <div class="modal-content">
 <div class="modal-header" style="background: #37BEA7;border:none;">
@@ -399,7 +399,7 @@ Not Approved
 </div>
 </form>
 
-
+ -->
 
 
 
@@ -525,13 +525,15 @@ return gender;
 
 },
 
-methods:{
 
+
+methods:{
+//
 select(event){
 this.form.country=event.target.value;
 },
 
-
+//
 submit(){
 this.form.post(this.route('reception.create_about'),{
 onSuccess:()=>{

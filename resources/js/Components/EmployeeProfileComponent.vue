@@ -7,6 +7,8 @@
 <h4 class="nk-block-title">Employee Profile</h4>
 </div>
 
+
+
 <div class="row">
 <div class="col-12 col-md-4">
 <div class="card">
@@ -19,8 +21,11 @@
 <ul class="link-list-opt no-bdr">
 <li><a href="#" @click="dialog.edit_info=true"><span>Edit User Information</span></a></li>
 <li><a href="#"><span>Upload Picture</span></a></li>
+
 <li v-if="profile==null"><a href="#" @click="dialog.create_profile=true"><span>Add Profile</span></a></li>
+
 <li v-else><a href="#" @click="dialog.edit_profile=true"><span>Edit Profile</span></a></li>
+
 <li><a href="#" @click="dialog.delete_account=true"><span>Delete Account</span></a></li>
 </ul>
 </div>
@@ -35,8 +40,6 @@
 <h6 class="text-transform">{{ user.firstname+' '+user.lastname }} </h6>
 <span class="sub-text text-transform">{{ user.role }} </span>
 </div>
-
-
 
 
 </div>
@@ -326,6 +329,12 @@
 
 
 
+
+
+
+
+
+
 <!------------->
 <form  v-if="dialog.edit_profile==true" style="position:fixed;width:100%;left:0;top:0;z-index:10000;height:100%;background-color: hsla(210, 29%, 18%, 0.3);" @submit.prevent="submit3">
 <div class="modal-dialog" role="document">
@@ -339,9 +348,6 @@
 <div class="modal-body" style="max-height:500px;overflow:auto">
 
 
-
-
-
 <div class="form-group">
 <label class="form-label" for="default-01">
 <input-error :error="errors.designation"></input-error>
@@ -352,15 +358,14 @@
 </div>
 
 
-
 <div class="form-group">
 <label class="form-label" for="default-01">
 <input-error :error="errors.country"></input-error>
 </label>
 <div class="form-control-wrap">
-<select class="form-control" id="default-01" @change="select($event)">
-<option value="">--Select Country--</option>
-<option v-for="c in country" :value="c.id" :key="c.id">{{ c.name }} </option>
+<select class="form-control" id="default-01" @change="select3($event)">
+<option :value="selected_country_item.id">{{ selected_country_item.name }} </option>
+<option v-for="c in country_payload1" :value="c.id" :key="c.id">{{ c.name }} </option>
 </select>
 </div>
 </div>
@@ -424,6 +429,7 @@ export default {
 components:{
 InputError
 },
+
 props:{
 response:{},
 title:{}
@@ -432,6 +438,12 @@ title:{}
 
 
 data(){return{
+
+new_country:null,
+selected_country:[],
+
+
+
 
 dialog:{
 create_profile:false,
@@ -462,6 +474,8 @@ lastname:null,
 gender:null,
 tel:null,
 }),
+
+
 
 
 //form3
@@ -515,7 +529,37 @@ gender.push({id:element.id,name:element.name});
 }
 });
 return gender;
+},
+
+//pick country
+selected_country_item(){
+const all=this.response.user_data.country;
+const country=this.response.user_data.profile.country;
+let item=null;
+all.forEach(element=>{
+if(country===element.name){
+item={id:element.id,name:element.name}
+}});
+return item;
+},
+
+//
+country_payload1(){
+const country=this.response.user_data.profile.country
+const all=this.response.user_data.country;
+const items=[];
+all.forEach(element => {
+if(element.name!=country){
+items.push({id:element.id,name:element.name}
+);
 }
+});
+return items;
+}
+
+
+
+
 
 
 
@@ -525,12 +569,40 @@ return gender;
 },
 
 methods:{
+//
+country_payload(){
+const country=this.response.user_data.profile.country
+const all=this.response.user_data.country;
+// this.selected_country=country;
+all.forEach(element => {
+if(element.name!=country){
+this.selected_country.push({id:element.id,name:element.name}
 
+);
+}
+});
+
+},
+
+
+//pick country
+pick_country(){
+const all=this.response.user_data.country;
+const country=this.response.user_data.profile.country;
+all.forEach(element=>{
+if(country==element.name){
+this.new_country={id:element.id,name:element.name}
+}
+});
+},
+
+
+//
 select(event){
 this.form.country=event.target.value;
 },
 
-
+//
 submit(){
 this.form.post(this.route('reception.create_about'),{
 onSuccess:()=>{
@@ -557,7 +629,7 @@ select_gender(event){
 this.form2.gender=event.target.value;
 },
 
-
+//
 submit2(){
 this.form2.post(this.route('reception.edit_user'),{
 onSuccess:()=>{
@@ -607,6 +679,8 @@ this.form3.country=this.response.user_data.profile.countryID;
 this.form3.location=this.response.user_data.profile.location;
 },
 
+
+
 //edit reception
 submit3(){
 this.form3.post(this.route('reception.edit_profile'),{
@@ -620,6 +694,10 @@ position:'bottom-right'
 });
 }
 });
+},
+
+select3(event){
+this.form3.country=event.target.value;
 }
 
 

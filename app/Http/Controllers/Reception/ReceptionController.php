@@ -387,6 +387,7 @@ return Inertia::render('ShowInterviewPage',$data);
 
 //add about the reception
 public function add_reception_about(Request $request){
+
 $request->validate([
 'country'=>['required'],
 'location'=>['required'],
@@ -398,6 +399,7 @@ EmployeeProfileModel::insert([
 'location'=>$request->location,
 'designation'=>$request->designation
 ]);
+
 return redirect('/')->with('success','Your profile information has been added.');
 
 }
@@ -406,6 +408,7 @@ return redirect('/')->with('success','Your profile information has been added.')
 
 //edit reception profile.
 public function edit_reception_profile(Request $request){
+
 $request->validate([
 'designation'=>['required'],
 'country'=>['required'],
@@ -422,7 +425,7 @@ EmployeeProfileModel::where('userID',Auth::user()->id)->update([
 'location'=>$request->location
 ]);
 
-return redirect('/')->with('success','Profile has been updated.');
+return redirect('/profile')->with('success','Profile has been updated.');
 }else{
 return redirect('/')->with('warning','Prifile was not edited.');
 }

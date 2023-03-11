@@ -28,7 +28,7 @@
 <li><a href="#" @click="edit_user_information()"><span>Edit User Information</span></a></li>
 
 <li>
-<a href="#" v-if="user.role=='pssp'" @click="dialog_box.about=true">Add About Information</a>
+<a href="#" v-if="user.role=='pssp'" @click="dialog_box.about=true">Write your Statement</a>
 </li>
 
 <li v-if="user.role!='admin'"><a href="#" @click="add_services()"><span>Add Services</span></a></li>
@@ -136,7 +136,7 @@
 <!-- <el-button style="float: right; padding: 3px 0" type="text">Operation button</el-button> -->
 </div>
 
-<div class="card-body p-0">
+<div class="card-body">
 
 
 <div slot="header" class="clearfix bg-warning-dim p-2 mb-4"  v-if="$page.props.auth.user.status=='pending'" style="margin:-20px;">
@@ -568,7 +568,7 @@ Do you want to delete your account?
 <input-error :error="errors.about"></input-error>
 </label>
 <div class="form-control-wrap">
-<textarea type="text" class="form-control" id="default-01" placeholder="Write brief statement" v-model="form_about.about">
+<textarea type="text" class="form-control" id="default-01" placeholder="Write brief statement" v-model="form_about.about" style="min-height:300px;">
 </textarea>
 </div>
 </div>

@@ -36,10 +36,10 @@
 </div>
 <div class="col-12 col-md-8">
 <el-card shadow="never" class="card h-100">
-  <div slot="header" class="clearfix">
-    <h4>Professional Service Provider Account</h4>
-    <!-- <el-button style="float: right; padding: 3px 0" type="text">Operation button</el-button> -->
-  </div>
+<div slot="header" class="clearfix">
+<h4>Professional Service Provider Account</h4>
+<!-- <el-button style="float: right; padding: 3px 0" type="text">Operation button</el-button> -->
+</div>
 
 
 <div class="p-3 bg-warning-dim" style="margin:-20px;"  v-if="response.user_data.pssp_attributes.identification_documents.length==0 || response.user_data.pssp_attributes.experience.length==0 || response.user_data.pssp_attributes.references.length==0 || response.user_data.pssp_attributes.services.length==0">
@@ -186,7 +186,7 @@ Identification Documents
 </table>
 
 
-   <el-divider></el-divider>
+<el-divider></el-divider>
 
 
 <table class="table mt-3">
@@ -223,7 +223,7 @@ Identification Documents
 
 
 
-   <el-divider></el-divider>
+<el-divider></el-divider>
 <table class="table mt-2">
 <thead>
 <tr>

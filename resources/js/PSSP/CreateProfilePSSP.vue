@@ -1,5 +1,5 @@
 <template>
-<div>
+<el-card shadow="never" class="mt-2">
 <div class="card" style="min-height:700px;">
 <div class="card-inner">
 <div class="team">
@@ -124,7 +124,7 @@
 
 </div><!-- .team -->
 </div><!-- .card-inner -->
-</div>
+</el-card>
 
 </template>
 <script>
