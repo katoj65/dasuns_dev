@@ -169,15 +169,6 @@ Approve account
 
 
 
-
-
-
-
-
-
-
-
-
 </div>
 
 </div>
