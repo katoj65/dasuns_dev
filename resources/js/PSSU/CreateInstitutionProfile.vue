@@ -1,6 +1,6 @@
 <template>
-<div>
-<div class="card pt-3" style="min-height:700px;">
+
+<el-card class="card pt-3" style="min-height:700px;" shadow="never">
 <div class="card-inner">
 <div class="team">
 
@@ -234,9 +234,7 @@
 
 
 </div><!-- .team -->
-</div><!-- .card-inner -->
-</div>
-
+</el-card><!-- .card-inner -->
 </template>
 <script>
 import InputError from '@/Alerts/InputError';

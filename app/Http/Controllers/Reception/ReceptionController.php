@@ -408,7 +408,6 @@ return redirect('/')->with('success','Your profile information has been added.')
 
 //edit reception profile.
 public function edit_reception_profile(Request $request){
-
 $request->validate([
 'designation'=>['required'],
 'country'=>['required'],
@@ -427,7 +426,7 @@ EmployeeProfileModel::where('userID',Auth::user()->id)->update([
 
 return redirect('/profile')->with('success','Profile has been updated.');
 }else{
-return redirect('/')->with('warning','Prifile was not edited.');
+return redirect('/profile')->with('warning','Prifile was not edited.');
 }
 }else{
     return redirect('/')->with('warning','Could not find profile');

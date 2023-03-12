@@ -13,6 +13,7 @@ use App\Models\OrganisationContactPersonModel;
 
 
 
+
 class PSSUController extends Controller
 {
     /**
@@ -215,6 +216,36 @@ foreach($get as $row);
 }
 
 
+//edit pssu institution contact person
+public function update_innstitution_contact_person(Request $request){
+$get=OrganisationContactPersonModel::where('organisationID',Auth::user()->id)->get();
+if(count($get)==1){
+foreach($get as $row);
+if($row->firstname!=$request->firstname or $row->lastname!=$request->lastname or $row->gender!=$request->gender or $row->tel!=$request->tel or $row->email!=$request->email or $row->role!=$request->designation){
+
+    OrganisationContactPersonModel::where('organisationID',Auth::user()->id)->update([
+    'firstname'=>$request->firstname,
+    'lastname'=>$request->lastname,
+    'gender'=>$request->gender,
+    'tel'=>$request->tel,
+    'email'=>$request->email,
+    'role'=>$request->designation
+    ]);
+return redirect('/profile')->with('success','Contact person has been updated.');
+
+}else{
+return redirect('/profile')->with('warning','Contact person information was not edited.');
+}
+
+
+
+
+
+
+}else{
+return redirect('/profile')->with('warning','Could not find contact person for the organisation.');
+}
+}
 
 
 

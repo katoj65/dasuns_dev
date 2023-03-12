@@ -6,9 +6,6 @@
 <employee-profile-component :response="response" :flash="flash" :errors="errors"></employee-profile-component>
 </div>
 <div v-else>
-
-
-
 <!-----PSSP PROFILE-->
 <div v-if="user.role=='pssp'">
 

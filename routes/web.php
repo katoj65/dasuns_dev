@@ -23,6 +23,7 @@ use App\Http\Controllers\Employee\EmployeeController;
 use App\Http\Controllers\Appointment\AppointmentController;
 use App\Http\Controllers\Cart\CartController;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -201,3 +202,5 @@ Route::middleware(['auth:sanctum', 'verified'])->post('/reception/delete',[Recep
 Route::middleware(['auth:sanctum', 'verified'])->post('/reception/edit-reception-profile',[ReceptionController::class,'edit_reception_profile'])->name('reception.edit_profile');
 
 Route::middleware(['auth:sanctum', 'verified'])->post('/employee/approve',[ReceptionController::class,'approve_employ_account'])->name('employee.approve');
+
+Route::middleware(['auth:sanctum', 'verified'])->post('/pssu/institution/update-contact-person',[PSSUController::class,'update_innstitution_contact_person'])->name('pssu.update_contact_person');

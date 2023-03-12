@@ -49,7 +49,7 @@
 <li><span>Email</span><span>{{ user.email }} </span></li>
 </ul>
 <div class="team-view">
-<Inertia-link :href="route('wallet')" class="btn btn-block btn-dim btn-success"><span>Wallet</span></Inertia-link>
+<Inertia-link :href="route('dashboard')" class="btn btn-block btn-dim btn-success"><span>Dashboard</span></Inertia-link>
 </div>
 </div><!-- .team -->
 </div><!-- .card-inner -->
@@ -73,14 +73,14 @@
 
 
 
-<div class="nk-block">
+<div class="nk-block" style="margin-top:-20px;">
 <div class="nk-data data-list">
 <div class="data-item" data-toggle="modal" data-target="#profile-edit">
-<div class="data-col">
-<span class="data-label bold">Personal Statement</span>
-<span class="data-value text-muted" style="font-size:13px;">
+<div>
+<h3 class="text-muted">Personal Statement</h3>
+<p class="mt-2 text-muted">
 {{ profile.about!=null?profile.about:'Missing' }}
-</span>
+</p>
 </div>
 </div><!-- data-item -->
 
@@ -539,6 +539,7 @@ let item=null;
 all.forEach(element=>{
 if(country===element.name){
 item={id:element.id,name:element.name}
+this.form3.country=element.id;
 }});
 return item;
 },

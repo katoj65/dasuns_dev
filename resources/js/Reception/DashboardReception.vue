@@ -1,15 +1,17 @@
 <template>
 <div>
-
-<account-approval v-if="admin_profile.length==0" :response="response"></account-approval>
-<div class="nk-content p-0" v-else>
+<account-approval v-if="status==='pending'" :response="response"></account-approval>
+<div class="nk-content p-0" v-else-if="status==='active'">
 <div class="container-fluid pt-0">
 <div class="nk-content-inner pt-0">
 <div class="nk-content-body pt-0">
 <div class="nk-block pt-0">
 <div class="row g-gs">
 <div class="col-md-3" v-for="t in tabs" :key="t.id">
-<div class="card  card-full">
+
+
+
+<el-card class="card  card-full" shadow="never">
 <div class="card-inner">
 <div class="card-title-group align-start mb-0">
 <div class="card-title">
@@ -17,9 +19,6 @@
 <em :class="t.icon" style="font-size:50px;color:#07372F;"></em>
 </h6>
 </div>
-<!-- <div class="card-tools">
-<em class="card-hint icon ni ni-help-fill" data-toggle="tooltip" data-placement="left" title="" data-original-title="Total Deposited" aria-describedby="tooltip481665"></em>
-</div> -->
 </div>
 
 <div class="card-amount mb-2 mt-3">
@@ -43,7 +42,7 @@
 
 </div>
 </div>
-</div><!-- .card -->
+</el-card><!-- .card -->
 </div><!-- .col -->
 
 
@@ -59,12 +58,14 @@
 <!-- {{ response.user_data.count_interviews }} -->
 
 
-
-<div class="card card-full">
+<el-card class="card card-full" shadow="never">
 <div class="card-inner border-0">
 <div class="card-title-group">
 <div class="card-title">
-<h6 class="title">Service Provider Applications</h6>
+<h6 class="title">
+Service Provider Applications
+
+</h6>
 </div>
 <div class="card-tools">
 <span class="badge badge-outline-success">
@@ -131,7 +132,7 @@ View all applications
 
 
 
-</div>
+</el-card>
 
 
 
@@ -169,7 +170,7 @@ View all applications
 
 
 <div class="col-md-4 col-xxl-4">
-<div class="card card-full">
+<el-card class="card card-full" shadow="never">
 <div class="card-inner d-flex flex-column h-100">
 <div class="card-title-group mb-4">
 <div class="card-title">
@@ -225,7 +226,7 @@ No content
 
 
 </div>
-</div>
+</el-card>
 </div><!-- .col -->
 
 
@@ -257,7 +258,7 @@ No content
 
 
 <div class="col-md-4 col-xxl-4">
-<div class="card card-full">
+<el-card class="card card-full" shadow="never">
 <div class="card-inner d-flex flex-column h-100">
 <div class="card-title-group mb-3">
 <div class="card-title">
@@ -330,7 +331,7 @@ Payments</h6>
 <canvas class="iv-plan-purchase" id="planPurchase"></canvas>
 </div>
 </div>
-</div>
+</el-card>
 </div><!-- .col -->
 
 
@@ -349,7 +350,7 @@ Payments</h6>
 
 
 <div class="col-md-4 col-xxl-4">
-<div class="card card-full">
+<el-card class="card card-full" shadow="never">
 <div class="card-inner d-flex flex-column h-100">
 <div class="card-title-group mb-3">
 <div class="card-title">
@@ -420,7 +421,7 @@ Payments</h6>
 <canvas class="iv-plan-purchase" id="planPurchase"></canvas>
 </div>
 </div>
-</div>
+</el-card>
 </div><!-- .col -->
 
 
@@ -442,7 +443,7 @@ Payments</h6>
 
 
 <div class="col-md-4 col-xxl-4">
-<div class="card card-full">
+<el-card class="card card-full" shadow="never">
 <div class="card-inner d-flex flex-column h-100">
 <div class="card-title-group mb-3">
 <div class="card-title">
@@ -478,7 +479,7 @@ Payments</h6>
 
 </div>
 </div>
-</div>
+</el-card>
 </div><!-- .col -->
 
 
@@ -508,8 +509,6 @@ Payments</h6>
 </div>
 </div>
 </div>
-
-
 </div>
 </template>
 <script>
@@ -579,10 +578,13 @@ return s;
 
 
 //
+},
 
-
-
-
+//computed
+computed:{
+status(){
+return this.$page.props.auth.user.status;
+}
 
 
 
@@ -590,6 +592,16 @@ return s;
 
 
 }
+
+
+
+
+
+
+
+
+
+
 
 
 
