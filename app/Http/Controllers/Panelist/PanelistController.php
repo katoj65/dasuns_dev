@@ -184,7 +184,9 @@ return[
 'dasuns_number'=>DasunsNumberController::get_dasuns_number_byUserID(Auth::user()->id),
 'recommended'=>PanelistController::get_recommened_interviews(),
 'profession'=>EmployeeProfessionModel::get(),
-'panelist_professions'=>PanelistProfessionProfileModel::select('panelist_profession_profile.id','panelist_profession_profile.description','panelist_profession_profile.years','employee_profession.name')
+
+'panelist_professions'=>PanelistProfessionProfileModel::select('panelist_profession_profile.id','panelist_profession_profile.description','panelist_profession_profile.number_years','employee_profession.name')
+
 ->join('employee_profession','panelist_profession_profile.professionID','=','employee_profession.id')
 ->where('panelist_profession_profile.userID',Auth::user()->id)
 ->get(),
@@ -214,11 +216,11 @@ if(count($get)==0){
 PanelistProfessionProfileModel::insert([
 'userID'=>Auth::user()->id,
 'professionID'=>$request->experience,
-'years'=>$request->years,
+'number_years'=>$request->years,
 'description'=>$request->description,
 ]);
 
-return redirect('/')->with('success','Successfull.');
+return redirect('/')->with('success','Experience has been added.');
 }else{
 return redirect('/')->with('warning','Profession was already added.');
 }
