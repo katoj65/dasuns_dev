@@ -204,3 +204,5 @@ Route::middleware(['auth:sanctum', 'verified'])->post('/reception/edit-reception
 Route::middleware(['auth:sanctum', 'verified'])->post('/employee/approve',[ReceptionController::class,'approve_employ_account'])->name('employee.approve');
 
 Route::middleware(['auth:sanctum', 'verified'])->post('/pssu/institution/update-contact-person',[PSSUController::class,'update_innstitution_contact_person'])->name('pssu.update_contact_person');
+
+Route::middleware(['auth:sanctum', 'verified'])->post('/pssu/peroanl-profile',[PSSUController::class,'update_personal_profile'])->name('pssu.update_profile');

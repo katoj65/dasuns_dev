@@ -125,7 +125,8 @@ $application=DasunsUserNumberModel::select('users.firstname',
 'dasuns_user_number.created_at as application_date',
 'dasuns_user_number.id as did',
 'dasuns_user_number.account_status as status',
-'users.status as user_status'
+'users.status as user_status',
+
 )
 ->join('users','dasuns_user_number.userID','=','users.id')
 ->join('service_provider_profile','users.id','=','service_provider_profile.userID')
@@ -180,41 +181,52 @@ return redirect('/dashboard');
 //schedule interview
 public function create_interview_schedule(Request $request){
 $request->validate([
-'date'=>['required','date'],
-'time'=>['required','time'],
+'date'=>['required'],
+'time'=>['required'],
 'type'=>['required'],
 'selected'=>['required']],
 ['required'=>' *Field is required.']);
 
+//
 PSSPInterviewScheduleModel::insert([
 'date'=>$request->date,
 'time'=>$request->time,
 'type'=>$request->type,
 'comment'=>$request->comment,
-'applicationID'=>$request->id
+'service_providerID'=>$request->id
 ]);
 
-//
-DasunsUserNumberModel::where('id',$request->id)
-->update(['account_status'=>'interview']);
-
 //user status at interview
-$userID=DasunsNumberController::get_dasuns_number_byID($request->id)->userID;
-User::where('id',$userID)->update(['status'=>'interview']);
-PSSPDeclinedInterviewModel::where('interviewID',$request->id)->delete();
-//get interview details
-$get=PSSPInterviewScheduleModel::where('applicationID',$request->id)->where('date',$request->date)->where('time',$request->time)->get();
-
+User::where('id',$request->id)->update(['status'=>'interview']);
+//get interview schedule details
+$get=PSSPInterviewScheduleModel::where('service_providerID',$request->id)->where('date',$request->date)->where('time',$request->time)->get();
+if(count($get)>0){
+foreach($get as $row);
 //
-
-if(count($get)==1){
-foreach($get as $item);
 foreach($request->selected as $s){
-InterviewPanelistModel::insert(['userID'=>$s,'interviewID'=>$item->id]);
+InterviewPanelistModel::insert(['userID'=>$s,'interviewID'=>$row->id]);
 }
+return redirect('/')->with('success','Interview has been scheduled.');
+}else{
+return redirect('/')->with('warning','Could not find interview details.');
 }
 
-return redirect('/')->with('success','Interview has been scheduled.');
+
+// PSSPDeclinedInterviewModel::where('interviewID',$request->id)->delete();
+//get interview details
+
+// $get=PSSPInterviewScheduleModel::where('service_providerID',$request->id)
+// ->where('date',$request->date)->where('time',$request->time)->get();
+// //
+// if(count($get)==1){
+// foreach($get as $item);
+// foreach($request->selected as $s){
+// InterviewPanelistModel::insert(['userID'=>$s,'interviewID'=>$item->id]);
+// }
+// }
+
+// return redirect('/')->with('success','Interview has been scheduled.');
+
 
 }
 

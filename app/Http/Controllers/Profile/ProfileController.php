@@ -34,7 +34,6 @@ use App\Models\CountryModel;
 
 
 
-
 class ProfileController extends Controller{
 /**
  * Display a listing of the resource.
@@ -101,7 +100,6 @@ $user_data=[
 ];
 
 }elseif($user->role=='pssu'){
-
 
 $user_data=[
 'list_services'=>$list,

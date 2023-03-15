@@ -149,15 +149,12 @@ $get=DasunsUserNumberModel::select('dasuns_user_number.number','dasuns_user_numb
 ->get();
 if(count($get)>0){
 foreach($get as $row){
-
 $data[]=[
 'number'=>$row->number,
 'date'=>$row->created_at,
 'services'=>count(ServiceProviderServicesModel::where('userID',$row->userID)->get()),
 'id'=>$row->id
 ];
-
-
 }
 return $data;
 }else{
@@ -178,46 +175,57 @@ return [];
 //reception dashboard content
 function dashboard_content(){
 
-$applicant=DasunsUserNumberModel::select('*')
-->join('users','dasuns_user_number.userID','=','users.id')
-->limit(7)
-->get();
+// $applicant=DasunsUserNumberModel::select('*')
+// ->join('users','dasuns_user_number.userID','=','users.id')
+// ->limit(7)
+// ->get();
 
-$pssp=DasunsUserNumberModel::where('account_status','pending')
-->where('role','pssp')->get();
+// $pssp=DasunsUserNumberModel::where('account_status','pending')
+// ->where('role','pssp')->get();
 
-// get user information
-$get_pssp=User::select('*')
-->join('service_provider_profile','users.id','=','service_provider_profile.userID')
-->join('dasuns_user_number','users.id','=','dasuns_user_number.userID')
-->where('users.role','pssp')
-->get();
+// // get user information
+// $get_pssp=User::select('*')
+// ->join('service_provider_profile','users.id','=','service_provider_profile.userID')
+// ->join('dasuns_user_number','users.id','=','dasuns_user_number.userID')
+// ->where('users.role','pssp')
+// ->get();
 
 
-$get_active_pssp=DasunsUserNumberModel::where('account_status','verified')->where('role','pssp')->get();
+// $get_active_pssp=DasunsUserNumberModel::where('account_status','verified')->where('role','pssp')->get();
 
 //response
 
-return [
-'count_pending_applications'=>count($pssp),
-'applicants'=>$this->get_applicants(),
-'pssp'=>$get_pssp,
-'count_pssu'=>User::where('role','pssp')->count(),
-'count_services'=>count(SupportServiceModel::get()),
-'count_active_pssp'=>count($get_active_pssp),
-'count_active_users'=>User::where('role','pssu')->count(),
-'interviews'=>$this->get_interviews(),
-'declined_application'=>InterviewController::get_all_declined_interview(),
-'count_interviews'=>User::where('status','interview')->count(),
-'profile'=>$this->get_profile(),
-'country'=>CountryModel::get(),
+// return [
+// 'count_pending_applications'=>count($pssp),
+// 'applicants'=>$this->get_applicants(),
+// 'pssp'=>$get_pssp,
+// 'count_pssu'=>User::where('role','pssp')->count(),
+// 'count_services'=>count(SupportServiceModel::get()),
+// 'count_active_pssp'=>count($get_active_pssp),
+// 'count_active_users'=>User::where('role','pssu')->count(),
+// 'interviews'=>$this->get_interviews(),
+// 'declined_application'=>InterviewController::get_all_declined_interview(),
+// 'count_interviews'=>User::where('status','interview')->count(),
+// 'profile'=>$this->get_profile(),
+// 'country'=>CountryModel::get(),
+
+// ];
 
 
 
 
-];
+
+
+
+
 
 }
+
+
+
+
+
+
 
 
 //profile information

@@ -231,14 +231,14 @@ $get=PSSPInterviewScheduleModel::select(
 'pssp_interview_schedule.time',
 'pssp_interview_schedule.comment'
 )
-->join('dasuns_user_number','pssp_interview_schedule.applicationID','=','dasuns_user_number.id')
-->where('pssp_interview_schedule.applicationID',$id)
+// ->join('dasuns_user_number','pssp_interview_schedule.applicationID','=','dasuns_user_number.id')
+->where('id',$id)
 ->get();
 if(count($get)>0){
 foreach($get as $row){
 $data=[
 'InterviewID'=>$row->id,
-'number'=>$row->number,
+// 'number'=>$row->number,
 'date'=>$row->date,
 'time'=>$row->time,
 'comment'=>$row->comment,
@@ -263,7 +263,7 @@ return $data;
 //get interview and dasuns number
 static function get_interview_and_dasuns_number($interviewID){
 $get=PSSPInterviewScheduleModel::select('*')
-->join('dasuns_user_number','pssp_interview_schedule.applicationID','=','dasuns_user_number.id')
+// ->join('dasuns_user_number','pssp_interview_schedule.applicationID','=','dasuns_user_number.id')
 ->where('pssp_interview_schedule.id',$interviewID)->get();
 if(count($get)==1){
 foreach($get as $row);

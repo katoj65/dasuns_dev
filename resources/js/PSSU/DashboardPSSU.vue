@@ -9,8 +9,6 @@
 
 
 
-
-
 <el-card class="card mt-2 mb-2" v-if="account_type=='personal'" shadow="never">
 <div class="card-inner">
 <div class="team">

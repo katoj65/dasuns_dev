@@ -29,7 +29,7 @@ class HomeController extends Controller
      * @return \Illuminate\Http\Response
      */
 public function index(Request $request){
-        //
+//
 if(Auth::user()!=null){
 WalletController::new_user_wallet();
 
@@ -45,7 +45,7 @@ $user_data=['dashboard'=>PSSUController::dashboard()];
 //pssp account
 elseif($role=='pssp'){
 $pssp=new PSSPController;
-$user_data['pssp_attributes']=$pssp->get_pssp_attributes(Auth::user()->id);
+// $user_data['pssp_attributes']=$pssp->get_pssp_attributes(Auth::user()->id);
 $user_data['number']=null;
 }
 

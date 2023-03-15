@@ -169,11 +169,11 @@ $get_services=ServiceProviderServicesModel::select('support_service.name','suppo
 ->get();
 
 
-$dasuns=DasunsUserNumberModel::select('pssp_interview_rejection.title','pssp_interview_rejection.comment','pssp_interview_rejection.created_at','pssp_interview_rejection.id')
-->join('pssp_interview_schedule','dasuns_user_number.id','=','pssp_interview_schedule.applicationID')
-->join('pssp_interview_rejection','pssp_interview_schedule.id','=','pssp_interview_rejection.interviewID')
-->where('dasuns_user_number.userID',Auth::user()->id)
-->get();
+// $dasuns=DasunsUserNumberModel::select('pssp_interview_rejection.title','pssp_interview_rejection.comment','pssp_interview_rejection.created_at','pssp_interview_rejection.id')
+// ->join('pssp_interview_schedule','dasuns_user_number.id','=','pssp_interview_schedule.applicationID')
+// ->join('pssp_interview_rejection','pssp_interview_schedule.id','=','pssp_interview_rejection.interviewID')
+// ->where('dasuns_user_number.userID',Auth::user()->id)
+// ->get();
 
 
 
@@ -195,7 +195,7 @@ return['identification_documents'=>ServiceProviderSecurityDetailsModel::where('u
 'status'=>$account_status,
 'interview'=>InterviewController::get_interview_by_userID(Auth::user()->id),
 'interview_decline'=>InterviewController::get_declined_interview_by_userID(Auth::user()->id),
-'interview_failure'=>Auth::user()->status=='failed'?$dasuns:[],
+'interview_failure'=>Auth::user()->status=='failed'?[]:[],
 'requests'=>$requests,
 'profile'=>$this->get_pssp_profile(),
 

@@ -7,6 +7,9 @@
 
 
 
+
+
+
 <el-card class="card h-100" shadow="never">
 <div class="card-inner">
 <div class="team">
@@ -21,8 +24,12 @@
 <el-dropdown-menu slot="dropdown">
 <el-dropdown-item>Upload porfile picture</el-dropdown-item>
 <el-dropdown-item><a href="#" @click="dialog_box.edit_user=true" class="p-1">Edit user information</a></el-dropdown-item>
+
+<el-dropdown-item><a href="#" @click="dialog_box.edit_profile=true" class="p-1">Edit Profile</a></el-dropdown-item>
+
 <el-dropdown-item><a href="#" @click="dialog_box.add_service=true" class="p-1">Add services</a></el-dropdown-item>
-<el-dropdown-item><a href="#" @click="dialog_box.add_pssu_disability=true" class="p-1">Add disabilities</a></el-dropdown-item>
+
+<el-dropdown-item v-if="disability_status=='true'"><a href="#" @click="dialog_box.add_pssu_disability=true" class="p-1">Add disabilities</a></el-dropdown-item>
 
 <el-dropdown-item v-if="user.account_type=='institutional'"><a href="#" @click="dialog_box.add_pssu_disability=true" class="p-1">New Contact Person</a></el-dropdown-item>
 
@@ -56,11 +63,23 @@
 <li><span>Email</span><span>
 {{ $page.props.auth.user.email }}
 </span></li>
+
+<li v-if="user_profile.location!=null"><span>Location</span><span class="text-transform">
+{{ user_profile.location }}
+</span></li>
+<li v-if="user_profile.name!=null"><span>Country</span><span class="text-transform">
+{{ user_profile.name }}
+</span></li>
 </ul>
+
+
+
+
+
 <div class="team-view pt-2">
-<Inertia-link :href="route('wallet')" class="btn btn-block btn-dim btn-success"><span>
+<Inertia-link :href="route('dashboard')" class="btn btn-block btn-dim btn-success"><span>
 <em class="icon ni ni-wallet-fill mr-1"></em>
-Wallet</span></Inertia-link>
+Dashboard</span></Inertia-link>
 </div>
 </div><!-- .team -->
 </div><!-- .card-inner -->
@@ -70,7 +89,6 @@ Wallet</span></Inertia-link>
 
 </div>
 <div class="col-12 col-md-8">
-
 
 <el-card class="card h-100 pt-2" style="min-height:700px;" shadow="never">
 
@@ -83,14 +101,14 @@ Wallet</span></Inertia-link>
 <thead>
 <tr>
 <th>
-<h1><em class="icon ni ni-caret-right-fill text-success"></em> Services I Need from Dasuns Platform</h1>
+<h1><em class="icon ni ni-caret-right-fill"></em> Services I Need from Dasuns Platform</h1>
 </th>
 </tr>
 </thead>
 <tbody v-if="response.user_data.profile.services.length>0">
 <tr v-for="n in response.user_data.profile.services" :key="n.id">
 <td class="pt-2 pl-2">
-{{ n.name }}
+<em class="icon ni ni-dot"></em> {{ n.name }}
 </td>
 <td style="width:20px;">
 <el-dropdown>
@@ -105,23 +123,40 @@ Wallet</span></Inertia-link>
 </el-dropdown>
 </td>
 </tr>
+<tr>
+<td class="p-2"></td>
+</tr>
 </tbody>
-<thead>
+<thead class="border-top">
 <tr>
 <th colspan="2" class="p-4"></th>
 </tr>
 <tr>
-<th colspan="2">
+<th colspan="1">
 <h1>
-<em class="icon ni ni-caret-right-fill text-success"></em> My Disabilities
+<em class="icon ni ni-caret-right-fill"></em> My Disabilities
+<span class="text-transform text-muted">
+({{ disability_status=='true'?'Yes':'No' }})
+</span>
 </h1>
 </th>
+<td>
+</td>
+</tr>
+<tr v-if="response.user_data.profile.disabilities.length==0">
+<td colspan="2" class="p-4">
+<div>
+
+<a href="#" @click="dialog_box.add_pssu_disability=true" class="p-1 btn btn-light"><em class="icon ni ni-property-add"></em> Add disabilities</a>
+
+</div>
+</td>
 </tr>
 </thead>
 <tbody>
 <tr v-for="d in response.user_data.profile.disabilities" :key="d.id">
 <td class="pt-2 pl-2">
-{{ d.name }}
+<em class="icon ni ni-dot"></em> {{ d.name }}
 </td>
 <td>
 <el-dropdown>
@@ -136,7 +171,9 @@ Wallet</span></Inertia-link>
 </el-dropdown>
 </td>
 </tr>
-
+<tr>
+<td colspan="2" class="p-3"></td>
+</tr>
 </tbody>
 
 
@@ -144,7 +181,7 @@ Wallet</span></Inertia-link>
 
 
 
-<tbody v-if="$page.props.auth.user.account_type=='institutional'">
+<tbody v-if="$page.props.auth.user.account_type=='institutional'"  class="border-top">
 <tr>
 <td colspan="2" class="pt-3">
 
@@ -207,7 +244,7 @@ Organisation Contact Person Information
 </tr>
 </tbody>
 
-<tbody>
+<tbody class="border-top">
 <tr>
 <tr>
 <th colspan="2" class="p-2"></th>
@@ -217,7 +254,7 @@ Organisation Contact Person Information
 <div class="row">
 <div class="col-12 col-md-4">
 <strong>
-<em class="icon ni ni-caret-right-fill text-success"></em>
+<em class="icon ni ni-caret-right-fill"></em>
 Joined Dasuns Platform
 </strong>
 </div>
@@ -424,9 +461,108 @@ Joined Dasuns Platform
 </div>
 </div>
 </form>
+
+
+
+
+
+
+
+
+<!-------Update profile------>
+<form class=""  v-if="dialog_box.edit_profile==true" style="position:fixed;width:100%;left:0;top:0;z-index:10000;height:100%;background-color: hsla(210, 29%, 18%, 0.3);" @submit.prevent="submit4">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-header" style="background: #37BEA7;border:none;">
+<h5 class="modal-title" style="color:white;">Edit Profile</h5>
+<a href="#" class="close" data-dismiss="modal" aria-label="Close" @click="dialog_box.edit_profile=false">
+<em class="icon ni ni-cross"></em>
+</a>
+</div>
+<div class="modal-body" style="max-height:500px;overflow:auto">
+
+
+
+
+
+
+<div class="form-group">
+<label class="form-label" for="default-01">Select Disability:</label>
+<div class="form-control-wrap">
+<select class="form-control text-transform" id="default-01" placeholder="Enter names" @change="change_disability($event)">
+<option :value="selected_disability">{{ selected_disability }} </option>
+<option v-for="d in disability_status_loop" :key="d.id">
+{{ d.name }}
+</option>
+</select>
+</div>
+</div>
+
+
+
+
+
+<div class="form-group">
+<label class="form-label" for="default-01">Location:</label>
+<div class="form-control-wrap">
+<input type="text" class="form-control" id="default-01" placeholder="Enter location" v-model="form_update_profile.location">
+</div>
+</div>
+
+
+
+<div class="form-group">
+<label class="form-label" for="default-01">
+Select Country:
+</label>
+<div class="form-control-wrap">
+<select class="form-control" id="default-01" @change="change_country($event)">
+<option :value="c.id" v-for="c in country" :key="c.id">{{ c.name }} </option>
+</select>
+</div>
+</div>
+
+
+
+</div>
+<div class="modal-footer bg-light">
+<span class="sub-text">
+
+<input type="submit" class="button" value="Save" style="border-radius:10px"/>
+
+</span>
+</div>
+</div>
+</div>
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
 </div>
 </div>
 </page-wrapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
 <page-wrapper v-else>
 <div class="row mt-2 mb-2">
 <div class="col-12 col-md-4">
@@ -893,6 +1029,30 @@ Organisation Contact Person Information
 </form>
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </div>
 </page-wrapper>
 </page-wrapper>
@@ -913,7 +1073,29 @@ flash:{},
 errors:{},
 
 },
+
+
+
 data(){return{
+//selected country name
+selected_country:null,
+selected_countryID:null,
+//
+selected_disability_item:null,
+//disability status
+disabilities:[
+{id:1,name:'true'},
+{id:2,name:'false'}
+],
+
+//
+form_update_profile:this.$inertia.form({
+location:null,
+country:null,
+disability:null
+}),
+
+
 //genders
 gender:[
 {id:1,name:'male'},
@@ -933,13 +1115,13 @@ designation:null,
 //start dialog box
 
 dialog_box:{
-
 edit_user:false,
 add_disability:false,
 delete_account:false,
 add_service:false,
 add_pssu_disability:false,
 delete_account:false,
+edit_profile:false,
 
 },
 //
@@ -973,6 +1155,38 @@ disability:null,
 
 
 methods:{
+change_country(event){
+this.form_update_profile.country=event.target.value;
+},
+change_disability(event){
+this.form_update_profile.disability=event.target.value;
+},
+
+
+submit4(){
+this.form_update_profile.post(this.route('pssu.update_profile'),{
+onSuccess:()=>{
+const flash=this.$page.props.flash;
+this.dialog_box.edit_profile=false;
+this.$notify({
+title:flash.success!=null?'Successful':'Error',
+message:flash.success!=null?flash.success:flash.warning,
+type:flash.success!=null?'success':'warning',
+position:'bottom-right'
+
+});
+}
+});
+},
+
+
+disability_load(){
+this.selected_disability_item =this.response.user_data.profile.user_profile.disability;
+},
+
+
+
+
 
 delete_services(id){
 this.$inertia.post(this.route('delete-services'),{
@@ -1122,20 +1336,89 @@ position:'bottom-right'
 });
 }
 });
-}
+},
+
+
+
+//
+selected_profile(){
+this.form_update_profile.location=this.response.user_data.profile.user_profile.location;
+this.form_update_profile.country=this.response.user_data.profile.user_profile.countryID;
+this.form_update_profile.disability=this.response.user_data.profile.user_profile.disability;
+
+},
+
+
 
 
 
 
 },
-mounted(){
-this.data_load();
 
+
+
+
+//
+mounted(){
+this.disability_load();
+this.data_load();
+this.selected_profile();
 },
 
 
 //
 computed:{
+format_countries(){
+const countries=this.response.user_data.country;
+const country=[];
+// countries.forEach(element=>{
+
+// });
+return countries;
+},
+
+
+
+//
+disability_status_loop(){
+const payload=[];
+const item=this.response.user_data.profile.user_profile.disability;
+this.disabilities.forEach(element=>{
+if(item!=element.name){
+payload.push({id:element.id,name:element.name});
+}
+});
+return payload;
+},
+
+
+
+
+//
+selected_disability(){
+return this.response.user_data.profile.user_profile.disability;
+},
+
+
+//
+country(){
+this.selected_country=this.response.user_data.profile.user_profile.name;
+this.selected_countryID=this.response.user_data.profile.user_profile.countryID;
+return this.response.user_data.profile.country;
+},
+
+
+disability_status(){
+return this.response.user_data.profile.user_profile.disability;
+},
+
+
+
+//
+user_profile(){
+return this.response.user_data.profile.user_profile;
+},
+
 //contact person
 contact_person(){
 return this.response.user_data.profile.contact_person;
@@ -1168,6 +1451,10 @@ id:element.id,name:element.name
 });
 return item;
 }
+
+
+
+
 
 
 }

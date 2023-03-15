@@ -10,6 +10,8 @@ use App\Models\UserSupportServiceModel;
 use App\Models\UserDisabilityModel;
 use App\Models\DasunsUserNumberModel;
 use App\Models\OrganisationContactPersonModel;
+use App\Models\UserProfileModel;
+use App\Models\CountryModel;
 
 
 
@@ -112,6 +114,20 @@ return UserSuppoortServiceModel::where('userID',$userID)->where('serviceID',$ser
 //profile
 static function profile(){
 $id=Auth::user()->id;
+//account details
+$user_profile=UserProfileModel::select('country.name','user_profile.location','user_profile.disability','country.id as countryID')
+->join('country','user_profile.countryID','=','country.id')
+->where('user_profile.userID',$id)
+->get();
+if(count($user_profile)==1){
+foreach($user_profile as $up)
+$user_profile=$up;
+}else{
+$user_profile=[];
+}
+
+
+
 
 //
 $user_service=UserSupportServiceModel::select('support_service.name','user_support_service.id')
@@ -130,10 +146,9 @@ return[
 'services'=>$user_service,
 'dasuns_number'=>PSSUController::get_dasuns_number(),
 'disabilities'=>$disabilities,
-'contact_person'=>PSSUController::get_contact_person(),
-
-
-
+'contact_person'=>Auth::user()->account_type=='institutional'?PSSUController::get_contact_person():[],
+'user_profile'=>Auth::user()->account_type=='personal'?$user_profile:[],
+'country'=>CountryModel::get(),
 
 ];
 }
@@ -192,7 +207,7 @@ public function store_disability(Request $request){
 $request->validate(['disability'=>'required'],['required'=>'* Field is required.']);
 $count=UserDisabilityModel::where('userID',Auth::user()->id)->where('disabilityID',$request->disability)->count();
 if($count==0){
-    UserDisabilityModel::insert(['userID'=>Auth::user()->id,'disabilityID'=>$request->disability]);
+UserDisabilityModel::insert(['userID'=>Auth::user()->id,'disabilityID'=>$request->disability]);
 return redirect('/profile')->with('success','Disability has been added.');
 }else{
 return redirect('/profile')->with('warning','Disability already added.');
@@ -222,7 +237,6 @@ $get=OrganisationContactPersonModel::where('organisationID',Auth::user()->id)->g
 if(count($get)==1){
 foreach($get as $row);
 if($row->firstname!=$request->firstname or $row->lastname!=$request->lastname or $row->gender!=$request->gender or $row->tel!=$request->tel or $row->email!=$request->email or $row->role!=$request->designation){
-
     OrganisationContactPersonModel::where('organisationID',Auth::user()->id)->update([
     'firstname'=>$request->firstname,
     'lastname'=>$request->lastname,
@@ -237,15 +251,47 @@ return redirect('/profile')->with('success','Contact person has been updated.');
 return redirect('/profile')->with('warning','Contact person information was not edited.');
 }
 
-
-
-
-
-
 }else{
 return redirect('/profile')->with('warning','Could not find contact person for the organisation.');
 }
 }
+
+
+
+
+
+
+//personal profile update
+function update_personal_profile(Request $request){
+$request->validate(['location'=>['required'],
+'country'=>['required'],
+'disability'=>['required']],
+['required'=>'* Field is required']);
+//
+$get=UserProfileModel::where('userID',Auth::user()->id)->get();
+if(count($get)==1){
+foreach($get as $row);
+
+if($request->location!=$row->location or $request->country!=$row->countryID or $request->disability!=$row->disability){
+
+UserProfileModel::where('userID',Auth::user()->id)->update([
+'location'=>$request->location,
+'disability'=>$request->disability,
+'countryID'=>$request->country]);
+
+return redirect('/profile')->with('success','Profile information has been updated.');
+
+}else{
+return redirect('/profile')->with('warning','Profile information was not updated.');
+}
+
+}else{
+return redirect('/profile')->with('warning','Could not find user profile information.');
+}
+
+}
+
+
 
 
 

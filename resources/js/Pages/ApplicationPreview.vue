@@ -1,11 +1,9 @@
 <template>
 <app-layout>
-
 <div class="row pt-2 mb-2">
-
-
 <div class="col-12 col-md-4">
-<div class="card border-0 h-100">
+
+<el-card class="card h-100" shadow="never">
 <div class="card-inner">
 <div class="team">
 <div class="team-options">
@@ -28,16 +26,7 @@
 </ul>
 <div class="team-view">
 
-
-
-
-
-
 <!--Schedule Appointment--->
-
-
-
-
 
 <div v-if="response.services.length>0 && response.document.length>0 && response.experience.length>0">
 <div class="pt-5" v-if="status=='pending'">
@@ -74,45 +63,32 @@
 </div>
 
 
-
-
 <!--Schedule-Appointment--->
-
-
-
-
-
-
-
 </div>
 </div><!-- .team -->
 </div><!-- .card-inner -->
+</el-card>
+
+
 </div>
-
-
-
-</div>
-
 <div class="col-12 col-md-8">
-<div class="card border-0 h-100">
-<div class="card-header">
-<h3 class="title">
-<el-page-header @back="back()" content="slot">
-<template slot="content">
-<span>
-Application Preview
-</span>
-</template>
-</el-page-header>
-</h3>
-</div>
+<el-card class="card h-100 p-0" shadow="never">
+ <div slot="header" class="clearfix">
+    <strong>Application Preview</strong>
+    <!-- <el-button style="float: right; padding: 3px 0" type="text">Operation button</el-button> -->
+  </div>
 
 
-<div class="card-inner">
-<div class="team">
-<!-- <h3 class="title" style="font-size:20px;">
-Application Preview
-</h3> -->
+
+
+
+
+
+<div class="card-body p-0 m-0">
+
+
+
+
 
 <div class="pt-5 pb-0" v-if="status=='declined'">
 <div class="alert alert-danger alert-icon border-0" v-for="decline in response.decline_status" :key="decline.id">
@@ -122,45 +98,55 @@ Application Preview
 </div>
 
 
-<ul class="data-list is-compact">
+
+
+
+
+
+
+<ul class="data-list is-compact p-0 m-0">
 <li class="data-item border-0">
 <div class="data-col">
-<div class="data-label"><strong><em class="icon ni ni-caret-right-fill text-success"></em> Professional Support Services</strong> </div>
+<div class="data-label"><strong><em class="icon ni ni-caret-right-fill"></em> Professional Support Services</strong> </div>
 <div class="data-value"></div>
 </div>
 </li>
 
 
 
-<li class="data-item border-0" v-for="s in response.services" :key="s.id" style="border-bottom:none;" >
+<li class="data-item" v-for="s in response.services" :key="s.id" style="border-bottom:none;" >
 <div class="data-col">
 <div class="data-label">{{ s.name }} </div>
 </div>
 </li>
 
-<li class="data-item border-0" style="height:0;padding:0;">
+<li class="data-item" style="height:0;padding:0;">
 </li>
+
+
 
 <li class="data-item" style="border-bottom:none;">
 <div class="data-col border-0">
-<div class="data-label"><strong><em class="icon ni ni-caret-right-fill text-success"></em> Identification Documents </strong></div>
+<div class="data-label"><strong><em class="icon ni ni-caret-right-fill"></em> Identification Documents </strong></div>
 </div>
 </li>
 
 
-<li class="data-item border-0"  v-for="i in response.document" :key="i.id">
+
+
+<li class="data-item"  v-for="i in response.document" :key="i.id">
 <div class="data-col">
 <div class="data-label">{{ i.document }}</div>
 <div class="data-value text-soft">
 <span class="badge badge-dim badge-success p-1" style="font-size:16px;">
 {{ i.document_number }}
 </span>
+</div>
+</div>
+</li>
 
-</div>
-</div>
-</li>
-<li>
-</li>
+
+
 <li v-if="response.document==0" class="data-item border-0">
 <div class="data-col">
 <div class="data-label">
@@ -170,12 +156,11 @@ Application Preview
 </li>
 
 
-
 <li class="data-item" style="border-bottom:none;">
 <div class="data-col border-0">
 <div class="data-label">
 <strong>
-<em class="icon ni ni-caret-right-fill text-success"></em> Professional Experience
+<em class="icon ni ni-caret-right-fill"></em> Professional Experience
 </strong>
 </div>
 </div>
@@ -186,13 +171,9 @@ Application Preview
 
 
 
-
-
-
-<li class="data-item border-0">
+<li class="data-item ">
 <div class="data-col">
 <div class="data-label" style="width:100%;">
-
 <table class="table preview-reference" v-if="response.experience.length>0">
 <tbody style="border:none;">
 <tr style="border:none;">
@@ -224,9 +205,10 @@ Missing
 </li>
 
 
+
 <li class="data-item" style="border-bottom:none;">
 <div class="data-col">
-<div class="data-label"><strong><em class="icon ni ni-caret-right-fill text-success"></em> Professional Referees</strong> </div>
+<div class="data-label"><strong><em class="icon ni ni-caret-right-fill"></em> Professional Referees</strong> </div>
 </div>
 </li>
 <li class="data-item">
@@ -269,12 +251,36 @@ Missing
 </div>
 </li>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </ul>
-</div><!-- .team -->
-</div><!-- .card-inner -->
+</div>
+
+
+
+</el-card>
 </div>
 </div>
-</div>
+
+
+
+
+
 
 
 
@@ -311,7 +317,10 @@ Missing
 <em class="icon ni ni-cross"></em>
 </a>
 </div>
-<div class="modal-body" style="height:500px;overflow:auto;">
+
+
+
+<div class="modal-body" style="height:500px;overflow:auto;" v-show="show_panelists==false">
 
 
 <div class="form-group">
@@ -349,12 +358,29 @@ Missing
 </div>
 
 
-<div class="form-group">
+
+
+
+
+<div>
+<button class="btn btn-block btn-light" style="width:100%;text-align:center;font-size:18px;padding:10px;" type="button" @click="show_panelists=true">
+{{ form.selected.length>0?form.selected.length.length>1?form.selected.length+'Panelists selected':form.selected.length+' Panelist selected':'Select Panelist' }}
+</button>
+
+</div>
+</div>
+
+
+
+
+
+<!----------------->
+<div class="modal-body" style="min-height:500px;overflow:auto;" v-show="show_panelists==true">
+<div class="form-group" v-show="show_panelists==true">
 <label class="form-label" for="default-07">Select Interview Panelist</label>
 <div class="form-control-wrap">
-<div class="form-control p-0" style="height:200px;overflow:auto">
-
-
+<div class="form-control p-0" style="min-height:200px;overflow:auto">
+<div>
 <div class="pt-1 pb-1">
 <input-error style="font-size:14px;" :error="errors.selected"></input-error>
 </div>
@@ -383,17 +409,41 @@ Missing
 </ul>
 </td>
 </tr>
+
 </tbody>
 </table>
-
-</div>
 </div>
 </div>
 
+<div style="margin-top:20px;">
+<button class="btn btn-block btn-light" style="width:100%;text-align:center;font-size:18px;padding:10px;" type="button" @click="show_panelists=false">
+OK
+</button>
 </div>
+</div>
+</div>
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
 <div class="modal-footer bg-light">
 <span class="sub-text">
-<button type="submit" class="btn btn-lg button">Schedule</button>
+<button class="btn btn-lg button" v-if="form.selected.length==0" disabled>Schedule</button>
+<button type="submit" class="btn btn-lg button" v-else>Schedule</button>
+
+
+
 </span>
 </div>
 </div>
@@ -440,14 +490,10 @@ Missing
 </div>
 </div>
 </form>
-
-
-
 </app-layout>
 </template>
-
-
 <script>
+
 import InputError from '@/Alerts/InputError';
 import AppLayout from '@/Layouts/AppLayout';
 
@@ -464,7 +510,11 @@ response:{},
 flash:{},
 errors:{}
 },
+
 data(){return{
+
+show_panelists:false,
+
 applicant:{
 info:this.response.application,
 services:this.response.services,
@@ -484,7 +534,7 @@ date:null,
 time:null,
 comment:null,
 type:'physical',
-id:this.response.application.did,
+id:this.response.application.id,
 selected:[],
 }),
 
@@ -493,7 +543,7 @@ selected:[],
 
 form2:this.$inertia.form({
 message:null,
-id:this.response.application.did,
+id:this.response.application.id,
 
 }),
 
@@ -579,7 +629,7 @@ submit_interview(){
 this.form.post(this.route('store-interview'),{
 onSuccess:()=>{
 this.$notify({
-    position: 'bottom-right',
+position: 'bottom-right',
 title: 'Successful',
 message:this.$page.props.flash.success,
 type:'success'
