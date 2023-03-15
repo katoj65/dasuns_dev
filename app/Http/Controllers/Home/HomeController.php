@@ -45,7 +45,7 @@ $user_data=['dashboard'=>PSSUController::dashboard()];
 //pssp account
 elseif($role=='pssp'){
 $pssp=new PSSPController;
-// $user_data['pssp_attributes']=$pssp->get_pssp_attributes(Auth::user()->id);
+$user_data['pssp_attributes']=PSSPController::dashboard();
 $user_data['number']=null;
 }
 

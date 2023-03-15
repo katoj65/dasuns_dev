@@ -175,6 +175,17 @@ return $subtract.strval($count_len).$initial;
 
 
 
+//get dasuns number
+static function get_dasuns_user_number(){
+$get=DasunsUserNumberModel::where('userID',Auth::user()->id)->get();
+if(count($get)==1){
+foreach($get as $row);
+return $row;
+}else{
+return [];
+}
+}
+
 
 
 

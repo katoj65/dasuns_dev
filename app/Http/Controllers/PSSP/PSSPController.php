@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers\PSSP;
-
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -188,7 +187,8 @@ $requests=AppointmentModel::select('appointment.date',
 ->orderby('appointment.created_at','ASC')
 ->get();
 
-return['identification_documents'=>ServiceProviderSecurityDetailsModel::where('userID',$id)->get(),
+return[
+'identification_documents'=>ServiceProviderSecurityDetailsModel::where('userID',$id)->get(),
 'services'=>$get_services,
 'experience'=>ServiceProviderExperienceModel::where('userID',$id)->get(),
 'references'=>ServiceProviderReferenceModel::where('userID',$id)->get(),
@@ -198,6 +198,7 @@ return['identification_documents'=>ServiceProviderSecurityDetailsModel::where('u
 'interview_failure'=>Auth::user()->status=='failed'?[]:[],
 'requests'=>$requests,
 'profile'=>$this->get_pssp_profile(),
+'dasuns_number'=>DasunsNumberController::get_dasuns_user_number()
 
 ];
 }
@@ -205,8 +206,70 @@ return['identification_documents'=>ServiceProviderSecurityDetailsModel::where('u
 
 
 
+
+
+
+
+
+//dashboard
+static function dashboard(){
+
+//generate content by status
+$status=Auth::user()->status;
+if($status=='pending' or $status=='declined' or $status=='interview'){
+$get_services=ServiceProviderServicesModel::select('support_service.name','support_service.id')
+->join('support_service','service_provider_services.serviceID','=','support_service.id')
+->where('service_provider_services.userID',Auth::user()->id)
+->get();
+
+
+
+//
+return [
+'dasuns_number'=>DasunsNumberController::get_dasuns_user_number()->number,
+'identification_documents'=>ServiceProviderSecurityDetailsModel::where('userID',Auth::user()->id)->get(),
+'services'=>$get_services,
+'experience'=>ServiceProviderExperienceModel::where('userID',Auth::user()->id)->get(),
+'references'=>ServiceProviderReferenceModel::where('userID',Auth::user()->id)->get(),
+'interview'=>InterviewController::get_user_interview(),
+'interview_decline'=>InterviewController::get_declined_interview_by_userID(Auth::user()->id),
+'interview_failure'=>Auth::user()->status=='failed'?[]:[],
+'statement'=>PSSPController::get_pssp_profile(),
+
+
+];
+
+
+}else{
+
+return [
+
+
+
+
+];
+
+
+}
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
 //get profile
-function get_pssp_profile(){
+static function  get_pssp_profile(){
 $get=ServiceProviderProfileModel::select('about')->where('userID',Auth::user()->id)->get();
 if(count($get)==1){
 foreach($get as $row);

@@ -1,4 +1,5 @@
 <template>
+
 <el-card shadow="never" class="mt-2">
 <div class="card" style="min-height:700px;">
 <div class="card-inner">

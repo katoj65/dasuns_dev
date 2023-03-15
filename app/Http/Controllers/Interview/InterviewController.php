@@ -419,6 +419,19 @@ return $row;
 }
 
 
+//get user interview;
+static function get_user_interview(){
+$get=PSSPInterviewScheduleModel::where('service_providerID',Auth::user()->id)->get();
+if(count($get)==1){
+foreach($get as $row);
+return $row;
+}else{
+return [];
+}
+}
+
+
+
 
 
 

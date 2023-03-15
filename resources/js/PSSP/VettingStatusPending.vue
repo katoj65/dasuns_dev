@@ -1,5 +1,5 @@
 <template>
-<div class="row pt-2">
+<div class="row mt-2">
 <div class="col-12 col-md-4">
 <el-card shadow="never" class="card h-100">
 <div class="card-inner">
@@ -14,7 +14,7 @@
 {{ user.account_type }} Account
 </span>
 <div class="sub-text text-transform mt-2">
-<strong style="margin-right:10px;">Dasuns No:</strong>  {{ user_number.number }}
+<strong style="margin-right:10px;">Service No:</strong>  {{ dasuns_number }}
 </div>
 </div>
 </div>
@@ -34,6 +34,9 @@
 </div>
 </el-card>
 </div>
+
+
+
 <div class="col-12 col-md-8">
 <el-card shadow="never" class="card h-100">
 <div slot="header" class="clearfix">
@@ -42,69 +45,9 @@
 </div>
 
 
-<div class="p-3 bg-warning-dim" style="margin:-20px;"  v-if="response.user_data.pssp_attributes.identification_documents.length==0 || response.user_data.pssp_attributes.experience.length==0 || response.user_data.pssp_attributes.references.length==0 || response.user_data.pssp_attributes.services.length==0">
-<em class="icon ni ni-alert-circle text-warning" style="margin-right:10px;"></em>
-Fill in all missing information
-</div>
 
-<div class="p-3 bg-warning-dim" style="margin:-20px;" v-else>
-
-<div v-if="$page.props.auth.user.status=='pending'">
-<em class="icon ni ni-alert-circle text-warning" style="margin-right:10px;"></em>
-Dasuns team is reviewing your application, you will be contacted shortly.
-</div>
-
-<div v-else-if="$page.props.auth.user.status=='interview'">
-<strong>
-Interview has been scheduled
-</strong>
-<p class="pt-2 pb-2">
-<span class="mr-3">
-<em class="icon ni ni-calender-date text-warning"></em>
-{{ date_format(interview.date) }}
-</span>
-<span>
-<em class="icon ni ni-clock text-warning"></em>
-{{ interview.time.substring(0,5) }}
-</span>
-</p>
-<p class="pt-1 pb-2">
-{{ interview.comment }}
-</p>
-<div>
-<div>
-<a href="#" @click="show_panelist()"><strong><em class="icon ni ni-users-fill text-warning"></em>
-{{ interview.panelists.length>1?interview.panelists.length+' Panelists':interview.panelists.length+' Panelist' }}
-
-</strong></a>
-</div>
-</div>
-</div>
-
-<div v-else-if="$page.props.auth.user.status=='declined'">
-Your application was declined
-
-</div>
-</div>
-
-<div class="p-3 bg-warning-dim" v-if="message!=null && decline==null && interview==null">
-<em class="icon ni ni-alert-circle"></em>
-{{ message }}
-</div>
-
-<div class="p-3 bg-warning-dim" v-else-if="decline!=null && interview==null">
-<div><strong>
-Your application was declined
-</strong></div>
-<div class="pt-2">
-{{ decline.message }}
-</div>
-</div>
-
-
-
-<div>
-<table class="table mt-5">
+<div class="card-body p-0 m-0">
+<table class="table">
 <thead style="border:none;">
 <tr style="border:none;">
 <th scope="col" colspan="8" style="border:none;color:#07372F;">
@@ -118,14 +61,15 @@ Personal Statement
 <tbody>
 <tr>
 <td style="font-size:13px;" class="text-muted">
-{{ response.user_data.pssp_attributes.profile.about!=null?response.user_data.pssp_attributes.profile.about:'Missing' }}
+{{ results.statement.about!=null?results.statement.about:'Missing' }}
 </td>
 </tr>
 </tbody>
 </table>
 
 <el-divider></el-divider>
-<table class="table mt-2">
+
+<table class="table" style="border:none;">
 <thead style="border:none;">
 <tr style="border:none;">
 <th scope="col" colspan="8" style="border:none;color:#07372F;">
@@ -136,9 +80,8 @@ Professional Services I Provide
 </th>
 </tr>
 </thead>
-
-<tbody v-if="attributes.services.length>0" style="border:none;">
-<tr v-for="s in attributes.services" :key="s.id" style="border:none;">
+<tbody v-if="results.services.length>0" style="border:none;">
+<tr v-for="s in results.services" :key="s.id" style="border:none;">
 <td colspan="8" style="border:none;" class="pl-5">
 <em class="icon ni ni-bullet-fill"></em> {{ s.name }}
 </td>
@@ -147,11 +90,18 @@ Professional Services I Provide
 <td colspan="8" style="padding:10px;"></td>
 </tr>
 </tbody>
-<tbody v-else>
+<tbody v-else style="border:none;">
 <tr>
 <td colspan="8" class="text-warning">Missing</td>
 </tr>
 </tbody>
+</table>
+<el-divider></el-divider>
+
+
+
+
+<table class="table">
 <thead>
 <tr>
 <th scope="col" colspan="8" style="border:none;color:#07372F;" class="pt-2">
@@ -162,8 +112,8 @@ Identification Documents
 </th>
 </tr>
 </thead>
-<tbody v-if="attributes.document.length>0" style="border:none;">
-<tr v-for="d in attributes.document" :key="d.id" style="border:none;">
+<tbody v-if="results.identification.length>0" style="border:none;">
+<tr v-for="d in attributes.identification" :key="d.id" style="border:none;">
 <td colspan="3" style="border:none;">
 <div class="pl-4">
 {{ d.document }}
@@ -185,8 +135,9 @@ Identification Documents
 </td></tr></tbody>
 </table>
 
-
 <el-divider></el-divider>
+
+
 
 
 <table class="table mt-3">
@@ -197,8 +148,8 @@ Identification Documents
 </div>
 </th>
 </thead>
-<tbody v-if="attributes.experience.length>0">
-<tr v-for="a in attributes.experience" :key="a.id" style="border:none;">
+<tbody v-if="results.experience.length>0">
+<tr v-for="a in results.experience" :key="a.id" style="border:none;">
 <td colspan="3" style="border:none;">
 <div class="pl-4">
 {{ a.organisation_name }}
@@ -223,6 +174,10 @@ Identification Documents
 
 
 
+
+
+
+
 <el-divider></el-divider>
 <table class="table mt-2">
 <thead>
@@ -234,7 +189,7 @@ Identification Documents
 </th>
 </tr>
 </thead>
-<tbody v-if="attributes.reference.length>0">
+<tbody v-if="results.references.length>0">
 <tr>
 <th>
 <div class="pl-4">
@@ -244,7 +199,7 @@ Names
 <th>Contacts</th>
 <th>Position</th>
 </tr>
-<tr v-for=" r in attributes.reference" :key="r.id">
+<tr v-for=" r in results.references" :key="r.id">
 <td>
 <div class="pl-4">{{ r.names }}</div>
 </td>
@@ -272,7 +227,16 @@ Names
 
 
 
+
+
 </div>
+
+
+
+
+
+
+
 
 
 
@@ -293,63 +257,49 @@ props:{
 response:{},
 },
 
-data(){return{
-panelist_menu:false,
 
-attributes:{
-document:this.response.user_data.pssp_attributes.identification_documents,
-services:this.response.user_data.pssp_attributes.services,
-experience:this.response.user_data.pssp_attributes.experience,
-reference:this.response.user_data.pssp_attributes.references,
-},
-//user information
-user:this.$page.props.auth.user,
-message:null,
-user_number:this.$page.props.auth.user_number,
-decline:this.response.user_data.pssp_attributes.interview_decline,
-account_status:this.response.user_data.pssp_attributes.status.account_status,
-interview:this.response.user_data.pssp_attributes.interview,
 
-}},
-
-methods:{
-missing_items(){
-if(this.attributes.document.length==0 || this.attributes.experience.length==0 || this.attributes.reference.length==0){
-this.message='Submit all missing information to from your profile page.';
-}else{
-this.message='Your submissions are under review by Dasuns team, you will be contacted shortly.';
-}
+computed:{
+//
+user(){
+return this.$page.props.auth.user;
 },
 
-date_format(item){
-var s=item.split('-');
-var r=s.reverse();
-return r.join('/ ');
+//
+dasuns_number(){
+return this.response.user_data.pssp_attributes.dasuns_number;
 },
 
-show_panelist(){
-if(this.panelist_menu==false){
-this.panelist_menu=true;
-}else{
-this.panelist_menu=false;
-}
+results(){
+const item=this.response.user_data.pssp_attributes;
+const response={
+
+'identification':item.identification_documents,
+'services':item.services,
+'experience':item.experience,
+'references':item.references,
+'interview':item.interview,
+'decline':item.interview_decline,
+'statement':item.statement
+
+};
+return response;
 }
 
 
 
 
-
-
-},
-mounted(){
-this.missing_items();
-
 }
+
+
+
+
 
 
 
 }
 </script>
+
 <style scoped>
 .width-100{
 width:100px;
@@ -381,3 +331,5 @@ background:red;
 }
 
 </style>
+
+

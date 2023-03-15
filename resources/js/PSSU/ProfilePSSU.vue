@@ -78,7 +78,6 @@
 
 <div class="team-view pt-2">
 <Inertia-link :href="route('dashboard')" class="btn btn-block btn-dim btn-success"><span>
-<em class="icon ni ni-wallet-fill mr-1"></em>
 Dashboard</span></Inertia-link>
 </div>
 </div><!-- .team -->
