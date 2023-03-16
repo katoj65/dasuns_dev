@@ -52,7 +52,6 @@
 <tr style="border:none;">
 <th scope="col" colspan="8" style="border:none;color:#07372F;">
 <div>
-<em class="icon ni ni-caret-right-fill"></em>
 Personal Statement
 </div>
 </th>
@@ -60,21 +59,19 @@ Personal Statement
 </thead>
 <tbody>
 <tr>
-<td style="font-size:13px;" class="text-muted">
+<td class="text-muted">
 {{ results.statement.about!=null?results.statement.about:'Missing' }}
 </td>
 </tr>
 </tbody>
 </table>
 
-<el-divider></el-divider>
 
-<table class="table" style="border:none;">
+<table class="table mt-3" style="border:none;">
 <thead style="border:none;">
 <tr style="border:none;">
 <th scope="col" colspan="8" style="border:none;color:#07372F;">
 <div>
-<em class="icon ni ni-caret-right-fill"></em>
 Professional Services I Provide
 </div>
 </th>
@@ -106,7 +103,6 @@ Professional Services I Provide
 <tr>
 <th scope="col" colspan="8" style="border:none;color:#07372F;" class="pt-2">
 <div>
-<em class="icon ni ni-caret-right-fill"></em>
 Identification Documents
 </div>
 </th>
@@ -144,7 +140,7 @@ Identification Documents
 <thead>
 <th colspan="8" style="border:none;color:#07372F;">
 <div>
-<em class="icon ni ni-caret-right-fill"></em> Work Experience
+Work Experience
 </div>
 </th>
 </thead>
@@ -184,7 +180,7 @@ Identification Documents
 <tr>
 <th scope="col" colspan="8" style="border:none;color:#07372F;">
 <div>
-<em class="icon ni ni-caret-right-fill"></em> Profession References
+Profession References
 </div>
 </th>
 </tr>
