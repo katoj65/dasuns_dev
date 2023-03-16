@@ -22,6 +22,7 @@ use App\Http\Controllers\PSSU\PSSUController;
 use App\Http\Controllers\Employee\EmployeeController;
 use App\Http\Controllers\Appointment\AppointmentController;
 use App\Http\Controllers\Cart\CartController;
+use App\Http\Controllers\Settings\UserSettingsController;
 
 
 /*
@@ -206,3 +207,5 @@ Route::middleware(['auth:sanctum', 'verified'])->post('/employee/approve',[Recep
 Route::middleware(['auth:sanctum', 'verified'])->post('/pssu/institution/update-contact-person',[PSSUController::class,'update_innstitution_contact_person'])->name('pssu.update_contact_person');
 
 Route::middleware(['auth:sanctum', 'verified'])->post('/pssu/peroanl-profile',[PSSUController::class,'update_personal_profile'])->name('pssu.update_profile');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/settings',[UserSettingsController::class,'index'])->name('settings');

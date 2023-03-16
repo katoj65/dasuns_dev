@@ -45,9 +45,95 @@
 </div>
 
 
-
 <div class="card-body p-0 m-0">
-<table class="table">
+
+<!------Start warning messages-------->
+
+
+
+<div class="p-3 bg-warning-dim" style="margin:-20px;"  v-if="response.user_data.pssp_attributes.identification_documents.length==0 || response.user_data.pssp_attributes.experience.length==0 || response.user_data.pssp_attributes.references.length==0 || response.user_data.pssp_attributes.services.length==0">
+<em class="icon ni ni-alert-circle text-warning" style="margin-right:10px;"></em>
+Fill in all missing information
+</div>
+
+<div class="p-3 bg-warning-dim" style="margin:-20px;" v-else>
+
+<div v-if="$page.props.auth.user.status=='pending'">
+<em class="icon ni ni-alert-circle text-warning" style="margin-right:10px;"></em>
+Dasuns team is reviewing your application, you will be contacted shortly.
+</div>
+
+<div v-else-if="$page.props.auth.user.status=='interview'">
+<strong>
+Interview has been scheduled
+</strong>
+<p class="pt-2 pb-2">
+<span class="mr-3">
+<em class="icon ni ni-calender-date text-warning"></em>
+{{ date_format(interview.date) }}
+</span>
+<span>
+<em class="icon ni ni-clock text-warning"></em>
+{{ interview.time.substring(0,5) }}
+</span>
+</p>
+<p class="pt-1 pb-2">
+{{ interview.comment }}
+</p>
+<div>
+<div>
+<a href="#" @click="show_panelist()"><strong><em class="icon ni ni-users-fill text-warning"></em>
+{{ interview.panelists.length>1?interview.panelists.length+' Panelists':interview.panelists.length+' Panelist' }}
+
+</strong></a>
+</div>
+</div>
+</div>
+
+<div v-else-if="$page.props.auth.user.status=='declined'">
+Your application was declined
+
+</div>
+</div>
+
+<div class="p-3 bg-warning-dim" v-if="message!=null && decline==null && interview==null">
+<em class="icon ni ni-alert-circle"></em>
+{{ message }}
+</div>
+
+<div class="p-3 bg-warning-dim" v-else-if="decline!=null && interview==null">
+<div><strong>
+Your application was declined
+</strong></div>
+<div class="pt-2">
+{{ decline.message }}
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--------End warning messages------->
+
+
+
+
+<table class="table mt-4">
 <thead style="border:none;">
 <tr style="border:none;">
 <th scope="col" colspan="8" style="border:none;color:#07372F;">
@@ -80,7 +166,7 @@ Professional Services I Provide
 <tbody v-if="results.services.length>0" style="border:none;">
 <tr v-for="s in results.services" :key="s.id" style="border:none;">
 <td colspan="8" style="border:none;" class="pl-5">
-<em class="icon ni ni-bullet-fill"></em> {{ s.name }}
+<em class="icon ni ni-chevron-right"></em> {{ s.name }}
 </td>
 </tr>
 <tr>
