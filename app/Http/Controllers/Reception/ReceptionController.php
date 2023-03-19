@@ -139,27 +139,50 @@ return [
 
 //get applicants
 function get_applicants(){
-$date=new SettingsController;
-$get=DasunsUserNumberModel::select('dasuns_user_number.number','dasuns_user_number.id','dasuns_user_number.created_at','users.id as userID')
-->join('users','dasuns_user_number.userID','=','users.id')
+// $get=DasunsUserNumberModel::select('dasuns_user_number.number','dasuns_user_number.id','dasuns_user_number.created_at','users.id as userID','users.firstname','users.lastname')
+// ->join('users','dasuns_user_number.userID','=','users.id')
+// ->where('users.role','pssp')
+// ->where('users.status','pending')
+// ->orderby('dasuns_user_number.created_at','DESC')
+// ->get();
+// if(count($get)>0){
+// foreach($get as $row){
+// $data[]=[
+// 'number'=>$row->number,
+// 'date'=>$row->created_at,
+// 'services'=>count(ServiceProviderServicesModel::where('userID',$row->userID)->get()),
+// 'id'=>$row->id
+// ];
+// }
+// return $data;
+// }else{
+// return [];
+// }
+
+$get=User::select('users.firstname','users.lastname','dasuns_user_number.number','users.id as userID','dasuns_user_number.id as id','dasuns_user_number.created_at as date')
+->join('dasuns_user_number','users.ID','=','dasuns_user_number.userID')
 ->where('users.role','pssp')
-->where('dasuns_user_number.account_status','pending')
-->orderby('dasuns_user_number.created_at','DESC')
-->limit(5)
+->where('users.status','pending')
 ->get();
+
+$response=[];
 if(count($get)>0){
+
 foreach($get as $row){
-$data[]=[
+$response[]=[
+'id'=>$row->id,
+'firstname'=>$row->firstname,
+'lastname'=>$row->lastname,
 'number'=>$row->number,
-'date'=>$row->created_at,
-'services'=>count(ServiceProviderServicesModel::where('userID',$row->userID)->get()),
-'id'=>$row->id
+'count_services'=>ServiceProviderServicesModel::where('userID',$row->userID)->count(),
+'date'=>$row->date
 ];
+
 }
-return $data;
-}else{
-return [];
+
 }
+
+return $response;
 }
 
 
@@ -173,7 +196,8 @@ return [];
 
 
 //reception dashboard content
-function dashboard_content(){
+function dashboard(){
+
 
 // $applicant=DasunsUserNumberModel::select('*')
 // ->join('users','dasuns_user_number.userID','=','users.id')
@@ -210,6 +234,27 @@ function dashboard_content(){
 // 'country'=>CountryModel::get(),
 
 // ];
+
+
+
+return[
+'application_pending'=>User::join('dasuns_user_number','users.id','=','dasuns_user_number.userID')->where('users.role','pssp')->where('users.status','pending')->count(),
+
+'active_service_providers'=>User::join('dasuns_user_number','users.id','=','dasuns_user_number.userID')->where('users.role','pssp')->where('users.status','active')->count(),
+
+'active_users'=>User::join('dasuns_user_number','users.id','=','dasuns_user_number.userID')->where('users.role','pssu')->where('users.status','active')->count(),
+
+'services'=>SupportServiceModel::count(),
+'interviews'=>$this->get_interviews(),
+'declined_applications'=>[],
+'country'=>CountryModel::get(),
+'applicants'=>$this->get_applicants(),
+
+
+
+
+
+];
 
 
 
@@ -258,9 +303,7 @@ return $playload;
 //get interviews
 function get_interviews(){
 $get=DasunsUserNumberModel::select('pssp_interview_schedule.date',
-'pssp_interview_schedule.time',
-'dasuns_user_number.number',
-'pssp_interview_schedule.comment',
+'pssp_interview_schedule.time','dasuns_user_number.number','pssp_interview_schedule.comment',
 'pssp_interview_schedule.id')
 ->join('pssp_interview_schedule','dasuns_user_number.id','=','pssp_interview_schedule.applicationID')
 ->join('users','dasuns_user_number.userID','=','users.id')

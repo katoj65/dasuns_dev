@@ -64,7 +64,7 @@ $user_data['get_pssp_services']=$this->get_registered_positions()];
 //reception account
 elseif($role=='reception'){
 $reception_controller=new ReceptionController;
-$user_data=$reception_controller->dashboard_content();
+$user_data=$reception_controller->dashboard();
 }
 
 //finance
