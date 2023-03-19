@@ -209,3 +209,11 @@ Route::middleware(['auth:sanctum', 'verified'])->post('/pssu/institution/update-
 Route::middleware(['auth:sanctum', 'verified'])->post('/pssu/peroanl-profile',[PSSUController::class,'update_personal_profile'])->name('pssu.update_profile');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/settings',[UserSettingsController::class,'index'])->name('settings');
+
+//delete account.
+Route::middleware(['auth:sanctum', 'verified'])->post('/account/destroy-user-account',function () {
+return('some information');
+})->name('account.destroy');
+
+//update password.
+Route::middleware(['auth:sanctum', 'verified'])->post('/account/update-password',[UserSettingsController::class,'change_password'])->name('account.update_password');

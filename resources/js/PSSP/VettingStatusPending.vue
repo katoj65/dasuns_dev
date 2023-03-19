@@ -96,19 +96,19 @@ Your application was declined
 </div>
 </div>
 
-<div class="p-3 bg-warning-dim" v-if="message!=null && decline==null && interview==null">
+<!-- <div class="p-3 bg-warning-dim" v-if="message!=null && decline==null && interview==null">
 <em class="icon ni ni-alert-circle"></em>
 {{ message }}
-</div>
+</div> -->
 
-<div class="p-3 bg-warning-dim" v-else-if="decline!=null && interview==null">
+<!-- <div class="p-3 bg-warning-dim" v-else-if="decline!=null && interview==null">
 <div><strong>
 Your application was declined
 </strong></div>
 <div class="pt-2">
 {{ decline.message }}
 </div>
-</div>
+</div> -->
 
 
 

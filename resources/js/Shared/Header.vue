@@ -195,7 +195,7 @@ Exit
 <div class="dropdown-inner">
 <ul class="link-list">
 <li><Inertia-link :href="route('profile')"><em class="icon ni ni-user-alt"></em><span>View Profile</span></Inertia-link></li>
-<li><a href="html/user-profile-setting.html"><em class="icon ni ni-setting-alt"></em><span>Account Setting</span></a></li>
+<li><Inertia-link :href="route('settings')"><em class="icon ni ni-setting-alt"></em><span>Account Setting</span></Inertia-link></li>
 <li><a href="html/user-profile-activity.html"><em class="icon ni ni-activity-alt"></em><span>Login Activity</span></a></li>
 <li><Inertia-link :href="route('employee')" v-if="user.role=='admin' || user.role=='reception'"><em class="icon ni ni-activity-alt"></em><span>Employees</span></Inertia-link></li>
 <!-- <li><a class="dark-switch" href="#"><em class="icon ni ni-moon"></em><span>Dark Mode</span></a></li> -->
