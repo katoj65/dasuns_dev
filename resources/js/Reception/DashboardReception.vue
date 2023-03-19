@@ -78,7 +78,7 @@ Service Provider Applications
 <table class="table table-borderless">
 <thead>
 <tr>
-<th scope="col" colspan="2" class="border-0">Name</th>
+<th scope="col" colspan="2" class="border-0">Names of Service Provider</th>
 <th scope="col" class="border-0">Service Number</th>
 <th scope="col" colspan="2" class="border-0">Application Date</th>
 </tr>
@@ -91,7 +91,7 @@ Service Provider Applications
 </span>
 </div></td>
 <td class="text-transform">
-<div class="bold">{{ item.firstname }} {{ item.lastname }}</div>
+<div>{{ item.firstname }} {{ item.lastname }}</div>
 <div class="text-success" style="font-size:14px;">
 {{ item.count_services>1?item.count_services+' Profession Services':item.count_services+' Profession Service' }}
 </div>
