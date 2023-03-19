@@ -302,15 +302,9 @@ return $playload;
 
 //get interviews
 function get_interviews(){
-$get=DasunsUserNumberModel::select('pssp_interview_schedule.date',
-'pssp_interview_schedule.time','dasuns_user_number.number','pssp_interview_schedule.comment',
-'pssp_interview_schedule.id')
-->join('pssp_interview_schedule','dasuns_user_number.id','=','pssp_interview_schedule.applicationID')
-->join('users','dasuns_user_number.userID','=','users.id')
+$get=PSSPInterviewScheduleModel::select('dasuns_user_number.id','pssp_interview_schedule.date','pssp_interview_schedule.time','pssp_interview_schedule.comment','pssp_interview_schedule.status','dasuns_user_number.number')
+->join('dasuns_user_number','pssp_interview_schedule.service_providerID','=','dasuns_user_number.userID')
 ->where('pssp_interview_schedule.status','scheduled')
-->where('users.status','interview')
-->orderby('pssp_interview_schedule.date','DESC')
-->orderby('pssp_interview_schedule.time','DESC')
 ->limit(6)
 ->get();
 return $get;

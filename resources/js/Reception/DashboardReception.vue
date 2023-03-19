@@ -48,14 +48,13 @@
 </div>
 </el-card><!-- .card -->
 </div><!-- .col -->
+</div>
 
 
 
 
 
-
-
-
+<div class="row g-gs">
 
 <div class="col-md-8 col-xxl-4">
 <el-card class="card card-full p-0" shadow="never">
@@ -79,9 +78,9 @@ Service Provider Applications
 <table class="table table-borderless">
 <thead>
 <tr>
-<th scope="col" colspan="2">Name</th>
-<th scope="col">Service Number</th>
-<th scope="col" colspan="2">Application Date</th>
+<th scope="col" colspan="2" class="border-0">Name</th>
+<th scope="col" class="border-0">Service Number</th>
+<th scope="col" colspan="2" class="border-0">Application Date</th>
 </tr>
 </thead>
 <tbody v-if="applicants.length>0">
@@ -131,17 +130,43 @@ No applications
 
 
 <div class="col-md-4 col-xxl-4">
-<el-card class="card card-full" shadow="never">
+
+
+<el-card class="card card-full" shadow="never" style="padding:0;">
 <div slot="header" class="clearfix">
-<strong>Interview </strong>
+<strong>Interviews </strong>
 <!-- <el-button style="float: right; padding: 3px 0" type="text">Operation button</el-button> -->
 </div>
-<div class="card-body">
+<div style="margin:-20px">
+<table class="table table-borderless m-0 p-0">
+<thead>
+<tr>
+<th scope="col" class="border-0" colspan="3">Interview Date and Time</th>
+</tr>
+</thead>
+<tbody v-if="interview.length>0">
+<tr v-for="i in interview" :key="i.id">
+<td style="width:50px;">
+<div class="user-avatar  bg-light user-avatar xs">
+<em class="icon ni ni-calender-date"></em>
+</div>
+</td>
+<td>
+<div>
+{{ i.date.split('-').reverse().join('/') }} - {{ i.time.substring(0,5) }}</div>
+<div class="text-success">
+Service Number: <strong>{{ i.number }}</strong>
+</div>
+</td>
 
-
-
-
-
+</tr>
+</tbody>
+<tbody v-else>
+<tr>
+<td colspan="2" class="text-muted">No interview</td>
+</tr>
+</tbody>
+</table>
 
 
 
@@ -158,6 +183,91 @@ No applications
 </div>
 </el-card>
 </div>
+</div>
+
+
+
+<div class="row g-gs">
+
+
+
+
+<div class="col-md-4 col-xxl-4">
+<el-card class="card card-full" shadow="never">
+<div class="card-inner d-flex flex-column h-100">
+<div class="card-title-group mb-3">
+<div class="card-title">
+<h6 class="title">
+<em class="icon ni ni-wallet-fill" style="font-size:30px;"></em>
+Payments</h6>
+<p>In last 30 days top invested schemes.</p>
+</div>
+<div class="card-tools mt-n4 mr-n1">
+<div class="drodown">
+<a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
+<div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
+<ul class="link-list-opt no-bdr">
+<li><a href="#"><span>15 Days</span></a></li>
+<li><a href="#" class="active"><span>30 Days</span></a></li>
+<li><a href="#"><span>3 Months</span></a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="progress-list gy-3">
+<div class="progress-wrap">
+<div class="progress-text">
+<div class="progress-label">Strater Plan</div>
+<div class="progress-amount">58%</div>
+</div>
+<div class="progress progress-md">
+<div class="progress-bar" data-progress="58" style="width: 58%;"></div>
+</div>
+</div>
+<div class="progress-wrap">
+<div class="progress-text">
+<div class="progress-label">Silver Plan</div>
+<div class="progress-amount">18.49%</div>
+</div>
+<div class="progress progress-md">
+<div class="progress-bar bg-orange" data-progress="18.49" style="width: 18.49%;"></div>
+</div>
+</div>
+<div class="progress-wrap">
+<div class="progress-text">
+<div class="progress-label">Dimond Plan</div>
+<div class="progress-amount">16%</div>
+</div>
+<div class="progress progress-md">
+<div class="progress-bar bg-teal" data-progress="16" style="width: 16%;"></div>
+</div>
+</div>
+<div class="progress-wrap">
+<div class="progress-text">
+<div class="progress-label">Platinam Plan</div>
+<div class="progress-amount">29%</div>
+</div>
+<div class="progress progress-md">
+<div class="progress-bar bg-pink" data-progress="29" style="width: 29%;"></div>
+</div>
+</div>
+<div class="progress-wrap">
+<div class="progress-text">
+<div class="progress-label">Vibranium Plan</div>
+<div class="progress-amount">33%</div>
+</div>
+<div class="progress progress-md">
+<div class="progress-bar bg-azure" data-progress="33" style="width: 33%;"></div>
+</div>
+</div>
+</div>
+<div class="invest-top-ck mt-auto">
+<canvas class="iv-plan-purchase" id="planPurchase"></canvas>
+</div>
+</div>
+</el-card>
+</div><!-- .col -->
 
 
 
@@ -168,6 +278,110 @@ No applications
 
 
 
+
+
+
+
+
+
+<div class="col-md-4 col-xxl-4">
+<el-card class="card card-full" shadow="never">
+<div class="card-inner d-flex flex-column h-100">
+<div class="card-title-group mb-3">
+<div class="card-title">
+<h6 class="title">Top Invested Plan</h6>
+<p>In last 30 days top invested schemes.</p>
+</div>
+<div class="card-tools mt-n4 mr-n1">
+<div class="drodown">
+<a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
+<div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
+<ul class="link-list-opt no-bdr">
+<li><a href="#"><span>15 Days</span></a></li>
+<li><a href="#" class="active"><span>30 Days</span></a></li>
+<li><a href="#"><span>3 Months</span></a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="progress-list gy-3">
+<div class="progress-wrap">
+<div class="progress-text">
+<div class="progress-label">Strater Plan</div>
+<div class="progress-amount">58%</div>
+</div>
+<div class="progress progress-md">
+<div class="progress-bar" data-progress="58" style="width: 58%;"></div>
+</div>
+</div>
+<div class="progress-wrap">
+<div class="progress-text">
+<div class="progress-label">Silver Plan</div>
+<div class="progress-amount">18.49%</div>
+</div>
+<div class="progress progress-md">
+<div class="progress-bar bg-orange" data-progress="18.49" style="width: 18.49%;"></div>
+</div>
+</div>
+<div class="progress-wrap">
+<div class="progress-text">
+<div class="progress-label">Dimond Plan</div>
+<div class="progress-amount">16%</div>
+</div>
+<div class="progress progress-md">
+<div class="progress-bar bg-teal" data-progress="16" style="width: 16%;"></div>
+</div>
+</div>
+<div class="progress-wrap">
+<div class="progress-text">
+<div class="progress-label">Platinam Plan</div>
+<div class="progress-amount">29%</div>
+</div>
+<div class="progress progress-md">
+<div class="progress-bar bg-pink" data-progress="29" style="width: 29%;"></div>
+</div>
+</div>
+<div class="progress-wrap">
+<div class="progress-text">
+<div class="progress-label">Vibranium Plan</div>
+<div class="progress-amount">33%</div>
+</div>
+<div class="progress progress-md">
+<div class="progress-bar bg-azure" data-progress="33" style="width: 33%;"></div>
+</div>
+</div>
+</div>
+<div class="invest-top-ck mt-auto">
+<canvas class="iv-plan-purchase" id="planPurchase"></canvas>
+</div>
+</div>
+</el-card>
+</div><!-- .col -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="col-md-4 col-xxl-4">
+<el-card class="card card-full" shadow="never">
+
+</el-card>
+</div><!-- .col -->
 
 
 
@@ -183,6 +397,12 @@ No applications
 
 
 </div>
+
+
+
+
+
+
 </div>
 </div>
 </div>
@@ -251,3 +471,8 @@ return this.response.user_data.applicants;
 
 }
 </script>
+<style scoped>
+table thead th{
+border:none;
+}
+</style>
