@@ -1,6 +1,5 @@
 <template>
 <app-layout>
-
 <div>
 <div v-if="user.role=='admin' || user.role=='reception' || user.role=='finance'">
 <employee-profile-component :response="response" :flash="flash" :errors="errors"></employee-profile-component>
@@ -104,10 +103,10 @@
 </ul>
 
 
+<div class="team-view">
+<Inertia-link :href="route('dashboard')" class="btn btn-block btn-success"><span>Dashboard</span></Inertia-link>
 
-<!-- <div class="team-view">
-<a href="html/user-details-regular.html" class="btn btn-block btn-dim btn-primary"><span>View Profile</span></a>
-</div> -->
+</div>
 
 
 
@@ -127,6 +126,12 @@
 
 </div>
 <div class="col-md-8">
+
+
+
+
+
+
 <el-card class="card box-card shadow-none h-100">
 <div slot="header" class="clearfix">
 <span style="font-weight:bold;">Service Provider Profile Details</span>
@@ -136,10 +141,25 @@
 <div class="card-body">
 
 
-<div slot="header" class="clearfix bg-warning-dim p-2 mb-4"  v-if="$page.props.auth.user.status=='pending'" style="margin:-20px;">
-<span><em class="icon ni ni-shield-alert text-warning"></em> Your account has not yet been approved by Dasuns Management Team</span>
+<div slot="header" class="clearfix bg-warning-dim p-2 mb-4"  v-if="status.status=='incomplete'||status.status=='pending' || status.status=='interview'" style="margin:-20px;">
+<span><em class="icon ni ni-shield-alert text-warning"></em>
+{{ status.message }}
+</span>
 <!-- <el-button style="float: right; padding: 3px 0" type="text">Operation button</el-button> -->
 </div>
+
+
+
+<div slot="header" class="clearfix bg-danger-dim p-2 mb-4"  v-else-if="status.status=='declined'" style="margin:-20px;">
+<span><em class="icon ni ni-shield-alert text-warning"></em>
+{{ status.message }}
+</span>
+</div>
+
+
+
+
+
 
 
 
@@ -949,6 +969,16 @@ type: 'success'
 },
 mounted(){
 this.get_dasuns_number();
+},
+
+computed:{
+status(){
+return this.response.user_data.interview_status;
+}
+
+
+
+
 }
 
 

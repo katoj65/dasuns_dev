@@ -15,6 +15,7 @@ use App\Models\DasunsUserNumberModel;
 use App\Http\Controllers\DasunsNumber\DasunsNumberController;
 use App\Models\User;
 use App\Models\AppointmentModel;
+use App\Models\InterviewStatusModel;
 
 
 
@@ -161,6 +162,7 @@ return Inertia::render('ServiceProviderPage',$data);
 
 //get pssp attributes
 function get_pssp_attributes($id){
+
 $account_status=PSSPController::pssp_dasuns_number();
 $get_services=ServiceProviderServicesModel::select('support_service.name','support_service.id')
 ->join('support_service','service_provider_services.serviceID','=','support_service.id')
@@ -198,7 +200,8 @@ return[
 'interview_failure'=>Auth::user()->status=='failed'?[]:[],
 'requests'=>$requests,
 'profile'=>$this->get_pssp_profile(),
-'dasuns_number'=>DasunsNumberController::get_dasuns_user_number()
+'dasuns_number'=>DasunsNumberController::get_dasuns_user_number(),
+'interview_status'=>PSSPController::get_interview_status(),
 
 ];
 }
@@ -213,6 +216,7 @@ return[
 
 //dashboard
 static function dashboard(){
+PSSPController::interview_status();
 
 //generate content by status
 $status=Auth::user()->status;
@@ -221,8 +225,6 @@ $get_services=ServiceProviderServicesModel::select('support_service.name','suppo
 ->join('support_service','service_provider_services.serviceID','=','support_service.id')
 ->where('service_provider_services.userID',Auth::user()->id)
 ->get();
-
-
 
 //
 return [
@@ -235,6 +237,7 @@ return [
 'interview_decline'=>InterviewController::get_declined_interview_by_userID(Auth::user()->id),
 'interview_failure'=>Auth::user()->status=='failed'?[]:[],
 'statement'=>PSSPController::get_pssp_profile(),
+'interview_status'=>PSSPController::get_interview_status(),
 
 
 ];
@@ -257,11 +260,6 @@ return [
 
 
 }
-
-
-
-
-
 
 
 
@@ -365,6 +363,82 @@ return redirect('/profile')->with('success','About has been updated.');
 }
 
 
+
+
+
+
+//interview status
+static function interview_status(){
+
+
+
+
+
+$documents=ServiceProviderSecurityDetailsModel::where('userID',Auth::user()->id)->count();
+$experience=ServiceProviderExperienceModel::where('userID',Auth::user()->id)->count();
+$references=ServiceProviderReferenceModel::where('userID',Auth::user()->id)->count();
+if($documents!=0 and $experience!=0 and $references!=0){
+$user_status=Auth::user()->status;
+$message=null;
+$state=null;
+
+if($user_status=='interview'){
+$message='Interview has been scheduled';
+$state='interview';
+}elseif($user_status=='declined'){
+$message='Your application has been declined';
+$state='declined';
+}elseif($user_status=='active'){
+$message='Your application has been approved.';
+$state='approved';
+}else{
+$message='Your application is under review, Dasuns will contact you soon.';
+$state='pending';
+}
+
+
+
+if($user_status!=='active'){
+InterviewStatusModel::where('userID',Auth::user()->id)->update(['userID'=>Auth::user()->id,'status'=>$state,'message'=>$message]);
+}
+
+
+
+}else{
+$status=InterviewStatusModel::where('userID',Auth::user()->id)->count();
+if($status==0){
+InterviewStatusModel::insert(['userID'=>Auth::user()->id,
+'status'=>'incomplete',
+'message'=>'You are required to fill in all documents.']);
+}else{
+
+ InterviewStatusModel::where('userID',Auth::user()->id)->update(['userID'=>Auth::user()->id,
+'status'=>'incomplete',
+'message'=>'Fill in the missing information to allow Dasuns review your application on time.']);
+}
+
+}
+}
+
+
+
+
+
+
+
+
+//get interview status
+static function get_interview_status(){
+$get=InterviewStatusModel::where('userID',Auth::user()->id)->get();
+if(count($get)==1){
+foreach($get as $row);
+return $row;
+}else{
+    return [];
+}
+
+
+}
 
 
 

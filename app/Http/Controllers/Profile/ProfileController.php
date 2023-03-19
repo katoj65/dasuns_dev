@@ -31,6 +31,7 @@ use App\Http\Controllers\DasunsNumber\DasunsNumberController;
 use App\Http\Controllers\PSSU\PSSUController;
 use App\Http\Controllers\Reception\ReceptionController;
 use App\Models\CountryModel;
+use App\Http\Controllers\PSSP\PSSPController;
 
 
 
@@ -82,7 +83,7 @@ $list=SupportServiceModel::get();
 $user=Auth::user();
 
 if($user->role=='pssp'){
-
+PSSPController::interview_status();
 $docs=new DocumentsController;
 $user_data=[
 'security_documents'=>$docs->get_security_documents(),
@@ -91,6 +92,7 @@ $user_data=[
 'requirements'=>$this->get_pssp_additional_requirements(),
 'list_services'=>$list,
 'experience'=>ServiceProviderExperienceModel::where('userID',$user->id)->get(),
+'interview_status'=>PSSPController::get_interview_status(),
 ];
 
 }elseif($user->role=='panelist'){

@@ -1,11 +1,15 @@
 <template>
 <div class="row mt-2">
+
 <div class="col-12 col-md-4">
+
+
+
 <el-card shadow="never" class="card h-100">
 <div class="card-inner">
 <div class="team">
 <div class="user-card user-card-s2">
-<div class="user-avatar lg" style="background:#37BEA7;">
+<div class="user-avatar lg bg-success">
 <span><em class="icon ni ni-user-alt-fill"></em></span>
 </div>
 <div class="user-info text-transform">
@@ -37,6 +41,11 @@
 
 
 
+
+
+
+
+
 <div class="col-12 col-md-8">
 <el-card shadow="never" class="card h-100">
 <div slot="header" class="clearfix">
@@ -51,84 +60,24 @@
 
 
 
-<div class="p-3 bg-warning-dim" style="margin:-20px;"  v-if="response.user_data.pssp_attributes.identification_documents.length==0 || response.user_data.pssp_attributes.experience.length==0 || response.user_data.pssp_attributes.references.length==0 || response.user_data.pssp_attributes.services.length==0">
+
+
+<div class="p-3 bg-warning-dim" style="margin:-20px;" v-if="status.status=='incomplete' || status.status=='pending'">
 <em class="icon ni ni-alert-circle text-warning" style="margin-right:10px;"></em>
-Fill in all missing information
+{{ status.message }}
 </div>
 
-<div class="p-3 bg-warning-dim" style="margin:-20px;" v-else>
 
-<div v-if="$page.props.auth.user.status=='pending'">
+<div class="p-3 bg-danger-dim" style="margin:-20px;" v-else-if="status.status=='declined'">
 <em class="icon ni ni-alert-circle text-warning" style="margin-right:10px;"></em>
-Dasuns team is reviewing your application, you will be contacted shortly.
+{{ status.message }}
 </div>
-
-<div v-else-if="$page.props.auth.user.status=='interview'">
-<strong>
-Interview has been scheduled
-</strong>
-<p class="pt-2 pb-2">
-<span class="mr-3">
-<em class="icon ni ni-calender-date text-warning"></em>
-{{ date_format(interview.date) }}
-</span>
-<span>
-<em class="icon ni ni-clock text-warning"></em>
-{{ interview.time.substring(0,5) }}
-</span>
-</p>
-<p class="pt-1 pb-2">
-{{ interview.comment }}
-</p>
-<div>
-<div>
-<a href="#" @click="show_panelist()"><strong><em class="icon ni ni-users-fill text-warning"></em>
-{{ interview.panelists.length>1?interview.panelists.length+' Panelists':interview.panelists.length+' Panelist' }}
-
-</strong></a>
-</div>
-</div>
-</div>
-
-<div v-else-if="$page.props.auth.user.status=='declined'">
-Your application was declined
-
-</div>
-</div>
-
-<!-- <div class="p-3 bg-warning-dim" v-if="message!=null && decline==null && interview==null">
-<em class="icon ni ni-alert-circle"></em>
-{{ message }}
-</div> -->
-
-<!-- <div class="p-3 bg-warning-dim" v-else-if="decline!=null && interview==null">
-<div><strong>
-Your application was declined
-</strong></div>
-<div class="pt-2">
-{{ decline.message }}
-</div>
-</div> -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 <!--------End warning messages------->
+
+
+
 
 
 
@@ -195,7 +144,7 @@ Identification Documents
 </tr>
 </thead>
 <tbody v-if="results.identification.length>0" style="border:none;">
-<tr v-for="d in attributes.identification" :key="d.id" style="border:none;">
+<tr v-for="d in results.identification" :key="d.id" style="border:none;">
 <td colspan="3" style="border:none;">
 <div class="pl-4">
 {{ d.document }}
@@ -331,6 +280,26 @@ Names
 
 </el-card>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </div>
 </template>
 <script>
@@ -355,7 +324,6 @@ return this.response.user_data.pssp_attributes.dasuns_number;
 results(){
 const item=this.response.user_data.pssp_attributes;
 const response={
-
 'identification':item.identification_documents,
 'services':item.services,
 'experience':item.experience,
@@ -366,6 +334,10 @@ const response={
 
 };
 return response;
+},
+
+status(){
+return this.response.user_data.pssp_attributes.interview_status;
 }
 
 

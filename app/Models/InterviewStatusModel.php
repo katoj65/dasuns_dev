@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class InterviewStatusModel extends Model
 {
     use HasFactory;
+    protected $table='interview_status';
 }
