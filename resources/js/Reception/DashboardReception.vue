@@ -11,8 +11,6 @@
 
 
 
-
-
 <div class="col-md-3" v-for="m in menu" :key="m.id">
 <el-card class="card  card-full" shadow="never">
 <div class="card-inner">
@@ -63,7 +61,6 @@
 <div class="card-title">
 <h6 class="title">
 Service Provider Applications
-
 </h6>
 </div>
 <div class="card-tools">
@@ -73,8 +70,7 @@ Service Provider Applications
 </div>
 </div>
 
-<div class="pt-2">
-{{ applicant }}
+<div class="pt-4">
 <table class="table table-borderless">
 <thead>
 <tr>
@@ -85,7 +81,8 @@ Service Provider Applications
 </thead>
 <tbody v-if="applicants.length>0">
 <tr  v-for="item in applicants" :key="item.id">
-<td><div class="user-avatar user-avatar-sm bg-success-dim">
+<td>
+<div class="user-avatar user-avatar-sm bg-success-dim">
 <span>
 <em class="icon ni ni-user-list-fill"></em>
 </span>
@@ -152,11 +149,13 @@ No applications
 </div>
 </td>
 <td>
+<Inertia-link :href="route('interview',[i.id])">
 <div>
-{{ i.date.split('-').reverse().join('/') }} - {{ i.time.substring(0,5) }}</div>
+{{ i.date.split('-').reverse().join('/') }} <span class="pl-2"><em class="icon ni ni-clock"></em> {{ i.time.substring(0,5) }}</span> </div>
 <div class="text-success">
 Service Number: <strong>{{ i.number }}</strong>
 </div>
+</Inertia-link>
 </td>
 
 </tr>
@@ -379,7 +378,65 @@ Payments</h6>
 
 <div class="col-md-4 col-xxl-4">
 <el-card class="card card-full" shadow="never">
+<div class="card-body p-0">
+<div class="card-title">
+<h4>
+Declined Applications
+</h4>
+</div>
+<div>
+<div>
+<table class="table table-borderless">
+<thead>
+<tr>
+<th scope="col" colspan="2">Date and Time</th>
+</tr>
+</thead>
+<tbody v-if="declined_application.length>0">
 
+<tr v-for="d in declined_application" :key="d.id">
+<td style="width:20px;">
+<div class="user-avatar xs bg-dark">
+<span><em class="icon ni ni-calendar-booking"></em></span>
+</div>
+</td>
+<td>
+<div>
+{{ d.date }}
+<span class="pl-2">
+<em class="icon ni ni-clock"></em>
+{{ d.time }}</span>
+</div>
+<div>
+Service Number:
+<strong>{{ d.number }}</strong>
+</div>
+
+</td>
+</tr>
+
+
+
+
+
+
+</tbody>
+<tbody v-else>
+<tr>
+<td colspan="2" class="text-muted">
+No declined application
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+
+
+
+</div>
+</div>
 </el-card>
 </div><!-- .col -->
 
@@ -447,6 +504,10 @@ return this.response.user_data.interviews;
 
 applicants(){
 return this.response.user_data.applicants;
+},
+
+declined_application(){
+return this.response.user_data.declined_applications;
 }
 
 

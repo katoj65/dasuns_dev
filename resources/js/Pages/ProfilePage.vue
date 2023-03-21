@@ -1,7 +1,7 @@
 <template>
 <app-layout>
 <div>
-<div v-if="user.role=='admin' || user.role=='reception' || user.role=='finance'">
+<div v-if="user.role=='admin' || user.role=='reception' || user.role=='finance' || user.role=='admin'">
 <employee-profile-component :response="response" :flash="flash" :errors="errors"></employee-profile-component>
 </div>
 <div v-else>

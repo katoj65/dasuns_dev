@@ -2,8 +2,7 @@
 <app-layout>
 <div class="row pt-2 pb-3">
 <div class="col-12 col-md-4">
-
-<div class="card  h-100">
+<el-card class="card  h-100" shadow="never">
 <div class="card-inner">
 <div class="team">
 <div class="user-card user-card-s2 ">
@@ -63,23 +62,29 @@
 
 </div><!-- .team -->
 </div><!-- .card-inner -->
+</el-card>
 </div>
 
 
 
-</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 <div class="col-12 col-md-8">
-<div class="card h-100">
-<div class="card-header">
-
-<div class="card-title-group mt-0">
-<div class="card-title">
-<h6 class="title">
-<page-title :title="page_title"></page-title>
-</h6>
-</div>
-<div class="card-tools" v-if="$page.props.auth.user.role=='reception' && i.status!='active'">
-<el-dropdown trigger="click">
+<el-card class="card h-100" shadow="true">
+<div slot="header" class="clearfix">
+<span><strong style="font-size:18px;">Interview Appointment</strong></span>
+<el-dropdown trigger="click" style="float:right;" v-if="role=='reception'">
 <span class="el-dropdown-link">
 <buttopn class="btn bg-success" ><em class="icon ni ni-more-h text-white"></em></buttopn>
 </span>
@@ -87,13 +92,10 @@
 <el-dropdown-item><a href="#" style="padding:5px;" @click="delete_item(response.interview.interviewID)">Delete</a></el-dropdown-item>
 </el-dropdown-menu>
 </el-dropdown>
-</div>
-</div>
-
-</div>
-<div class="card-body" style="min-height:700px;">
+  </div>
 
 
+<div class="card-body p-0" style="min-height:700px;">
 <div class="mt-0">
 <ul class="data-list is-compact">
 
@@ -424,7 +426,18 @@ Account Approval<i class="el-icon-arrow-down el-icon--right"></i>
 </div>
 </div>
 </div>
-</div>
+</el-card>
+
+
+
+<!--------->
+
+
+
+
+
+
+
 
 
 
@@ -731,7 +744,7 @@ submit_rejection(){
 this.form_rejection.post(this.route('store.interview_rejection'),{
 onSuccess:()=>{
 this.$notify({
-    position: 'bottom-right',
+position: 'bottom-right',
 title:'Successful',
 message:this.$page.props.flash.success,
 type:'success'
@@ -862,11 +875,15 @@ this.dialog.rejection=false;
 }
 
 
-
-
-
-
 },
+
+computed:{
+role(){
+return this.$page.props.auth.user.role;
+}
+
+
+}
 
 
 

@@ -163,6 +163,7 @@ $get=User::select('users.firstname','users.lastname','dasuns_user_number.number'
 ->join('dasuns_user_number','users.ID','=','dasuns_user_number.userID')
 ->where('users.role','pssp')
 ->where('users.status','pending')
+->orderby('dasuns_user_number.created_at','DESC')
 ->get();
 
 $response=[];
@@ -237,6 +238,7 @@ function dashboard(){
 
 
 
+
 return[
 'application_pending'=>User::join('dasuns_user_number','users.id','=','dasuns_user_number.userID')->where('users.role','pssp')->where('users.status','pending')->count(),
 
@@ -246,7 +248,7 @@ return[
 
 'services'=>SupportServiceModel::count(),
 'interviews'=>$this->get_interviews(),
-'declined_applications'=>[],
+'declined_applications'=>$this->declined_interviews(),
 'country'=>CountryModel::get(),
 'applicants'=>$this->get_applicants(),
 
@@ -302,9 +304,13 @@ return $playload;
 
 //get interviews
 function get_interviews(){
-$get=PSSPInterviewScheduleModel::select('dasuns_user_number.id','pssp_interview_schedule.date','pssp_interview_schedule.time','pssp_interview_schedule.comment','pssp_interview_schedule.status','dasuns_user_number.number')
+$get=PSSPInterviewScheduleModel::select('pssp_interview_schedule.id','pssp_interview_schedule.date','pssp_interview_schedule.time','pssp_interview_schedule.comment','pssp_interview_schedule.status','dasuns_user_number.number')
 ->join('dasuns_user_number','pssp_interview_schedule.service_providerID','=','dasuns_user_number.userID')
+->join('users','dasuns_user_number.userID','=','users.id')
 ->where('pssp_interview_schedule.status','scheduled')
+->where('users.role','pssp')
+->where('users.status','interview')
+->orderby('pssp_interview_schedule.date','DESC')
 ->limit(6)
 ->get();
 return $get;
@@ -384,7 +390,7 @@ $get=PSSPInterviewScheduleModel::select('users.firstname',
 'pssp_interview_schedule.comment',
 'users.id as id',
 'pssp_interview_schedule.id as interviewID')
-->join('dasuns_user_number','pssp_interview_schedule.applicationID','=','dasuns_user_number.id')
+->join('dasuns_user_number','pssp_interview_schedule.service_providerID','=','dasuns_user_number.userID')
 ->join('users','dasuns_user_number.userID','=','users.id')
 ->join('service_provider_profile','users.id','=','service_provider_profile.userID')
 ->join('country','service_provider_profile.countryID','=','country.id')
@@ -401,6 +407,7 @@ $services=ServiceProviderServicesModel::select('*')
 ->where('service_provider_services.userID',$row->id)
 ->get();
 
+//
 
 $data['title']='Interview';
 $data['response']=[
@@ -418,21 +425,34 @@ $data['response']=[
 
 return Inertia::render('ShowInterviewPage',$data);
 
+
+
+
+
+
+
+
+
+
 }else{
-    return redirect('/')->with('error','Could not find interview information.');
-}
-}else{
-    return redirect('/');
+return redirect('/')->with('warning','Could not find the content.');
 }
 
+}else{
+return redirect('/')->with('warning','Could not find panelist roles.');
 }
+}
+
+
+
+
+
 
 
 
 
 //add about the reception
 public function add_reception_about(Request $request){
-
 $request->validate([
 'country'=>['required'],
 'location'=>['required'],
@@ -509,6 +529,35 @@ return redirect('/employee/'.$request->id)->with('success','Accout has been aprr
 }
 
 
+
+
+
+
+
+//declined interviews
+function declined_interviews(){
+$get=PSSPInterviewScheduleModel::select('dasuns_user_number.number','pssp_interview_schedule.date','pssp_interview_schedule.time','pssp_interview_schedule.status','pssp_interview_schedule.id')
+->join('users','pssp_interview_schedule.service_providerID','=','users.id')
+->join('dasuns_user_number','users.id','=','dasuns_user_number.userID')
+// ->where('pssp_interview_schedule.status','declined')
+->get();
+$response=[];
+if(count($get)>0){
+foreach($get as $row){
+
+$response[]=[
+'date'=>$row->date,
+'time'=>$row->time,
+'number'=>$row->number,
+'id'=>$row->id,
+'status'=>$row->status
+];
+
+}
+}
+
+return $response;
+}
 
 
 

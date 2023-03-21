@@ -23,9 +23,7 @@
 <li><a href="#"><span>Upload Picture</span></a></li>
 
 <li v-if="profile==null"><a href="#" @click="dialog.create_profile=true"><span>Add Profile</span></a></li>
-
 <li v-else><a href="#" @click="dialog.edit_profile=true"><span>Edit Profile</span></a></li>
-
 <li><a href="#" @click="dialog.delete_account=true"><span>Delete Account</span></a></li>
 </ul>
 </div>
@@ -417,7 +415,6 @@
 
 
 
-
 </el-card>
 <!-- .card -->
 </div><!-- .nk-block -->
@@ -450,6 +447,7 @@ create_profile:false,
 edit_info:false,
 delete_account:null,
 edit_profile:false,
+change_status:false,
 },
 gender:[
 {id:1,name:'male'},
@@ -556,11 +554,15 @@ items.push({id:element.id,name:element.name}
 }
 });
 return items;
+},
+
+//
+select_type(){
+item=[
+{id:1,name:'other'},
+{id:2,name:'official'}
+];
 }
-
-
-
-
 
 
 

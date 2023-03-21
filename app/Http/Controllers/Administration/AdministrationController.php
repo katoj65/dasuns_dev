@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\UserModel;
 use Illuminate\Support\Facades\Auth;
+use App\Models\EmployeeProfileModel;
 
 class AdministrationController extends Controller
 {
@@ -165,14 +166,25 @@ return null;
 
 
 
+//profile
+
+static function profile(){
+return [
+'about'=>'No content',
+
+];
+}
 
 
 
 
 
-
-
-
+//change employee status
+function change_employee_status(Request $request){
+$request->validate(['status'=>['required']]);
+EmployeeProfileModel::where('userID',12)->update(['tag'=>$request->status]);
+return redirect('/employee/'.$request->id)->with('success','Status was changed.');
+}
 
 
 

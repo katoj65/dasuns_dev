@@ -32,6 +32,7 @@ use App\Http\Controllers\PSSU\PSSUController;
 use App\Http\Controllers\Reception\ReceptionController;
 use App\Models\CountryModel;
 use App\Http\Controllers\PSSP\PSSPController;
+use App\Http\Controllers\Administration\AdministrationController;
 
 
 
@@ -83,7 +84,7 @@ $list=SupportServiceModel::get();
 $user=Auth::user();
 
 if($user->role=='pssp'){
-PSSPController::interview_status();
+//PSSPController::interview_status();
 $docs=new DocumentsController;
 $user_data=[
 'security_documents'=>$docs->get_security_documents(),
@@ -120,6 +121,15 @@ $user_data=[
 }elseif($user->role=='reception'){
 $user_data['profile']=ReceptionController::reception_profile();
 $user_data['country']=CountryModel::get();
+
+
+
+
+
+}elseif($user->role=='admin'){
+    
+ $user_data['profile']=AdministrationController::profile();
+
 }
 
 

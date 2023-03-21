@@ -216,7 +216,7 @@ return[
 
 //dashboard
 static function dashboard(){
-PSSPController::interview_status();
+//PSSPController::interview_status();
 
 //generate content by status
 $status=Auth::user()->status;
@@ -381,7 +381,6 @@ if($documents!=0 and $experience!=0 and $references!=0){
 $user_status=Auth::user()->status;
 $message=null;
 $state=null;
-
 if($user_status=='interview'){
 $message='Interview has been scheduled';
 $state='interview';

@@ -79,6 +79,7 @@ return array(
     'App\\Models\\InstitutionTypeModel' => $baseDir . '/app/Models/InstitutionTypeModel.php',
     'App\\Models\\InterviewDeclineMessageModel' => $baseDir . '/app/Models/InterviewDeclineMessageModel.php',
     'App\\Models\\InterviewPanelistModel' => $baseDir . '/app/Models/InterviewPanelistModel.php',
+    'App\\Models\\InterviewStatusModel' => $baseDir . '/app/Models/InterviewStatusModel.php',
     'App\\Models\\LogInterviewApprovalModel' => $baseDir . '/app/Models/LogInterviewApprovalModel.php',
     'App\\Models\\LogPSSPApplicationModel' => $baseDir . '/app/Models/LogPSSPApplicationModel.php',
     'App\\Models\\LogWalletModel' => $baseDir . '/app/Models/LogWalletModel.php',

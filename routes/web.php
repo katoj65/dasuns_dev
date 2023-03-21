@@ -23,6 +23,7 @@ use App\Http\Controllers\Employee\EmployeeController;
 use App\Http\Controllers\Appointment\AppointmentController;
 use App\Http\Controllers\Cart\CartController;
 use App\Http\Controllers\Settings\UserSettingsController;
+use App\Http\Controllers\Administration\AdministrationController;
 
 
 /*
@@ -106,7 +107,7 @@ Route::middleware(['auth:sanctum', 'verified'])->post('/store-pssp-experience',[
 Route::middleware(['auth:sanctum', 'verified'])->post('/delete_pssp_experience',[ProfileController::class,'delete_PSSP_work_experience'])->name('delete.pssp_experience');
 
 //jobs
-Route::middleware('guest')->get('/jobs/register',[JobController::class,'register'])->name('jobs.register');
+Route::middleware('guest')->get('/careers/register',[JobController::class,'register'])->name('jobs.register');
 
 Route::middleware(['auth:sanctum', 'verified'])->post('/delete-organisation-contact-person',[ProfileController::class,'delete_organisation_contact_person'])->name('delete.organisation_contact_person');
 
@@ -217,3 +218,7 @@ return('some information');
 
 //update password.
 Route::middleware(['auth:sanctum', 'verified'])->post('/account/update-password',[UserSettingsController::class,'change_password'])->name('account.update_password');
+
+
+//admin change employee status
+Route::middleware(['auth:sanctum', 'verified'])->post('/admin/change-employee-status',[AdministrationController::class,'change_employee_status'])->name('admin.change_employee_status');

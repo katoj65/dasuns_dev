@@ -87,18 +87,12 @@
 <div class="card-body p-0 m-0">
 
 
-
-
-
 <div class="pt-5 pb-0" v-if="status=='declined'">
 <div class="alert alert-danger alert-icon border-0" v-for="decline in response.decline_status" :key="decline.id">
 <em class="icon ni ni-shield-alert text-danger"></em> <strong>Application Declined</strong>!
 <div class="mt-2"> {{ decline.message }}</div>
  </div>
 </div>
-
-
-
 
 
 
@@ -116,14 +110,14 @@
 
 <li class="data-item" v-for="s in response.services" :key="s.id" style="border-bottom:none;" >
 <div class="data-col">
-<div class="data-label">{{ s.name }} </div>
+<div class="data-label">
+<em class="icon ni ni-dot"></em>
+{{ s.name }} </div>
 </div>
 </li>
 
 <li class="data-item" style="height:0;padding:0;">
 </li>
-
-
 
 <li class="data-item" style="border-bottom:none;">
 <div class="data-col border-0">

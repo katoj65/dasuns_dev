@@ -102,7 +102,7 @@ $id=Auth::user()->id;
 $get=PSSPInterviewRecommendationModel::select('dasuns_user_number.number',
 'pssp_interview_schedule.date','pssp_interview_schedule.id')
 ->join('pssp_interview_schedule','pssp_interview_recommendation.interviewID','=','pssp_interview_schedule.id')
-->join('dasuns_user_number','pssp_interview_schedule.applicationID','=','dasuns_user_number.id')
+->join('dasuns_user_number','pssp_interview_schedule.service_providerID','=','dasuns_user_number.userID')
 ->join('interview_panelist','pssp_interview_schedule.id','interview_panelist.interviewID')
 ->where('interview_panelist.userID',$id)
 
@@ -138,7 +138,7 @@ $get=DasunsUserNumberModel::select(
 'pssp_interview_schedule.comment',
 'pssp_interview_schedule.id',
 'dasuns_user_number.userID')
-->join('pssp_interview_schedule','dasuns_user_number.id','=','pssp_interview_schedule.applicationID')
+->join('pssp_interview_schedule','dasuns_user_number.userID','=','pssp_interview_schedule.service_providerID')
 ->join('interview_panelist','pssp_interview_schedule.id','=','interview_panelist.interviewID')
 ->where('pssp_interview_schedule.status','scheduled')
 ->where('interview_panelist.userID',$id)
@@ -157,8 +157,6 @@ if(count($get)>0){
 
     }
 
-}else{
-$data=[];
 }
 
 

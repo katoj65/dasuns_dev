@@ -649,6 +649,7 @@ class ComposerStaticInit6ca39d84c378fa455e59eb566042b810
         'App\\Models\\InstitutionTypeModel' => __DIR__ . '/../..' . '/app/Models/InstitutionTypeModel.php',
         'App\\Models\\InterviewDeclineMessageModel' => __DIR__ . '/../..' . '/app/Models/InterviewDeclineMessageModel.php',
         'App\\Models\\InterviewPanelistModel' => __DIR__ . '/../..' . '/app/Models/InterviewPanelistModel.php',
+        'App\\Models\\InterviewStatusModel' => __DIR__ . '/../..' . '/app/Models/InterviewStatusModel.php',
         'App\\Models\\LogInterviewApprovalModel' => __DIR__ . '/../..' . '/app/Models/LogInterviewApprovalModel.php',
         'App\\Models\\LogPSSPApplicationModel' => __DIR__ . '/../..' . '/app/Models/LogPSSPApplicationModel.php',
         'App\\Models\\LogWalletModel' => __DIR__ . '/../..' . '/app/Models/LogWalletModel.php',
