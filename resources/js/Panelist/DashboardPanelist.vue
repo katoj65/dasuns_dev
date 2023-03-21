@@ -6,7 +6,6 @@
 
 
 
-
 <div class="row g-gs" v-else>
 <div class="col-12 col-md-12">
 <el-card class="card p-4" shadow="never">
@@ -25,7 +24,7 @@
 <div>
 
 
-<div class="card mb-10 mt-3 border" style="border-radius:5px;">
+<div class="card mb-10 mt-2 border" style="border-radius:5px;">
 <div class="card-inner">
 <div class="team">
 
@@ -75,16 +74,17 @@
 <div class="data-col">
 <div class="data-label"><strong>PROFESSION EXPERIENCE </strong></div>
 <!-- <div class="data-value">info@softnio.com</div> -->
+
 </div>
 </li>
 <li class="data-item border-0 p-0" style="width:100%;">
 
 <div class="card  card-full" style="width:100%;">
-<div class="card-inner-group" v-if="$page.props.response.user_data.dashboard.panelist_professions.length>0">
-<div class="data-item" v-for="x in  $page.props.response.user_data.dashboard.panelist_professions" :key="x.id">
+<div class="card-inner-group" v-if="my_profile.length>0">
+<div class="data-item" v-for="x in  my_profile" :key="x.id">
 <div class="data-col">
 <span class="data-label text-transform" style="width:250px;">{{ x.name }} </span>
-<span class="data-value" style="width:100px;">{{ x.years>1?x.years+' Years':x.years+' Year' }} </span>
+<span class="data-value" style="width:100px;">{{ x.number_years>1?x.number_years+' Years':x.number_years+' Year' }}  </span>
 </div>
 <div class="data-col data-col-end">
 <el-dropdown trigger="click">
@@ -373,9 +373,16 @@ computed:{
 user(){
 return this.$page.props.auth.user;
 },
+
 status(){
 return this.$page.props.auth.user.status;
+},
+
+my_profile(){
+return this.$page.props.response.user_data.dashboard.panelist_professions;
 }
+
+
 
 
 

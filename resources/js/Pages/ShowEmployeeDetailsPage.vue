@@ -6,7 +6,7 @@
 Approve Employee Account
 </span>
 <span style="float: right; padding: 0px 0">
-<button class="btn btn-success" style="margin:0;" v-if="profile.designation!=null && profile.location!=null && profile.name!=null">
+<button class="btn btn-success" style="margin:0;" v-if="response.employee.status!='active'">
 Approve account
 </button>
 <button class="btn btn-success" type="submit" style="margin:0;" v-else disabled>
@@ -145,12 +145,24 @@ Approve account
 </div><!-- data-item -->
 
 
+
+<div class="data-item" data-toggle="modal" data-target="#profile-edit">
+<div class="data-col">
+<span class="data-label">Account Status </span>
+<span class="data-value text-transform"> {{ response.employee.status  }}  </span>
+</div>
+</div>
+
+
+
+
 <div class="data-item" data-toggle="modal" data-target="#profile-edit">
 <div class="data-col">
 <span class="data-label">Employee Role Status </span>
 <span class="data-value text-transform"> {{ profile.tag!=null?profile.tag:'missing' }}  </span>
 </div>
-</div><!-- data-item -->
+</div>
+<!-- data-item -->
 
 
 

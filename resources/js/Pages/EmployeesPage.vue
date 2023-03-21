@@ -1,6 +1,6 @@
 <template>
 <app-layout>
-<el-card class="card card-full h-100 mt-2" shadow="never">
+<el-card class="card card-full h-100 mt-1" shadow="never">
 <div slot="header" class="clearfix">
 <span style="font-weight:bold;">Employees</span>
 
@@ -18,7 +18,7 @@
 </div>
 
 <div class="card-body p-0" style="min-height:700px;">
-<table class="table table-borderless">
+<table class="table table-sm">
 <thead>
 <tr>
 <th scope="col">First name</th>
@@ -26,7 +26,7 @@
 <th scope="col">Gender</th>
 <th scope="col">Email</th>
 <th scope="col">Role</th>
-<th></th>
+<th style="width:200px;"></th>
 
 </tr>
 </thead>
@@ -209,8 +209,14 @@ text-transform: capitalize;
 
 table tbody td{
 text-transform: capitalize;
+padding:5px;
 }
 .text{
    text-transform:lowercase;
 }
+
+table thead th{
+padding:5px;
+}
+
 </style>

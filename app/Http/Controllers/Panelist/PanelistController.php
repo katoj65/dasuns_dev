@@ -247,7 +247,7 @@ return redirect('/dashboard')->with('success','Item has been deleted.');
 //Finish
 public function finish(Request $request){
 $id=Auth::user()->id;
-User::where('id',$id)->update(['status'=>'active']);
+// User::where('id',$id)->update(['status'=>'active']);
 return redirect('/');
 }
 
