@@ -15,6 +15,12 @@ use App\Models\PSSPInterviewRecommendationModel;
 use App\Http\Controllers\Interview\InterviewController;
 use App\Http\Controllers\DasunsNumber\DasunsNumberController;
 use App\Models\EmployeeProfileModel;
+use App\Models\DasunsWalletModel;
+use App\Models\SupportServiceModel;
+use App\Models\AppointmentModel;
+use App\Models\DasunsRecommendationsModel;
+
+
 
 
 
@@ -183,20 +189,45 @@ return[
 'dasuns_number'=>DasunsNumberController::get_dasuns_number_byUserID(Auth::user()->id),
 'recommended'=>PanelistController::get_recommened_interviews(),
 'profession'=>EmployeeProfessionModel::get(),
-
 'panelist_professions'=>PanelistProfessionProfileModel::select('panelist_profession_profile.id','panelist_profession_profile.description','panelist_profession_profile.number_years','employee_profession.name')
-
 ->join('employee_profession','panelist_profession_profile.professionID','=','employee_profession.id')
 ->where('panelist_profession_profile.userID',Auth::user()->id)
 ->get(),
-
-
+'count_items'=>PanelistController::dashboard_count_items()
 
 ];
 
-
-
 }
+
+
+
+
+
+
+
+//dashboard count updates
+static function dashboard_count_items(){
+return [
+'providers'=>User::where('role','pssp')->where('status','active')->count(),
+'recommendations'=>DasunsRecommendationsModel::count(),
+'wallet'=>PanelistController::wallet()->amount,
+'appointments'=>AppointmentModel::where('userID',Auth::user()->id)->count(),
+];
+}
+
+
+
+//dasuns wallet information
+static function wallet(){
+$get=DasunsWalletModel::where('userID',Auth::user()->id)->get();
+$response=[];
+if(count($get)==1){
+foreach($get as $row);
+$response=$row;
+}
+return $response;
+}
+
 
 
 

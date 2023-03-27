@@ -1,5 +1,8 @@
 <template>
 <div class="nk-block">
+
+
+
 <div class="row g-gs">
 <div class="col-md-3" v-for="t in tab" :key="t.id" shadow="never">
 <el-card class="card  card-full" shadow="never">
@@ -338,12 +341,15 @@ user(){
 return this.$page.props.auth.user;
 },
 //
+
+
 tab(){
+const count=this.response.dashboard.count_items;
 const items=[
-{icon:'icon ni ni-calender-date-fill',title:'APPOINTMENTS',count:100,id:2},
-{icon:'icon ni ni-grid-fill',title:'SERVICE PROVIDERS',count:1,id:1},
-{icon:'icon ni ni-bar-chart-fill',title:'RECOMMENDATIONS',count:40,id:3},
-{icon:'icon ni ni-wallet-fill',title:'WALLET',count:20,id:4},
+{icon:'icon ni ni-calender-date-fill',title:'APPOINTMENTS',count:count.appointments,id:2},
+{icon:'icon ni ni-grid-fill',title:'SERVICE PROVIDERS',count:count.providers,id:1},
+{icon:'icon ni ni-bar-chart-fill',title:'RECOMMENDATIONS',count:count.recommendations,id:3},
+{icon:'icon ni ni-wallet-fill',title:'WALLET',count:count.wallet,id:4},
 ];
 return items;
 },
@@ -351,6 +357,8 @@ return items;
 interviews(){
 return this.response.dashboard.interviews;
 },
+
+//
 
 
 
