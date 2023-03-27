@@ -18,6 +18,7 @@ use App\Models\InterviewPanelistModel;
 use App\Http\Controllers\Interview\InterviewController;
 use App\Http\Controllers\Authorisation\AuthorisationController;
 use App\Models\PSSPDeclinedInterviewModel;
+use App\Models\AccountStatusMessageModel;
 
 
 class VettingController extends Controller
@@ -181,6 +182,9 @@ return redirect('/dashboard');
 
 //schedule interview
 public function create_interview_schedule(Request $request){
+
+
+
 $request->validate([
 'date'=>['required'],
 'time'=>['required'],
@@ -197,6 +201,10 @@ PSSPInterviewScheduleModel::insert([
 'service_providerID'=>$request->id
 ]);
 
+
+AccountStatusMessageModel::where('userID',$request->id)->update(['message'=>'Interview has been Scheduled.','status'=>'interview']);
+
+
 //user status at interview
 User::where('id',$request->id)->update(['status'=>'interview']);
 //get interview schedule details
@@ -207,6 +215,7 @@ foreach($get as $row);
 foreach($request->selected as $s){
 InterviewPanelistModel::insert(['userID'=>$s,'interviewID'=>$row->id]);
 }
+
 return redirect('/')->with('success','Interview has been scheduled.');
 }else{
 return redirect('/')->with('warning','Could not find interview details.');

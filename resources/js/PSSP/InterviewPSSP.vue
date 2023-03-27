@@ -4,7 +4,6 @@
 <div class="col-12 col-md-4">
 
 
-
 <el-card shadow="never" class="card h-100">
 <div class="card-inner">
 <div class="team">
@@ -47,6 +46,7 @@
 
 
 <div class="col-12 col-md-8">
+
 
 
 <el-card shadow="never" class="card h-100">
@@ -97,9 +97,30 @@
 <em class="icon ni ni-alert-circle"></em> {{ account_status.message }} </div>
 
 <div class="alert alert-primary alert-icon" v-if="account_status.status=='interview'">
-<em class="icon ni ni-alert-circle"></em> {{ account_status.message }} </div>
+<div><em class="icon ni ni-alert-circle"></em> {{ account_status.message }}</div>
 
 
+
+
+
+<div class="example-alert mt-2 mb-3">
+<div class="alert alert-pro alert-primary">
+<div class="alert-text">
+<h6><em class="icon ni ni-calender-date-fill"></em> {{ interview.date.split('-').reverse().join('/') }}
+<span class="ml-3"><em class="icon ni ni-clock"></em> {{ interview.time.substring(0,5) }}</span> </h6>
+<p class="mt-2">
+{{ interview.comment }}
+</p>
+<p class="mt-2">
+<strong>
+<em class="icon ni ni-users-fill"></em> Panelists
+</strong> <span class="ml-3">{{ interview.panelists>1?interview.panelists+' Panelists':interview.panelists+' Panelist' }}</span>
+</p>
+</div>
+</div>
+</div>
+
+</div>
 </div>
 
 
@@ -368,6 +389,10 @@ return this.response.user_data.pssp_attributes.account_status_message;
 
 user_status(){
 return this.$page.props.auth.user.status;
+},
+
+interview(){
+return this.response.user_data.pssp_attributes.interview;
 }
 
 

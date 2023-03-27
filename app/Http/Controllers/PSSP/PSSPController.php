@@ -17,6 +17,8 @@ use App\Models\User;
 use App\Models\AppointmentModel;
 use App\Models\InterviewStatusModel;
 use App\Models\AccountStatusMessageModel;
+use App\Models\PSSPInterviewScheduleModel;
+use App\Models\InterviewPanelistModel;
 
 
 
@@ -219,8 +221,6 @@ return[
 
 //dashboard
 static function dashboard(){
-//PSSPController::interview_status();
-
 //generate content by status
 $status=Auth::user()->status;
 if($status=='pending' or $status=='declined' or $status=='interview'){
@@ -236,7 +236,7 @@ return [
 'services'=>$get_services,
 'experience'=>ServiceProviderExperienceModel::where('userID',Auth::user()->id)->get(),
 'references'=>ServiceProviderReferenceModel::where('userID',Auth::user()->id)->get(),
-'interview'=>InterviewController::get_user_interview(),
+'interview'=>PSSPController::interview_scheduled(),
 'interview_decline'=>InterviewController::get_declined_interview_by_userID(Auth::user()->id),
 'interview_failure'=>Auth::user()->status=='failed'?[]:[],
 'statement'=>PSSPController::get_pssp_profile(),
@@ -249,12 +249,7 @@ return [
 
 }else{
 
-return [
-
-
-
-
-];
+return [];
 
 
 }
@@ -373,9 +368,6 @@ return redirect('/profile')->with('success','About has been updated.');
 
 //interview status
 static function interview_status(){
-
-
-
 
 
 $documents=ServiceProviderSecurityDetailsModel::where('userID',Auth::user()->id)->count();
@@ -557,6 +549,27 @@ AccountStatusMessageModel::where('userID',Auth::user()->id)->update(['message'=>
 
 
 
+
+
+//get scheduled interview
+static function interview_scheduled(){
+$get=PSSPInterviewScheduleModel::where('service_providerID',Auth::user()->id)->get();
+$response=[];
+if(count($get)==1){
+foreach($get as $row);
+$response=[
+'id'=>$row->id,
+'userID'=>$row->service_providerID,
+'date'=>$row->date,
+'time'=>$row->time,
+'comment'=>$row->comment,
+'created_at'=>$row->created_at,
+'panelists'=>InterviewPanelistModel::where('interviewID',$row->id)->count()
+
+];
+}
+return $response;
+}
 
 
 
