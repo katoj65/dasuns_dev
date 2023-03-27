@@ -14,6 +14,7 @@ use App\Models\ServiceRecommendationModel;
 use App\Models\PSSPInterviewRecommendationModel;
 use App\Http\Controllers\Interview\InterviewController;
 use App\Http\Controllers\DasunsNumber\DasunsNumberController;
+use App\Models\EmployeeProfileModel;
 
 
 
@@ -358,11 +359,8 @@ $get=InterviewPanelistModel::select(
 ->get();
 
 if(count($get)>0){
-
 foreach($get as $row){
-
 $data[]=[
-
 'userID'=>$row->userID,
 'names'=>$row->firstname.' '.$row->lastname,
 'profile'=>PanelistController::get_panelist_profile($row->userID),
@@ -391,16 +389,61 @@ return PanelistProfessionProfileModel::where('userID',$id)->get();
 
 
 
+
+
+
+
+
+
 //panelist profile
 static function profile(){
 $id=Auth::user()->id;
+// return [
+// 'employee_professions'=>EmployeeProfessionModel::get(),
+// 'profession'=>PanelistProfessionProfileModel::select('panelist_profession_profile.id','panelist_profession_profile.description','panelist_profession_profile.years','employee_profession.name')->join('employee_profession','panelist_profession_profile.professionID','=','employee_profession.id')->where('panelist_profession_profile.userID',$id)->get(),
+// 'dasuns_number'=>DasunsNumberController::get_dasuns_number_byUserID(Auth::user()->id),
+
+// ];
+
+
+
 return [
 'employee_professions'=>EmployeeProfessionModel::get(),
-'profession'=>PanelistProfessionProfileModel::select('panelist_profession_profile.id','panelist_profession_profile.description','panelist_profession_profile.years','employee_profession.name')->join('employee_profession','panelist_profession_profile.professionID','=','employee_profession.id')->where('panelist_profession_profile.userID',$id)->get(),
 'dasuns_number'=>DasunsNumberController::get_dasuns_number_byUserID(Auth::user()->id),
+'profession'=>PanelistController::professions(),
+'personal_details'=>PanelistController::employee_personal_details(),
 
 ];
+
 }
+
+
+//employee personal details
+
+static function employee_personal_details(){
+$get=EmployeeProfileModel::select('*')->join('country','employee_profile.countryID','=','country.id')->where('employee_profile.userID')->get();
+$response=[];
+if(count($get)==1){
+foreach($get as $row);
+$response=$row;
+}
+return $response;
+}
+
+
+
+
+
+//employee profession
+static function professions(){
+$get=PanelistProfessionProfileModel::select('employee_profession.name','panelist_profession_profile.description','panelist_profession_profile.number_years')
+->join('employee_profession','panelist_profession_profile.professionID','=','employee_profession.id')
+->where('panelist_profession_profile.userID',Auth::user()->id)->get();
+return $get;
+}
+
+
+
 
 
 

@@ -5,12 +5,6 @@
 <employee-profile-component :response="response" :flash="flash" :errors="errors"></employee-profile-component>
 </div>
 <div v-else>
-
-
-
-
-
-
 <!-----PSSP PROFILE-->
 <div v-if="user.role=='pssp'">
 
@@ -131,11 +125,6 @@
 
 </div>
 <div class="col-md-8">
-
-
-
-
-
 
 <el-card class="card box-card shadow-none h-100">
 <div slot="header" class="clearfix">
@@ -441,6 +430,9 @@ Missing
 
 </div>
 </div>
+
+
+
 </div>
 
 

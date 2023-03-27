@@ -100,9 +100,6 @@
 <div><em class="icon ni ni-alert-circle"></em> {{ account_status.message }}</div>
 
 
-
-
-
 <div class="example-alert mt-2 mb-3">
 <div class="alert alert-pro alert-primary">
 <div class="alert-text">

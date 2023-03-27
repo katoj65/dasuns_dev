@@ -127,8 +127,6 @@ $user_data['country']=CountryModel::get();
 
 
 
-
-
 }elseif($user->role=='admin'){
 
  $user_data['profile']=AdministrationController::profile();

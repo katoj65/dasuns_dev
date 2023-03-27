@@ -1,24 +1,21 @@
 <template>
-<div class="card" style="min-height:700px;">
-
+<div class="pt-1">
 <div class="row">
 <div class="col-12 col-md-4">
+<el-card shadow="never" class="h-100">
 
-
-
-<div class="card h-100">
 <div class="card-inner">
 <div class="team">
 <div class="team-options">
 <div class="drodown">
 <a href="#" class="dropdown-toggle btn btn-dim btn-success btn-icon" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
-    <div class="dropdown-menu dropdown-menu-right">
-    <ul class="link-list-opt no-bdr">
-     <li><a href="#"><span>Change Profile Picture</span></a></li>
-    <li><a href="#" @click="edit_profile()"><span>Edit Profile</span></a></li>
-    <!-- <li class="divider"></li>
-    <li><a href="#"><em class="icon ni ni-shield-star"></em><span>Reset Pass</span></a></li> -->
-    </ul>
+<div class="dropdown-menu dropdown-menu-right">
+<ul class="link-list-opt no-bdr">
+<li><a href="#"><span>Change Profile Picture</span></a></li>
+<li><a href="#" @click="edit_profile()"><span>Edit Profile</span></a></li>
+<!-- <li class="divider"></li>
+<li><a href="#"><em class="icon ni ni-shield-star"></em><span>Reset Pass</span></a></li> -->
+</ul>
 </div>
 </div>
 </div>
@@ -47,41 +44,40 @@
 </div> -->
 </div><!-- .team -->
 </div><!-- .card-inner -->
-</div>
+
+
+
+
+
+
+
+
+</el-card>
 
 </div>
 <div class="col-12 col-md-8">
-<div class="card">
-<div class="card-header bg-white pt-4">
-<h4 class="size20">Panelist Profile</h4>
+<el-card shadow="never" class="h-100">
+<div slot="header" class="clearfix">
+<h4>Panelist Profile</h4>
+<!-- <el-button style="float: right; padding: 3px 0" type="text">Operation button</el-button> -->
 </div>
-<div class="card-body">
-<table style="width:100%;">
-<thead>
-<tr>
-<th>
-Expertise
-</th>
-<th style="width:50px;">
-<a href="#" class="btn btn-outline-success btn-success-dim" @click="show_expertise()">Add</a>
-</th>
-</tr>
-</thead>
-<tbody>
-<tr><td colspan="2" class="p-2"></td></tr>
-<tr>
-<td colspan="2">
-<div v-if="$page.props.response.user_data.profile.profession.length>0">
-<ul>
-<li v-for="p in $page.props.response.user_data.profile.profession" :key="p.id" class="p-1">
-<div class="row">
-<div class="col-10">
-<em class="icon ni ni-dot"></em>
-{{ p.name }}
-</div>
-<div class="col-2" style="text-align:right;">
+<div class="card-body p-0">
+<el-card shadow="never">
+<span  slot="header" style="font-weight:bold;">
+Professional Experience
+</span>
+
+<div class="p-0" v-if="profession.length>0">
+<ul class="data-list is-compact m-0 p-0" >
+<li class="data-item p-0 mb-1" style="border:none;" v-for="p in profession" :key="p.id">
+<div class="data-col">
+<div class="data-label"><em class="icon ni ni-chevron-right"></em> {{ p.name }} </div>
+<div class="data-value" style="width:100%;">
+{{ p.number_years>1?p.number_years+' Years':p.number_years+' Year' }}
+
+<span style="float:right;">
 <el-dropdown trigger="click">
-<span class="el-dropdown-link btn btn-dim btn-success">
+<span class="el-dropdown-link btn btn-dim btn-success" style="padding:5px;">
 <em class="icon ni ni-more-h"></em>
 </span>
 <el-dropdown-menu slot="dropdown">
@@ -93,127 +89,60 @@ Delete
 </el-dropdown-item>
 </el-dropdown-menu>
 </el-dropdown>
+</span>
+
 </div>
 </div>
 </li>
 </ul>
-
-
 </div>
-<div v-else>Missing</div>
-
-
-
-</td>
-</tr>
-</tbody>
-</table>
-
-
-
-
-
-<div class="pt-4">
-<div class="card">
-<ul class="data-list is-compact">
-<li class="data-item bg-success-dim border-0 radius p-1 pl-2 pr-2">
-<div class="data-col">
-<div class="data-label"><strong class="size10">
-<em class="icon ni ni-account-setting-fill text-success"></em>
-<span style="color:black;">User Settings</span>
-</strong></div>
-<!-- <div class="data-value">UD01489</div> -->
+<div v-else>
+No content
 </div>
-</li>
-<li class="data-item">
-<div class="data-col">
-<div class="data-label"><em class="icon ni ni-forward-ios"></em> Dasuns Number</div>
-<div class="data-value">
-....
-</div>
-</div>
-</li>
-<li class="data-item">
-<div class="data-col">
-<div class="data-label"><em class="icon ni ni-forward-ios"></em> Account Type</div>
-<div class="data-value">
-{{ response.user.role }}
-</div>
-</div>
-</li>
-<li class="data-item">
-<div class="data-col">
-<div class="data-label"><em class="icon ni ni-forward-ios"></em> Registration Date</div>
-<div class="data-value">
-{{ response.user.created_at.substring(0,10).split('-').reverse().join('-') }}
-</div>
-</div>
-</li>
-<li class="data-item">
-<div class="data-col">
-<div class="data-label"><em class="icon ni ni-forward-ios"></em> Registered Email Address</div>
-<div class="data-value">
-{{ response.user.email }}
-</div>
-</div>
-</li>
-
-
-
-<li class="data-item bg-success-dim radius p-1 pl-2 pr-2">
-<div class="data-col">
-<div class="data-label"><strong class="size10">
-<em class="icon ni ni-wallet-fill text-success"></em>
-<span style="color:black;">Wallet</span>
-</strong></div>
-<!-- <div class="data-value">UD01489</div> -->
-</div>
-</li>
+</el-card>
 
 
 
 
+<el-card shadow="never" class="mt-3">
+<span  slot="header" style="font-weight:bold;">
+User Details
+</span>
+
+<div class="p-0">
+<ul class="data-list is-compact m-0 p-0" >
 
 
 
-<li class="data-item">
+<li class="data-item p-0 mb-1" style="border:none;" v-for="i in activity" :key="i">
 <div class="data-col">
 <div class="data-label">
-<em class="icon ni ni-forward-ios"></em>
-Payment details
+{{ i.title }}
 </div>
-<div class="data-value">....</div>
+<div class="data-value text-transform">
+{{ i.description }}
 </div>
-</li>
-
-
-
-
-<li class="data-item">
-<div class="data-col">
-<div class="data-label">
-<em class="icon ni ni-forward-ios"></em>
-Account Information
-</div>
-<div class="data-value">....</div>
 </div>
 </li>
-
 
 
 
 
 </ul>
 </div>
+</el-card>
+
+
+
+
+
+
+
+
+
+
 </div>
-
-
-
-
-
-
-</div>
-</div>
+</el-card>
 </div>
 </div>
 
@@ -423,6 +352,7 @@ response:{},
 flash:{},
 errors:{}
 },
+
 data(){return{
 dialog:{
 expertise:false,
@@ -431,8 +361,7 @@ edit_profile:false,
 
 user:this.response.user,
 profile:this.response.user_data.profile,
-profession:this.response.user_data.profile.profession,
-employee_professions:this.response.user_data.profile.employee_professions,
+
 //
 
 form:this.$inertia.form({
@@ -490,7 +419,7 @@ onSuccess:()=>{
 this.dialog.expertise=false;
 this.form.reset();
 this.$notify({
-    position: 'bottom-right',
+position: 'bottom-right',
 title:this.flash.success=='success'?'Successful':'Warning',
 message:this.flash.success=='success'?this.flash.success:this.flash.warning,
 type:this.flash.success=='success'?'success':'warning'
@@ -511,7 +440,7 @@ this.$inertia.post(this.route('destroy.panelist_expertise'),{
 id:id},{
 onSuccess:()=>{
 this.$notify({
-    position: 'bottom-right',
+position: 'bottom-right',
 title:'Successful',
 message:this.$page.props.flash.success,
 type:'success'
@@ -538,7 +467,7 @@ this.form_edit.post(this.route('update_panelist_profile'),{
 onSuccess:()=>{
 this.dialog.edit_profile=false;
 this.$notify({
-    position: 'bottom-right',
+position: 'bottom-right',
 title:this.flash.success!=null?'Successful':'Warning',
 message:this.flash.success!=null?this.flash.success:this.flash.warning,
 type:this.flash.success!=null?'success':'warning'
@@ -555,6 +484,33 @@ type:this.flash.success!=null?'success':'warning'
 
 
 },
+
+computed:{
+profession(){
+return this.response.user_data.profile.profession;
+},
+
+activity(){
+const item=[
+{id:1,title:'Account Type',description:this.response.user.account_type},
+{id:2,title:'Account Status',description:this.response.user.status},
+{id:3,title:'Registered at',description:this.response.user.created_at.substring(0,10).split('-').reverse().join('/')},
+// {id:4,title:'Location',description:''},
+// {id:5,title:'Country',description:''},
+{id:6,title:'User Designation',description:this.response.user.role},
+// {id:7,title:'Wallet',description:this.response.user.role}
+
+];
+
+return item;
+}
+
+
+
+
+
+}
+
 
 }
 </script>
