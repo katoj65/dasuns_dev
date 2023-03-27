@@ -83,8 +83,7 @@ return ServiceProviderReferenceModel::where('userID',$id)->get();
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request)
-    {
+public function show(Request $request){
 
 // $get=User::where('id',$request->segment(2))->get();
 $get=User::select('users.firstname',
@@ -131,9 +130,9 @@ $data['response']=[
 ];
 return Inertia::render('ServiceProviderPage',$data);
 }else{
-    return redirect('/')->width('warning','Could not find user information');
+return redirect('/')->width('warning','Could not find user information');
 }
-    }
+}
 
     /**
      * Update the specified resource in storage.
@@ -550,7 +549,7 @@ AccountStatusMessageModel::insert(['userID'=>Auth::user()->id,'message'=>'Fill i
 AccountStatusMessageModel::where('userID',Auth::user()->id)->update(['message'=>'Dasuns team will contact you for further proceedings.']);
 }
 }else{
-AccountStatusMessageModel::where('userID',Auth::user()->id)->update(['message'=>'Dasuns team will contact you for further proceedings.']);
+AccountStatusMessageModel::where('userID',Auth::user()->id)->update(['message'=>'Dasuns team will contact you for further proceedings.','status'=>'profile']);
 }
 }
 

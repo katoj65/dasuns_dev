@@ -48,10 +48,6 @@
 
 <div class="col-12 col-md-8">
 
-{{ account_status }}
-
-
-
 
 <el-card shadow="never" class="card h-100">
 <div slot="header" class="clearfix">
@@ -68,7 +64,7 @@
 
 
 
-<div class="p-3 bg-warning-dim" style="margin:-20px;" v-if="status.status=='incomplete' || status.status=='pending'">
+<!-- <div class="p-3 bg-warning-dim" style="margin:-20px;" v-if="status.status=='incomplete' || status.status=='pending'">
 <em class="icon ni ni-alert-circle text-warning" style="margin-right:10px;"></em>
 {{ status.message }}
 </div>
@@ -77,18 +73,39 @@
 <div class="p-3 bg-danger-dim" style="margin:-20px;" v-else-if="status.status=='declined'">
 <em class="icon ni ni-alert-circle text-warning" style="margin-right:10px;"></em>
 {{ status.message }}
-</div>
+</div> -->
 
 
 <!--------End warning messages------->
 
 
+<div v-if="account_status!=null">
+
+<div class="alert alert-danger alert-icon" v-if="account_status.status=='pending'">
+<em class="icon ni ni-alert-circle"></em> {{ account_status.message }} </div>
+
+
+<div class="alert alert-warning alert-icon" v-if="account_status.status=='profile'">
+<em class="icon ni ni-alert-circle"></em> {{ account_status.message }} </div>
+
+
+<div class="alert alert-success alert-icon" v-if="account_status.status=='success'">
+<em class="icon ni ni-alert-circle"></em> {{ account_status.message }} </div>
+
+
+<div class="alert alert-danger alert-icon" v-if="account_status.status=='failed'">
+<em class="icon ni ni-alert-circle"></em> {{ account_status.message }} </div>
+
+<div class="alert alert-primary alert-icon" v-if="account_status.status=='interview'">
+<em class="icon ni ni-alert-circle"></em> {{ account_status.message }} </div>
+
+
+</div>
 
 
 
 
-
-<table class="table mt-4">
+<table class="table">
 <thead style="border:none;">
 <tr style="border:none;">
 <th scope="col" colspan="8" style="border:none;color:#07372F;">
@@ -347,6 +364,10 @@ return this.response.user_data.pssp_attributes.interview_status;
 },
 account_status(){
 return this.response.user_data.pssp_attributes.account_status_message;
+},
+
+user_status(){
+return this.$page.props.auth.user.status;
 }
 
 

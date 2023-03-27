@@ -95,6 +95,7 @@ $user_data=[
 'list_services'=>$list,
 'experience'=>ServiceProviderExperienceModel::where('userID',$user->id)->get(),
 'interview_status'=>PSSPController::get_interview_status(),
+'account_status_message'=>PSSPController::account_status_message(),
 ];
 
 }elseif($user->role=='panelist'){

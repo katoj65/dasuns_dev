@@ -11,20 +11,11 @@
 
 
 
-
-
-
-
 <!-----PSSP PROFILE-->
 <div v-if="user.role=='pssp'">
 
 <div class="row mt-2">
 <div class="col-12 col-md-4">
-
-
-
-
-
 
 <el-card class="box-card h-100 shadow-none card p-0">
 <div class="card-inner p-0">
@@ -152,26 +143,47 @@
 <!-- <el-button style="float: right; padding: 3px 0" type="text">Operation button</el-button> -->
 </div>
 
-<div class="card-body">
+<div class="card-body pt-0">
 
 
-<div slot="header" class="clearfix bg-warning-dim p-2 mb-4"  v-if="status.status=='incomplete'||status.status=='pending' || status.status=='interview'" style="margin:-20px;">
+<!-- <div slot="header" class="clearfix bg-warning-dim p-2 mb-4"  v-if="status.status=='incomplete'||status.status=='pending' || status.status=='interview'" style="margin:-20px;">
 <span><em class="icon ni ni-shield-alert text-warning"></em>
 {{ status.message }}
 </span>
-<!-- <el-button style="float: right; padding: 3px 0" type="text">Operation button</el-button> -->
-</div>
+
+</div> -->
 
 
 
-<div slot="header" class="clearfix bg-danger-dim p-2 mb-4"  v-else-if="status.status=='declined'" style="margin:-20px;">
+<!-- <div slot="header" class="clearfix bg-danger-dim p-2 mb-4"  v-else-if="status.status=='declined'" style="margin:-20px;">
 <span><em class="icon ni ni-shield-alert text-warning"></em>
 {{ status.message }}
 </span>
+</div> -->
+
+
+<div v-if="account_status!=null" class="mb-4">
+
+<div class="alert alert-danger alert-icon" v-if="account_status.status=='pending'">
+<em class="icon ni ni-alert-circle"></em> {{ account_status.message }} </div>
+
+
+<div class="alert alert-warning alert-icon" v-if="account_status.status=='profile'">
+<em class="icon ni ni-alert-circle"></em> {{ account_status.message }} </div>
+
+
+<div class="alert alert-success alert-icon" v-if="account_status.status=='success'">
+<em class="icon ni ni-alert-circle"></em> {{ account_status.message }} </div>
+
+
+<div class="alert alert-danger alert-icon" v-if="account_status.status=='failed'">
+<em class="icon ni ni-alert-circle"></em> {{ account_status.message }} </div>
+
+<div class="alert alert-primary alert-icon" v-if="account_status.status=='interview'">
+<em class="icon ni ni-alert-circle"></em> {{ account_status.message }} </div>
+
+
 </div>
-
-
-
 
 
 
@@ -988,6 +1000,10 @@ this.get_dasuns_number();
 computed:{
 status(){
 return this.response.user_data.interview_status;
+},
+
+account_status(){
+return this.response.user_data.account_status_message;
 }
 
 
