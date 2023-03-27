@@ -17,8 +17,6 @@ Professional Support Services for every <span style="color:yellow;">Disability</
 </div>
 
 
-
-
 <div class="row g-gs" style="padding-bottom:30px;">
 <div class="col-md-4" v-for="s in response.services" :key="s.id">
 <div class="card card-full" style="background:#148F77;text-align:center;border-radius:12px;">

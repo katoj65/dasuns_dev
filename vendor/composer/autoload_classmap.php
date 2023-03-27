@@ -60,6 +60,7 @@ return array(
     'App\\Http\\Middleware\\TrustHosts' => $baseDir . '/app/Http/Middleware/TrustHosts.php',
     'App\\Http\\Middleware\\TrustProxies' => $baseDir . '/app/Http/Middleware/TrustProxies.php',
     'App\\Http\\Middleware\\VerifyCsrfToken' => $baseDir . '/app/Http/Middleware/VerifyCsrfToken.php',
+    'App\\Models\\AccountStatusMessageModel' => $baseDir . '/app/Models/AccountStatusMessageModel.php',
     'App\\Models\\AdminRolesModel' => $baseDir . '/app/Models/AdminRolesModel.php',
     'App\\Models\\AppointmentClockingModel' => $baseDir . '/app/Models/AppointmentClockingModel.php',
     'App\\Models\\AppointmentModel' => $baseDir . '/app/Models/AppointmentModel.php',

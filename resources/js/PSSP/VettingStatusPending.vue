@@ -47,6 +47,12 @@
 
 
 <div class="col-12 col-md-8">
+
+{{ account_status }}
+
+
+
+
 <el-card shadow="never" class="card h-100">
 <div slot="header" class="clearfix">
 <h4>Professional Service Provider Account</h4>
@@ -338,6 +344,9 @@ return response;
 
 status(){
 return this.response.user_data.pssp_attributes.interview_status;
+},
+account_status(){
+return this.response.user_data.pssp_attributes.account_status_message;
 }
 
 

@@ -33,6 +33,7 @@ use App\Http\Controllers\Reception\ReceptionController;
 use App\Models\CountryModel;
 use App\Http\Controllers\PSSP\PSSPController;
 use App\Http\Controllers\Administration\AdministrationController;
+use App\Models\AccountStatusMessageModel;
 
 
 
@@ -127,7 +128,7 @@ $user_data['country']=CountryModel::get();
 
 
 }elseif($user->role=='admin'){
-    
+
  $user_data['profile']=AdministrationController::profile();
 
 }

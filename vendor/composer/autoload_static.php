@@ -630,6 +630,7 @@ class ComposerStaticInit6ca39d84c378fa455e59eb566042b810
         'App\\Http\\Middleware\\TrustHosts' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustHosts.php',
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
+        'App\\Models\\AccountStatusMessageModel' => __DIR__ . '/../..' . '/app/Models/AccountStatusMessageModel.php',
         'App\\Models\\AdminRolesModel' => __DIR__ . '/../..' . '/app/Models/AdminRolesModel.php',
         'App\\Models\\AppointmentClockingModel' => __DIR__ . '/../..' . '/app/Models/AppointmentClockingModel.php',
         'App\\Models\\AppointmentModel' => __DIR__ . '/../..' . '/app/Models/AppointmentModel.php',

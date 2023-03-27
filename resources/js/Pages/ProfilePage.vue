@@ -5,11 +5,25 @@
 <employee-profile-component :response="response" :flash="flash" :errors="errors"></employee-profile-component>
 </div>
 <div v-else>
+
+
+
+
+
+
+
+
+
+
 <!-----PSSP PROFILE-->
 <div v-if="user.role=='pssp'">
 
 <div class="row mt-2">
 <div class="col-12 col-md-4">
+
+
+
+
 
 
 <el-card class="box-card h-100 shadow-none card p-0">

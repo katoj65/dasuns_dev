@@ -67,9 +67,9 @@ Route::middleware(['auth:sanctum', 'verified'])->post('/profile-create-pssp',[PS
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/admin/team',[UserController::class,'show_admins'])->name('admins');
 
-Route::middleware(['auth:sanctum', 'verified'])->post('/pssp-create-reference',[ProfileController::class,'create_PSSP_reference'])->name('profile.create_pssp_reference');
+Route::middleware(['auth:sanctum', 'verified'])->post('/pssp-create-reference',[PSSPController::class,'store_reference'])->name('profile.create_pssp_reference');
 
-Route::middleware(['auth:sanctum', 'verified'])->post('/pssp-create-security-documents',[ProfileController::class,'create_PSSP_identification_document'])->name('create-PSSP-security-documents');
+Route::middleware(['auth:sanctum', 'verified'])->post('/pssp-create-security-documents',[PSSPController::class,'store_identification_document'])->name('create-PSSP-security-documents');
 
 Route::middleware(['auth:sanctum', 'verified'])->post('/delete-pssp-reference',[ProfileController::class,'delete_PSSP_reference'])->name('delete_ppsp_reference');
 
@@ -102,7 +102,7 @@ Route::middleware(['auth:sanctum', 'verified'])->post('/delete_disabilities',[Pr
 
 Route::middleware(['auth:sanctum', 'verified'])->post('/store-pssu-disabilities',[ProfileController::class,'submit_pssu_disabilities'])->name('store.pssu_disabilities');
 
-Route::middleware(['auth:sanctum', 'verified'])->post('/store-pssp-experience',[ProfileController::class,'store_pssp_experience'])->name('store.pssp_experience');
+Route::middleware(['auth:sanctum', 'verified'])->post('/store-pssp-experience',[PSSPController::class,'store_experience'])->name('store.pssp_experience');
 
 Route::middleware(['auth:sanctum', 'verified'])->post('/delete_pssp_experience',[ProfileController::class,'delete_PSSP_work_experience'])->name('delete.pssp_experience');
 

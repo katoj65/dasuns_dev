@@ -16,6 +16,8 @@ use App\Http\Controllers\DasunsNumber\DasunsNumberController;
 use App\Models\User;
 use App\Models\AppointmentModel;
 use App\Models\InterviewStatusModel;
+use App\Models\AccountStatusMessageModel;
+
 
 
 
@@ -189,6 +191,8 @@ $requests=AppointmentModel::select('appointment.date',
 ->orderby('appointment.created_at','ASC')
 ->get();
 
+
+
 return[
 'identification_documents'=>ServiceProviderSecurityDetailsModel::where('userID',$id)->get(),
 'services'=>$get_services,
@@ -238,6 +242,7 @@ return [
 'interview_failure'=>Auth::user()->status=='failed'?[]:[],
 'statement'=>PSSPController::get_pssp_profile(),
 'interview_status'=>PSSPController::get_interview_status(),
+'account_status_message'=>PSSPController::account_status_message(),
 
 
 ];
@@ -411,7 +416,7 @@ InterviewStatusModel::insert(['userID'=>Auth::user()->id,
 'message'=>'You are required to fill in all documents.']);
 }else{
 
- InterviewStatusModel::where('userID',Auth::user()->id)->update(['userID'=>Auth::user()->id,
+InterviewStatusModel::where('userID',Auth::user()->id)->update(['userID'=>Auth::user()->id,
 'status'=>'incomplete',
 'message'=>'Fill in the missing information to allow Dasuns review your application on time.']);
 }
@@ -433,11 +438,125 @@ if(count($get)==1){
 foreach($get as $row);
 return $row;
 }else{
-    return [];
+return [];
+}
 }
 
 
+
+
+
+//account status message
+static function account_status_message(){
+$get=AccountStatusMessageModel::where('userID',Auth::user()->id)->get();
+$response=[];
+if(count($get)==1){
+foreach($get as $row);
+$response=$row;
 }
+return $response;
+}
+
+
+
+
+
+
+
+//store reference
+public function store_reference(Request $request){
+$request->validate([
+'names'=>['required'],
+'position'=>['required'],
+'email'=>['required','email'],
+'tel'=>['required'],
+'address'=>['required']],['required'=>'* Field is required.']);
+
+ServiceProviderReferenceModel::insert([
+'userID'=>Auth::user()->id,
+'names'=>$request->names,
+'position'=>$request->position,
+'email'=>$request->email,
+'tel'=>$request->tel,
+'address'=>$request->address
+]);
+PSSPController::profile_fillout_check();
+return redirect('/profile')->with('success','Your profession reference has been added.');
+}
+
+
+
+
+
+
+
+//store Security documents
+public function store_identification_document(Request $request){
+$request->validate([
+'document'=>['required'],
+'number'=>['required']
+],['required'=>'* Field is required.']);
+
+ServiceProviderSecurityDetailsModel::insert([
+'userID'=>Auth::user()->id,'document'=>$request->document,
+'document_number'=>$request->number,
+'file'=>'null']);
+PSSPController::profile_fillout_check();
+return redirect('/profile')->with('success','Your document has been uploaded.');
+}
+
+
+
+
+
+
+//store pssp experience
+public function store_experience(Request $request){
+$request->validate([
+'organisation'=>['required'],
+'position'=>['required'],
+'from'=>['required'],
+'to'=>['required']],
+['required'=>'* Field is required.']);
+
+ServiceProviderExperienceModel::insert([
+'userID'=>Auth::user()->id,
+'organisation_name'=>$request->organisation,
+'position'=>$request->position,
+'from_date'=>$request->from,
+'to_date'=>$request->to
+]);
+
+PSSPController::profile_fillout_check();
+return redirect('/profile')->with('success','Experince has been added');
+}
+
+
+
+
+
+
+//static profile filled check
+static function profile_fillout_check(){
+$doc=ServiceProviderSecurityDetailsModel::where('userID',Auth::user()->id)->count();
+$ref=ServiceProviderReferenceModel::where('userID',Auth::user()->id)->count();
+$exp=ServiceProviderExperienceModel::where('userID',Auth::user()->id)->count();
+if($doc==0 or $ref==0 or $exp==0){
+//
+$check=AccountStatusMessageModel::where('userID',Auth::user()->id)->count();
+if($check==0){
+AccountStatusMessageModel::insert(['userID'=>Auth::user()->id,'message'=>'Fill in the missing details in your profile.']);
+}else{
+AccountStatusMessageModel::where('userID',Auth::user()->id)->update(['message'=>'Dasuns team will contact you for further proceedings.']);
+}
+}else{
+AccountStatusMessageModel::where('userID',Auth::user()->id)->update(['message'=>'Dasuns team will contact you for further proceedings.']);
+}
+}
+
+
+
+
 
 
 

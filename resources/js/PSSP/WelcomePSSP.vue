@@ -1,9 +1,6 @@
 <template>
 <div>
 <vetting-status-pending v-if="status=='pending'" :response="response"></vetting-status-pending>
-
-
-
 </div>
 </template>
 <script>
