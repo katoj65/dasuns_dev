@@ -32,16 +32,26 @@
 </div>
 <!-- Menu -->
 <ul class="nk-menu nk-menu-main">
+
 <li class="nk-menu-item" style="border:none;">
-<Inertia-link :href="route('supportservices.list')" class="nk-menu-link" style="color:white;border:none;">
-<span class="nk-'menu-text">Support Services</span>
+<Inertia-link :href="route('about')" class="nk-menu-link" style="color:white;border:none;">
+<span class="nk-'menu-text">About Us</span>
 </Inertia-link>
 </li>
+
+
+
 <li class="nk-menu-item" style="border:none;">
+<Inertia-link :href="route('whatwedo')" class="nk-menu-link" style="color:white;border:none;">
+<span class="nk-'menu-text">What We Do</span>
+</Inertia-link>
+</li>
+
+<!-- <li class="nk-menu-item" style="border:none;">
 <Inertia-link :href="route('serviceprovider.list')" class="nk-menu-link" style="color:white;border:none;">
 <span class="nk-menu-text">Support Providers</span>
 </Inertia-link>
-</li>
+</li> -->
 
 <li class="nk-menu-item" style="border:none;">
 <Inertia-link :href="route('instruction.list')" class="nk-menu-link" style="color:white;border:none;">

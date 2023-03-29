@@ -19,6 +19,8 @@ use App\Models\InterviewStatusModel;
 use App\Models\AccountStatusMessageModel;
 use App\Models\PSSPInterviewScheduleModel;
 use App\Models\InterviewPanelistModel;
+use App\Http\Controllers\Wallet\WalletController;
+
 
 
 
@@ -223,15 +225,22 @@ return[
 static function dashboard(){
 //generate content by status
 $status=Auth::user()->status;
-if($status=='pending' or $status=='declined' or $status=='interview'){
+if($status=='pending' or $status=='declined' or $status=='interview' or $status=='banned'){
 $get_services=ServiceProviderServicesModel::select('support_service.name','support_service.id')
 ->join('support_service','service_provider_services.serviceID','=','support_service.id')
 ->where('service_provider_services.userID',Auth::user()->id)
 ->get();
 
 //
+
+
+
+
+
+
+
 return [
-'dasuns_number'=>DasunsNumberController::get_dasuns_user_number()->number,
+'dasuns_number'=>PSSPController::return_dasuns_number(),
 'identification_documents'=>ServiceProviderSecurityDetailsModel::where('userID',Auth::user()->id)->get(),
 'services'=>$get_services,
 'experience'=>ServiceProviderExperienceModel::where('userID',Auth::user()->id)->get(),
@@ -243,22 +252,54 @@ return [
 'interview_status'=>PSSPController::get_interview_status(),
 'account_status_message'=>PSSPController::account_status_message(),
 
+];
+
+}else{
+
+//
+return [
+//
+'section1'=>[
+'requests'=>AppointmentModel::where('providerID',Auth::user()->id)->where('status','pending')->count(),
+'appointments'=>AppointmentModel::where('providerID',Auth::user()->id)->where('status','accepted')->count(),
+'services'=>ServiceProviderServicesModel::where('userID',Auth::user()->id)->count(),
+'wallet'=>WalletController::get_wallet_balance()->amount,
+],
+
+//
+'section2'=>[
+'services_list'=>ServiceProviderServicesModel::where('userID',Auth::user()->id)->get(),
+'Appointments_list'=>AppointmentModel::where('providerID',Auth::user()->id)->where('status','accepted')->get(),
+],
+
+'section3'=>[
+'wallet_details'=>WalletController::get_wallet_balance(),
+
+
+]
+
+
 
 ];
 
 
+}
+}
+
+
+// get dasuns number
+static function return_dasuns_number(){
+$get=DasunsUserNumberModel::where('userID',Auth::user()->id)->get();
+if(count($get)==1){
+foreach($get as $row);
+return $row->number;
 }else{
-
-return [];
-
-
+return null;
+}
 }
 
 
 
-
-
-}
 
 
 

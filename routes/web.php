@@ -24,6 +24,9 @@ use App\Http\Controllers\Appointment\AppointmentController;
 use App\Http\Controllers\Cart\CartController;
 use App\Http\Controllers\Settings\UserSettingsController;
 use App\Http\Controllers\Administration\AdministrationController;
+use App\Http\Controllers\Request\RequestController;
+use App\Http\Controllers\Information\AboutController;
+use App\Http\Controllers\Information\WhatwedoController;
 
 
 
@@ -57,6 +60,10 @@ Route::get('/service-provider/list',[ServiceProviderController::class,'service_p
 Route::get('/instructions/list',[HomeController::class,'how_it_works'])->name('instruction.list');
 
 Route::middleware('guest')->get('/terms',[TermsController::class,'index'])->name('terms');
+
+Route::middleware('guest')->get('/about-us',[AboutController::class,'index'])->name('about');
+Route::middleware('guest')->get('/what-we-do',[WhatwedoController::class,'index'])->name('whatwedo');
+
 
 Route::middleware(['auth:sanctum', 'verified'])->post('/profile-create-pssu',[ProfileController::class,'create_pssu_profile'])->name('create_profile.pssu');
 
@@ -225,3 +232,5 @@ Route::middleware(['auth:sanctum', 'verified'])->post('/account/update-password'
 Route::middleware(['auth:sanctum', 'verified'])->post('/admin/change-employee-status',[AdministrationController::class,'change_employee_status'])->name('admin.change_employee_status');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/appointments',[AppointmentController::class,'index'])->name('appointments');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/requests',[RequestController::class,'index'])->name('requests');

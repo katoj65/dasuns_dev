@@ -2,7 +2,7 @@
 <div>
 <VettingStatusPending v-if="status=='pending'" :response="response"/>
 <InterviewPSSP :response="response" v-else-if="status=='interview'"/>
-<DashboardActivePSSP v-else-if="status=='active'"/>
+<DashboardActivePSSP v-else-if="status=='active'" :response="response" />
 </div>
 </template>
 <script>

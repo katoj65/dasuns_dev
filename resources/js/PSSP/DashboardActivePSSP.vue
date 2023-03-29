@@ -1,5 +1,7 @@
 <template>
 <div class="nk-block pt-0">
+
+
 <div class="row g-gs">
 <div class="col-md-3" v-for="t in tab" :key="t.id" shadow="never">
 <el-card class="card  card-full h-100" shadow="never">
@@ -48,7 +50,7 @@
 <div slot="header">
 <h4>Appointments</h4>
 </div>
-<div>
+<div style="min-height:400px;">
 
 
 
@@ -62,7 +64,7 @@
 <div slot="header">
 <h4>Services</h4>
 </div>
-<div>
+<div style="min-height:400px;">
 
 
 </div>
@@ -84,7 +86,7 @@
 <div slot="header">
 <h4>Wallet</h4>
 </div>
-<div>
+<div style="min-height:400px;">
 
 
 
@@ -99,7 +101,7 @@
 <div slot="header">
 <h4>Recommendations</h4>
 </div>
-<div>
+<div style="min-height:400px;">
 
 
 </div>
@@ -111,7 +113,7 @@
 <div slot="header">
 <h4>Activities</h4>
 </div>
-<div>
+<div style="min-height:400px;">
 
 
 
@@ -144,15 +146,14 @@ response:{}
 
 computed:{
 tab(){
+const section1=this.response.user_data.pssp_attributes.section1;
 const item=[
-{id:1,title:'REQUESTS',count:10,url:'dashboard',icon:'icon ni ni-emails'},
-{id:2,title:'APPOINTMENTS',count:3,url:'dashboard',icon:'icon ni ni-calender-date-fill'},
-{id:3,title:'SERVICES',count:4,url:'dashboard',icon:'icon ni ni-dashboard-fill'},
-{id:4,title:'WALLET',count:4,url:'wallet',icon:'con ni ni-wallet-fill'},
+{id:1,title:'REQUESTS',count:section1.requests,url:'requests',icon:'icon ni ni-emails'},
+{id:2,title:'APPOINTMENTS',count:section1.appointments,url:'dashboard',icon:'icon ni ni-calender-date-fill'},
+{id:3,title:'SERVICES',count:section1.services,url:'dashboard',icon:'icon ni ni-dashboard-fill'},
+{id:4,title:'WALLET',count:section1.wallet,url:'wallet',icon:'con ni ni-wallet-fill'},
 ];
-
 return item;
-
 }
 
 
