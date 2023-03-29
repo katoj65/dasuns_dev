@@ -26,6 +26,7 @@ use App\Http\Controllers\Settings\UserSettingsController;
 use App\Http\Controllers\Administration\AdministrationController;
 
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -222,3 +223,5 @@ Route::middleware(['auth:sanctum', 'verified'])->post('/account/update-password'
 
 //admin change employee status
 Route::middleware(['auth:sanctum', 'verified'])->post('/admin/change-employee-status',[AdministrationController::class,'change_employee_status'])->name('admin.change_employee_status');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/appointments',[AppointmentController::class,'index'])->name('appointments');

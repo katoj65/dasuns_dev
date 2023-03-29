@@ -27,9 +27,12 @@
 <div class="invest-data-amount g-2">
 <div class="invest-data-history">
 <!-- <div class="title">This Month</div> -->
-<div class="amount"> <span class="currency currency-usd" style="font-size:15px;color:#07372F;">
+<div class="amount">
+<Inertia-link :href="route(t.url)"><span class="currency currency-usd" style="font-size:15px;color:#07372F;">
 <strong>{{ t.title }} </strong>
-</span></div>
+</span>
+</Inertia-link>
+</div>
 </div>
 <!-- <div class="invest-data-history">
 <div class="title">This Week</div>
@@ -346,10 +349,10 @@ return this.$page.props.auth.user;
 tab(){
 const count=this.response.dashboard.count_items;
 const items=[
-{icon:'icon ni ni-calender-date-fill',title:'APPOINTMENTS',count:count.appointments,id:2},
-{icon:'icon ni ni-grid-fill',title:'SERVICE PROVIDERS',count:count.providers,id:1},
-{icon:'icon ni ni-bar-chart-fill',title:'RECOMMENDATIONS',count:count.recommendations,id:3},
-{icon:'icon ni ni-wallet-fill',title:'WALLET',count:count.wallet,id:4},
+{icon:'icon ni ni-calender-date-fill',title:'APPOINTMENTS',count:count.appointments,id:2,url:'appointments'},
+{icon:'icon ni ni-grid-fill',title:'SERVICE PROVIDERS',count:count.providers,id:1,url:'dashboard'},
+{icon:'icon ni ni-bar-chart-fill',title:'RECOMMENDATIONS',count:count.recommendations,id:3,url:'dashboard'},
+{icon:'icon ni ni-wallet-fill',title:'WALLET',count:count.wallet,id:4,url:'wallet'},
 ];
 return items;
 },

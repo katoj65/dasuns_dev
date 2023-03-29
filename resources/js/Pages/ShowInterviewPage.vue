@@ -1,6 +1,7 @@
 <template>
 <app-layout>
-<div class="row pt-2 pb-3">
+<el-card shadow="never">
+<div class="row">
 <div class="col-12 col-md-4">
 <el-card class="card  h-100" shadow="never">
 <div class="card-inner">
@@ -20,8 +21,8 @@
 </div>
 
 <div class="user-info">
-<h1 style="font-size:20px;" class="mb-2 mt-3">{{ i.date }} </h1>
-<span class="sub-text pt-4" style="font-size:20px;"><em class="icon ni ni-clock mr-3 text-success"></em> {{ i.time }}</span>
+<h1 style="font-size:20px;" class="mb-2 mt-3">{{ i.date.split('-').reverse().join('/') }} </h1>
+<span class="sub-text pt-4" style="font-size:20px;"><em class="icon ni ni-clock mr-3 text-success"></em> {{ i.time.substring(0,5) }}</span>
 </div>
 </div>
 
@@ -59,28 +60,28 @@
 </div>
 
 
+<div class="mt-5">
+<CalendarComponent/>
+</div>
+
 
 </div><!-- .team -->
 </div><!-- .card-inner -->
 </el-card>
+
+
+
+
+
+
+
+
+
+
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <div class="col-12 col-md-8">
+
+
 <el-card class="card h-100" shadow="true">
 <div slot="header" class="clearfix">
 <span><strong style="font-size:18px;">Interview Appointment</strong></span>
@@ -116,7 +117,7 @@
 <div class="data-col">
 <div class="data-label">Date of Birth</div>
 <div class="data-value">
-{{ i.dob }}
+{{ i.dob.split('-').reverse().join('/') }}
 </div>
 </div>
 </li>
@@ -409,7 +410,7 @@ No recommendation yet.
 
 
 
-<div class="card-footer bg-light" v-if="response.has_recommendations==true && i.status=='interview'">
+<div class="card-footer bg-white" v-if="response.has_recommendations==true && i.status=='interview'">
 <div class="row">
 <div class="col-12 col-md-6">
 </div>
@@ -430,11 +431,6 @@ Account Approval<i class="el-icon-arrow-down el-icon--right"></i>
 
 
 
-<!--------->
-
-
-
-
 
 
 
@@ -444,6 +440,10 @@ Account Approval<i class="el-icon-arrow-down el-icon--right"></i>
 
 </div>
 </div>
+</el-card>
+
+
+
 
 
 
@@ -657,11 +657,13 @@ Comment
 import AppLayout from '@/Layouts/AppLayout';
 import InputError from '@/Alerts/InputError';
 import PageTitle from '@/Shared/PageTitle';
+import CalendarComponent from '@/components/CalendarComponent';
 export default {
 components:{
 AppLayout,
 InputError,
-PageTitle
+PageTitle,
+CalendarComponent
 
 },
 
@@ -674,6 +676,8 @@ errors:{},
 },
 
 data(){return{
+
+
 page_title:{
 url:'dashboard',
 heading:'Interview Appointment',
@@ -763,7 +767,7 @@ submit_account_approval(){
 this.form_approval.post(this.route('store.pssp_account_approval'),{
 onSuccess:()=>{
 this.$notify({
-    position: 'bottom-right',
+position: 'bottom-right',
 title:'Successful',
 message:this.$page.props.flash.success,
 type:'success'
@@ -792,7 +796,7 @@ if(this.form.time!=this.i.time || this.form.date!=this.i.date || this.form.comme
 this.form.post(this.route('update.interview'),{
 onSuccess:()=>{
 this.$notify({
-    position: 'bottom-right',
+position: 'bottom-right',
 title:'Successful',
 message:this.$page.props.flash.success,
 type:'success'
@@ -803,7 +807,7 @@ type:'success'
 
 }else{
 this.$notify({
-    position: 'bottom-right',
+position: 'bottom-right',
  title:'Warning',
  message:'Interview information was not edited.',
  type:'warning'
@@ -819,7 +823,7 @@ this.form2.post(this.route('store.interview_recommendation'),{
 onSuccess:()=>{
 this.errors=null;
 this.$notify({
-    position: 'bottom-right',
+position: 'bottom-right',
 title:'Successful',
 message:this.$page.props.flash.success,
 type:'success'
@@ -840,7 +844,7 @@ delete_item(){
 this.delete_form.post(this.route('delete.interview'),{
 onSuccess:()=>{
 this.$notify({
-    position: 'bottom-right',
+position: 'bottom-right',
 title:'Success',
 message:this.flash.success,
 type:success

@@ -1,7 +1,7 @@
 <template>
 <app-layout>
-<div class="card">
-<div class="card-header" style="height:150px;">
+<el-card class="card mt-1" shadow="never">
+<div class="card-header" style="height:150px;margin:-20px;">
 
 </div>
 
@@ -313,7 +313,7 @@ Joined
 
 </div><!-- .team -->
 </div><!-- .card-inner -->
-</div>
+</el-card>
 
 
 

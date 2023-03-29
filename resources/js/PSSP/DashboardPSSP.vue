@@ -1,7 +1,6 @@
 <template>
 <div>
 <CreateProfilePSSP v-if="user.profile.length==0" :response="response" :errors="errors" :flash="flash"></CreateProfilePSSP>
-
 <WelcomePSSP v-else :response="response" :errors="errors" :flash="flash"></WelcomePSSP>
 </div>
 </template>

@@ -1,252 +1,432 @@
 <template>
-<div class="nk-block">
-<div class="row g-gs">
 
+<div class="row pt-2 pb-3">
+<div class="col-12 col-md-4">
+<el-card class="card  h-100" shadow="never">
+<div class="card-inner">
+<div class="team">
+<div class="user-card user-card-s2 ">
+<!-- <div class="mb-3">
+<span>
 
+<em class="icon ni ni-calender-date-fill text-success" style="font-size:50px;"></em>
 
-
-
-
-<div class="col-12 col-md-8">
-<div class="card  card-full" style="overflow:auto;height:700px;">
-<div class="card-inner bg-warning-dim">
-<div class="card-title-group">
-<div class="card-title">
-<h6 class="title">
-<div class="row p-0" style="overflow:auto;">
-<div class="col-12 col-md-12 p-0 text-center">
-<span class="d-sm-inline  p-1" style="font-weight:normal;text-align:center;">
-<em class="icon ni ni-alert-circle"></em> Your submissions are under review by Dasuns team. you will be contacted shortly.
 </span>
+</div> -->
+
+<div class="user-avatar sq bg-warning-dim" style="width:70px;height:60px;">
+<span><em class="icon ni ni-calender-date-fill text-warning" style="font-size:50px;margin:10px;"></em></span>
+
+</div>
+
+<div class="user-info">
+<h1 style="font-size:20px;" class="mb-2 mt-3">{{ i.date }} </h1>
+<span class="sub-text pt-4" style="font-size:20px;"><em class="icon ni ni-clock mr-3 text-success"></em> {{ i.time }}</span>
 </div>
 </div>
-</h6>
+
+
+
+
+
+
+<div v-if="i.status=='pending' || i.status=='interview'">
+
+<div class="team-view mt-5" v-if="$page.props.auth.user.role=='panelist'">
+<div v-if="panelist_status==false">
+<a href="#" class="btn btn-block btn-success" @click="recommendation_dialog(true)"><span>Recommend Applicant</span></a>
 </div>
-<!-- <div class="card-tools">
-<ul class="card-tools-nav">
-<li><a href="#"><span>Buy</span></a></li>
-<li><a href="#"><span>Sell</span></a></li>
-<li class="active"><a href="#"><span>All</span></a></li>
-</ul>
+<!-- <div class="text-muted">
+<em class="icon ni ni-check-circle-fill text-success" style="font-size:50px;"></em>
 </div> -->
 </div>
+
+<div class="team-view mt-5" v-else>
+<span v-if="response.panelists.length>0">
+<button disabled class="btn btn-block btn-dim  btn-outline-success btn-round">{{ response.panelists.length>1?response.panelists.length+' Panelists':response.panelists.length+' Panelist'}} </button>
+</span>
+<span v-else>
+<a href="#" class="btn btn-block btn-dim btn-success" @click="change_dialog(true)"><span>Change</span></a>
+</span>
+</div>
+
+</div>
+
+<div v-else-if="i.status=='active'">
+<div class="team-view mt-5">
+<button class="btn btn-block btn-dim btn-success " disabled><span><em class="icon ni ni-check-circle mr-3"></em> Recommended</span></button>
+</div>
+</div>
+
+
+
+</div><!-- .team -->
 </div><!-- .card-inner -->
-<div class="card-inner p-0">
-<table class="table">
-<thead style="border:none;" class="bg-success-dim">
-<tr style="border:none;">
-<th scope="col" colspan="8" style="border:none;color:#07372F;">
-<em class="icon ni ni-view-list-wd"></em>
-Professional Services I Provide
-</th>
-</tr>
-</thead>
-<tbody v-if="attributes.services.length>0" style="border:none;">
-<tr v-for="s in attributes.services" :key="s.id" style="border:none;">
-<td colspan="8" style="border:none;">
-{{ s.name }}
+</el-card>
+</div>
+
+<div class="col-12 col-md-8">
+<el-card class="card h-100" shadow="true">
+<div slot="header" class="clearfix">
+<span><strong style="font-size:18px;">Interview Appointment</strong></span>
+<el-dropdown trigger="click" style="float:right;" v-if="role=='reception'">
+<span class="el-dropdown-link">
+<buttopn class="btn bg-success" ><em class="icon ni ni-more-h text-white"></em></buttopn>
+</span>
+<el-dropdown-menu slot="dropdown">
+<el-dropdown-item><a href="#" style="padding:5px;" @click="delete_item(response.interview.interviewID)">Delete</a></el-dropdown-item>
+</el-dropdown-menu>
+</el-dropdown>
+  </div>
+
+
+<div class="card-body p-0" style="min-height:700px;">
+<div class="mt-0">
+<ul class="data-list is-compact">
+
+<li class="data-item">
+<div class="data-col">
+<div class="data-label">Names</div>
+<div class="data-value text-transform" style="font-weight:bold;">{{ i.firstname }} {{ i.lastname }} </div>
+</div>
+</li>
+
+<li class="data-item">
+<div class="data-col">
+<div class="data-label">Gender</div>
+<div class="data-value text-transform"> {{ i.gender }} </div>
+</div>
+</li>
+<li class="data-item">
+<div class="data-col">
+<div class="data-label">Date of Birth</div>
+<div class="data-value">
+{{ i.dob }}
+</div>
+</div>
+</li>
+<li class="data-item">
+<div class="data-col">
+<div class="data-label">Telephone Number</div>
+<div class="data-value">
+{{ i.tel }}
+</div>
+</div>
+</li>
+<li class="data-item">
+<div class="data-col">
+<div class="data-label">Email Address</div>
+<div class="data-value">{{ i.email }} </div>
+</div>
+</li>
+<li class="data-item">
+<div class="data-col">
+<div class="data-label">Physical Address</div>
+<div class="data-value text-transform">
+{{ i.location }}
+</div>
+</div>
+</li>
+<li class="data-item">
+<div class="data-col">
+<div class="data-label">Country of Residence</div>
+<div class="data-value">{{ i.country }} </div>
+</div>
+</li>
+<li class="data-item">
+<div class="data-col">
+<div class="data-label">Dasuns Number </div>
+<div class="data-value">{{ i.number }} </div>
+</div>
+</li>
+
+
+
+
+
+
+
+<li class="data-item mt-3">
+<div class="data-col">
+<div class="data-label">
+<div>
+<h1 class="mb-1 size15">
+<em class="icon ni ni-list-thumb-alt-fill"></em>
+Services
+</h1>
+<div>
+<ul>
+<li v-for="x in s" :key="x.id">
+<span>
+<em class="icon ni ni-dot"></em>
+</span>
+<span>{{ x.name }}</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<!-- <div class="data-value text-break">1F1tAaz5x1HUXrCNLbtMDqcw6o5GNn4xqX</div> -->
+</div>
+</li>
+
+
+
+
+
+
+
+<li class="data-item pt-4">
+<div class="data-col">
+<!-- <div class="data-label">Comment</div> -->
+<div class="data-value">
+<div>
+<h1 class="pb-2 size15">
+<em class="icon ni ni-alert-fill"></em>
+Comment
+</h1>
+<div>
+{{ i.comment }}
+</div>
+</div>
+</div>
+</div>
+</li>
+
+
+
+
+<li class="pt-4">
+<div>
+
+
+<el-collapse accordion >
+<el-collapse-item name="1">
+<template slot="title">
+<h3 class="size15" style="padding-left:20px;padding-right:20px;">
+<em class="icon ni ni-shield-fill text-muted"></em>
+Identification Documents
+</h3>
+</template>
+<div style="padding-left:20px;padding-right:20px;">
+
+<table style="width:100%;" class="text-muted">
+<tbody v-if="documents.length>0">
+<tr v-for="d in documents" :key="d.id">
+<td>
+{{ d.document }}
 </td>
-
-
+<td>
+{{ d.document_number }}
+</td>
+<td>
+<a href="#">File</a>
+</td>
 </tr>
 </tbody>
 <tbody v-else>
 <tr>
-<td colspan="8">Missing</td>
-</tr>
-</tbody>
-
-<thead style="border:none;" class="bg-success-dim">
-<tr>
-<th scope="col" colspan="8" style="border:none;color:#07372F;">
-<em class="icon ni ni-shield-fill"></em>
-Identification Documents
-</th>
-</tr>
-</thead>
-<tbody v-if="attributes.document.length>0" style="border:none;">
-<tr v-for="d in attributes.document" :key="d.id" style="border:none;">
-<td colspan="3" style="border:none;">
-{{ d.document }}
-</td>
-<th class="width-100" style="border:none;">
-Number
-</th>
-<td colspan="2" style="border:none;">
-{{ d.document_number }}
-</td>
-<td style="border:none;">
-<a href="#" class="hover">Download</a>
+<td class="text-warning">
+Missing
 </td>
 </tr>
 </tbody>
-<tbody v-else><tr><td>Missing</td></tr></tbody>
-<thead class="bg-success-dim">
-<th colspan="8" style="border:none;color:#07372F;">
-<em class="icon ni ni-folder-fill"></em> Work Experience
-</th>
-</thead>
-<tbody v-if="attributes.experience.length>0">
-<tr v-for="a in attributes.experience" :key="a.id" style="border:none;">
-<td colspan="3" style="border:none;">
-{{ a.organisation_name }}
-</td>
-<th class="width-100" style="border:none;">Position</th>
-<td>
-{{ a.position }}
-</td>
-<th>Dates</th>
-<td colspan="2" style="font-size:13px;">
-{{ a.from_date }} - {{ a.to_date }}
-</td>
-</tr>
-</tbody>
-<tbody v-else><tr><td>Missing</td></tr></tbody>
-<thead class="bg-success-dim">
-<tr>
-<th scope="col" colspan="8" style="border:none;color:#07372F;">
-<em class="icon ni ni-users-fill"></em> Professional References
-</th>
-</tr>
-</thead>
-<tbody v-if="attributes.reference.length>0">
-<tr v-for=" r in attributes.reference" :key="r.id">
-<td colspan="2">
-{{ r.names }}
-</td>
-<th style="width:30px;">Tel</th>
-<td>{{ r.tel }} </td>
-<th class="width-100">Email</th>
-<td style="text-transform:lowercase;">{{ r.email }} </td>
-<th class="width-100">Position</th>
-<td>
-{{ r.position }}
-</td>
-</tr>
-</tbody>
-<tbody v-else><tr><td>Missing</td></tr></tbody>
 </table>
 
 
 
 
-
-<div style="text-align:center;font-size:18px;color:#07372F;" class="pt-5">
-<Inertia-link class="hover">For more information contact Dasuns</Inertia-link>
 </div>
-
-
-
-
-
-
-
-
-
-
-</div><!-- .card-inner -->
-</div><!-- .card -->
-</div><!-- .col -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="col-12 col-md-4">
-<div class="row g-gs">
-<div class="col-md-6 col-lg-12">
-<div class="card card-full h-100">
-<div class="card-inner">
-<div class="team">
-<div class="user-card user-card-s2">
-<div class="user-avatar lg" style="background:#37BEA7;">
-<span><em class="icon ni ni-user-alt-fill"></em></span>
+</el-collapse-item>
+<el-collapse-item  name="2">
+<template slot="title">
+<h3 class="size15 bold" style="padding-left:20px;padding-right:20px;"><em class="icon ni ni-folder-fill text-muted"></em> Profession Experience</h3>
+</template>
+<div class="pl-2 pr-2">
+<table class="table">
+<thead>
+<tr class="border-0">
+<th scope="col" class="border-0">Organisation</th>
+<th scope="col" class="border-0">Position</th>
+<th scope="col" class="border-0">From date</th>
+<th scope="col" class="border-0">To date</th>
+</tr>
+</thead>
+<tbody class="border-0" v-if="response.expereinces.length>0">
+<tr v-for="e in response.expereinces" :key="e.id" class="border-0">
+<td scope="row" class="border-0 text-transform">
+{{ e.organisation_name }}
+</td>
+<td class="border-0 text-transform">
+{{ e.position }}
+</td>
+<td class="border-0">
+{{ e.from_date }}
+</td>
+<td class="border-0">
+{{ e.to_date }}
+</td>
+</tr>
+</tbody>
+<tbody v-else>
+<tr>
+<td class="text-warning">Missing</td>
+</tr>
+</tbody>
+</table>
 </div>
-<div class="user-info text-transform">
-<h2 style="font-size:20px;">{{ user.firstname }} {{ user.lastname }} </h2>
-<span class="sub-text text-transform mt-2">
-{{ user.account_type }} Account
+</el-collapse-item>
 
+
+<el-collapse-item name="3">
+<template slot="title">
+<h3 class="bold size15" style="padding-left:20px;padding-right:20px;">
+<em class="icon ni ni-tag-fill text-muted"></em> Profession References</h3>
+</template>
+<div class="pl-2 pr-2" style="padding-left:20px;padding-right:20px;">
+<table class="table">
+<thead>
+<tr class="border-0">
+<th scope="col" class="border-0">Names</th>
+<th scope="col" class="border-0">Telephone</th>
+<th scope="col" class="border-0">Email</th>
+<th scope="col" class="border-0">Address</th>
+<th scope="col" class="border-0">Position</th>
+
+</tr>
+</thead>
+<tbody class="border-0" v-if="response.references.length>0">
+<tr v-for="r in response.references" :key="r.id" class="border-0">
+<td scope="row" class="border-0 text-transform">
+{{ r.names}}
+</td>
+<td class="border-0 text-transform">
+{{ r.tel }}
+</td>
+<td class="border-0">
+{{ r.email }}
+</td>
+<td class="border-0">
+{{ r.address }}
+</td>
+<td class="border-0 text-transform">
+{{ r.position }}
+</td>
+</tr>
+</tbody>
+<tbody v-else>
+<tr>
+<td class="text-warning">Missing</td>
+</tr>
+</tbody>
+</table>
+</div>
+</el-collapse-item>
+</el-collapse>
+
+
+</div>
+</li>
+
+
+
+
+
+
+
+<li class="data-item">
+<div class="card thick-border card-preview mt-2" style="width:100%;">
+<table class="table table-ulogs"  style="margin-top:-3px;">
+<thead class="thick-bg">
+<tr>
+<th>
+Panelist Names
+</th>
+<th colspan="1">
+Recommendations
+</th>
+</tr>
+</thead>
+<tbody v-if="response.panelists.length>0">
+
+<tr v-for="r in response.panelists">
+<td class="text-transform p-2">
+<em class="icon ni ni-user-alt-fill text-warning mr-2"></em>
+{{ r.firstname }} {{ r.lastname }}
+</td>
+<td class="p-2">
+<div v-if="r.recommendation.length>0">
+<div v-for="rc in r.recommendation">
+<span class="mr-2 text-success">
+{{ rc.name }} :
+</span>
+<span>
+{{ rc.comment }}
 </span>
 </div>
 </div>
-<ul class="team-info">
-<li><span>Gender</span><span class="text-transform">{{ user.gender }} </span></li>
-<li><span>DOB</span><span>{{ user.dob }} </span></li>
-<li><span>Email</span><span>{{ user.email }} </span></li>
-<li><span>Telephone</span><span>{{ user.tel }} </span></li>
+<div v-else class="text-warning">
+No recommendation yet.
+</div>
+</td>
+</tr>
+
+</tbody>
+
+<body v-else>
+<tr><td colspan="2">No recommendations so far.</td></tr>
+</body>
+</table>
+</div>
+
+
+
+
+
+
+
+
+
+</li>
 </ul>
-<div class="team-view">
-<Inertia-link :href="route('profile')" class="btn btn-block btn-dim btn-success"><span>View Profile</span></Inertia-link>
 </div>
-</div><!-- .team -->
 </div>
 
 
 
+<div class="card-footer bg-light" v-if="response.has_recommendations==true && i.status=='interview'">
+<div class="row">
+<div class="col-12 col-md-6">
+</div>
+<div class="col-12 col-md-6" style="text-align:right;">
+<el-dropdown trigger="click">
+<span class="el-dropdown-link btn btn-success" style="font-size:15px;">
+Account Approval<i class="el-icon-arrow-down el-icon--right"></i>
+</span>
+<el-dropdown-menu slot="dropdown">
+<el-dropdown-item><a href="#" @click="dialog_confirmation()" style="padding:10px;">Approve</a></el-dropdown-item>
+<el-dropdown-item><a href="#" style="padding:10px;" @click="dialog_rejection()">Reject</a></el-dropdown-item>
+</el-dropdown-menu>
+</el-dropdown>
+</div>
+</div>
+</div>
+</el-card>
 
 
 
-</div><!-- .card -->
-</div><!-- .col -->
-</div><!-- .row -->
-</div><!-- .col -->
-</div><!-- .row -->
+<!--------->
+
+
+
+
+
+
+
+
+
+
+
+</div>
 </div>
 </template>
-<script>
-export default {
-props:{
-response:{},
-},
-
-data(){return{
-attributes:{
-document:this.response.user_data.pssp_attributes.identification_documents,
-services:this.response.user_data.pssp_attributes.services,
-experience:this.response.user_data.pssp_attributes.experience,
-reference:this.response.user_data.pssp_attributes.references,
-},
-//user information
-user:this.$page.props.auth.user,
-
-
-}}
-
-
-
-}
-</script>
-<style scoped>
-.width-100{
-width:100px;
-}
-
-table thead tr th{
-padding:10px;
-}
-
-table tbody tr th, table tbody tr td{
-padding:10px;
-text-transform: capitalize;
-
-}
-
-table thead tr, table tbody tr{border:none;}
-
-table thead tr th, table tbody tr td{border:none;}
-
-</style>

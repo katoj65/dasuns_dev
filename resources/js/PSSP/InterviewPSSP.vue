@@ -1,8 +1,8 @@
 <template>
+<el-card>
 <div class="row mt-2">
 
 <div class="col-12 col-md-4">
-
 
 <el-card shadow="never" class="card h-100">
 <div class="card-inner">
@@ -31,9 +31,17 @@
 <Inertia-link :href="route('profile')" class="btn btn-block btn-success" v-if="user.status=='pending'"><span>Edit Profile</span></Inertia-link>
 <button class="btn btn-block btn-success" disabled v-else-if="user.status=='interview'">Edit Profile</button>
 
+</div>
+</div>
 
+
+<div class="mt-5">
+<CalendarComponent/>
 </div>
-</div>
+
+
+
+
 </div>
 </el-card>
 </div>
@@ -96,13 +104,11 @@
 <div class="alert alert-danger alert-icon" v-if="account_status.status=='failed'">
 <em class="icon ni ni-alert-circle"></em> {{ account_status.message }} </div>
 
-<div class="alert alert-primary alert-icon" v-if="account_status.status=='interview'">
-<div><em class="icon ni ni-alert-circle"></em> {{ account_status.message }}</div>
 
-
-<div class="example-alert mt-2 mb-3">
-<div class="alert alert-pro alert-primary">
+<div class="example-alert mt-2 mb-3" v-if="account_status.status=='interview'">
+<div class="alert alert-pro alert-primary" style="box-shadow:none;">
 <div class="alert-text">
+<h6 class="mb-4"><em class="icon ni ni-alert-circle"></em> {{ account_status.message }}</h6>
 <h6><em class="icon ni ni-calender-date-fill"></em> {{ interview.date.split('-').reverse().join('/') }}
 <span class="ml-3"><em class="icon ni ni-clock"></em> {{ interview.time.substring(0,5) }}</span> </h6>
 <p class="mt-2">
@@ -117,7 +123,8 @@
 </div>
 </div>
 
-</div>
+
+
 </div>
 
 
@@ -342,9 +349,15 @@ Names
 
 
 </div>
+</el-card>
 </template>
 <script>
+import CalendarComponent from '@/Components/CalendarComponent';
+
 export default {
+components:{
+CalendarComponent,
+},
 props:{
 response:{},
 },

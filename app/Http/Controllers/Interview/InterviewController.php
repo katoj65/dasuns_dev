@@ -14,6 +14,7 @@ use App\Http\Controllers\Panelist\PanelistController;
 use App\Models\User;
 use App\Http\Controllers\DasunsNumber\DasunsNumberController;
 use App\Models\PSSPInterviewRejectionModel;
+use App\Models\AccountStatusMessageModel;
 
 
 
@@ -122,6 +123,7 @@ return redirect('/')->with('success','Interview has been deleted.');
 
 //interview recommendation
 public function store_interview_recommendation(Request $request){
+
 $request->validate(['option'=>['required'],['required'=>'* Field is required.']]);
 $id=Auth::user()->id;
 PSSPInterviewRecommendationModel::insert([
@@ -130,6 +132,7 @@ PSSPInterviewRecommendationModel::insert([
 'recommendationID'=>$request->option,
 'comment'=>$request->comment
 ]);
+
 return redirect('/')->with('success','You have successfully submited your recommendation');
 }
 
@@ -291,28 +294,23 @@ return[];
 
 //approve interview
 public function store_approve_interview(Request $request){
-$get=PSSPInterviewScheduleModel::select('pssp_interview_schedule.id',
-'pssp_interview_schedule.applicationID',
-'dasuns_user_number.userID',
-'dasuns_user_number.id as dasunsID')
-->join('dasuns_user_number','pssp_interview_schedule.applicationID','=','dasuns_user_number.id')
-->where('pssp_interview_schedule.id',$request->id)->get();
+$get=PSSPInterviewScheduleModel::select('id','service_providerID as userID')
+->where('id',$request->id)->get();
 if(count($get)==1){
 foreach($get as $row);
-
 User::where('id',$row->userID)->update(['status'=>'active']);
-DasunsUserNumberModel::where('id',$row->dasunsID)->update(['account_status'=>'verified']);
-
+DasunsUserNumberModel::where('userID',$row->userID)->update(['account_status'=>'verified']);
+AccountStatusMessageModel::where('userID',$row->userID)
+->update(['message'=>'Your account is approved.','status'=>'success']);
 
 return redirect('/')->with('success','Service provider account has been verified.');
-
-return $row;
-
 
 }else{
 return redirect('/')->with('error','No content found.');
 }
 }
+
+
 
 
 

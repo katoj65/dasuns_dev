@@ -14,6 +14,7 @@ use App\Models\DasunsCartModel;
 use App\Models\AppointmentClockingModel;
 use App\Http\Controllers\Wallet\DasunsWalletController;
 
+
 class AppointmentController extends Controller
 {
 /**
@@ -23,6 +24,33 @@ class AppointmentController extends Controller
  */
 public function index()
 {
+$data['title']='Appointment';
+$data['response']=[
+'appointment'=>AppointmentModel::select('support_service.name',
+'appointment.date',
+'appointment.end_date',
+'appointment.comment',
+'appointment.from',
+'appointment.to',
+'appointment.location',
+'users.firstname',
+'users.lastname',
+'users.gender',
+'users.email',
+'users.dob',
+'appointment.status')
+->join('support_service','appointment.serviceID','=','support_service.id')
+->join('users','appointment.providerID','=','users.id')
+->where('appointment.userID',Auth::user()->id)
+->orderby('appointment.date','DESC')
+->get(),
+
+
+
+
+
+];
+return Inertia::render('AppointmentsPage',$data);
 //
 }
 
