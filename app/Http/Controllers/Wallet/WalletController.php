@@ -88,7 +88,6 @@ DasunsWalletModel::insert(['userID'=>Auth::user()->id]);
 
 // get user wallet
 static function get_wallet_balance(){
-
 $get=DasunsWalletModel::where('userID',Auth::user()->id)->get();
 if(count($get)==1){
 foreach($get as $row);

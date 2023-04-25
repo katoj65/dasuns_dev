@@ -295,13 +295,7 @@ Service No: {{ response.appointment.number }}
 </a>
 </div>
 
-
 <div class="modal-body" style="max-height:500px;overflow:auto">
-
-
-
-
-
 
 <div class="row mb-3" v-if="response.appointment.end_date!=null">
 <div class="col-md-6 col-12">
@@ -340,11 +334,6 @@ Appointment Date
 <input type="date" class="form-control" id="default-01" placeholder="Enter appointment date" v-model="form.date">
 </div>
 </div>
-
-
-
-
-
 
 
 
@@ -399,16 +388,6 @@ Appointment Date
 
 
 </div>
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -75,13 +75,13 @@ Professional Service Provider Account
 <div class="card mt-3 thick-border">
 
 <div class="card-header d-sm-inline  p-3 bg-warning-dim" v-if="response.user_data.pssp_attributes.identification_documents.length==0 || response.user_data.pssp_attributes.experience.length==0 || response.user_data.pssp_attributes.references.length==0 || response.user_data.pssp_attributes.services.length==0">
-<em class="icon ni ni-alert-circle text-warning" style="margin-right:10px;"></em>
+<em class="icon ni ni-alert-circle text-danger" style="margin-right:10px;"></em>
 Fill in all missing information
 </div>
 <div class="card-header d-sm-inline  p-3 bg-warning-dim" v-else>
 
 <div v-if="$page.props.auth.user.status=='pending'">
-<em class="icon ni ni-alert-circle text-warning" style="margin-right:10px;"></em>
+<em class="icon ni ni-alert-circle text-danger" style="margin-right:10px;"></em>
 Dasuns team is reviewing your application, you will be contacted shortly.
 </div>
 
@@ -91,11 +91,11 @@ Interview has been scheduled
 </strong>
 <p class="pt-2 pb-2">
 <span class="mr-3">
-<em class="icon ni ni-calender-date text-warning"></em>
+<em class="icon ni ni-calender-date text-danger"></em>
 {{ date_format(interview.date) }}
 </span>
 <span>
-<em class="icon ni ni-clock text-warning"></em>
+<em class="icon ni ni-clock text-danger"></em>
 {{ interview.time.substring(0,5) }}
 </span>
 </p>
@@ -104,7 +104,7 @@ Interview has been scheduled
 </p>
 <div>
 <div>
-<a href="#" @click="show_panelist()"><strong><em class="icon ni ni-users-fill text-warning"></em>
+<a href="#" @click="show_panelist()"><strong><em class="icon ni ni-users-fill text-danger"></em>
 {{ interview.panelists.length>1?interview.panelists.length+' Panelists':interview.panelists.length+' Panelist' }}
 
 </strong></a>
@@ -172,7 +172,7 @@ Professional Services I Provide
 </tbody>
 <tbody v-else>
 <tr>
-<td colspan="8" class="text-warning">Missing</td>
+<td colspan="8" class="text-danger">Missing</td>
 </tr>
 </tbody>
 <thead>
@@ -203,7 +203,7 @@ Identification Documents
 </td>
 </tr>
 </tbody>
-<tbody v-else><tr><td class="text-warning">
+<tbody v-else><tr><td class="text-danger">
 <div class="p-2">Missing</div>
 </td></tr></tbody>
 </table>
@@ -234,7 +234,7 @@ Identification Documents
 </td>
 </tr>
 </tbody>
-<tbody v-else><tr><td class="text-warning">
+<tbody v-else><tr><td class="text-danger">
 
 <div class="p-2">Missing</div>
 </td></tr></tbody>
@@ -279,7 +279,7 @@ Names
 </tbody>
 <tbody v-else>
 <tr>
-<td class="text-warning">
+<td class="text-danger">
 <div class="p-2 pb-5">Missing</div>
 </td></tr>
 </tbody>

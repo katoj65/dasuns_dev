@@ -37,6 +37,7 @@ use App\Models\AccountStatusMessageModel;
 
 
 
+
 class ProfileController extends Controller{
 /**
  * Display a listing of the resource.
@@ -85,7 +86,7 @@ $list=SupportServiceModel::get();
 $user=Auth::user();
 
 if($user->role=='pssp'){
-//PSSPController::interview_status();
+ProfileController::PSSP_account_message();
 $docs=new DocumentsController;
 $user_data=[
 'security_documents'=>$docs->get_security_documents(),
@@ -98,6 +99,9 @@ $user_data=[
 'account_status_message'=>PSSPController::account_status_message(),
 // 'interview'=>PSSPController::interview_scheduled(),
 ];
+
+
+
 
 }elseif($user->role=='panelist'){
 
@@ -178,6 +182,31 @@ $data['response']=[
 return Inertia::render('ProfilePage',$data);
 
 }
+
+
+//update pssp account information if the pssp has created an account but not filled in teh profile
+static function PSSP_account_message(){
+if(AccountStatusMessageModel::where('userID',Auth::user()->id)->count()==0){
+AccountStatusMessageModel::insert(['userID'=>Auth::user()->id,'message'=>'Fill in the missing details of your profile.']);
+}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * Store a newly created resource in storage.
@@ -424,7 +453,7 @@ return[];
 
 //create PSSP profile
 public function create_profile_pssp(Request $request){
-// $application=new ApplicationController;
+
 $request->validate([
 'serviceID'=>['required'],
 'location'=>['required'],

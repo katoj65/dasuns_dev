@@ -42,7 +42,7 @@
 
 <li class="nk-menu-item" style="border:none;">
 <Inertia-link :href="route('instruction.list')" class="nk-menu-link" style="color:white;border:none;">
-<span class="nk-menu-text">How it works</span>
+<span class="nk-menu-text">How it works11</span>
 </Inertia-link>
 </li>
 

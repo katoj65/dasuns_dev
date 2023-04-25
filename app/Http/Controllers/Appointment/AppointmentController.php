@@ -13,6 +13,8 @@ use App\Models\DasunsPaymentFeesModel;
 use App\Models\DasunsCartModel;
 use App\Models\AppointmentClockingModel;
 use App\Http\Controllers\Wallet\DasunsWalletController;
+use App\Models\DasunsWalletModel;
+
 
 
 class AppointmentController extends Controller
@@ -60,8 +62,8 @@ return Inertia::render('AppointmentsPage',$data);
  * @param  \Illuminate\Http\Request  $request
  * @return \Illuminate\Http\Response
  */
-public function store(Request $request)
-{
+public function store(Request $request){
+
 $request->validate([
 'services'=>['required'],
 'date'=>['required'],
@@ -73,9 +75,18 @@ $request->validate([
 //dates
 $x=explode("-",$request->date);
 $dt=$x[0].$x[1].$x[2];
-
-
 if($dt>date('Ymd')){
+
+//payment details.
+$service_payments=AppointmentController::get_payment_fees();
+$amount=$service_payments->amount;
+$charges=$service_payments->charges;
+//Wallet balance
+$wallet_balance=AppointmentController::wallet_balance();
+//changes plus wallet
+$actual_charge=$amount+$charges;
+
+if($wallet_balance>=$actual_charge){
 
 //
 AppointmentModel::insert([
@@ -100,6 +111,7 @@ $get=AppointmentModel::where('providerID',$request->psspID)
 ->limit(1)
 ->get();
 
+//
 if(count($get)==1){
 foreach($get as $row);
 
@@ -109,10 +121,21 @@ AppointmentServiceModel::insert([
 'appointmentID'=>$row->id]);
 }
 
-
 return redirect('/appointment-details/'.$row->id)->with('success','Appointment request sent.');
+
 }else{
-return redirect('/');
+return redirect('/service-provider/'.$request->psspID)->with('warning','Could not.');
+}
+
+
+
+
+
+
+
+
+}else{
+return redirect('/service-provider/'.$request->psspID)->with('warning','You do not have enough money in your wallet to make an appointment. Please recharge your wallet.');
 }
 
 
@@ -121,6 +144,39 @@ return redirect('/service-provider/'.$request->psspID)->with('warning','You sele
 }
 
 }
+
+
+
+
+
+
+//get payment fees based on ones country
+static function get_payment_fees(){
+$get=DasunsPaymentFeesModel::get();
+if(count($get)==1){
+foreach($get as $row);
+return $row;
+}else{
+return null;
+}
+}
+
+//wallet balance
+static function wallet_balance(){
+$get=DasunsWalletModel::where('userID',Auth::user()->id)->get();
+if(count($get)==1){
+foreach($get as $row);
+return $row->amount;
+}else{
+return 0;
+}
+}
+
+
+
+
+
+
 
 /**
  * Display the specified resource.

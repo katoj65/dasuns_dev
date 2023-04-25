@@ -141,6 +141,7 @@ return[
 'name'=>'Dasuns',
 'logo'=>'http://localhost/dasuns_dev/resources/images/logo/white-logo.png',
 'logo2'=>'http://localhost/dasuns_dev/resources/images/logo/color-logo.png',
+'route'=>'http://localhost/dasuns_dev/resources/',
 'slogan'=>'',
 'details'=>$system->get_system_information(),
 'partners'=>$partner->get_partners(),

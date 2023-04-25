@@ -577,7 +577,7 @@ if($doc==0 or $ref==0 or $exp==0){
 //
 $check=AccountStatusMessageModel::where('userID',Auth::user()->id)->count();
 if($check==0){
-AccountStatusMessageModel::insert(['userID'=>Auth::user()->id,'message'=>'Fill in the missing details in your profile.']);
+AccountStatusMessageModel::insert(['userID'=>Auth::user()->id,'message'=>'Fill in the missing details of your profile.']);
 }else{
 AccountStatusMessageModel::where('userID',Auth::user()->id)->update(['message'=>'Dasuns team will contact you for further proceedings.']);
 }

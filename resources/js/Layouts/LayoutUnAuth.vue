@@ -2,7 +2,7 @@
 <div class="nk-app-root">
 <div class="nk-wrap" style="background:white;">
 
-<div class="nk-header nk-header-fluid is-theme is-fixed" style="border:none;background:#37BEA7;">
+<div class="nk-header nk-header-fluid is-theme is-fixed" style="border:none;background:#37BEA7;z-index:100000">
 <div class="container-xl wide-lg" style="border:none;">
 <div class="nk-header-wrap" style="border:none;">
 <div class="nk-menu-trigger mr-sm-2 d-lg-none">
@@ -27,37 +27,61 @@
 </Inertia-link>
 </div>
 <div class="nk-menu-trigger mr-n2">
-<a href="#" class="nk-nav-toggle nk-quick-nav-icon" data-target="headerNav"><em class="icon ni ni-arrow-left"></em></a>
+<a href="#" class="nk-nav-toggle nk-quick-nav-icon"><em class="icon ni ni-arrow-left"></em></a>
 </div>
 </div>
 <!-- Menu -->
 <ul class="nk-menu nk-menu-main">
 
-<li class="nk-menu-item" style="border:none;">
-<Inertia-link :href="route('about')" class="nk-menu-link" style="color:white;border:none;">
-<span class="nk-'menu-text">About Us</span>
+<li class="nk-menu-item" >
+<Inertia-link :href="route('home')" class="main-menu-item" >
+<span class="nk-'menu-text">Home</span>
 </Inertia-link>
 </li>
 
 
 
-<li class="nk-menu-item" style="border:none;">
-<Inertia-link :href="route('whatwedo')" class="nk-menu-link" style="color:white;border:none;">
-<span class="nk-'menu-text">What We Do</span>
+
+<li class="nk-menu-item" >
+<Inertia-link :href="route('about')" class="main-menu-item">
+<span class="nk-'menu-text">About</span>
 </Inertia-link>
 </li>
+
+
+<li class="nk-menu-item" >
+    <Inertia-link :href="route('instructions')" class="main-menu-item" >
+    <span class="nk-'menu-text">What we do</span>
+    </Inertia-link>
+    </li>
+
+<li class="nk-menu-item" >
+    <Inertia-link :href="route('contact')" class="main-menu-item" >
+    <span class="nk-menu-text">Contact</span>
+    </Inertia-link>
+</li>
+
+<li class="nk-menu-item">
+    <Inertia-link :href="route('support-services-page')" class="main-menu-item" >
+    <span class="nk-'menu-text">Support Services</span>
+    </Inertia-link>
+    </li>
+
+    <li class="nk-menu-item" >
+        <Inertia-link :href="route('support-service-provider-page')" class="main-menu-item" >
+        <span class="nk-'menu-text">Service Provider</span>
+        </Inertia-link>
+        </li>
+
+
+
 
 <!-- <li class="nk-menu-item" style="border:none;">
-<Inertia-link :href="route('serviceprovider.list')" class="nk-menu-link" style="color:white;border:none;">
+<Inertia-link :href="route('serviceprovider.list')" class="main-menu-item" >
 <span class="nk-menu-text">Support Providers</span>
 </Inertia-link>
 </li> -->
 
-<li class="nk-menu-item" style="border:none;">
-<Inertia-link :href="route('instruction.list')" class="nk-menu-link" style="color:white;border:none;">
-<span class="nk-menu-text">How it works</span>
-</Inertia-link>
-</li>
 
 
 </ul>
@@ -65,8 +89,8 @@
 <div class="nk-header-tools">
 <ul class="nk-quick-nav">
 <li>
-<Inertia-link :href="route('login')" style="font-size:20px;color:white;border:none;">
-<div style="color:white;">Sign In</div>
+<Inertia-link :href="route('login')" style="font-size:20px;border:none;" class="signin">
+<div>Sign In</div>
 </Inertia-link>
 
 </li><!-- .dropdown -->
@@ -222,6 +246,7 @@
 
 
 </div>
+
 </div>
 </template>
 <script>
@@ -285,5 +310,28 @@ padding-top:70px;
 h1{
 padding-bottom:10px;
 }
+
+.nk-menu .nk-menu-main .nk-menu-item{
+border:none;
+}
+
+.main-menu-item{
+border:none;
+
+
+}
+
+.main-menu-item, .signin{
+font-size:16px;
+font-weight: bold;
+color:white;
+}
+
+.main-menu-item:hover, .signin:hover{
+color:yellow ;
+
+
+}
+
 </style>
 
