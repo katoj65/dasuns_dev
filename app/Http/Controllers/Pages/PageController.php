@@ -9,6 +9,7 @@ use App\Models\TeamModel;
 use App\Models\ImagesModel;
 use App\Models\ContactModel;
 use App\Models\SupportServiceModel;
+use App\Models\User;
 
 class PageController extends Controller
 {
@@ -83,8 +84,22 @@ return Inertia::render('ListServices',$data);
 
 
 function support_services_providers(){
+$pssp=[];
+$get_pssp=User::where('users.role','pssp')->where('users.status','active')->get();
+if(count($get_pssp)>0){
+foreach($get_pssp as $row){
+$pssp[]=$row;
+}
+}
+
+
+
+
+
 $data['title']='Support Service Providers';
-$data['response']=[];
+$data['response']=[
+'pssp'=>$pssp,
+];
 return Inertia::render('ListServiceProviders',$data);
 
 }
