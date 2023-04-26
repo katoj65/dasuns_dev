@@ -19,17 +19,18 @@ Professional Support Services for every <span style="color:yellow;">Disability</
 
 <div class="row g-gs" style="padding-bottom:30px;">
 <div class="col-md-4" v-for="s in response.services" :key="s.id">
-<div class="card card-full" style="background:#148F77;text-align:center;border-radius:12px;">
+
+
+
+<Inertia-link>
+<div class="card" style="text-align:center;border-radius:12px;" id="item">
 <div class="card-inner">
 <div class="card-title-group align-start mb-0">
-
-
-<div style="text-align:center;width:100%;">
-<em class="icon ni ni-puzzle-fill" style="color:yellow;font-size:50px;"></em>
+<div style="text-align:center;width:100%;padding-left:33%;">
+<!-- <em class="icon ni ni-puzzle-fill" style="color:yellow;font-size:50px;"></em> -->
+<img :src="$page.props.system.route+s.icon" style="width:70px;"/>
 </div>
 </div>
-
-
 <div style="text-align:center;width:100%;margin-top:30px;">
 <h3 style="color:white;font-size:20px;font-weight:bold;">
 {{ s.name }}
@@ -39,12 +40,16 @@ Professional Support Services for every <span style="color:yellow;">Disability</
 </div>
 </div>
 
-
-
-
-
 </div>
-</div><!-- .card -->
+</div>
+</Inertia-link>
+
+
+
+
+
+
+<!-- .card -->
 </div><!-- .col -->
 
 
@@ -119,7 +124,7 @@ How to find a Support Service Provider in <br/>
 <div class="row g-gs">
 <div class="col-12 col-md-12" style="text-align:center;">
 <div style="padding:20px;">
-<a href="#" class="btn btn-lg btn-primary text-center" style="border-radius:50px;padding:15px;text-align:center;padding-left:100px;padding-right:100px;background:#45B39D;border:none;"><div style="text-align:center;font-size:20px;">Get Started</div></a>
+<Inertia-link :href="route('login')" class="btn btn-lg btn-primary text-center" style="border-radius:50px;padding:15px;text-align:center;padding-left:100px;padding-right:100px;background:#45B39D;border:none;"><div style="text-align:center;font-size:20px;">Get Started</div></Inertia-link>
 </div>
 </div>
 </div>
@@ -262,13 +267,21 @@ icon:'icon ni ni-chat'},],
 }
 
 
-
-
-
-
 }
 
 </script>
 <style scoped>
+#item {
+    background:#148F77;
+    height: 230px;
+  }
+
+
+  #item:hover {
+
+    background:#45B39D  ;
+      }
+
+
 
 </style>

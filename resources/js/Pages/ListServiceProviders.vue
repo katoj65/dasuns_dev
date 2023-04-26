@@ -27,23 +27,25 @@
 <div class="card-inner">
 <div class="team">
 
-    <div class="user-card user-card-s2">
-        <div class="user-avatar md bg-success">
-            <em class="icon ni ni-user-alt-fill" style="font-size:30px;"></em>
+<div class="user-card user-card-s2">
+<div class="user-avatar md" style="background:#0B5345">
+<em class="icon ni ni-user-alt-fill" style="font-size:30px;"></em>
 
-        </div>
-        <div class="user-info">
-            <h6>{{ p.firstname }} {{ p.lastname }} </h6>
-            <span class="sub-text">{{ p.email }} </span>
-        </div>
-    </div>
-    <div class="team-details">
-        <p>I am an UI/UX Designer and Love to be creative.</p>
-    </div>
+</div>
+<div class="user-info"><h6>{{ p.names }}</h6>
+<span class="sub-text">{{ p.email }} </span>
+</div>
+</div>
+<div class="team-details">
+<!-- <p>{{ p.service }} </p> -->
+<p class="text-muted">
+<em class="icon ni ni-bookmark-fill"></em> {{ p.service.name }}
+</p>
+</div>
 
-    <div class="team-view mt-2">
-        <a href="html/user-details-regular.html" class="btn btn-round btn-outline-light w-150px"><span>View Profile</span></a>
-    </div>
+<div class="team-view mt-2">
+<a href="html/user-details-regular.html" class="btn btn-round btn-outline-light w-150px"><span>View Profile</span></a>
+</div>
 </div><!-- .team -->
 </div><!-- .card-inner -->
 </el-card>

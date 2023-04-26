@@ -124,6 +124,13 @@ return Inertia::render('Dashboard',$data);
 
 }else{
 
+
+
+
+
+
+
+    
 $data['response']=['services'=>SupportServiceModel::get(),
 'recommendation'=>DasunsRecommendationsModel::get()];
 return Inertia::render('Welcome',$data);

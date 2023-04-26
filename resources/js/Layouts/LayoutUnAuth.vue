@@ -51,17 +51,17 @@
 
 <li class="nk-menu-item" >
     <Inertia-link :href="route('instructions')" class="main-menu-item" >
-    <span class="nk-'menu-text">What we do</span>
+    <span class="nk-'menu-text">What We Do</span>
     </Inertia-link>
     </li>
 
 <li class="nk-menu-item" >
     <Inertia-link :href="route('contact')" class="main-menu-item" >
-    <span class="nk-menu-text">Contact</span>
+    <span class="nk-menu-text">Get Help</span>
     </Inertia-link>
 </li>
 
-<li class="nk-menu-item">
+<!-- <li class="nk-menu-item">
     <Inertia-link :href="route('support-services-page')" class="main-menu-item" >
     <span class="nk-'menu-text">Support Services</span>
     </Inertia-link>
@@ -71,7 +71,7 @@
         <Inertia-link :href="route('support-service-provider-page')" class="main-menu-item" >
         <span class="nk-'menu-text">Service Provider</span>
         </Inertia-link>
-        </li>
+        </li> -->
 
 
 

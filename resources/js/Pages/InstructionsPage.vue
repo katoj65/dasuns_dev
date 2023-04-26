@@ -5,8 +5,8 @@
 <div class="nk-content-inner">
 <div class="nk-content-body">
 <div class="row">
-<div class="col-12 col-md-12" style="margin-top:-40px;z-index:0;">
-    <img :src="route+'images/pages/banner.jpeg'" style="border-radius:0 0 20px 20px"/>
+<div class="col-12 col-md-12" :style="'margin-top:-40px;z-index:0;background-image:url('+route+'images/pages/wheelchair1.jpg'+');border-radius:0 0 20px 20px;height:250px;background-size:cover;background-position:100% 40%;'">
+  
 </div>
 
 </div>
@@ -58,8 +58,8 @@ Dasuns Digital Platform as support service providers.
 </div>
 
 
-
-<h4 class="mt-4 pt-4">
+<div style="height:50px;"></div>
+<h4 class="mt-5 pt-5">
 <em class="icon ni ni-headphone" style="background:#1ee0ac;color:white;padding:5px;border-radius:5px;"></em><br/><br/>
 Strengthen Community Capacity on Disability inclusive
 programming in education employment
@@ -75,6 +75,9 @@ rates.
 
 </p>
 
+
+<div class="row">
+<div class="col-12 col-md-6">
 <p class="mt-2">
 The United Nations Convention on the Rights of Persons with Disabilities (CRPD)
 promotes the full integration of persons with disabilities in societies on an equal basis
@@ -89,35 +92,63 @@ We support development planning teams to identify, analyse, include, monitor, an
 evaluate disability issues as an integral part of their plansning and budgeting
 processess.
 </p>
+</div>
+<div class="col-12 col-md-6 pt-5" v-if="image5.length>0">
+    <div v-for="i5 in image5" :key="i5.id">
+    <img :src="route+i5.image" style="border-radius:10px;"/>
+    </div>
+    </div>
+</div>
+
+
+
+
+
 
 
 <h4 class="mt-4 pt-4">
-    <em class="icon ni ni-headphone" style="background:#1ee0ac;color:white;padding:5px;border-radius:5px;"></em><br/><br/>
-    Empower young men and women with disabilities to
-    acquire ICT and related employable skills
-    </h4>
+<em class="icon ni ni-headphone" style="background:#1ee0ac;color:white;padding:5px;border-radius:5px;"></em><br/><br/>
+Empower young men and women with disabilities to
+acquire ICT and related employable skills
+</h4>
 
 
 <p class="pt-2">
-    Information and Communication Technology skill development is an important
-    strategy for the social inclusion of persons with disabilities in the mainstream of
-    community life. Effective participation in educational, employment and social
-    opportunities may be dependent upon being able to make use of computers and the
-    internet. For many young men and women with disabilities, these opportunities can
-    be particularly important. Many of them could exploit learning opportunities on-line,
-    work from home, and/or make contact with services, friends, family and support
-    networks.
+Information and Communication Technology skill development is an important
+strategy for the social inclusion of persons with disabilities in the mainstream of
+community life. Effective participation in educational, employment and social
+opportunities may be dependent upon being able to make use of computers and the
+internet.
 </p>
+
+
+
+
+
 <div class="row">
-<div class="col-12 col-md-12">
-   <p> However, many of these young men and women with disabilities persons with
-    disabilities have not had the opportunity to acquire such relevant skills to compete
-    favourably in the evolving digital world.
-    We work to empower young men and women with disabilities with the ICT skills and
-    knowledge they need to succeed.
-    </p>
+<div class="col-12 col-md-6">
+<p>
+For many young men and women with disabilities, these opportunities can
+be particularly important. Many of them could exploit learning opportunities on-line,
+work from home, and make contact with services, friends, family and support
+networks.
+</p>
+<p>
+However, many of these young men and women with disabilities persons with
+disabilities have not had the opportunity to acquire such relevant skills to compete
+favourably in the evolving digital world.
+We work to empower young men and women with disabilities with the ICT skills and
+knowledge they need to succeed.
+</p>
 </div>
-<div class="col-12 col-md-8"></div>
+<div class="col-12 col-md-6 pt-5" v-if="image5.length>0">
+<div v-for="i5 in image6" :key="i5.id">
+<img :src="route+i5.image" style="border-radius:10px;"/>
+</div>
+</div>
+
+
+
 </div>
 
 
@@ -165,6 +196,12 @@ route:this.$page.props.system.route,
 computed:{
 images(){
 return this.response.images;
+},
+image6(){
+return this.response.pic6;
+},
+image5(){
+return this.response.pic5;
 }
 
 

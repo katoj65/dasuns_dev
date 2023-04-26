@@ -5,15 +5,14 @@
 <div class="nk-content-inner">
 <div class="nk-content-body">
 <div class="row">
-    <div class="col-12 col-md-12" style="margin-top:-40px;z-index:0;">
-        <img :src="route+'images/pages/banner.jpeg'" style="border-radius:0 0 20px 20px"/>
-    </div>
+<div class="col-12 col-md-12" :style="'margin-top:-40px;z-index:0;background-image:url('+route+'images/pages/wheelchair2.jpg'+');border-radius:0 0 20px 20px;height:250px;background-size:cover;background-position:100% 63%;'">
+</div>
 
 </div>
 </div>
 <div class="row mt-5">
 <div class="col-md-2 col-12"></div>
-<div class="col-md-8 col-12" >
+<div class="col-md-8 col-12">
 <div>
 <h3 class="text-center mb-3" style="font-size:30px;">
 <span>About</span>

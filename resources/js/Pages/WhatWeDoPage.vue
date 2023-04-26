@@ -12,14 +12,12 @@ We Provide Support Services
 <div class="col-md-8 col-12" >
 
 <p>
-
 We facilitatesfacilitate access to professional support service through a digital
 platform (Dasuns) that connects providers with users. Users could choose the type of
 service by interacting through a digital system.
 Service providers and users only need to sign up for an account once. Users can
 then log on to the system and request for their preferred support service from
 available service providers within reach.
-
 </p>
 
 

@@ -10,6 +10,7 @@ use App\Models\ImagesModel;
 use App\Models\ContactModel;
 use App\Models\SupportServiceModel;
 use App\Models\User;
+use App\Models\ServiceProviderServicesModel;
 
 class PageController extends Controller
 {
@@ -85,10 +86,38 @@ return Inertia::render('ListServices',$data);
 
 function support_services_providers(){
 $pssp=[];
+$service=[];
 $get_pssp=User::where('users.role','pssp')->where('users.status','active')->get();
 if(count($get_pssp)>0){
 foreach($get_pssp as $row){
-$pssp[]=$row;
+
+//services
+$get_service=ServiceProviderServicesModel::select('support_service.name','support_service.icon')->where('userID',$row->id)
+->join('support_service','service_provider_services.serviceID','=','support_service.id')
+->limit(1)
+->get();
+if(count($get_service)==1){
+foreach($get_service as $row1){
+$service=$row1;
+}
+}
+
+
+
+//main content
+$pssp[]=[
+'names'=>$row->firstname.' '.$row->lastname,
+'email'=>$row->email,
+'service'=>$service,
+
+];
+
+
+
+
+
+
+
 }
 }
 
@@ -111,6 +140,9 @@ function how_it_works(){
 $data['title']='How it works';
 $data['response']=[
 'images'=>ImagesModel::where('caption','training')->get(),
+'pic5'=>ImagesModel::where('caption','pic5')->get(),
+'pic6'=>ImagesModel::where('caption','pic6')->get(),
+
 
 ];
 return Inertia::render('InstructionsPage',$data);

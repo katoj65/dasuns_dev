@@ -10,20 +10,20 @@
 <div class="col-12 col-md-3"></div>
 <div class="col-12 col-md-6">
     <h3 class="text-center mb-3" style="font-size:30px;">
-        <span>Contact</span>
-        <span style="color:#1ee0ac;">Dasuns</span>
+        <span>Get</span>
+        <span style="color:#1ee0ac;">Help</span>
         </h3>
 
-<div>
+<div class="pb-5">
 
 
 
 
-<form @submit.prevent="submit">
+<form @submit.prevent="submit" class="mb-5">
 <div class="card border-4 mt-5" style="border-radius:10px;">
 <div class="card-header" style="background:#0B5345;color:white;">
 <div class="card-head">
-<h3 class="card-title" style="color:white;font-size:19px;text-align:center;width:100%;"> Contact Form</h3>
+<h3 class="card-title" style="color:white;font-size:19px;text-align:center;width:100%;"> Get in touch with Dasuns</h3>
 </div>
 </div>
 <div class="card-inner">
