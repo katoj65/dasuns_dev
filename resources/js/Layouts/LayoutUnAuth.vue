@@ -118,8 +118,8 @@
 <img class="logo-light logo-img" :src="$page.props.system.logo " alt="logo">
 <img class="logo-dark logo-img" :src="$page.props.system.logo " alt="logo-dark">
 </Inertia-link>
-<p style="color:white;font-size:18px;">
-{{ system.about }}
+<p style="color:white;font-size:15px;">
+{{ system.data.description }}
 </p>
 </div>
 </div>
@@ -130,10 +130,10 @@
 <h1 style="font-weight:bold;font-size:20px;color:white;">Account</h1>
 <ul class="menu">
 <li>
-<a href="">Create an account </a>
+<Inertia-link :href="route('register')">Create an account </Inertia-link>
 </li>
 <li>
-<a href="">Sign in to your Account </a>
+<Inertia-link :href="route('login')">Sign in to your Account </Inertia-link>
 </li>
 <li>
 <a href="">Forgot Password </a>
@@ -162,21 +162,28 @@
 
 
 </div>
-<div class="col-12 col-md-3">
+<div class="col-12 col-md-3" style="color:white;">
 <h1 style="font-weight:bold;font-size:20px;color:white;">Contact</h1>
 
 <ul class="menu1">
 <li>
-<a href="">Contact Us</a>
+
+<em class="icon ni ni-call-fill" style="margin-right:10px;"></em>
+{{ system.data.tel1 }}
+
 </li>
 <li>
-<a href="">Get Help</a>
+
+<em class="icon ni ni-call-fill" style="margin-right:10px;"></em>
+{{ system.data.tel2 }}
+
 </li>
 <li>
-<a href="">Report a Problem</a>
-</li>
-<li>
-<a href="">{{ system.email }} </a>
+<a :href="'mailto:'+system.data.email">
+<em class="icon ni ni-mail-fill" style="margin-right:10px;"></em>
+{{ system.data.email }}
+</a>
+
 </li>
 </ul>
 
@@ -196,33 +203,33 @@
 <div class="row">
 <div class="col-12 col-md-3"></div>
 <div class="col-12 col-md-6" style="text-align:center;padding-top:50px;color:white;margin-top:30px;">
-<a href="" style="margin-left:20px;margin-left:20px;">
+<a :href="system.data.facebook" style="margin-left:20px;margin-left:20px;" target="new">
 <em class="icon ni ni-facebook-fill" style="font-size:50px;"></em>
 </a>
 
-<a href="" style="margin-left:20px;margin-left:20px;">
+<a :href="system.data.twitter" style="margin-left:20px;margin-left:20px;" target="new">
 <em class="icon ni ni-twitter-round" style="font-size:50px;"></em>
 </a>
 
 
-<a href="" style="margin-left:20px;margin-left:20px;">
+<a href="#" style="margin-left:20px;margin-left:20px;" target="new">
 <em class="icon ni ni-whatsapp" style="font-size:50px;"></em>
 </a>
 
 
 
 
-<a href="" style="margin-left:20px;margin-left:20px;">
+<a href="#" style="margin-left:20px;margin-left:20px;" target="new">
 <em class="icon ni ni-linkedin" style="font-size:50px;"></em>
 </a>
 
 
-<a href="" style="margin-left:20px;margin-left:20px;">
+<a href="#" style="margin-left:20px;margin-left:20px;" target="new">
 <em class="icon ni ni-instagram" style="font-size:50px;"></em>
 </a>
 
 
-<a href="" style="margin-left:20px;margin-left:20px;">
+<a href="#" style="margin-left:20px;margin-left:20px;" target="new">
 <em class="icon ni ni-youtube-fill" style="font-size:50px;"></em>
 </a>
 
@@ -268,7 +275,7 @@ data(){return{
 
 computed:{
 system(){
-return this.$page.props.system.details;
+return this.$page.props.system;
 }
 }
 

@@ -14,6 +14,7 @@ use App\Models\MenuModel;
 use App\Http\Controllers\Menu\MenuController;
 use App\Models\EmployeeModel;
 use App\Models\DasunsUserNumberModel;
+use App\Models\SystemModel;
 
 
 class HandleInertiaRequests extends Middleware
@@ -99,6 +100,17 @@ return null;
 }
 
 
+//SYSTEM DETAILS
+function system_details(){
+$get=SystemModel::get();
+$row=[];
+if(count($get)==1){
+foreach($get as $row);
+return $row;
+}
+}
+
+
 
 
 
@@ -142,11 +154,10 @@ return[
 'logo'=>'http://localhost/dasuns_dev/resources/images/logo/white-logo.png',
 'logo2'=>'http://localhost/dasuns_dev/resources/images/logo/color-logo.png',
 'route'=>'http://localhost/dasuns_dev/resources/',
-'slogan'=>'',
 'details'=>$system->get_system_information(),
 'partners'=>$partner->get_partners(),
 'menu'=>Auth::user()!=''?$menu->menu_list():null,
-
+'data'=>$this->system_details()
 ];
 },
 
@@ -156,7 +167,8 @@ return[
 'error'=>fn()=>$request->session()->get('error'),
 'notice'=>fn()=>$request->session()->get('notice'),
 
-]
+],
+
 
 
 

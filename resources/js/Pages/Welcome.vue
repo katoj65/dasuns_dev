@@ -36,7 +36,7 @@ Professional Support Services for every <span style="color:yellow;">Disability</
 {{ s.name }}
 </h3>
 <div style="color:#48C9B0;padding:10px;font-size:16px;">
-20 Services
+{{ s.providers<2?s.providers+' Service Provider':s.providers+' Service Providers' }}
 </div>
 </div>
 
@@ -51,7 +51,6 @@ Professional Support Services for every <span style="color:yellow;">Disability</
 
 <!-- .card -->
 </div><!-- .col -->
-
 
 
 
@@ -93,7 +92,7 @@ How to find a Support Service Provider in <br/>
 <div class="row g-gs">
 
 <div class="col-md-4" v-for="i in instruct" :key="i.id">
-<div class="card card-full" style="box-shadow: 0px 0px 20px #E5E7E9;border-radius:15px;border:solid thin #E5E7E9;">
+<div class="card card-full" style="box-shadow: 0px 0px 20px #E5E7E9;border-radius:15px;">
 <div class="card-inner">
 <div class="card-title-group align-start mb-0">
 <div style="text-align:center;width:100%;">
@@ -158,21 +157,19 @@ Testimonials, from people who are <br/>already using Dasuns
 
 
 
-
 <div class="row" style="margin-top:50px;">
 <div class="col-lg-6" v-for="r in response.recommendation" :key="r.id">
-<div class="card " style="box-shadow: 0px 0px 20px #E5E7E9;border-radius:15px;margin-bottom:30px;border:solid thin #E5E7E9;">
-<div :style="'height:350px;background-image:url(./public/images/avatar/a-sm.jpg);background-size:100% 100%;border-radius: 15px 15px 0px 0px;'">
-</div>
+<div class="card " style="box-shadow: 0px 0px 20px #E5E7E9;border-radius:15px;margin-bottom:30px;">
+<img :src="image_route+r.image" style="border-radius: 5px 5px 0 0"/>
 <div class="card-inner">
 <p class="card-text" style="padding:5px;font-size:18px;">
-<i>" {{ r.message }}  "</i>
+<i>" {{ r.message }}  ".</i>
 </p>
 <h1 class="card-title" style="font-weight:bolder;font-size:25px;padding:5px;">
 {{ r.names }}
 </h1>
 <h5 class="card-title" style="padding:5px;font-size:16px;color:#A6ACAF;font-weight:bold;">
-{{ r.title }}
+{{ r.position }}
 </h5>
 </div>
 </div>
@@ -202,11 +199,10 @@ Testimonials, from people who are <br/>already using Dasuns
 <div class="container-xl wide-lg">
 <div class="nk-content-inner">
 <div class="nk-content-body" style="padding-top:30px;padding-bottom:30px;">
-
 <div class="row">
-<div class="col-2" v-for="p in partners" :key="p.id" style="text-alin:center;">
+<div class="col-2" v-for="p in response.partner " :key="p.id" style="text-alin:center;">
 <a :href="p.url" :title="p.name">
-<img :src="url+p.logo" style="width:150px;"/>
+<img :src="image_route+p.logo" style="width:150px;"/>
 </a>
 </div>
 </div>
@@ -247,6 +243,7 @@ return{
 
 url:this.$page.props.system.details.website,
 partners:this.$page.props.system.partners,
+image_route:this.$page.props.system.route,
 
 instruct:[
 {id:1, title:'Create an Account',
@@ -259,12 +256,34 @@ icon:'icon ni ni-shield-check'},
 
 {id:3, title:'Create an Account',
 description:'Choose a service provider from the selected service category and contact them directly through their phone numbers.',
-icon:'icon ni ni-chat'},],
+icon:'icon ni ni-chat'}
+],
 
 
 
 }
+},
+
+
+
+computed:{
+partner(){
+return this.response.partner;
 }
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
 
 
 }

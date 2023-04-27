@@ -19,6 +19,8 @@ use App\Http\Controllers\Reception\ReceptionController;
 use App\Http\Controllers\Panelist\PanelistController;
 use App\Http\Controllers\PSSU\PSSUController;
 use App\Http\Controllers\Wallet\WalletController;
+use App\Models\TestimonialModel;
+use App\Models\PartnerModel;
 
 
 class HomeController extends Controller
@@ -109,7 +111,8 @@ $ds=[];
 
 
 
-//
+//welcome page details.
+
 $data['title']='Welcome';
 $data['response']=[
 'services'=>$sv,
@@ -127,12 +130,33 @@ return Inertia::render('Dashboard',$data);
 
 
 
+//user not logged in
+$services=[];
+$get=SupportServiceModel::get();
+if(count($get)>0){
+foreach($get as $row){
+$service[]=[
+'name'=>$row->name,
+'icon'=>$row->icon,
+'providers'=>ServiceProviderServicesModel::where('serviceID',$row->id)->count(),
+
+];
+}
+}
 
 
 
-    
-$data['response']=['services'=>SupportServiceModel::get(),
-'recommendation'=>DasunsRecommendationsModel::get()];
+
+
+//welcome page
+$data['response']=['services'=>$service,
+
+'recommendation'=>TestimonialModel::get(),
+'partner'=>PartnerModel::get()
+
+
+
+];
 return Inertia::render('Welcome',$data);
 
 }
