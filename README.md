@@ -2,4 +2,4 @@
 
 ## About the Template
 
-Dasuns is a professional disability support service platform that provides a one stop center for service providers ready to offer support to disabled people.
+Diversity Ability Support Network System is a Social Enterprise Company registered in Uganda to promote inclusive Development by facilitating access to Professional Support Services and Assistive Technologies for persons with disabilities.
