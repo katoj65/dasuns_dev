@@ -27,7 +27,31 @@
 </div>
 </div>
 <div class="card-inner">
+
+
+<div class="mb-2 pb-3">
+<p>
+<em class="icon ni ni-call-fill mr-2" style="font-size:20px;"></em>
+<span style="font-size:17px;">{{ contact.tel1 }} <em class="icon ni ni-bullet-fill"></em> {{ contact.tel2 }}</span>
+</p>
+<p class="mt-2">
+    <em class="icon ni ni-mail-fill mr-2" style="font-size:20px;"></em>
+    <span style="font-size:17px;"> {{ contact.email }}</span>
+
+</p>
+<p>
+
+</p>
+
+</div>
+
+
+
+
 <div class="row g-4">
+
+
+
 
 
 <div class="col-12 col-md-12">
@@ -151,6 +175,21 @@ this.form.reset();
 }
 
 
+
+
+},
+
+
+
+computed:{
+contact(){
+const item=this.$page.props.system.data;
+return{
+tel1:item.tel1,
+tel2:item.tel2,
+email:item.email
+}
+}
 
 
 }

@@ -243,4 +243,4 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/appointments',[Appointmen
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/requests',[RequestController::class,'index'])->name('requests');
 
-
+Route::middleware('guest')->get('/profession-service/{id}',[PageController::class,'show_all_services'])->name('profession-service');

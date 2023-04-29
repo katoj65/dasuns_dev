@@ -18,11 +18,10 @@ Professional Support Services for every <span style="color:yellow;">Disability</
 
 
 <div class="row g-gs" style="padding-bottom:30px;">
-<div class="col-md-4" v-for="s in response.services" :key="s.id">
+<div class="col-md-4" v-for="s in response.services" :key="s.name">
 
 
-
-<Inertia-link>
+<Inertia-link :href="route('profession-service',[s.id])">
 <div class="card" style="text-align:center;border-radius:12px;" id="item">
 <div class="card-inner">
 <div class="card-title-group align-start mb-0">
@@ -140,8 +139,8 @@ How to find a Support Service Provider in <br/>
 
 
 
-<div class="nk-content nk-content-lg nk-content-fluid border-top" style="background:white;">
-<div class="container-xl wide-lg">
+<div class="nk-content nk-content-lg nk-content-fluid" style="background:white;margin-top:-20px;">
+<div class="container-xl wide-lg" style="border-top:solid 1px #F2F3F4;padding-top:30px;">
 <div class="nk-content-inner">
 <div class="nk-content-body">
 
@@ -195,11 +194,14 @@ Testimonials, from people who are <br/>already using Dasuns
 
 
 
-<div class="nk-content nk-content-lg nk-content-fluid border-top" style="background:white;">
+<div class="nk-content nk-content-lg nk-content-fluid" style="background:white;">
 <div class="container-xl wide-lg">
 <div class="nk-content-inner">
-<div class="nk-content-body" style="padding-top:30px;padding-bottom:30px;">
-<div class="row">
+<div class="nk-content-body" style="padding-top:30px;padding-bottom:30px; border-top:solid 1px #F2F3F4;">
+    <h1 style="text-align:center;font-size:30px;font-weight:bolder;font-family: Arial, Helvetica, sans-serif;line-height:50px;color:black;">
+     Our Supporters
+        </h1>
+<div class="row mt-5 pt-3">
 <div class="col-2" v-for="p in response.partner " :key="p.id" style="text-alin:center;">
 <a :href="p.url" :title="p.name">
 <img :src="image_route+p.logo" style="width:150px;"/>
@@ -255,7 +257,7 @@ description:'Select the type of support you need from our listed categories. If 
 icon:'icon ni ni-shield-check'},
 
 {id:3, title:'Create an Account',
-description:'Choose a service provider from the selected service category and contact them directly through their phone numbers.',
+description:'Choose a service provider from the selected service category and place your booking through Dasuns Platform.',
 icon:'icon ni ni-chat'}
 ],
 

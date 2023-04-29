@@ -136,6 +136,7 @@ $get=SupportServiceModel::get();
 if(count($get)>0){
 foreach($get as $row){
 $service[]=[
+'id'=>$row->id,
 'name'=>$row->name,
 'icon'=>$row->icon,
 'providers'=>ServiceProviderServicesModel::where('serviceID',$row->id)->count(),

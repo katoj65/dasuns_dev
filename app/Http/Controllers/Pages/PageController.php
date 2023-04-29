@@ -92,7 +92,7 @@ if(count($get_pssp)>0){
 foreach($get_pssp as $row){
 
 //services
-$get_service=ServiceProviderServicesModel::select('support_service.name','support_service.icon')->where('userID',$row->id)
+$get_service=ServiceProviderServicesModel::select('support_service.id','support_service.name','support_service.icon')->where('userID',$row->id)
 ->join('support_service','service_provider_services.serviceID','=','support_service.id')
 ->limit(1)
 ->get();
@@ -109,6 +109,7 @@ $pssp[]=[
 'names'=>$row->firstname.' '.$row->lastname,
 'email'=>$row->email,
 'service'=>$service,
+
 
 ];
 
@@ -187,7 +188,35 @@ return redirect('/contact')->with('success','Our team will get back to you short
 
 
 
+//service provider list
+public function show_all_services(Request $request){
+$get=SupportServiceModel::where('support_service.id',$request->segment(2))
+->get();
+$service=[];
+//get all services
 
+if(count($get)>0){
+foreach($get as $row);
+$service=[
+'id'=>$row->id,
+'name'=>$row->name,
+'icon'=>$row->icon
+];
+
+}
+
+
+$data['title']='profession services';
+$data['response']=[
+'service'=>$service,
+'providers'=>ServiceProviderServicesModel::join('users','service_provider_services.userID','=','users.id')
+->where('service_provider_services.serviceID',$request->segment(2))
+->get(),
+
+];
+return Inertia::render('ListServicesPage',$data);
+
+}
 
 
 
