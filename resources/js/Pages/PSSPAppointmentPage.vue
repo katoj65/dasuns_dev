@@ -12,37 +12,37 @@ Appointments
 <div class="card">
 <div class="card-body">
 
-    <table class="table border">
-        <thead>
-          <tr>
-            <th scope="col">Date</th>
-            <th scope="col">End date</th>
-            <th scope="col">Names</th>
-            <th scope="col">Status</th>
-            <th scope="col" style="width:30px;"></th>
+<table class="table border">
+<thead>
+<tr>
+<th scope="col">Date</th>
+<th scope="col">End date</th>
+<th scope="col">Names</th>
+<th scope="col">Status</th>
+<th scope="col" style="width:30px;"></th>
 
-          </tr>
-        </thead>
-        <tbody v-if="appointments.length>0">
-          <tr v-for="a in appointments" :key="a.id">
-            <td scope="row">
-            {{ a.date.substring(0,10).split('-').reverse().join('/') }}
-            </td>
-            <td>{{ a.end_date!=null?a.end_date:'---' }} </td>
-            <td class="text-transform">{{ a.firstname }} {{ a.lastname }} </td>
-            <td class="text-transform">{{ a.status }}</td>
-            <td>
-            <em class="icon ni ni-check-circle-fill text-success" v-if="a.status=='accepted'" style="font-size:20px;"></em>
-            <em class="icon ni ni-alert-circle-fill text-warning" v-else-if="a.status=='pending'"  style="font-size:20px;"></em>
-            </td>
-          </tr>
-        </tbody>
-        <tbody v-else>
-        <tr>
-        <td colspan="4">No appointments</td>
-        </tr>
-        </tbody>
-      </table>
+</tr>
+</thead>
+<tbody v-if="appointments.length>0">
+<tr v-for="a in appointments" :key="a.id">
+<td scope="row">
+{{ a.date.substring(0,10).split('-').reverse().join('/') }}
+</td>
+<td>{{ a.end_date!=null?a.end_date:'---' }} </td>
+<td class="text-transform">{{ a.firstname }} {{ a.lastname }} </td>
+<td class="text-transform">{{ a.status }}</td>
+<td>
+<em class="icon ni ni-check-circle-fill text-success" v-if="a.status=='accepted'" style="font-size:20px;"></em>
+<em class="icon ni ni-alert-circle-fill text-warning" v-else-if="a.status=='pending'"  style="font-size:20px;"></em>
+</td>
+</tr>
+</tbody>
+<tbody v-else>
+<tr>
+<td colspan="4">No appointments</td>
+</tr>
+</tbody>
+</table>
 
 </div>
 </div>

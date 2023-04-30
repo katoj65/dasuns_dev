@@ -237,9 +237,6 @@ $get_services=ServiceProviderServicesModel::select('support_service.name','suppo
 
 
 
-
-
-
 return [
 'dasuns_number'=>PSSPController::return_dasuns_number(),
 'identification_documents'=>ServiceProviderSecurityDetailsModel::where('userID',Auth::user()->id)->get(),
@@ -256,6 +253,7 @@ return [
 ];
 
 }else{
+
 //appointments content
 $appointments=[];
 $get=AppointmentModel::select('users.firstname','users.lastname',
@@ -278,7 +276,7 @@ if(count($get)>0){
 foreach($get as $a){
 $services=AppointmentServiceModel::select('*')
 ->join('support_service','appointment_service.serviceID','=','support_service.id')
-->where('appointmentID',$a->id)->get();
+->where('appointment_service.appointmentID',$a->id)->get();
 $appointments[]=[
     'firstname'=>$a->firstname,
     'lastname'=>$a->lastname,
@@ -689,38 +687,28 @@ $get=AppointmentModel::select('users.firstname','users.lastname',
 ->orderby('appointment.date','DESC')
 ->get();
 
-if(count($get)==1){
-foreach($get as $row){
-//get services
-$services=AppointmentServiceModel::where('appointmentID',$row->id)->get();
 
+if(count($get)>0){
+foreach($get as $r){
+$services=AppointmentServiceModel::where('appointmentID',$r->id)->get();
 $row[]=[
-'firstname'=>$row->firstname,
-'lastname'=>$row->lastname,
-'date'=>$row->date,
-'end_date'=>$row->end_date,
-'location'=>$row->location,
-'comment'=>$row->comment,
-'status'=>$row->status,
-'from'=>$row->from,
-'to'=>$row->to,
-'services'=>$services,
+'firstname'=>$r->firstname,
+'lastname'=>$r->lastname,
+'date'=>$r->date,
+'end_date'=>$r->end_date,
+'location'=>$r->location,
+'comment'=>$r->comment,
+'status'=>$r->status,
+'from'=>$r->from,
+'to'=>$r->to,
+'services'=>$services];
 
 
-];
 }
 }
 
 
-
-
-
-
-
-
-
-
-
+//
 $data['title']='Appointments';
 $data['response']=[
 'appointments'=>$row,

@@ -44,7 +44,7 @@
     <div class="card-header">
     <h4 class="card-title">Appointments</h4>
     </div>
-    <div style="min-height:400px;">
+    <div>
 
 <table class="table">
     <thead>
@@ -88,7 +88,7 @@
 <div class="card-header">
 <h1 class="card-title">Services I Provide</h1>
 </div>
-<div style="min-height:400px;" class="card-body">
+<div class="card-body">
 <div v-if="services.length>0">
 
     <div class="user-card mb-2" v-for="s in services" :key="s.id">
@@ -118,7 +118,7 @@
 <div class="card-header">
 <h4>Wallet</h4>
 </div>
-<div style="min-height:400px;">
+<div style="min-height:200px;">
 
 
 
@@ -144,7 +144,7 @@
 <div class="card-header">
 <h4 class="card-title">Recommendations</h4>
 </div>
-<div style="min-height:400px;">
+<div style="min-height:200px;">
 
 
 </div>
@@ -160,7 +160,7 @@
     <div class="card-header">
     <h4 class="card-title">Activities</h4>
     </div>
-    <div style="min-height:400px;">
+    <div style="min-height:200px;">
 
 
 
@@ -187,7 +187,7 @@
 
 
 
-
+<!-----------FORM MODAL-->
 
 <form class=""  v-if="modal==true" style="position:fixed;width:100%;left:0;top:0;z-index:10000;height:100%;background-color: hsla(210, 29%, 18%, 0.3);">
 <div class="modal-dialog" role="document">
@@ -199,67 +199,83 @@
 </a>
 </div>
 <div class="modal-body">
-<table style="width:100%;">
-<tbody>
-<tr>
-<td>
-{{ content.date.substring(0,10) }}
-</td>
-<td>
-{{ content.end_date!=null?content.end_date.substring(0,10):null }}
-</td>
-</tr>
-
-<tr>
-<td>
-{{ content.from.substring(0,10) }}
-</td>
-<td>
-{{ content.to!=null?content.to.substring(0,10):null }}
-</td>
-</tr>
 
 
-<tr>
-<td colspan="2">
-{{ content.comment }}
-</td>
-</tr>
-
-
-<tr>
-<td colspan="2">
-{{ content.firstname }} {{ content.lastname }}
-</td>
-</tr>
-<tr style="border:none;">
-<td colspan="2" style="border:none;">
-<div v-if="content.services.length>0">
-<ul>
-<li v-for="s in content.services" :key="s.id" class="text-transform">
-    <div class="user-card mb-2">
-        <div class="user-avatar user-avatar-xs bg-azure-dim">
-            <span><em class="icon ni ni-bookmark-fill"></em></span>
-        </div>
-        <div class="user-name">
-            <span class="tb-lead" style="font-size:15px;font-weight:normal">{{ s.name }} </span>
-        </div>
-    </div>
+<div class="card card-bordered">
+<ul class="data-list is-compact">
+<li class="data-item">
+<div class="data-col">
+<div class="data-label bold"> <em class="icon ni ni-calender-date-fill mr-2" style="font-size:20px;"></em> Dates</div>
+<div class="data-value">{{ content.date.substring(0,10).split('-').reverse().join('/') }} -  {{ content.end_date!=null?content.end_date.substring(0,10).split('-').reverse().join('/'):null }} </div>
+</div>
 </li>
-</ul>
+<li class="data-item">
+<div class="data-col">
+<div class="data-label bold"> <em class="icon ni ni-clock mr-2" style="font-size:20px;"></em> Time</div>
+<div class="data-value">{{ content.from.substring(0,10) }} -  {{ content.to.substring(0,10) }}</div>
 </div>
-<div v-else class="text-muted">
-No service requested
+</li>
+<li class="data-item">
+<div class="data-col">
+<div class="data-label bold"><em class="icon ni ni-chat-circle mr-2" style="font-size:20px;"></em> Comment</div>
+<div class="data-value text-transform">{{ content.comment }}</div>
 </div>
-</td>
-</tr>
-</tbody>
-</table>
+</li>
+<li class="data-item">
+<div class="data-col">
+<div class="data-label bold">   <em class="icon ni ni-user-alt-fill mr-2" style="font-size:20px;"></em> Names</div>
+<div class="data-value">
+<div class="user-card">
+<div class="user-name">
+<span class="tb-lead text-transform" style="font-size:16px;">
+{{ content.firstname }} {{ content.lastname }}
+</span>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class="data-item">
+<div class="data-col">
+<div class="data-label bold"> <em class="icon ni ni-bookmark-fill mr-2" style="font-size:20px;"></em> Services</div>
+<div v-if="content.services.length>0">
+    <ul>
+    <li v-for="s in content.services" :key="s.id" class="text-transform">
+        <div class="user-card mb-2">
 
-
+            <div class="user-name">
+                <span class="tb-lead" style="font-size:15px;font-weight:normal">{{ s.name }} </span>
+            </div>
+        </div>
+    </li>
+    </ul>
+    </div>
+    <div v-else class="text-muted">
+    No service requested
+    </div>
+</div>
+</li>
+    </ul>
+</div>
 </div>
 <div class="modal-footer bg-light">
-<span class="sub-text">Modal Footer Text</span>
+<span class="sub-text">
+
+
+
+        <div class="dropdown">
+            <a href="#" class="btn btn-success" data-toggle="dropdown" aria-expanded="false"><span>Appointment Confirmation</span><em class="icon ni ni-chevron-down"></em></a>
+            <div class="dropdown-menu dropdown-menu-right dropdown-menu-auto mt-1" style="">
+                <ul class="link-list-plain">
+                    <li><a href="#">Accept</a></li>
+                    <li><a href="#">Decline</a></li>
+                    <li><a href="#">Cancel</a></li>
+                </ul>
+            </div>
+        </div>
+
+
+</span>
 </div>
 </div>
 </div>
@@ -360,4 +376,15 @@ border:none;
 table tbody tr:hover{
 background: #F8F9F9;
 }
+
+form table tr td{
+border-bottom:none;
+}
+form table tr:hover{
+background:none;
+}
+.data-list li{
+border:none;
+}
+
 </style>
