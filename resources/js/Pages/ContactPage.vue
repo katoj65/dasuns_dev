@@ -30,18 +30,28 @@
 
 
 <div class="mb-2 pb-3">
-<p>
+
+
+<div class="" style="shadow:none;">
+<div class="alert">
+<div class="alert-text">
+<h6>Your Order Placed</h6>
+
+<p class="mt-3">
 <em class="icon ni ni-call-fill mr-2" style="font-size:20px;"></em>
-<span style="font-size:17px;">{{ contact.tel1 }} <em class="icon ni ni-bullet-fill"></em> {{ contact.tel2 }}</span>
+<span style="font-size:17px;">{{ contact.tel1 }} / {{ contact.tel2 }}</span>
 </p>
 <p class="mt-2">
-    <em class="icon ni ni-mail-fill mr-2" style="font-size:20px;"></em>
-    <span style="font-size:17px;"> {{ contact.email }}</span>
+<em class="icon ni ni-mail-fill mr-2" style="font-size:20px;"></em>
+<span style="font-size:17px;"> {{ contact.email }}</span>
 
 </p>
 <p>
 
 </p>
+</div>
+</div>
+</div>
 
 </div>
 

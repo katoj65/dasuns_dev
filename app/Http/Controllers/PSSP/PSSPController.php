@@ -20,6 +20,7 @@ use App\Models\AccountStatusMessageModel;
 use App\Models\PSSPInterviewScheduleModel;
 use App\Models\InterviewPanelistModel;
 use App\Http\Controllers\Wallet\WalletController;
+use App\Models\AppointmentServiceModel;
 
 
 
@@ -255,21 +256,70 @@ return [
 ];
 
 }else{
+//appointments content
+$appointments=[];
+$get=AppointmentModel::select('users.firstname','users.lastname',
+'appointment.end_date',
+'appointment.date',
+'appointment.from',
+'appointment.to',
+'appointment.location',
+'appointment.comment',
+'appointment.status',
+'appointment.id')
+->where('appointment.providerID',Auth::user()->id)
+->where('appointment.status','pending')
+->orwhere('appointment.status','accepted')
+->join('users','appointment.userID','=','users.id')
+->orderby('appointment.status','DESC')
+->orderby('appointment.date','DESC')
+->get();
+if(count($get)>0){
+foreach($get as $a){
+$services=AppointmentServiceModel::select('*')
+->join('support_service','appointment_service.serviceID','=','support_service.id')
+->where('appointmentID',$a->id)->get();
+$appointments[]=[
+    'firstname'=>$a->firstname,
+    'lastname'=>$a->lastname,
+    'date'=>$a->date,
+    'end_date'=>$a->end_date,
+    'location'=>$a->location,
+    'comment'=>$a->comment,
+    'status'=>$a->status,
+    'from'=>$a->from,
+    'to'=>$a->to,
+    'services'=>$services,
+];
+}
+}
+
+
+
+
+
+
+
 
 //
 return [
 //
-'section1'=>[
+'counts'=>[
 'requests'=>AppointmentModel::where('providerID',Auth::user()->id)->where('status','pending')->count(),
 'appointments'=>AppointmentModel::where('providerID',Auth::user()->id)->where('status','accepted')->count(),
 'services'=>ServiceProviderServicesModel::where('userID',Auth::user()->id)->count(),
 'wallet'=>WalletController::get_wallet_balance()->amount,
 ],
 
-//
-'section2'=>[
-'services_list'=>ServiceProviderServicesModel::where('userID',Auth::user()->id)->get(),
-'Appointments_list'=>AppointmentModel::where('providerID',Auth::user()->id)->where('status','accepted')->get(),
+//lists
+'lists'=>[
+'services'=>ServiceProviderServicesModel::select('support_service.name','support_service.id','support_service.icon')
+->where('service_provider_services.userID',Auth::user()->id)
+->join('support_service','service_provider_services.serviceID','=','support_service.id')
+->get(),
+'appointments'=>$appointments
+
+
 ],
 
 'section3'=>[
@@ -612,6 +662,75 @@ $response=[
 return $response;
 }
 
+
+
+
+
+
+
+
+//show appointments
+public function list_appointments(){
+$row=[];
+$get=AppointmentModel::select('users.firstname','users.lastname',
+'appointment.end_date',
+'appointment.date',
+'appointment.from',
+'appointment.to',
+'appointment.location',
+'appointment.comment',
+'appointment.status',
+'appointment.id')
+->where('appointment.providerID',Auth::user()->id)
+->where('appointment.status','pending')
+->orwhere('appointment.status','accepted')
+->join('users','appointment.userID','=','users.id')
+->orderby('appointment.status','DESC')
+->orderby('appointment.date','DESC')
+->get();
+
+if(count($get)==1){
+foreach($get as $row){
+//get services
+$services=AppointmentServiceModel::where('appointmentID',$row->id)->get();
+
+$row[]=[
+'firstname'=>$row->firstname,
+'lastname'=>$row->lastname,
+'date'=>$row->date,
+'end_date'=>$row->end_date,
+'location'=>$row->location,
+'comment'=>$row->comment,
+'status'=>$row->status,
+'from'=>$row->from,
+'to'=>$row->to,
+'services'=>$services,
+
+
+];
+}
+}
+
+
+
+
+
+
+
+
+
+
+
+$data['title']='Appointments';
+$data['response']=[
+'appointments'=>$row,
+
+
+];
+
+return Inertia::render('PSSPAppointmentPage',$data);
+
+}
 
 
 

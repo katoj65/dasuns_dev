@@ -244,3 +244,5 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/appointments',[Appointmen
 Route::middleware(['auth:sanctum', 'verified'])->get('/requests',[RequestController::class,'index'])->name('requests');
 
 Route::middleware('guest')->get('/profession-service/{id}',[PageController::class,'show_all_services'])->name('profession-service');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/service-provider-appointments',[PSSPController::class,'list_appointments'])->name('list_appointments');

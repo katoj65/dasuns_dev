@@ -231,6 +231,7 @@ letter-spacing:0.3px;word-spacing:1px;
 
 .card-header{
 /* background:#F0EDE5;; */
+background:white;
 }
 /*
 .card-border{
@@ -296,6 +297,15 @@ border-bottom:solid 1px #EBEEF5
 
 .border-top{
     border-top:solid 1px #EBEEF5
+}
+
+.card{
+border:none;
+}
+
+.card .card-header .card-title{
+font-size:18px;
+padding-top:10px;
 }
 
 
