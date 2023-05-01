@@ -2,4 +2,4 @@
 
 ## About the Template
 
-Diversity Ability Support Network System is a Social Enterprise Company platform to promote inclusive Development by facilitating access to Professional Support Services and Assistive Technologies for persons with disabilities.
+Diversity Ability Support Network System is a Social Enterprise platform to promote inclusive Development by facilitating access to Professional Support Services and Assistive Technologies for persons with disabilities.
