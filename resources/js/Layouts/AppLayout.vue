@@ -25,7 +25,7 @@
 </div>
 <!-- content @e -->
 <!-- footer @s -->
-<div class="nk-footer" style="border-top:solid 1px #EBEEF5">
+<div class="nk-footer" style="border-top:none;">
 <div class="container-fluid">
 <div class="nk-footer-wrap">
 <div class="nk-footer-copyright"> &copy; {{ year }} Dasuns </div>
