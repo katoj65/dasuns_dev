@@ -28,7 +28,7 @@ this.$inertia.post(this.route(this.options[1]),
 onSuccess:()=>{
 this.$inertia.get(this.route().current());
 this.$notify({
-    position: 'bottom-right',
+position: 'bottom-right',
 title: 'Successful',
 message: 'Item has been deleted.',
 type: 'success'

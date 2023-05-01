@@ -40,46 +40,91 @@
 
 
 <div class="col-md-8">
-    <div  class="h-100 card">
-    <div class="card-header">
-    <h4 class="card-title">Appointments</h4>
-    </div>
-    <div>
+<div  class="h-100 card">
+<div class="card-header">
+<h4 class="card-title">Appointments</h4>
+</div>
+<div>
 
-<table class="table">
-    <thead>
-      <tr>
-        <th scope="col">Date</th>
-        <th scope="col">End date</th>
-        <th scope="col">Names</th>
-        <th scope="col">Status</th>
-        <th scope="col" style="width:30px;"></th>
+<table class="nk-tb-list nk-tb-ulist">
+<thead class="border-0">
+<tr class="nk-tb-item nk-tb-head border-0">
+<th class="nk-tb-col border-0"><span class="sub-text">Appointment Dates</span></th>
+<th class="nk-tb-col tb-col-lg border-0"><span class="sub-text">Location</span></th>
+<th class="nk-tb-col tb-col-lg border-0"><span class="sub-text">Names</span></th>
+<th class="nk-tb-col tb-col-lg border-0"><span class="sub-text">Requested at</span></th>
+<th class="nk-tb-col tb-col-xxl border-0"><span class="sub-text">Status</span></th>
+<th class="nk-tb-col nk-tb-col-tools text-right border-0">
+<div class="dropdown">
+<a href="#" class="btn btn-xs btn-trigger btn-icon dropdown-toggle mr-n1" data-toggle="dropdown" data-offset="0,5"><em class="icon ni ni-more-h"></em></a>
+<div class="dropdown-menu dropdown-menu-right">
+<ul class="link-list-opt no-bdr">
+<li><a href="#"><span>Accepted</span></a></li>
+<li><a href="#"><span>Pending</span></a></li>
+</ul>
+</div>
+</div>
+</th>
+</tr><!-- .nk-tb-item -->
+</thead>
+<tbody v-if="appointments.length>0">
+<tr class="nk-tb-item" v-for="a in appointments" :key="a.id" @click="open(a)" style="cursor:pointer;">
+<td class="nk-tb-col border-0">
+<a href="" class="project-title">
+<div class="user-avatar sq bg-purple-dim">
+<em class="icon ni ni-calender-date-fill"></em>
+<span>
+</span></div>
+<div class="project-info">
+<h6 style="font-size:15px;font-weight:normal;line-height:25px;">
+<span class="text-success">
+{{ a.date.substring(0,10).split('-').reverse().join('/') }}</span><br/>
 
-      </tr>
-    </thead>
-    <tbody v-if="appointments.length>0">
-      <tr v-for="a in appointments" :key="a.id" @click="open(a)" style="cursor:pointer;">
-        <td scope="row">
-        {{ a.date.substring(0,10).split('-').reverse().join('/') }}
-        </td>
-        <td>{{ a.end_date!=null?a.end_date:'---' }} </td>
-        <td class="text-transform">{{ a.firstname }} {{ a.lastname }} </td>
-        <td class="text-transform">{{ a.status }}</td>
-        <td>
-        <em class="icon ni ni-check-circle-fill text-success" v-if="a.status=='accepted'" style="font-size:20px;"></em>
-        <em class="icon ni ni-alert-circle-fill text-warning" v-else-if="a.status=='pending'"  style="font-size:20px;"></em>
-        </td>
-      </tr>
-    </tbody>
-    <tbody v-else>
-    <tr>
-    <td colspan="4">No appointments</td>
-    </tr>
-    </tbody>
-  </table>
+<span v-if="a.end_date!=null" class="text-warning"> {{ a.end_date!=null?a.end_date.substring(0,10).split('-').reverse().join('/'):'---' }}</span>
 
-    </div>
-    </div>
+
+</h6>
+</div>
+</a>
+</td>
+<td class="nk-tb-col tb-col-lg text-transform border-0">
+<span>
+{{ a.location }}
+</span>
+</td>
+<td class="nk-tb-col tb-col-lg text-transform border-0">
+{{ a.firstname }} {{ a.lastname }}
+</td>
+<td class="nk-tb-col tb-col-mb border-0">
+<span class="badge badge-dim badge-success" v-if="a.status=='accepted'" style="font-size:14px;">
+<em class="icon ni ni-clock"></em><span>
+{{ a.created_at.substring(0,10).split('-').reverse().join('/') }}
+</span>
+</span>
+
+<span class="badge badge-dim badge-warning" v-else style="font-size:14px;">
+<em class="icon ni ni-clock"></em><span>
+{{ a.created_at.substring(0,10).split('-').reverse().join('/') }}
+</span>
+</span>
+
+</td>
+<td class="nk-tb-col nk-tb-col-tools border-0">
+<em class="icon ni ni-check-circle-fill text-success" v-if="a.status=='accepted'" style="font-size:20px;"></em>
+<em class="icon ni ni-alert-circle-fill text-warning" v-else-if="a.status=='pending'"  style="font-size:20px;"></em>
+</td>
+</tr><!-- .nk-tb-item -->
+
+</tbody>
+<tbody v-else>
+<tr>
+<td>No appointment available</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
 </div>
 
 
@@ -91,14 +136,14 @@
 <div class="card-body">
 <div v-if="services.length>0">
 
-    <div class="user-card mb-2" v-for="s in services" :key="s.id">
-        <div class="user-avatar user-avatar-xs bg-azure-dim">
-            <span><em class="icon ni ni-bookmark-fill"></em></span>
-        </div>
-        <div class="user-name">
-            <span class="tb-lead" style="font-size:15px;font-weight:normal">{{ s.name }} </span>
-        </div>
-    </div>
+<div class="user-card mb-2" v-for="s in services" :key="s.id">
+<div class="user-avatar user-avatar-xs bg-azure-dim">
+<span><em class="icon ni ni-bookmark-fill"></em></span>
+</div>
+<div class="user-name">
+<span class="tb-lead" style="font-size:15px;font-weight:normal">{{ s.name }} </span>
+</div>
+</div>
 
 </div>
 <div v-else> No services</div>
@@ -116,13 +161,38 @@
 <div class="col-12 col-md-4">
 <div shadow="never" class="h-100 card">
 <div class="card-header">
-<h4>Wallet</h4>
+<h4 class="card-title">Wallet</h4>
 </div>
 <div style="min-height:200px;">
-
-
-
-
+<div class="card-inner">
+<div class="card-title-group align-start mb-0">
+<div class="card-title">
+<h6 class="subtitle">Your account balance</h6>
+</div>
+<div class="card-tools">
+<em class="icon ni ni-wallet-fill" style="font-size:30px;"></em>
+</div>
+</div>
+<div class="card-amount">
+<span class="amount"> {{ wallet_balance }} <span class="currency currency-usd">UGX</span>
+</span>
+<!-- <span class="change up text-danger"><em class="icon ni ni-arrow-long-up"></em>1.93%</span> -->
+</div>
+<div class="invest-data">
+<div class="invest-data-amount g-2">
+<div class="invest-data-history mt-4">
+<div class="title">Withdraw and Deposit Funds</div>
+<el-button-group class="mt-2">
+<el-button type="success" @click="modal_wallet.deposit=true"><em class="icon ni ni-wallet-in"></em> Deposit Funds</el-button>
+<el-button type="warning">Withdraw Funds <em class="icon ni ni-wallet-out"></em></el-button>
+</el-button-group>
+</div>
+</div>
+<div class="invest-data-ck"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+<canvas class="iv-data-chart chartjs-render-monitor" id="totalDeposit" style="display: block; height: 48px; width: 51px;" width="204" height="192"></canvas>
+</div>
+</div>
+</div>
 
 </div>
 </div>
@@ -156,25 +226,33 @@
 
 
 <div class="col-12 col-md-4">
-    <div shadow="never" class="h-100 card">
-    <div class="card-header">
-    <h4 class="card-title">Activities</h4>
-    </div>
-    <div style="min-height:200px;">
-
-
-
-
-
-    </div>
-    </div>
-    </div>
+<div shadow="never" class="h-100 card">
+<div class="card-header">
+<h4 class="card-title">Activities</h4>
+</div>
+<div style="min-height:200px;">
 
 
 
 
 
 </div>
+</div>
+</div>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
 
 
 
@@ -201,7 +279,7 @@
 <div class="modal-body">
 
 
-<div class="card card-bordered">
+<div class="card border border-radius">
 <ul class="data-list is-compact">
 <li class="data-item">
 <div class="data-col">
@@ -239,23 +317,23 @@
 <div class="data-col">
 <div class="data-label bold"> <em class="icon ni ni-bookmark-fill mr-2" style="font-size:20px;"></em> Services</div>
 <div v-if="content.services.length>0">
-    <ul>
-    <li v-for="s in content.services" :key="s.id" class="text-transform">
-        <div class="user-card mb-2">
+<ul>
+<li v-for="s in content.services" :key="s.id" class="text-transform">
+<div class="user-card mb-2">
 
-            <div class="user-name">
-                <span class="tb-lead" style="font-size:15px;font-weight:normal">{{ s.name }} </span>
-            </div>
-        </div>
-    </li>
-    </ul>
-    </div>
-    <div v-else class="text-muted">
-    No service requested
-    </div>
+<div class="user-name">
+<span class="tb-lead" style="font-size:15px;font-weight:normal">{{ s.name }} </span>
+</div>
 </div>
 </li>
-    </ul>
+</ul>
+</div>
+<div v-else class="text-muted">
+No service requested
+</div>
+</div>
+</li>
+</ul>
 </div>
 </div>
 <div class="modal-footer bg-light">
@@ -263,16 +341,16 @@
 
 
 
-        <div class="dropdown">
-            <a href="#" class="btn btn-success" data-toggle="dropdown" aria-expanded="false"><span>Appointment Confirmation</span><em class="icon ni ni-chevron-down"></em></a>
-            <div class="dropdown-menu dropdown-menu-right dropdown-menu-auto mt-1" style="">
-                <ul class="link-list-plain">
-                    <li><a href="#">Accept</a></li>
-                    <li><a href="#">Decline</a></li>
-                    <li><a href="#">Cancel</a></li>
-                </ul>
-            </div>
-        </div>
+<div class="dropdown">
+<a href="#" class="btn btn-success" data-toggle="dropdown" aria-expanded="false"><span>Appointment Confirmation</span><em class="icon ni ni-chevron-down"></em></a>
+<div class="dropdown-menu dropdown-menu-right dropdown-menu-auto mt-1" style="">
+<ul class="link-list-plain">
+<li v-if="content.status=='pending'"><a href="#" @click="submit('accepted')">Accept</a></li>
+<li><a href="#" v-if="content.status=='pending'" @click="submit('declined')">Decline</a></li>
+<li><a href="#" v-if="content.status=='accepted'" @click="submit('cancelled')">Cancel</a></li>
+</ul>
+</div>
+</div>
 
 
 </span>
@@ -284,14 +362,136 @@
 
 
 
+<!-------Modal deposit------>
+<div class=""  style="position:fixed;width:100%;left:0;top:0;z-index:10000;height:100%;background-color: hsla(210, 29%, 18%, 0.3);" v-if="modal_wallet.deposit==true">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title">Deposit Funds to your Wallet</h5>
+<a href="#" class="close" data-dismiss="modal" aria-label="Close" @click="modal_wallet.deposit=false">
+<em class="icon ni ni-cross"></em>
+</a>
+</div>
+<div class="modal-body">
+
+
+<div class="card-inner border border-radius">
+<ul class="nav nav-tabs mt-n3">
+<li class="nav-item">
+<a class="nav-link active" data-toggle="tab" href="#tabItem5">
+    <em class="icon ni ni-mobile"></em>
+    <span>Mobile Money</span></a>
+</li>
+<li class="nav-item">
+<a class="nav-link" data-toggle="tab" href="#tabItem6">
+    <em class="icon ni ni-cc-alt"></em>
+    <span>Credit Card</span></a>
+</li>
+
+<li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#tabItem7">
+        <em class="icon ni ni-coins"></em>
+
+<span>Bank Transfer</span></a>
+    </li>
+</ul>
+<div class="tab-content" style="max-height:400px;overflow-y:auto;">
+<div class="tab-pane active" id="tabItem5">
+<form >
+<div class="row gy-4">
+<div>
+<p class="p-3">
+Credit card Culpa dolor voluptate do laboris laboris irure reprehenderit id incididunt duis pariatur mollit aute magna pariatur consectetur. Eu veniam duis non ut dolor deserunt commodo et minim in quis
+</p>
+</div>
+<div class="col-sm-12">
+<div class="form-group">
+<label class="form-label" for="default-01">Mobile service Provider</label>
+<div class="form-control-wrap">
+<select class="form-control" id="default-01">
+<option value="">Select</option>
+<option v-for="m in payment_option.mobile.services" :key="m.name">
+{{ m.name }}
+</option>
+</select>
+</div>
+</div>
+</div>
+
+
+<div class="col-sm-12">
+<div class="form-group">
+<label class="form-label" for="default-01">Telephone Number</label>
+<div class="form-control-wrap">
+<input type="text" class="form-control" id="default-01" placeholder="Enter telephone number">
+</div>
+</div>
+</div>
+
+
+<div class="col-sm-12">
+<div class="form-group">
+<label class="form-label" for="default-01">Amount</label>
+<div class="form-control-wrap">
+<input type="text" class="form-control" id="default-01" placeholder="Enter amount">
+</div>
+</div>
+</div>
+
+
+
+<div class="col-sm-12">
+<div class="form-group">
+<label class="form-label" for="default-01">Dasuns Password</label>
+<div class="form-control-wrap">
+<input type="text" class="form-control" id="default-01" placeholder="Enter password">
+</div>
+</div>
+</div>
+
+
+<div class="col-sm-12">
+<div class="form-group">
+<button class="btn button" style="font-size:18px;">
+Deposit to Wallet
+</button>
+</div>
+</div>
+
+
+
+</div>
+</form>
+</div>
+<div class="tab-pane" id="tabItem6">
+<p>Credit card Culpa dolor voluptate do laboris laboris irure reprehenderit id incididunt duis pariatur mollit aute magna pariatur consectetur. Eu veniam duis non ut dolor deserunt commodo et minim in quis laboris ipsum velit id veniam. Quis ut consectetur adipisicing officia excepteur non sit. Ut et elit aliquip labore Lorem enim eu. Ullamco mollit occaecat dolore ipsum id officia mollit qui esse anim eiusmod do sint minim consectetur qui.</p>
+</div>
+<div class="tab-pane" id="tabItem7">
+<p>Bank transfer laboris laboris irure reprehenderit id incididunt duis pariatur mollit aute magna pariatur consectetur. Eu veniam duis non ut dolor deserunt commodo et minim in quis laboris ipsum velit id veniam. Quis ut consectetur adipisicing officia excepteur non sit. Ut et elit aliquip labore Lorem enim eu. Ullamco mollit occaecat dolore ipsum id officia mollit qui esse anim eiusmod do sint minim consectetur qui.</p>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+
 
 </div>
 </template>
 <script>
+import TableComponent1 from '@/Components/TableComponent1';
 export default {
+components: { TableComponent1 },
 props:{
 title:{},
-response:{}
+response:{},
+flash:{},
 },
 
 
@@ -299,6 +499,54 @@ data(){
 return{
 modal:false,
 content:null,
+modal_wallet:{
+deposit:false,
+withdraw:false,
+},
+
+//payment options
+payment_option:{
+//mobile payment
+mobile:{
+services:[
+{name:'MTN'},
+{name:'Airtel'},
+{name:'Other'}
+],
+
+
+
+},
+//card payment
+card:{
+services:[
+{name:'Paypal'},
+{name:'Master Card'},
+
+]
+},
+
+//bank payment
+bank:{
+services:[
+{name:'Centenary Bank'},
+{name:'DFCU Bank'},
+{name:'UBA Bank'},
+{name:'Bank of Africa'},
+]
+
+}
+
+
+
+
+
+
+}
+
+
+
+
 
 }
 },
@@ -309,12 +557,13 @@ content:null,
 
 computed:{
 tab(){
+const nf = new Intl.NumberFormat('en-US');
 const counts=this.response.user_data.pssp_attributes.counts;
 const item=[
 {id:1,title:'REQUESTS',count:counts.requests,url:'requests',icon:'icon ni ni-emails'},
 {id:2,title:'APPOINTMENTS',count:counts.appointments,url:'list_appointments',icon:'icon ni ni-calender-date-fill'},
 {id:3,title:'SERVICES',count:counts.services,url:'dashboard',icon:'icon ni ni-dashboard-fill'},
-{id:4,title:'WALLET',count:counts.wallet,url:'wallet',icon:'con ni ni-wallet-fill'},
+{id:4,title:'WALLET',count:nf.format(counts.wallet),url:'wallet',icon:'con ni ni-wallet-fill'},
 ];
 return item;
 },
@@ -329,8 +578,12 @@ appointments(){
 return this.response.user_data.pssp_attributes.lists.appointments;
 },
 
-//
-
+//wallet balance
+wallet_balance(){
+const nf = new Intl.NumberFormat('en-US');
+// "1,234,567,890"
+return nf.format(this.response.user_data.pssp_attributes.counts.wallet);
+}
 
 
 
@@ -346,6 +599,27 @@ this.modal=true;
 close(){
 this.content=null;
 this.modal=false;
+},
+
+//submit status
+submit(status){
+const flash=this.$page.props.flash;
+this.$inertia.post(this.route('appointment-update-state'),{
+'status':status,
+'id':this.content.id
+},{
+onSuccess:()=>{
+this.content=null;
+this.$notify({
+position:'bottom-right',
+title:'Successful',
+message:'Appointment '+status+'.',
+type: 'success'
+});
+this.modal=false;
+}
+});
+
 }
 
 

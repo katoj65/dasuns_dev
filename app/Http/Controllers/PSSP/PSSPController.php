@@ -264,7 +264,8 @@ $get=AppointmentModel::select('users.firstname','users.lastname',
 'appointment.location',
 'appointment.comment',
 'appointment.status',
-'appointment.id')
+'appointment.id',
+'appointment.created_at')
 ->where('appointment.providerID',Auth::user()->id)
 ->where('appointment.status','pending')
 ->orwhere('appointment.status','accepted')
@@ -287,7 +288,9 @@ $appointments[]=[
     'status'=>$a->status,
     'from'=>$a->from,
     'to'=>$a->to,
+    'created_at'=>$a->created_at,
     'services'=>$services,
+    'id'=>$a->id
 ];
 }
 }
@@ -707,18 +710,34 @@ $row[]=[
 }
 }
 
-
 //
 $data['title']='Appointments';
 $data['response']=[
 'appointments'=>$row,
 
-
 ];
-
 return Inertia::render('PSSPAppointmentPage',$data);
-
 }
+
+
+
+//update status of the appointment
+public function update_appointment_status(Request $request){
+$id=Auth::user()->id;
+AppointmentModel::where('id',$request->id)->update(['status'=>$request->status]);
+return redirect('/dashboard')->with('success','Appointment '.$request->status);
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 
