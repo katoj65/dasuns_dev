@@ -2,7 +2,7 @@
 <LayoutUnAuth>
 
 <div class="row  m-0"  id="banner">
-<div class="col-12 col-md-12 " :style="'margin-top:0;z-index:0;background-image:url('+route+'images/pages/wheelchair1.jpg'+');border-radius:0 0 20px 20px;height:250px;background-size:cover;background-position:100% 40%;'">
+<div class="col-12 col-md-12 " :style="'margin-top:0;z-index:0;background-image:url('+route+'images/pages/about1.jpg'+');border-radius:0 0 20px 20px;height:250px;background-size:cover;background-position:100% 20%;border:none;'">
 
 </div>
 
@@ -25,15 +25,48 @@
 </h3>
 
 
-<h4 class="mb-2 pb-2 mt-4"><em class="icon ni ni-headphone" style="background:#1ee0ac;color:white;padding:5px;border-radius:5px;"></em><br/><br/> We Provide Suppoert Services</h4>
 
+
+<h4 class="mb-2 pb-2 mt-4"><em class="icon ni ni-headphone" style="background:#1ee0ac;color:white;padding:5px;border-radius:5px;"></em>
+    <br/><br/> Research and Innovation in Assistive Technology</h4>
 <p>
-We facilitate access to professional support service through a digital
-platform (Dasuns) that connects providers with users. Users could choose the type of
-service by interacting through a digital system.
-</p>
+    We facilitate research on innovative context specific Assistive
+    Technologies and work with users to produce a range of low cost
+    assistive devices and technologies based on their express needs
+    that are customised to their needs.
+    </p>
 
 
+    <p>
+    We also provide users with tailored advice and information
+    Products support regarding assessment, fitting, procurement, and post-
+    purchase repair and maintenance of Assistive Technology
+    products.
+    </p>
+    <br/>
+    <p>
+    Through our broader network system, we work with relevant AT
+    manufacturers, innovators, accelerators, and organizations
+    supporting Assistive Technology Innovations; to get meaning
+    user feedback on their products and services for their continued
+    improvement and relevancy to particular contexts.
+    </p>
+
+
+    <p>
+    We facilitate access to professional support service through a digital
+    platform (Dasuns) that connects providers with users. Users could choose the type of
+    service by interacting through a digital system.
+    </p>
+
+    <br/>
+
+
+
+
+
+
+<h4 class="mb-2 pb-2 mt-4"><em class="icon ni ni-headphone" style="background:#1ee0ac;color:white;padding:5px;border-radius:5px;"></em><br/><br/> We Provide Suppoert Services</h4>
 <p>
 Service providers and users only need to sign up for an account once. Users can
 then log on to the system and request for their preferred support service from
@@ -41,7 +74,7 @@ available service providers within reach.
 </p>
 
 
-<h4 class="mt-4 pt-4">
+<h4 class="mt-4">
 <em class="icon ni ni-headphone" style="background:#1ee0ac;color:white;padding:5px;border-radius:5px;"></em><br/><br/>
 Service Providers
 </h4>
@@ -56,13 +89,13 @@ Dasuns Digital Platform as support service providers.
 
 
 <div class="row mt-4 mb-2">
-<div class="col-12 col-md-6 mb-3" v-for="i in images" :key="i.id">
+<!-- <div class="col-12 col-md-12 mb-3" v-for="i in images" :key="i.id">
 <img :src="route+i.image" style="height:200px;border-radius:10px;"/>
-</div>
+</div> -->
 </div>
 
 
-<div style="height:50px;"></div>
+<div style="height:10px;"></div>
 <h4 class="mt-2">
 <em class="icon ni ni-headphone" style="background:#1ee0ac;color:white;padding:5px;border-radius:5px;"></em><br/><br/>
 Capacity Strengthening on Inclusive Programming
@@ -80,7 +113,7 @@ and higher poverty rates.
 
 
 <div class="row">
-<div class="col-12 col-md-6">
+<div class="col-12 col-md-12">
 <p class="mt-2">
 The United Nations Convention on the Rights of Persons with Disabilities (CRPD)
 promotes the full integration of persons with disabilities in societies on an equal basis
@@ -95,11 +128,13 @@ evaluate disability issues as an integral part of their plansning and budgeting
 processess.
 </p>
 </div>
-<div class="col-12 col-md-6 pt-5" v-if="image5.length>0">
+
+<!-- <div class="col-12 col-md-6 pt-5" v-if="image5.length>0">
     <div v-for="i5 in image5" :key="i5.id">
     <img :src="route+i5.image" style="border-radius:10px;"/>
     </div>
-    </div>
+</div> -->
+
 </div>
 
 
@@ -127,7 +162,7 @@ internet.
 
 
 <div class="row mb-5 pb-5">
-<div class="col-12 col-md-6">
+<div class="col-12 col-md-12">
 <p>
 For many young men and women with disabilities, these opportunities can
 be particularly important. Many of them could exploit learning opportunities on-line,
@@ -143,11 +178,11 @@ and women with disabilities with the ICT skills and
 knowledge they need to succeed.
 </p>
 </div>
-<div class="col-12 col-md-6 pt-5" v-if="image5.length>0">
+<!-- <div class="col-12 col-md-6 pt-5" v-if="image5.length>0">
 <div v-for="i5 in image6" :key="i5.id">
 <img :src="route+i5.image" style="border-radius:10px;"/>
 </div>
-</div>
+</div> -->
 
 
 

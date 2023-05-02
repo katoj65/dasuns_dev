@@ -1,7 +1,7 @@
 <template>
 <LayoutUnAuth>
 <div class="row m-0"  id="banner">
-<div class="col-12 col-md-12 p-0 m-0" :style="'margin-top:0px;z-index:0;background-image:url('+route+'images/pages/wheelchair2.jpg'+');height:250px;background-size:cover;background-position:100% 63%;     border-radius:0 0 20px 20px;'">
+<div class="col-12 col-md-12 p-0 m-0" :style="'margin-top:0px;z-index:0;background-image:url('+route+'images/pages/wheelchair1.jpg'+');height:250px;background-size:cover;background-position:100% 50%;     border-radius:0 0 20px 20px;'">
 </div>
 
 </div>

@@ -151,9 +151,9 @@ $system=new SystemController;
 $partner=new PartnerController;
 return[
 'name'=>'Dasuns',
-'logo'=>'http://localhost/dasuns_dev/resources/images/logo/white-logo.png',
-'logo2'=>'http://localhost/dasuns_dev/resources/images/logo/color-logo.png',
-'route'=>'http://localhost/dasuns_dev/resources/',
+'logo'=>'http://localhost/dasuns_dev/public/images/logo/white-logo.png',
+'logo2'=>'http://localhost/dasuns_dev/public/images/logo/color-logo.png',
+'route'=>'http://localhost/dasuns_dev/public/',
 'details'=>$system->get_system_information(),
 'partners'=>$partner->get_partners(),
 'menu'=>Auth::user()!=''?$menu->menu_list():null,

@@ -401,7 +401,7 @@ No service requested
 <div class="row gy-4">
 <div>
 <p class="p-3">
-Credit card Culpa dolor voluptate do laboris laboris irure reprehenderit id incididunt duis pariatur mollit aute magna pariatur consectetur. Eu veniam duis non ut dolor deserunt commodo et minim in quis
+{{payment_option.mobile.instructions}}
 </p>
 </div>
 <div class="col-sm-12">
@@ -464,10 +464,14 @@ Deposit to Wallet
 </form>
 </div>
 <div class="tab-pane" id="tabItem6">
-<p>Credit card Culpa dolor voluptate do laboris laboris irure reprehenderit id incididunt duis pariatur mollit aute magna pariatur consectetur. Eu veniam duis non ut dolor deserunt commodo et minim in quis laboris ipsum velit id veniam. Quis ut consectetur adipisicing officia excepteur non sit. Ut et elit aliquip labore Lorem enim eu. Ullamco mollit occaecat dolore ipsum id officia mollit qui esse anim eiusmod do sint minim consectetur qui.</p>
+<p>
+    {{payment_option.card.instructions}}
+</p>
 </div>
 <div class="tab-pane" id="tabItem7">
-<p>Bank transfer laboris laboris irure reprehenderit id incididunt duis pariatur mollit aute magna pariatur consectetur. Eu veniam duis non ut dolor deserunt commodo et minim in quis laboris ipsum velit id veniam. Quis ut consectetur adipisicing officia excepteur non sit. Ut et elit aliquip labore Lorem enim eu. Ullamco mollit occaecat dolore ipsum id officia mollit qui esse anim eiusmod do sint minim consectetur qui.</p>
+<p>
+    {{payment_option.bank.instructions}}
+</p>
 </div>
 </div>
 </div>
@@ -508,10 +512,16 @@ withdraw:false,
 payment_option:{
 //mobile payment
 mobile:{
+
+instructions:'Credit card Culpa dolor voluptate do laboris laboris irure reprehenderit id incididunt duis pariatur mollit aute magna pariatur consectetur. Eu veniam duis non ut dolor deserunt commodo et minim in quis',
+//services list
+
 services:[
+
 {name:'MTN'},
 {name:'Airtel'},
 {name:'Other'}
+
 ],
 
 
@@ -519,7 +529,12 @@ services:[
 },
 //card payment
 card:{
+
+instructions:'Credit card Culpa dolor voluptate do laboris laboris irure reprehenderit id incididunt duis pariatur mollit aute magna pariatur consectetur. Eu veniam duis non ut dolor deserunt commodo et minim in quis',
+//services list
+
 services:[
+
 {name:'Paypal'},
 {name:'Master Card'},
 
@@ -528,11 +543,17 @@ services:[
 
 //bank payment
 bank:{
+    
+instructions:'Credit card Culpa dolor voluptate do laboris laboris irure reprehenderit id incididunt duis pariatur mollit aute magna pariatur consectetur. Eu veniam duis non ut dolor deserunt commodo et minim in quis',
+//services list
+
 services:[
+
 {name:'Centenary Bank'},
 {name:'DFCU Bank'},
 {name:'UBA Bank'},
 {name:'Bank of Africa'},
+
 ]
 
 }

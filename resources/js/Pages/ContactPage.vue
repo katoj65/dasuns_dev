@@ -20,7 +20,7 @@
 
 
 <form @submit.prevent="submit" class="mb-5">
-<div class="card border-4 mt-5" style="border-radius:10px;">
+<div class="card mt-5" style="border-radius:10px;border:solid 5px #0B5345;">
 <div class="card-header" style="background:#0B5345;color:white;">
 <div class="card-head">
 <h3 class="card-title" style="color:white;font-size:19px;text-align:center;width:100%;"> Get in touch with Dasuns</h3>
@@ -35,7 +35,7 @@
 <div class="" style="shadow:none;">
 <div class="alert">
 <div class="alert-text">
-<h6>Your Order Placed</h6>
+
 
 <p class="mt-3">
 <em class="icon ni ni-call-fill mr-2" style="font-size:20px;"></em>
@@ -93,8 +93,7 @@
 </div>
 <div class="col-lg-6">
 <div class="form-group">
-<label class="form-label" for="phone-no-1">Phone No
-    <input-error :error="errors.tel"></input-error>
+<label class="form-label" for="phone-no-1">Telephone    <input-error :error="errors.tel"></input-error>
 </label>
 <div class="form-control-wrap">
 <input type="text" class="form-control" id="phone-no-1" placeholder="Enter telephone number" v-model="form.tel">
