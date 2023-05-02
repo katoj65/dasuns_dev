@@ -32,8 +32,8 @@
 </div>
 
 <div class="team-view">
-<Inertia-link :href="route('login')" class="btn btn-block text-success" style="font-size:15px;"><span>
-Login to make appointment
+<Inertia-link :href="route('login')" class="btn btn-block  btn-outline-light btn-dim" style="font-size:15px;"><span>
+Make Appointment
 </span></Inertia-link>
 </div>
 </div><!-- .team -->
@@ -79,3 +79,11 @@ return this.response.service;
 
 }
 </script>
+<style scoped>
+.btn-dim:hover{
+color:white;
+}
+.btn-dim{
+color:#07372F
+}
+</style>
