@@ -181,11 +181,10 @@
 <div class="invest-data">
 <div class="invest-data-amount g-2">
 <div class="invest-data-history mt-4">
-<div class="title">Withdraw and Deposit Funds</div>
-<el-button-group class="mt-2">
-<el-button type="success" @click="modal_wallet.deposit=true"><em class="icon ni ni-wallet-in"></em> Deposit Funds</el-button>
-<el-button type="warning">Withdraw Funds <em class="icon ni ni-wallet-out"></em></el-button>
-</el-button-group>
+<div class="title"> Withdraw and Deposit Funds</div>
+<div class="mt-2">
+<deposit-withdraw-component/>
+</div>
 </div>
 </div>
 <div class="invest-data-ck"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
@@ -231,7 +230,6 @@
 <h4 class="card-title">Activities</h4>
 </div>
 <div style="min-height:200px;">
-
 
 
 
@@ -363,123 +361,6 @@ No service requested
 
 
 <!-------Modal deposit------>
-<div class=""  style="position:fixed;width:100%;left:0;top:0;z-index:10000;height:100%;background-color: hsla(210, 29%, 18%, 0.3);" v-if="modal_wallet.deposit==true">
-<div class="modal-dialog" role="document">
-<div class="modal-content">
-<div class="modal-header">
-<h5 class="modal-title">Deposit Funds to your Wallet</h5>
-<a href="#" class="close" data-dismiss="modal" aria-label="Close" @click="modal_wallet.deposit=false">
-<em class="icon ni ni-cross"></em>
-</a>
-</div>
-<div class="modal-body">
-
-
-<div class="card-inner border border-radius">
-<ul class="nav nav-tabs mt-n3">
-<li class="nav-item">
-<a class="nav-link active" data-toggle="tab" href="#tabItem5">
-    <em class="icon ni ni-mobile"></em>
-    <span>Mobile Money</span></a>
-</li>
-<li class="nav-item">
-<a class="nav-link" data-toggle="tab" href="#tabItem6">
-    <em class="icon ni ni-cc-alt"></em>
-    <span>Credit Card</span></a>
-</li>
-
-<li class="nav-item">
-    <a class="nav-link" data-toggle="tab" href="#tabItem7">
-        <em class="icon ni ni-coins"></em>
-
-<span>Bank Transfer</span></a>
-    </li>
-</ul>
-<div class="tab-content" style="max-height:400px;overflow-y:auto;">
-<div class="tab-pane active" id="tabItem5">
-<form >
-<div class="row gy-4">
-<div>
-<p class="p-3">
-{{payment_option.mobile.instructions}}
-</p>
-</div>
-<div class="col-sm-12">
-<div class="form-group">
-<label class="form-label" for="default-01">Mobile service Provider</label>
-<div class="form-control-wrap">
-<select class="form-control" id="default-01">
-<option value="">Select</option>
-<option v-for="m in payment_option.mobile.services" :key="m.name">
-{{ m.name }}
-</option>
-</select>
-</div>
-</div>
-</div>
-
-
-<div class="col-sm-12">
-<div class="form-group">
-<label class="form-label" for="default-01">Telephone Number</label>
-<div class="form-control-wrap">
-<input type="text" class="form-control" id="default-01" placeholder="Enter telephone number">
-</div>
-</div>
-</div>
-
-
-<div class="col-sm-12">
-<div class="form-group">
-<label class="form-label" for="default-01">Amount</label>
-<div class="form-control-wrap">
-<input type="text" class="form-control" id="default-01" placeholder="Enter amount">
-</div>
-</div>
-</div>
-
-
-
-<div class="col-sm-12">
-<div class="form-group">
-<label class="form-label" for="default-01">Dasuns Password</label>
-<div class="form-control-wrap">
-<input type="text" class="form-control" id="default-01" placeholder="Enter password">
-</div>
-</div>
-</div>
-
-
-<div class="col-sm-12">
-<div class="form-group">
-<button class="btn button" style="font-size:18px;">
-Deposit to Wallet
-</button>
-</div>
-</div>
-
-
-
-</div>
-</form>
-</div>
-<div class="tab-pane" id="tabItem6">
-<p>
-    {{payment_option.card.instructions}}
-</p>
-</div>
-<div class="tab-pane" id="tabItem7">
-<p>
-    {{payment_option.bank.instructions}}
-</p>
-</div>
-</div>
-</div>
-
-</div>
-</div>
-</div>
-</div>
 
 
 
@@ -489,18 +370,24 @@ Deposit to Wallet
 </div>
 </template>
 <script>
-import TableComponent1 from '@/Components/TableComponent1';
+import TableComponent1 from '../Components/TableComponent1.vue';
+import DepositWithdrawComponent from '../Components/DepositWithdrawComponent.vue';
 export default {
-components: { TableComponent1 },
+components: {
+TableComponent1,
+DepositWithdrawComponent
+},
 props:{
 title:{},
 response:{},
 flash:{},
+errors:{}
 },
 
 
 data(){
 return{
+
 modal:false,
 content:null,
 modal_wallet:{
@@ -543,7 +430,7 @@ services:[
 
 //bank payment
 bank:{
-    
+
 instructions:'Credit card Culpa dolor voluptate do laboris laboris irure reprehenderit id incididunt duis pariatur mollit aute magna pariatur consectetur. Eu veniam duis non ut dolor deserunt commodo et minim in quis',
 //services list
 

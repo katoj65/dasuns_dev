@@ -8,7 +8,7 @@
 <!-- wrap @s -->
 <div class="nk-wrap ">
 <!-- main header @s -->
-<Header style="z-index:10000;"></Header>
+<Header style="z-index:10;"></Header>
 <!-- main header @e -->
 
 

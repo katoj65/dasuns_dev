@@ -18,16 +18,15 @@ InertiaProgress.init({
     // The delay after which the progress bar will
     // appear during navigation, in milliseconds.
     delay: 250,
-
     // The color of the progress bar.
-    color: ' #37BEA7',
-
+    // color: '#37BEA7',
+    color:'#00FFCC',
     // Whether to include the default NProgress styles.
     includeCSS: true,
-
     // Whether the NProgress spinner will be shown.
     showSpinner: false,
   });
+
 
 // import 'bootstrap/dist/css/bootstrap.css';
 // import 'bootstrap-vue/dist/bootstrap-vue.css';

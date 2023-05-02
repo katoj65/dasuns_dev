@@ -248,3 +248,5 @@ Route::middleware('guest')->get('/profession-service/{id}',[PageController::clas
 Route::middleware(['auth:sanctum', 'verified'])->get('/service-provider-appointments',[PSSPController::class,'list_appointments'])->name('list_appointments');
 
 Route::middleware(['auth:sanctum','verified'])->post('/appointment-update-status',[PSSPController::class,'update_appointment_status'])->name('appointment-update-state');
+
+Route::middleware(['auth:sanctum', 'verified'])->post('/wallet-deposit',[WalletController::class,'deposit_funds'])->name('wallet-deposit');

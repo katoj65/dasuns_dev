@@ -1,12 +1,13 @@
 <?php
 
 namespace App\Http\Controllers\Wallet;
-
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
 use App\Models\DasunsWalletModel;
+use Illuminate\Support\Facades\Hash;
+
 
 class WalletController extends Controller
 {
@@ -99,7 +100,29 @@ return [];
 
 
 
+//deposit funds to wallet
+public function deposit_funds(Request $request){
+$request->validate([
+'type'=>['required'],
+'tel'=>['required'],
+'amount'=>['required']],['required'=>'* Field is required.']);
 
+$id=Auth::user()->id;
+$password=Hash::make($request->password);
+$user_password=Auth::user()->password;
+$get =DasunsWalletModel::where('userID',$id)->limit(1)->get();
+if(count($get)==1){
+foreach($get as $row);
+$amount=$row->amount;
+$total=$request->amount+$amount;
+
+DasunsWalletModel::where('userID',$id)->update(['amount'=>$total]);
+return redirect('/dashboard')->with('success','Deposited has been created');
+
+}else{
+return redirect('/');
+}
+}
 
 
 

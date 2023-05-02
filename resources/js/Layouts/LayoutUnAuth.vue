@@ -276,8 +276,20 @@ data(){return{
 computed:{
 system(){
 return this.$page.props.system;
+},
+
+//
+image_route(){
+return this.$page.props;
 }
-}
+
+
+
+
+
+},
+
+
 
 
 
