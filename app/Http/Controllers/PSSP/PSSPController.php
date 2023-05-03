@@ -732,6 +732,10 @@ return Inertia::render('PSSPAppointmentPage',$data);
 
 
 
+
+
+
+
 //update status of the appointment
 public function update_appointment_status(Request $request){
 $id=Auth::user()->id;
@@ -742,6 +746,21 @@ return redirect('/dashboard')->with('success','Appointment '.$request->status);
 
 
 
+
+
+//services information
+public function pssp_services_list(Request $request){
+$data['title']='Services';
+$data['response']=[
+'services'=>ServiceProviderServicesModel::select('*')
+->join('support_service','service_provider_services.serviceID','=','support_service.id')
+->where('service_provider_services.userID',Auth::user()->id)
+->get(),
+
+
+];
+return Inertia::render('PSSPServices',$data);
+}
 
 
 

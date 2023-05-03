@@ -470,7 +470,7 @@ const counts=this.response.user_data.pssp_attributes.counts;
 const item=[
 {id:1,title:'REQUESTS',count:counts.requests,url:'requests',icon:'icon ni ni-emails'},
 {id:2,title:'APPOINTMENTS',count:counts.appointments,url:'list_appointments',icon:'icon ni ni-calender-date-fill'},
-{id:3,title:'SERVICES',count:counts.services,url:'dashboard',icon:'icon ni ni-dashboard-fill'},
+{id:3,title:'SERVICES',count:counts.services,url:'pssp-services',icon:'icon ni ni-dashboard-fill'},
 {id:4,title:'WALLET',count:nf.format(counts.wallet),url:'wallet',icon:'con ni ni-wallet-fill'},
 ];
 return item;
@@ -534,9 +534,6 @@ this.modal=false;
 
 
 }
-
-
-
 
 
 
