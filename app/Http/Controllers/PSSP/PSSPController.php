@@ -673,7 +673,9 @@ return $response;
 //show appointments
 public function list_appointments(){
 $row=[];
-$get=AppointmentModel::select('users.firstname','users.lastname',
+$get=AppointmentModel::select(
+'users.firstname',
+'users.lastname',
 'appointment.end_date',
 'appointment.date',
 'appointment.from',
@@ -683,8 +685,7 @@ $get=AppointmentModel::select('users.firstname','users.lastname',
 'appointment.status',
 'appointment.id')
 ->where('appointment.providerID',Auth::user()->id)
-->where('appointment.status','pending')
-->orwhere('appointment.status','accepted')
+->where('appointment.status','accepted')
 ->join('users','appointment.userID','=','users.id')
 ->orderby('appointment.status','DESC')
 ->orderby('appointment.date','DESC')
@@ -692,8 +693,19 @@ $get=AppointmentModel::select('users.firstname','users.lastname',
 
 
 if(count($get)>0){
+//
 foreach($get as $r){
-$services=AppointmentServiceModel::where('appointmentID',$r->id)->get();
+$service=[];
+$get=AppointmentServiceModel::where('appointment_service.appointmentID',$r->id)
+->join('support_service','appointment_service.serviceID','=','support_service.id')
+->get();
+if(count($get)>0){
+foreach($get as $s){
+$service[]=$s;
+}
+}
+
+//
 $row[]=[
 'firstname'=>$r->firstname,
 'lastname'=>$r->lastname,
@@ -704,8 +716,7 @@ $row[]=[
 'status'=>$r->status,
 'from'=>$r->from,
 'to'=>$r->to,
-'services'=>$services];
-
+'services'=>$service];
 
 }
 }
