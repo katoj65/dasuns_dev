@@ -26,10 +26,10 @@
 
 <div class="card-body">
 <div class="mt-2 mb-2 row" v-if="services.length>0">
-<div class="col-12 col-md-4 mb-2" v-for="s in services" :key="s.id">
+<div class="col-12 col-md-3 mb-2" v-for="s in services" :key="s.id">
 
 <div class="card border-radius bg1">
-<div class="card-inner" style="min-height:250px;">
+<div class="card-inner" style="min-height:270px;">
 <div class="team">
 <div class="user-card user-card-s2">
     <div class="user-avatar md bg-success">
@@ -44,8 +44,8 @@
 
 <ul class="team-statistics">
     <li><span>213</span><span>Rating</span></li>
-    <li><span>87.5%</span><span>Tasks</span></li>
-    <li><span>587</span><span>Funds</span></li>
+    <li><span>87.5%</span><span>Tasks Completed</span></li>
+
 </ul>
 </div><!-- .team -->
 </div><!-- .card-inner -->

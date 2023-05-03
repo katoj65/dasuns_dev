@@ -1,41 +1,47 @@
 <template>
 <app-layout>
-<el-card shadow="never" style="min-height:800px;">
-<div slot="header">
-<h4>
-Wallet
+<div class="row pt-2 pb-2">
+<div class="col-12 col-md-8 mb-2">
+<div class="card" style="min-height:600px;">
+<div class="card-header">
+<div class="card-title">
+<h4 class="title">
+Dasus Wallet
 </h4>
 </div>
-<div class="row">
-<div class="col-12 col-md-8">
-
-
-<el-card class="card" shadow="never">
-<ul class="data-list is-compact">
-<li class="data-item">
-<div class="data-col">
-<div class="data-label"><h4>Transaction Details</h4></div>
-<div class="data-value"></div>
 </div>
-</li>
-<li class="data-item" v-for="n in 15" :key="n">
-<div class="data-col">
-<div class="data-label"><em class="icon ni ni-calender-date-fill"></em> 10/20/20000</div>
-<div class="data-value">
-Paid for service
+
+<div class="card-body">
+<div class="card card-full">
+    <div class="card-inner">
+        <div class="card-title-group align-start mb-0">
+            <div class="card-title">
+                <h6 class="subtitle" style="font-size:18px;">Service Number: {{ response.service_number }} </h6>
+            </div>
+            <div class="card-tools">
+                <em class="icon ni ni-wallet-fill" style="font-size:65px;"></em>
+            </div>
+        </div>
+        <div class="card-amount">
+            <span class="amount"> {{ response.balance }} <span class="currency currency-usd">USD</span>
+            </span>
+            <span class="change up text-danger bold">
+            {{ response.currence }} </span>
+        </div>
+        <div class="invest-data pt-5">
+            <div class="invest-data-amount g-2">
+                <deposit-withdraw-component></deposit-withdraw-component>
+            </div>
+            <div class="invest-data-ck">
+                <canvas class="iv-data-chart" id="totalDeposit"></canvas>
+            </div>
+        </div>
+    </div>
 </div>
 </div>
-</li>
 
 
-</ul>
-</el-card>
-
-
-
-
-
-
+</div>
 
 
 
@@ -43,35 +49,62 @@ Paid for service
 
 </div>
 <div class="col-12 col-md-4">
+<div class="card mb-2">
+<div class="card-body">
+<calendar-component></calendar-component>
+</div>
+</div>
 
 
-<el-card shadow="never">
 
-<div class="nk-order-ovwg-data sell" style="border:none;">
-<div class="amount">12,954.63 <small class="currenct currency-usd">USD</small></div>
-<div class="info">Last month <strong>39,485 <span class="currenct currency-usd">USD</span></strong></div>
-<div class="title"><em class="icon ni ni-arrow-up-left"></em> Sell Orders</div>
+<div class="card">
+<div>
+<ul class="data-list is-compact">
+<li class="data-item border-0">
+<a href="">
+<div class="data-col">
+<div class=""><em class="icon ni ni-wallet-saving mr-1" style="font-size:21px;"></em> Transaction Information</div>
+</div>
+</a>
+</li>
+<li class="data-item border-0">
+<a href="">
+<div class="data-col" style="width:100%;">
+<div class="" style="width:100%;">
+<em class="icon ni ni-shield-alert mr-1" style="font-size:21px;"></em> Report</div>
+</div>
+</a>
+</li>
+<li class="data-item border-0">
+<a href="">
+<div class="data-col" style="width:100%;">
+<div class="" style="width:100%;"><em class="icon ni ni-call mr-1" style="font-size:21px;"></em> Contact Us</div>
+</div>
+</a>
+</li>
+</ul>
+</div>
 </div>
 
 
 
-</el-card>
-
-
 
 </div>
 </div>
-</el-card>
 </app-layout>
 </template>
 
 <script>
 
 import AppLayout from '@/Layouts/AppLayout';
+import CalendarComponent from '../Components/CalendarComponent.vue';
+import DepositWithdrawComponent from '../Components/DepositWithdrawComponent.vue';
+
 export default {
 components:{
 AppLayout,
-
+CalendarComponent,
+DepositWithdrawComponent,
 
 
 },
@@ -80,10 +113,6 @@ title:{},
 response:{},
 },
 data(){return{
-
-
-
-
 
 
 }},

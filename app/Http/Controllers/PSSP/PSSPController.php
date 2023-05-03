@@ -757,7 +757,6 @@ $data['response']=[
 ->where('service_provider_services.userID',Auth::user()->id)
 ->get(),
 
-
 ];
 return Inertia::render('PSSPServices',$data);
 }
