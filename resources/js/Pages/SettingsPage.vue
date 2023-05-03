@@ -1,6 +1,6 @@
 <template>
 <app-layout>
-<el-card style="min-height:600px;" shadow="never" class="mt-1">
+<div style="min-height:600px;" class="mt-1 card">
 <div class="row p-4">
 <div class="col-12 col-md-3"></div>
 
@@ -46,7 +46,7 @@
 </div>
 <div class="col-12 col-md-3"></div>
 </div>
-</el-card>
+</div>
 
 
 

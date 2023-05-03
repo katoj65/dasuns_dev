@@ -6,13 +6,13 @@
 </div>
 <div v-else>
 <!-----PSSP PROFILE-->
-<div v-if="user.role=='pssp'">
+<div v-if="user.role=='pssp'" class="mb-2">
 
 <div class="row mt-2">
 <div class="col-12 col-md-4">
 
-<el-card class="box-card h-100 shadow-none card p-0">
-<div class="card-inner p-0">
+<div class="box-card h-100 shadow-none card p-0 card">
+<div class="card-inner">
 <div class="team">
 <div class="team-options">
 <div class="drodown">
@@ -112,12 +112,15 @@
 </div><!-- .team -->
 </div><!-- .card-inner -->
 
+</div>
 
 
 
 
 
-</el-card>
+
+
+
 
 
 
@@ -126,8 +129,8 @@
 </div>
 <div class="col-md-8">
 
-<el-card class="card box-card shadow-none h-100">
-<div slot="header" class="clearfix">
+<div class="card box-card shadow-none h-100">
+<div class="card-header">
 <span style="font-weight:bold;">Service Provider Profile Details</span>
 <!-- <el-button style="float: right; padding: 3px 0" type="text">Operation button</el-button> -->
 </div>
@@ -419,7 +422,7 @@ Missing
 
 
 </div>
-</el-card>
+</div>
 </div>
 
 
