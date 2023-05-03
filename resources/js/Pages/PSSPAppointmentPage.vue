@@ -107,7 +107,7 @@ border-left:none;
 }
 
 table tbody tr td, table thead tr{
-border-bottom:solid thin #E5E7E9 ;
+border-bottom:none ;
 border-top:none;
 }
 table thead, table tbody{

@@ -23,10 +23,10 @@ Dasus Wallet
             </div>
         </div>
         <div class="card-amount">
-            <span class="amount"> {{ response.balance }} <span class="currency currency-usd">USD</span>
+            <span class="amount"> {{ response.balance }} <span class="currency currency-usd text-succes bold">{{ response.currence }}</span>
             </span>
             <span class="change up text-danger bold">
-            {{ response.currence }} </span>
+            </span>
         </div>
         <div class="invest-data pt-5">
             <div class="invest-data-amount g-2">

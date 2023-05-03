@@ -4,7 +4,7 @@
 <div class="col-12 col-md-8">
 <div class="card mb-3" style="min-height:700px;">
 <div class="card-header">
-<h4 class="title" style="font-size:18px;">
+<h4 class="title pt-2" style="font-size:18px;">
 {{ pending.length>0?pending.length:''  }}
 
 Requests
@@ -16,9 +16,9 @@ Requests
 <thead class="border-0">
 <tr>
 <th scope="col" class="border-0">Date</th>
-<th scope="col" class="border-0">Names</th>
-<th scope="col" class="border-0">Service Requested</th>
+<th scope="col" class="border-0">Time</th>
 <th scope="col" class="border-0">Location</th>
+<th scope="col" class="border-0">Appointment Names</th>
 <th scope="col" class="border-0"></th>
 
 </tr>
@@ -28,12 +28,11 @@ Requests
 <td scope="row" :class="p.status=='pending'?'text-warning':'text-success'" style="cursor:pointer;">
 {{ p.date.substring(0,10).split('-').reverse().join('/') }}
 </td>
-<td class="text-transform">{{ p.firstname }} {{ p.lastname }} </td>
 <td>
-{{ p.service.name }}
-<!-- <span v-if="p.count_services>0">+ {{ p.count_services }}  </span> -->
+{{ p.from.split(':').reverse().join(':').substring(0,5) }}
 </td>
 <td class="text-transform">{{ p.location }} </td>
+<td class="text-transform">{{ p.firstname }} {{ p.lastname }} </td>
 <td style="width:20px;">
 <em class="icon ni ni-check-circle-fill text-success" v-if="p.status=='accepted'" style="font-size:20px;"></em>
 <em class="icon ni ni-alert-circle-fill text-warning" v-else-if="p.status=='pending'"  style="font-size:20px;"></em>
@@ -126,7 +125,7 @@ border-left:none;
 }
 
 table tbody tr td, table thead tr{
-border-bottom:solid thin #E5E7E9 ;
+border-bottom:none ;
 border-top:none;
 }
 table thead, table tbody{

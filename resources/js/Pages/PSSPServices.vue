@@ -25,10 +25,10 @@
 
 
 <div class="card-body">
-<div class="mt-2 mb-2 row" v-if="services.length>0">
+<div class="mt-0 mb-2 row" v-if="services.length>0">
 <div class="col-12 col-md-3 mb-2" v-for="s in services" :key="s.id">
 
-<div class="card border-radius bg1">
+<div class="card bg1" style="border-radius:10px;">
 <div class="card-inner" style="min-height:270px;">
 <div class="team">
 <div class="user-card user-card-s2">
