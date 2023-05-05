@@ -33,7 +33,7 @@ InertiaProgress.init({
 
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
-import locale from 'element-ui/lib/locale/lang/en'
+import locale from 'element-ui/lib/locale/lang/en';
 Vue.use(ElementUI, { locale });
 
 
@@ -48,16 +48,12 @@ import VueMaterial from 'vue-material';
 Vue.use(VueMaterial);
 
 
-
-
-
-
-
 Vue.mixin({ methods: { route } });
 Vue.use(InertiaPlugin);
 Vue.use(PortalVue);
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
+
 
 
 const app = document.getElementById('app');

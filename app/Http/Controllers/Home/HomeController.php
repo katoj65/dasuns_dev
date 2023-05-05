@@ -114,6 +114,7 @@ $ds=[];
 //welcome page details.
 
 $data['title']='Welcome';
+$data['profile']=ProfileController::get_user_profile_information();
 $data['response']=[
 'services'=>$sv,
 'country'=>CountryModel::get(),

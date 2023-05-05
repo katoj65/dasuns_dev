@@ -11,32 +11,32 @@ Dasus Wallet
 </div>
 </div>
 
-<div class="card-body">
-<div class="card card-full">
-    <div class="card-inner">
-        <div class="card-title-group align-start mb-0">
-            <div class="card-title">
-                <h6 class="subtitle" style="font-size:18px;">Service Number: {{ response.service_number }} </h6>
-            </div>
-            <div class="card-tools">
-                <em class="icon ni ni-wallet-fill" style="font-size:65px;"></em>
-            </div>
-        </div>
-        <div class="card-amount">
-            <span class="amount"> {{ response.balance }} <span class="currency currency-usd text-succes bold">{{ response.currence }}</span>
-            </span>
-            <span class="change up text-danger bold">
-            </span>
-        </div>
-        <div class="invest-data pt-5">
-            <div class="invest-data-amount g-2">
-                <deposit-withdraw-component></deposit-withdraw-component>
-            </div>
-            <div class="invest-data-ck">
-                <canvas class="iv-data-chart" id="totalDeposit"></canvas>
-            </div>
-        </div>
-    </div>
+<div class="card-body p-4">
+<div class="card card-full p-0">
+<div class="card-inner p-0">
+<div class="card-title-group align-start mb-0">
+<div class="card-title">
+<h6 class="subtitle" style="font-size:18px;">Service Number: {{ response.service_number }} </h6>
+</div>
+<div class="card-tools">
+<em class="icon ni ni-wallet-fill" style="font-size:65px;"></em>
+</div>
+</div>
+<div class="card-amount">
+<span class="amount"> {{ response.balance }} <span class="currency currency-usd text-succes bold">{{ response.currence }}</span>
+</span>
+<span class="change up text-danger bold">
+</span>
+</div>
+<div class="invest-data pt-2">
+<div class="invest-data-amount g-2">
+<deposit-withdraw-component></deposit-withdraw-component>
+</div>
+<div class="invest-data-ck">
+<canvas class="iv-data-chart" id="totalDeposit"></canvas>
+</div>
+</div>
+</div>
 </div>
 </div>
 

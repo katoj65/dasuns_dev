@@ -50,7 +50,12 @@ return Inertia::render('Welcome', [
 ]);
 });
 
+
+
+
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard',[HomeController::class,'index'])->name('dashboard');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard/create-appointment',[HomeController::class,'index'])->name('dashboard-create-appointment');
 
 
 Route::get('/',[HomeController::class,'index'])->name('home');
@@ -252,3 +257,7 @@ Route::middleware(['auth:sanctum','verified'])->post('/appointment-update-status
 Route::middleware(['auth:sanctum', 'verified'])->post('/wallet-deposit',[WalletController::class,'deposit_funds'])->name('wallet-deposit');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/services-pssp',[PSSPController::class,'pssp_services_list'])->name('pssp-services');
+
+Route::middleware(['auth:sanctum', 'verified'])->post('/request/find-services',[RequestController::class,'request_service'])->name('request-service');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('request/service/{id}/location/{any}',[RequestController::class,'request_service_provider'])->name('request-srvice-search');

@@ -948,6 +948,46 @@ return redirect('/profile')->with('success','Organisation contact person has bee
 
 
 
+//user profile information
+static function get_user_profile_information(){
+if(Auth::user()->role=='pssp'){
+    
+$get=ServiceProviderProfileModel::select('service_provider_profile.location',
+'country.name as country')
+->join('users','service_provider_profile.userID','=','users.id')
+->join('country','service_provider_profile.countryID','=','country.id')
+->where('users.id',auth::user()->id)
+->get();
+
+}else{
+
+$get=UserProfileModel::select('service_provider_profile.location',
+'country.name as country')
+->join('users','user_profile.userID','=','users.id')
+->join('country','user_profile.countryID','=','country.id')
+->where('users.id',auth::user()->id)
+->get();
+
+}
+
+$row=[];
+if(count($get)>0){
+foreach($get as $row);
+}
+return $row;
+
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 

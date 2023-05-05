@@ -1,7 +1,6 @@
 <template>
 <div class="nk-block pt-0">
 
-
 <div class="row g-gs">
 <div class="col-md-3" v-for="t in tab" :key="t.id">
 <div class="card  card-full h-100">
@@ -159,11 +158,11 @@
 
 
 <div class="col-12 col-md-4">
-<div shadow="never" class="h-100 card">
+<div  class="h-100 card">
 <div class="card-header">
 <h4 class="card-title">Wallet</h4>
 </div>
-<div style="min-height:200px;">
+<div style="min-height:200px;" class="card-body p-0">
 <div class="card-inner">
 <div class="card-title-group align-start mb-0">
 <div class="card-title">
@@ -183,17 +182,15 @@
 <div class="invest-data-history mt-4">
 <div class="title"> Withdraw and Deposit Funds</div>
 <div class="mt-2">
-<deposit-withdraw-component/>
-</div>
-</div>
-</div>
-<div class="invest-data-ck"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-<canvas class="iv-data-chart chartjs-render-monitor" id="totalDeposit" style="display: block; height: 48px; width: 51px;" width="204" height="192"></canvas>
 </div>
 </div>
 </div>
 
 </div>
+</div>
+
+</div>
+<div class="card-footer bg-white"><deposit-withdraw-component/></div>
 </div>
 </div>
 
@@ -213,7 +210,27 @@
 <div class="card-header">
 <h4 class="card-title">Recommendations</h4>
 </div>
-<div style="min-height:200px;">
+<div style="min-height:200px;" class="card-body p-0">
+
+
+    <ul class="nk-support p-0 m-0">
+
+        <li class="nk-support-item border-0" v-for="n in 2" :key="n">
+            <div class="user-avatar bg-purple-dim">
+                <span>DM</span>
+            </div>
+            <div class="nk-support-content">
+                <div class="title">
+                    <span>Daniel Moore</span><span class="badge badge-dot badge-dot-xs badge-info ml-1">Open</span>
+                </div>
+                <p>Thanks for contact us with...</p>
+                <span class="time">2 Hours ago</span>
+            </div>
+        </li>
+
+    </ul>
+
+
 
 
 </div>
@@ -229,7 +246,28 @@
 <div class="card-header">
 <h4 class="card-title">Activities</h4>
 </div>
-<div style="min-height:200px;">
+<div style="min-height:200px;" class="card-body">
+
+<div class="timeline">
+<h6 class="timeline-head">November, 2019</h6>
+<ul class="timeline-list">
+<li class="timeline-item" v-for="n in 3" :key="n">
+<div class="timeline-status bg-primary is-outline"></div>
+<div class="timeline-date">13 Nov <em class="icon ni ni-alarm-alt"></em></div>
+<div class="timeline-data">
+<h6 class="timeline-title">Submited KYC Application</h6>
+<div class="timeline-des">
+
+<span class="time">09:30am</span>
+</div>
+</div>
+</li>
+
+
+</ul>
+</div>
+
+
 
 
 
@@ -259,9 +297,9 @@
 
 
 
+<!-----Booking--->
 
-
-
+<create-appointment></create-appointment>
 
 <!-----------FORM MODAL-->
 
@@ -337,9 +375,16 @@ No service requested
 <div class="modal-footer bg-light">
 <span class="sub-text">
 
+<el-button-group v-if="content.status=='pending'">
+<el-button type="success"  class="btn btn-success" @click="submit('accepted')">Accept</el-button>
+<el-button type="warning" @click="submit('declined')">Decline</el-button>
+</el-button-group>
+
+<el-button type="warning" class="btn btn-success" v-if="content.status=='accepted'" @click="submit('cancelled')">Cancel</el-button>
 
 
-<div class="dropdown">
+
+<!-- <div class="dropdown">
 <a href="#" class="btn btn-success" data-toggle="dropdown" aria-expanded="false"><span>Appointment Confirmation</span><em class="icon ni ni-chevron-down"></em></a>
 <div class="dropdown-menu dropdown-menu-right dropdown-menu-auto mt-1" style="">
 <ul class="link-list-plain">
@@ -348,7 +393,7 @@ No service requested
 <li><a href="#" v-if="content.status=='accepted'" @click="submit('cancelled')">Cancel</a></li>
 </ul>
 </div>
-</div>
+</div> -->
 
 
 </span>
@@ -372,10 +417,12 @@ No service requested
 <script>
 import TableComponent1 from '../Components/TableComponent1.vue';
 import DepositWithdrawComponent from '../Components/DepositWithdrawComponent.vue';
+import CreateAppointment from '../Components/CreateAppointment.vue';
 export default {
 components: {
 TableComponent1,
-DepositWithdrawComponent
+DepositWithdrawComponent,
+CreateAppointment
 },
 props:{
 title:{},

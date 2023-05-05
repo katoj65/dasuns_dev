@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use Inertia\Middleware;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\System\SystemController;
@@ -111,6 +112,11 @@ return $row;
 }
 
 
+//route
+function current_route(){
+return Route::current();
+}
+
 
 
 
@@ -157,7 +163,8 @@ return[
 'details'=>$system->get_system_information(),
 'partners'=>$partner->get_partners(),
 'menu'=>Auth::user()!=''?$menu->menu_list():null,
-'data'=>$this->system_details()
+'data'=>$this->system_details(),
+'current_route'=>$this->current_route(),
 ];
 },
 
@@ -166,6 +173,7 @@ return[
 'warning'=>fn()=>$request->session()->get('warning'),
 'error'=>fn()=>$request->session()->get('error'),
 'notice'=>fn()=>$request->session()->get('notice'),
+
 
 ],
 

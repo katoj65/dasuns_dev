@@ -6,208 +6,80 @@
 </div>
 <div v-else>
 <!-----PSSP PROFILE-->
-<div v-if="user.role=='pssp'" class="mb-2">
+<div v-if="user.role=='pssp'" class="mb-1 mt-1">
 
-<div class="row mt-2">
-<div class="col-12 col-md-4">
-
-<div class="box-card h-100 shadow-none card p-0 card">
-<div class="card-inner">
-<div class="team">
-<div class="team-options">
-<div class="drodown">
-<a href="#" class="dropdown-toggle btn btn-sm btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
-<div class="dropdown-menu dropdown-menu-right">
-<ul class="link-list-opt no-bdr">
-
-<li><a href="#" @click="edit_user_information()"><span>Edit User Information</span></a></li>
-
-<li>
-<a href="#" v-if="user.role=='pssp'" @click="dialog_box.about=true">Write your Statement</a>
-</li>
-
-<li v-if="user.role!='admin'"><a href="#" @click="add_services()"><span>Add Services</span></a></li>
+<div class="card">
+<div class="card-aside-wrap">
 
 
-<li v-if="user.role=='pssu' && user.account_type=='personal'">
-<a href="#" @click="dialog_box.add_pssu_disability=true"><span>Add Disabilities</span></a></li>
-
-
-<li v-if="user.role=='pssu' && user.account_type=='institutional'">
-<a href="#" @click="dialog_box.add_organisation_contact=true"><span>Add Contact Person</span></a></li>
-
-<li><a href="#" @click="dialog_box.delete_account=true"><span>Delete Account</span></a>
-</li>
-
-
-</ul>
-</div>
-</div>
-</div>
-
-<div class="user-card user-card-s2">
-<div class="user-avatar lg bg-success">
-<span><em class="icon ni ni-user-alt-fill"></em></span>
-<div class="status dot dot-lg dot-success"></div>
-</div>
-<div class="user-info text-transform">
-<h3 class="pb-2 pt-2">{{ user.usernames }}</h3>
-<span class="sub-text text-transform pt-1 pb-1">
-{{ user.account_type }} Account
-</span>
-<div class="sub-text text-transform pt-0 pb-1" v-if="user.dasuns_number!=null">
-<strong style="margin-right:10px;">Service No:</strong>
-{{ user.dasuns_number.number }}
-</div>
-</div>
-</div>
-<ul class="team-info">
-<li><span><em class="icon ni ni-user-alt"></em> Gender</span><span style="text-transform:capitalize;">{{ user.gender }}</span></li>
-
-
-<li v-if="user.account_type!='institutional'"><span><em class="icon ni ni-calender-date"></em> DOB</span><span style="text-transform:capitalize;">{{ user.dob.split('-').reverse().join('/') }} </span></li>
-
-
-<li><span><em class="icon ni ni-call"></em> Telephone</span><span>{{ user.tel }} </span></li>
-<li><span><em class="icon ni ni-mail"></em> Email</span>
-<span>{{ user.email }} </span></li>
-
-
-<li v-if="user.account_type!='institutional'"><span><em class="icon ni ni-map-pin"></em> Location</span><span style="text-transform:capitalize;">{{ profile.location }} </span></li>
-
-
-<li v-else-if="user.account_type=='institutional'"><span><em class="icon ni ni-map-pin"></em> Location</span><span style="text-transform:capitalize;">{{ organisation_profile.location }} </span></li>
-
-
-
-
-<li v-if="user.account_type!='institutional'"><span><em class="icon ni ni-globe"></em> Country</span><span style="text-transform:capitalize;">{{ profile.country }}</span></li>
-<li v-if="user.account_type=='institutional'"><span><em class="icon ni ni-globe"></em> Country</span><span style="text-transform:capitalize;">{{ organisation_profile.country }}</span></li>
-
-
-
-
-
-
-
-
-<li v-if="user.account_type=='institutional'"><span>
-<em class="icon ni ni-building"></em> Type
-</span><span style="text-transform:capitalize;">
-{{ organisation_profile.name }}
-</span></li>
-
-
-
-</ul>
-
-
-<div class="team-view">
-<Inertia-link :href="route('dashboard')" class="btn btn-block btn-success"><span>Dashboard</span></Inertia-link>
-
-</div>
-
-
-
-</div><!-- .team -->
-</div><!-- .card-inner -->
-
+<div class="card-body">
+<div class="nk-block-head-content align-self-start d-lg-none">
+<a href="#" class="toggle btn btn-icon btn-trigger mt-n1" data-target="userAside">
+<em class="icon ni ni-menu-alt-r"></em></a>
 </div>
 
 
 
 
-
-
-
-
-
-
-
-
-
+<div class="card-header p-0">
+<div class="card-title p-0">
+<h2 class="title p-0" style="font-size:20px;">
+Service Provider Profile
+</h2>
 </div>
-<div class="col-md-8">
-
-<div class="card box-card shadow-none h-100">
-<div class="card-header">
-<span style="font-weight:bold;">Service Provider Profile Details</span>
-<!-- <el-button style="float: right; padding: 3px 0" type="text">Operation button</el-button> -->
 </div>
 
-<div class="card-body pt-0">
 
 
-<!-- <div slot="header" class="clearfix bg-warning-dim p-2 mb-4"  v-if="status.status=='incomplete'||status.status=='pending' || status.status=='interview'" style="margin:-20px;">
-<span><em class="icon ni ni-shield-alert text-warning"></em>
-{{ status.message }}
-</span>
-
-</div> -->
-
-
-
-<!-- <div slot="header" class="clearfix bg-danger-dim p-2 mb-4"  v-else-if="status.status=='declined'" style="margin:-20px;">
-<span><em class="icon ni ni-shield-alert text-warning"></em>
-{{ status.message }}
-</span>
-</div> -->
-
-
-<div v-if="account_status!=null" class="mb-4">
-
+<div v-if="account_status!=null" class="mb-3">
 <div class="alert alert-danger alert-icon" v-if="account_status.status=='pending'">
 <em class="icon ni ni-alert-circle"></em> {{ account_status.message }} </div>
-
-
 <div class="alert alert-warning alert-icon" v-if="account_status.status=='profile'">
 <em class="icon ni ni-alert-circle"></em> {{ account_status.message }} </div>
-
-
 <div class="alert alert-success alert-icon" v-if="account_status.status=='success'">
 <em class="icon ni ni-alert-circle"></em> {{ account_status.message }} </div>
-
-
 <div class="alert alert-danger alert-icon" v-if="account_status.status=='failed'">
 <em class="icon ni ni-alert-circle"></em> {{ account_status.message }} </div>
-
 <div class="alert alert-primary alert-icon" v-if="account_status.status=='interview'">
 <em class="icon ni ni-alert-circle"></em> {{ account_status.message }} </div>
-
-
 </div>
+
+<div>
+<h4 style="font-size:20px;">Personal Statement</h4>
+<p class="pt-2 text-muted" style="font-size:14px;width:auto;overflow:hidden;">
+{{ $page.props.auth.user_profile.about!=null?$page.props.auth.user_profile.about:'Missing' }}
+</p>
+</div>
+
+<div class="mt-5 border-top pt-4">
+<div class="card-inner p-0">
+    <div class="card-title-group">
+        <div class="card-title">
+            <h6 class="title" style="font-size:20px;">Identification Documents</h6>
+        </div>
+        <div class="card-tools">
+            <add-identification-documents :response="response" :errors="errors" :flash="flash"/>
+        </div>
+    </div>
+</div>
+
+
+
 
 
 
 
 
 <div>
-<h4>Personal Statement</h4>
-<p class="pt-2 text-muted" style="font-size:14px;">
-{{ $page.props.auth.user_profile.about!=null?$page.props.auth.user_profile.about:'Missing' }}
-</p>
+<div v-if="response.user_data.identification.length>0">
+<div class="row mt-3" v-for="i in response.user_data.identification" :key="i.id">
+<div class="col-3">{{ i.document }}</div>
+<div class="col-8">
+<strong>Document Number </strong>
+<span class="badge badge-outline-primary" style="font-size:14px;padding:10px;">
+{{ i.document_number }}</span>
 </div>
-<!-- <el-divider></el-divider> -->
-<div class="mt-3">
-<table style="width:100%;">
-<thead class="border-none">
-<tr style="border:none">
-<th style="border:none" colspan="3">
-<h4>Identification Documents</h4>
-</th>
-<th  style="width:50px;border:none;">
-<add-identification-documents :response="response" :errors="errors" :flash="flash"></add-identification-documents>
-</th>
-</tr>
-</thead>
-<tbody v-if="response.user_data.identification.length>0">
-<tr v-for="i in response.user_data.identification" :key="i.id">
-<td style="width:50px;">
-<div class="user-avatar sq bg-warning-dim"><em class="icon ni ni-file"></em></div>
-</td>
-<th>{{ i.document }}</th>
-<td><strong>Document Number </strong> <span class="badge badge-outline-primary" style="font-size:14px;padding:10px;">{{ i.document_number }}</span></td>
-<td>
+<div class="col-1">
 <el-dropdown trigger="click">
 <span class="el-dropdown-link">
 <i class="el-icon-arrow-down el-icon--right text-muted"></i>
@@ -218,36 +90,38 @@
 </el-dropdown-item>
 </el-dropdown-menu>
 </el-dropdown>
-</td>
-</tr>
-</tbody>
-<tbody v-else>
-<tr>
-<td class="text-danger">
-Missing
-</td>
-</tr>
-</tbody>
-</table>
-
 </div>
-<el-divider></el-divider>
-<div>
-<table style="width:100%;">
-<thead>
-<tr>
-<th style="border:none;padding-bottom:20px;">
-<h4>Support Services I Provide</h4>
-</th>
-<th style="border:none;">
-</th>
-</tr>
-</thead>
-<tbody v-if="services.length>0" style="padding-top:30px;">
-<tr v-for="s in services" :key="s.id">
-<td><em class="icon ni ni-chevron-right"></em> {{ s.name }}</td>
-<td style="width:50px;">
-<el-dropdown trigger="click">
+</div>
+</div>
+<div v-else class="text-danger">No content</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div class="mt-5 border-top pt-4">
+    <div class="card-inner p-0">
+        <div class="card-title-group">
+            <div class="card-title">
+                <h6 class="title" style="font-size:20px;">Support Services I Provide</h6>
+            </div>
+            <div class="card-tools">
+
+            </div>
+        </div>
+    </div>
+
+
+<div v-if="services.length>0">
+<div class="row pt-3" v-for="s in services" :key="s.id">
+<div class="col-11">{{ s.name }}</div>
+<div class="col-1">  <el-dropdown trigger="click">
 <span class="el-dropdown-link">
 <i class="el-icon-arrow-down el-icon--right text-muted"></i>
 </span>
@@ -257,64 +131,58 @@ Missing
 </el-dropdown-item>
 </el-dropdown-menu>
 </el-dropdown>
-</td>
-</tr>
-</tbody>
-<tbody v-else>
-<tr>
-<td class="text-danger">Missing</td>
-</tr>
-</tbody>
-</table>
 </div>
-<el-divider></el-divider>
+</div>
+</div>
+<div v-else class="text-danger">
+No content
+</div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+<div class="mt-5 border-top pt-4">
+<div class="card-inner p-0">
+<div class="card-title-group">
+<div class="card-title">
+<h6 class="title" style="font-size:20px;">Work Experience</h6>
+</div>
+<div class="card-tools">
+<add-work-experience :response="response" :errors="errors" :flash="flash"/>
+</div>
+</div>
+</div>
+
+
+
 
 <div>
-<table style="width:100%;">
-<thead>
-<tr>
-<th style="border:none;">
-<h4>
-Work Experience
-</h4>
-</th>
-<th style="border:none;width:50px;">
-<add-work-experience :response="response" :errors="errors" :flash="flash"></add-work-experience>
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td colspan="2" style="padding:0;">
+<div v-if="experience.length>0">
+<div class="row mt-3">
+<div class="col-3 bold">
+Organisation Name
+</div>
+<div class="col-4 bold">Position</div>
+<div class="col-4 bold">Dates</div>
+<div class="col-1 bold"></div>
+</div>
 
-<table class="table">
-<thead >
-<tr style="border:none;">
-<th scope="col" style="border-bottom:none;" class="text-muted" colspan="2">Organisation Name</th>
-<th scope="col" style="border-bottom:none;" class="text-muted">Position</th>
-<th scope="col" style="border-bottom:none;" class="text-muted">From Date</th>
-<th scope="col" style="border-bottom:none;" class="text-muted">To Date</th>
-<th scope="col" style="border-bottom:none;"></th>
-</tr>
-</thead>
-<tbody v-if="experience.length>0" style="border:none;">
-<tr v-for="e in experience" :key="e.id">
-<td aria-sort="width:30px;">
-<div class="user-avatar sq bg-success-dim"><em class="icon ni ni-building"></em></div>
-</td>
-<td class="text-muted">
-{{ e.organisation_name }}
-</td>
-<td class="text-muted">
-{{ e.position }}
-</td>
-<td class="text-muted">
-{{ e.from_date }}
-</td>
-<td class="text-muted">
-{{ e.to_date }}
-</td>
-<td class="text-muted">
+
+<div class="row" v-for="e in experience" :key="e.id">
+<div class="col-3">
+   {{ e.organisation_name }}
+</div>
+<div class="col-4">  {{ e.position }}</div>
+<div class="col-4">  {{ e.from_date }} -     {{ e.to_date }}</div>
+<div class="col-1">
 <el-dropdown trigger="click">
 <span class="el-dropdown-link">
 <i class="el-icon-arrow-down el-icon--right text-muted"></i>
@@ -325,94 +193,75 @@ Work Experience
 </el-dropdown-item>
 </el-dropdown-menu>
 </el-dropdown>
-</td>
-</tr>
-</tbody>
-<tbody v-else>
-<tr>
-<td colspan="5" class="text-danger">
-Missing
-</td>
-</tr>
-</tbody>
-</table>
+</div>
+</div>
 
-</td>
-</tr>
-</tbody>
-</table>
+
+
 
 </div>
-<el-divider></el-divider>
+<div class="text-danger" v-else>No expereince added</div>
+</div>
+
+
 
 <div>
-<table style="width:100%;">
-<thead>
-<th>
-<h4>
-Profession Reference
-</h4>
-</th>
-<th style="width:50px;">
-<add-reference style="text-transform:capitalize;font-weight:normal;font-family:font-family: 'Roboto', sans-serif;letter-spacing:1px;font-size:13px;" :errors="errors" :flash="flash" :response="response"></add-reference>
-</th>
-</thead>
-<tbody>
-<tr>
-<td style="padding:0;padding-top:30px;" colspan="2">
-<table class="table table-sm" style="width:100%;">
-<thead>
-<tr>
-<th scope="col" style="border-bottom:none;" colspan="2">Employer Names</th>
-<th scope="col" style="border-bottom:none;">Contacts</th>
-<th scope="col" style="border-bottom:none;">Address</th>
-<th scope="col" style="border-bottom:none;">Position</th>
-<th scope="col" style="border-bottom:none;"></th>
 
-</tr>
-</thead>
-<tbody class="text-muted" v-if="reference.length>0">
-<tr v-for="r in reference" :key="r.id">
-<td style="width:50px;">
-<div class="nk-activity-media user-avatar bg-pink-dim"><em class="icon ni ni-user-alt-fill"></em></div>
-</td>
-<td class="word-transform">{{ r.names }} </td>
-<td>
-<div><em class="icon ni ni-call-fill"></em> {{ r.tel }}</div>
-<div style="text-transform:lowercase;">
-<em class="icon ni ni-mail-fill"></em> {{ r.email }}
 </div>
-</td>
-<td class="word-transform">{{ r.address}}</td>
-<td class="word-transform">{{ r.position }} </td>
-<td>
-<el-dropdown trigger="click">
-<span class="el-dropdown-link">
-<i class="el-icon-arrow-down el-icon--right text-muted"></i>
-</span>
-<el-dropdown-menu slot="dropdown" style="color:red;margin-top:-3px;" color="red" >
-<el-dropdown-item>
-<el-button type="clear" icon="el-icon-delete" @click="delete_reference(r.id)" style="border:none;"></el-button>
-</el-dropdown-item>
-</el-dropdown-menu>
-</el-dropdown>
-</td>
-</tr>
-</tbody>
-<tbody v-else>
-<tr>
-<td colspan="6" class="text-danger">
-Missing
-</td>
-</tr>
-</tbody>
-</table>
+</div>
 
-</td>
-</tr>
-</tbody>
-</table>
 
+
+
+
+
+
+
+<div class="mt-5 border-top pt-4">
+    <div class="card-inner p-0">
+        <div class="card-title-group">
+            <div class="card-title">
+                <h3 class="title" style="font-size:20px;">Profession Reference</h3>
+            </div>
+            <div class="card-tools">
+                <add-reference style="text-transform:capitalize;font-weight:normal;font-family:font-family: 'Roboto', sans-serif;letter-spacing:1px;font-size:13px;" :errors="errors" :flash="flash" :response="response"/>
+            </div>
+        </div>
+    </div>
+
+
+<div v-if="reference.length>0">
+<div class="row mb-1 mt-3">
+<div class="col-3 bold">
+Organisation
+</div>
+<div class="col-3 bold">
+Contacts
+</div>
+<div class="col-3 bold">
+Address
+</div>
+<div class="col-3 bold">
+Position
+</div>
+</div>
+<div class="row" v-for="r in reference" :key="r.id">
+<div class="col-3 text-transform">
+{{ r.names }}
+</div>
+<div class="col-3">
+    {{ r.tel }}
+    </div>
+    <div class="col-3">
+        {{ r.email }}
+        </div>
+        <div class="col-3 text-transform">
+            {{ r.position }}
+            </div>
+</div>
+
+</div>
+<div class="text-danger" v-else>No experience added</div>
 
 
 
@@ -421,21 +270,166 @@ Missing
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="card-aside card-aside-left user-aside toggle-slide toggle-slide-left toggle-break-lg toggle-screen-lg" data-content="userAside" data-toggle-screen="lg" data-toggle-overlay="true" style="width:400px">
+<div class="card-inner-group" data-simplebar="init"><div class="simplebar-wrapper" style="margin: 0px;"><div class="simplebar-height-auto-observer-wrapper"><div class="simplebar-height-auto-observer"></div></div><div class="simplebar-mask"><div class="simplebar-offset" style="right: 0px; bottom: 0px;"><div class="simplebar-content-wrapper" style="height:600px; overflow: hidden;"><div class="simplebar-content" style="padding: 0px;">
+<div class="card-inner">
+    <div class="card-inner">
+        <div class="team">
+        <div class="team-options">
+        <div class="drodown">
+        <a href="#" class="dropdown-toggle btn btn-sm btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
+        <div class="dropdown-menu dropdown-menu-right">
+        <ul class="link-list-opt no-bdr">
+
+        <li><a href="#" @click="edit_user_information()"><span>Edit User Information</span></a></li>
+
+        <li>
+        <a href="#" v-if="user.role=='pssp'" @click="dialog_box.about=true">Write your Statement</a>
+        </li>
+
+        <li v-if="user.role!='admin'"><a href="#" @click="add_services()"><span>Add Services</span></a></li>
+
+
+        <li v-if="user.role=='pssu' && user.account_type=='personal'">
+        <a href="#" @click="dialog_box.add_pssu_disability=true"><span>Add Disabilities</span></a></li>
+
+
+        <li v-if="user.role=='pssu' && user.account_type=='institutional'">
+        <a href="#" @click="dialog_box.add_organisation_contact=true"><span>Add Contact Person</span></a></li>
+
+        <li><a href="#" @click="dialog_box.delete_account=true"><span>Delete Account</span></a>
+        </li>
+
+
+        </ul>
+        </div>
+        </div>
+        </div>
+
+        <div class="user-card user-card-s2">
+        <div class="user-avatar lg bg-success">
+        <span><em class="icon ni ni-user-alt-fill"></em></span>
+        <div class="status dot dot-lg dot-success"></div>
+        </div>
+        <div class="user-info text-transform">
+        <h3 class="pb-2 pt-2">{{ user.usernames }}</h3>
+        <span class="sub-text text-transform pt-1 pb-1">
+        {{ user.account_type }} Account
+        </span>
+        <div class="sub-text text-transform pt-0 pb-1" v-if="user.dasuns_number!=null">
+        <strong style="margin-right:10px;">Service No:</strong>
+        {{ user.dasuns_number.number }}
+        </div>
+        </div>
+        </div>
+        <ul class="team-info">
+        <li><span><em class="icon ni ni-user-alt"></em> Gender</span><span style="text-transform:capitalize;">{{ user.gender }}</span></li>
+
+
+        <li v-if="user.account_type!='institutional'"><span><em class="icon ni ni-calender-date"></em> DOB</span><span style="text-transform:capitalize;">{{ user.dob.split('-').reverse().join('/') }} </span></li>
+
+
+        <li><span><em class="icon ni ni-call"></em> Telephone</span><span>{{ user.tel }} </span></li>
+        <li><span><em class="icon ni ni-mail"></em> Email</span>
+        <span>{{ user.email }} </span></li>
+
+
+        <li v-if="user.account_type!='institutional'"><span><em class="icon ni ni-map-pin"></em> Location</span><span style="text-transform:capitalize;">{{ profile.location }} </span></li>
+
+
+        <li v-else-if="user.account_type=='institutional'"><span><em class="icon ni ni-map-pin"></em> Location</span><span style="text-transform:capitalize;">{{ organisation_profile.location }} </span></li>
+
+
+
+
+        <li v-if="user.account_type!='institutional'"><span><em class="icon ni ni-globe"></em> Country</span><span style="text-transform:capitalize;">{{ profile.country }}</span></li>
+        <li v-if="user.account_type=='institutional'"><span><em class="icon ni ni-globe"></em> Country</span><span style="text-transform:capitalize;">{{ organisation_profile.country }}</span></li>
+
+
+
+
+
+
+
+
+        <li v-if="user.account_type=='institutional'"><span>
+        <em class="icon ni ni-building"></em> Type
+        </span><span style="text-transform:capitalize;">
+        {{ organisation_profile.name }}
+        </span></li>
+
+
+
+        </ul>
+
+
+        <div class="team-view">
+        <Inertia-link :href="route('dashboard')" class="btn btn-block btn-success"><span>Dashboard</span></Inertia-link>
+
+        </div>
+
+
+
+        </div><!-- .team -->
+        </div><!-- .card-inner -->
+</div><!-- .card-inner -->
+
+
+
+
+
+
+</div></div></div></div>
+<div class="simplebar-placeholder" style="width: auto; height: 500px;"></div></div><div class="simplebar-track simplebar-horizontal" style="visibility: hidden;"><div class="simplebar-scrollbar" style="width: 0px; display: none;"></div></div><div class="simplebar-track simplebar-vertical" style="visibility: hidden;"><div class="simplebar-scrollbar" style="height: 0px; display: none;"></div></div></div><!-- .card-inner-group -->
+</div><!-- card-aside -->
+</div><!-- .card-aside-wrap -->
 </div>
 
 
-
-
-
-
-
 </div>
-</div>
-
-
-
 </div>
 
 
