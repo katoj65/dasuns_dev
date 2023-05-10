@@ -11,7 +11,6 @@
 <em :class="t.icon" style="font-size:50px;color:#07372F;"></em>
 </h6>
 </div>
-
 </div>
 
 <div class="card-amount mb-2 mt-3">
@@ -127,6 +126,15 @@
 </div>
 
 
+
+
+
+
+
+
+
+
+
 <div class="col-md-4">
 <div  class="h-100 card">
 <div class="card-header">
@@ -149,6 +157,10 @@
 </div>
 </div>
 </div>
+
+
+
+
 
 
 
@@ -212,23 +224,23 @@
 </div>
 <div style="min-height:200px;" class="card-body p-0">
 
-
-    <ul class="nk-support p-0 m-0">
-
-        <li class="nk-support-item border-0" v-for="n in 2" :key="n">
-            <div class="user-avatar bg-purple-dim">
-                <span>DM</span>
-            </div>
-            <div class="nk-support-content">
-                <div class="title">
-                    <span>Daniel Moore</span><span class="badge badge-dot badge-dot-xs badge-info ml-1">Open</span>
-                </div>
-                <p>Thanks for contact us with...</p>
-                <span class="time">2 Hours ago</span>
-            </div>
-        </li>
-
-    </ul>
+<ul class="nk-support p-0 m-0">
+<li class="nk-support-item border-0" v-for="r in recommendations" :key="r.id">
+<div class="user-avatar bg-purple-dim">
+<span><em class="icon ni ni-user-alt-fill"></em></span>
+</div>
+<div class="nk-support-content">
+<div class="title">
+<span>
+{{ r.names }}
+</span>
+<!-- <span class="badge badge-dot badge-dot-xs badge-info ml-1">Open</span> -->
+</div>
+<p class="text-transform" style="font-size:13px;height:40px;overflow:hidden;">{{ r.message }} </p>
+<span class="time">{{ r.created_at.substring(0,10).split('-').reverse().join('/') }} </span>
+</div>
+</li>
+</ul>
 
 
 
@@ -538,7 +550,21 @@ wallet_balance(){
 const nf = new Intl.NumberFormat('en-US');
 // "1,234,567,890"
 return nf.format(this.response.user_data.pssp_attributes.counts.wallet);
-}
+},
+
+//recommendations
+recommendations(){
+return this.response.user_data.pssp_attributes.lists.recommendations;
+},
+
+
+//recommendations
+activities(){
+return this.response.user_data.pssp_attributes.lists.activities;
+},
+
+
+
 
 
 

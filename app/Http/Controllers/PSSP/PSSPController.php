@@ -21,6 +21,7 @@ use App\Models\PSSPInterviewScheduleModel;
 use App\Models\InterviewPanelistModel;
 use App\Http\Controllers\Wallet\WalletController;
 use App\Models\AppointmentServiceModel;
+use App\Models\DasunsRecommendationsModel;
 
 
 
@@ -135,7 +136,7 @@ $data['response']=[
 ];
 return Inertia::render('ServiceProviderPage',$data);
 }else{
-return redirect('/')->width('warning','Could not find user information');
+return redirect('/')->with('warning','Could not find user information');
 }
 }
 
@@ -279,20 +280,21 @@ $services=AppointmentServiceModel::select('*')
 ->join('support_service','appointment_service.serviceID','=','support_service.id')
 ->where('appointment_service.appointmentID',$a->id)->get();
 $appointments[]=[
-    'firstname'=>$a->firstname,
-    'lastname'=>$a->lastname,
-    'date'=>$a->date,
-    'end_date'=>$a->end_date,
-    'location'=>$a->location,
-    'comment'=>$a->comment,
-    'status'=>$a->status,
-    'from'=>$a->from,
-    'to'=>$a->to,
-    'created_at'=>$a->created_at,
-    'services'=>$services,
-    'id'=>$a->id
+'firstname'=>$a->firstname,
+'lastname'=>$a->lastname,
+'date'=>$a->date,
+'end_date'=>$a->end_date,
+'location'=>$a->location,
+'comment'=>$a->comment,
+'status'=>$a->status,
+'from'=>$a->from,
+'to'=>$a->to,
+'created_at'=>$a->created_at,
+'services'=>$services,
+'id'=>$a->id
 ];
 }
+
 }
 
 
@@ -318,7 +320,9 @@ return [
 ->where('service_provider_services.userID',Auth::user()->id)
 ->join('support_service','service_provider_services.serviceID','=','support_service.id')
 ->get(),
-'appointments'=>$appointments
+'appointments'=>$appointments,
+'recommendations'=>DasunsRecommendationsModel::where('userID',Auth::user()->id)->limit(2)->get(),
+'activities'=>[]
 
 
 ],

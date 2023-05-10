@@ -106,7 +106,7 @@ Request for professional support services
 </div>
 <div class="modal-footer bg-light">
 <span class="sub-text">
-<button type="submit" class="btn btn-success button" style="font-size:17px;">Request</button>
+<button type="submit" class="btn btn-success button" style="font-size:15px;">Submit</button>
 </span>
 </div>
 </div>
@@ -121,7 +121,9 @@ Request for professional support services
 
 <div style="position:fixed;bottom:0;right:0;padding:20px;margin-bottom:50px;">
     <a href="#" class="btn btn-round btn-xl btn-success shadow" @click="navigate()">
-        <em class="icon ni ni-edit mr-1" style="font-size:25px;color:white;"></em> Request</a>
+        <em class="icon ni ni-edit mr-1" style="font-size:20px;color:white;"></em>
+       <span style="font-size:14px;"> Request Service</span>
+    </a>
 <!-- <el-button circle style="width:70px;height:70px;background:#0B5345;" class="shadow" @click="navigate()">
 
 </el-button> -->

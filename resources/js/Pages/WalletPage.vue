@@ -10,7 +10,6 @@ Dasus Wallet
 </h4>
 </div>
 </div>
-
 <div class="card-body p-4">
 <div class="card card-full p-0">
 <div class="card-inner p-0">
@@ -23,14 +22,14 @@ Dasus Wallet
 </div>
 </div>
 <div class="card-amount">
-<span class="amount"> {{ response.balance }} <span class="currency currency-usd text-succes bold">{{ response.currence }}</span>
+<span class="amount"> {{ balance }} <span class="currency currency-usd text-succes bold">{{ response.currence }}</span>
 </span>
 <span class="change up text-danger bold">
 </span>
 </div>
 <div class="invest-data pt-2">
 <div class="invest-data-amount g-2">
-<deposit-withdraw-component></deposit-withdraw-component>
+
 </div>
 <div class="invest-data-ck">
 <canvas class="iv-data-chart" id="totalDeposit"></canvas>
@@ -39,8 +38,9 @@ Dasus Wallet
 </div>
 </div>
 </div>
-
-
+<div class="card-footer" style="background:white;">
+<deposit-withdraw-component></deposit-withdraw-component>
+</div>
 </div>
 
 
@@ -116,6 +116,25 @@ data(){return{
 
 
 }},
+
+
+//computed method
+computed:{
+balance(){
+const nf = new Intl.NumberFormat('en-US');
+return nf.format(this.response.balance);
+}
+
+
+
+
+}
+
+
+
+
+
+
 
 }
 </script>

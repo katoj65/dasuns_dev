@@ -20,11 +20,11 @@ Service Providers Available for <span class="text-transform">{{ response.service
 
 <div class="user-card user-card-s2">
 <div class="user-avatar lg bg-success">
-<span>AB</span>
+<span><em class="icon ni ni-user-alt-fill"></em></span>
 <!-- <div class="status dot dot-lg dot-success"></div> -->
 </div>
 <div class="user-info">
-<h6 class="mb-2">
+<h6 class="mb-2 text-transform">
 {{ p.firstname }} {{ p.lastname }}
 
 </h6>
@@ -37,8 +37,8 @@ Service Providers Available for <span class="text-transform">{{ response.service
 <li><span>Email</span><span>info@softnio.com</span></li> -->
 </ul>
 <div class="team-view">
-<a href="html/user-details-regular.html" class="btn btn-block btn-dim btn-light">
-    <span>View Profile</span></a>
+<Inertia-link :href="route('show.pssp',[p.id])" class="btn btn-block btn-dim btn-light">
+<span>View Profile</span></Inertia-link>
 </div>
 </div><!-- .team -->
 </div><!-- .card-inner -->

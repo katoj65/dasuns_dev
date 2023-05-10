@@ -11,14 +11,11 @@
 <div class="card">
 <div class="card-aside-wrap">
 
-
 <div class="card-body">
 <div class="nk-block-head-content align-self-start d-lg-none">
 <a href="#" class="toggle btn btn-icon btn-trigger mt-n1" data-target="userAside">
 <em class="icon ni ni-menu-alt-r"></em></a>
 </div>
-
-
 
 
 <div class="card-header p-0">
@@ -28,7 +25,6 @@ Service Provider Profile
 </h2>
 </div>
 </div>
-
 
 
 <div v-if="account_status!=null" class="mb-3">
@@ -62,11 +58,6 @@ Service Provider Profile
         </div>
     </div>
 </div>
-
-
-
-
-
 
 
 
