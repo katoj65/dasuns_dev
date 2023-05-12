@@ -59,14 +59,14 @@
 
 
 
-<div class="card-inner p-0 mt-3">
+<div class="card-inner p-0 mt-0">
 <table class="table table-tranx">
 
 
-<thead>
+<!-- <thead>
 
 <tr>
-<!-- <th class="tb-tnx-id"><span class="">#</span></th> -->
+
 <th class="tb-tnx-info">
 <span class="tb-tnx-desc d-none d-sm-inline-block">
 <span>Service requested</span>
@@ -86,9 +86,9 @@
 <th class="tb-tnx-action">
 <span>&nbsp;</span>
 </th>
-</tr><!-- tb-tnx-item -->
+</tr>
 
-</thead>
+</thead> -->
 
 
 
