@@ -407,7 +407,6 @@ function profile_PSSP(){
 $user=Auth::user();
 $get=ServiceProviderProfileModel::select('country.name as country',
 'service_provider_profile.location',
-'service_provider_profile.location',
 'service_provider_profile.vet_status',
 'service_provider_profile.about')
 ->where('service_provider_profile.userID',$user->id)
@@ -951,7 +950,7 @@ return redirect('/profile')->with('success','Organisation contact person has bee
 //user profile information
 static function get_user_profile_information(){
 if(Auth::user()->role=='pssp'){
-    
+
 $get=ServiceProviderProfileModel::select('service_provider_profile.location',
 'country.name as country')
 ->join('users','service_provider_profile.userID','=','users.id')
@@ -961,7 +960,7 @@ $get=ServiceProviderProfileModel::select('service_provider_profile.location',
 
 }else{
 
-$get=UserProfileModel::select('service_provider_profile.location',
+$get=UserProfileModel::select('user_profile.location',
 'country.name as country')
 ->join('users','user_profile.userID','=','users.id')
 ->join('country','user_profile.countryID','=','country.id')

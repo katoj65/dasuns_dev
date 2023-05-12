@@ -2,7 +2,7 @@
 <LayoutUnAuth>
 
 <div class="row  m-0"  id="banner">
-<div class="col-12 col-md-12 " :style="'margin-top:0;z-index:0;background-image:url('+route+'images/pages/about1.jpg'+');border-radius:0 0 20px 20px;height:250px;background-size:cover;background-position:100% 20%;border:none;'">
+<div class="col-12 col-md-12 " :style="'margin-top:0;z-index:0;background-image:url('+route+'images/pages/wheelchair2.jpg'+');border-radius:0 0 20px 20px;height:250px;background-size:cover;background-position:100% 65%;border:none;'">
 
 </div>
 
@@ -66,7 +66,7 @@
 
 
 
-<h4 class="mb-2 pb-2 mt-4"><em class="icon ni ni-headphone" style="background:#1ee0ac;color:white;padding:5px;border-radius:5px;"></em><br/><br/> We Provide Suppoert Services</h4>
+<h4 class="mb-2 pb-2 mt-4"><em class="icon ni ni-headphone" style="background:#1ee0ac;color:white;padding:5px;border-radius:5px;"></em><br/><br/> We Provide Support Services</h4>
 <p>
 Service providers and users only need to sign up for an account once. Users can
 then log on to the system and request for their preferred support service from
@@ -76,7 +76,7 @@ available service providers within reach.
 
 <h4 class="mt-4">
 <em class="icon ni ni-headphone" style="background:#1ee0ac;color:white;padding:5px;border-radius:5px;"></em><br/><br/>
-Service Providers
+Refresher Training to Service Providers
 </h4>
 
 <p class="mt-3">

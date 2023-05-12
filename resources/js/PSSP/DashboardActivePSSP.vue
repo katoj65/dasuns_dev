@@ -327,7 +327,7 @@
 <div class="modal-body">
 
 
-<div class="card border border-radius">
+<div class="card  border-radius">
 <ul class="data-list is-compact">
 <li class="data-item">
 <div class="data-col">

@@ -105,6 +105,7 @@ color:#001713;
 
 body {
     font-family: 'Roboto', sans-serif;
+    background:#f8f9fa;
 }
 
 p{
@@ -283,6 +284,11 @@ border-radius: 0;
 box-shadow: none;
 }
 
+
+.shadow1{
+box-shadow: 5px 5px 5px #f8f9fa;
+}
+
 .bold{
 font-weight: bold;
 }
@@ -300,14 +306,29 @@ border-bottom:solid 1px #EBEEF5
 }
 
 .card{
-border:none;
+/* border:solid 1px #EBEEF5; */
+box-shadow: 0px 0px 3px #EAEDED;
+border:1px solid #EBEEF5
+
+
 }
+
 
 .card .card-header .card-title{
 font-size:18px;
 padding-top:10px;
 }
 
+.shadow5{
+box-shadow: 2px 2px 2px #EAEDED;
+}
+
+.shadow-none{
+box-shadow: none;
+}
+.border-none{
+border:none;
+}
 
 </style>
 

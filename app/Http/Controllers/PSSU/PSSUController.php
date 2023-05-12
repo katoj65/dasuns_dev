@@ -12,6 +12,8 @@ use App\Models\DasunsUserNumberModel;
 use App\Models\OrganisationContactPersonModel;
 use App\Models\UserProfileModel;
 use App\Models\CountryModel;
+use App\Models\AppointmentModel;
+use App\Http\Controllers\Wallet\WalletController;
 
 
 
@@ -87,12 +89,23 @@ class PSSUController extends Controller
 //dashboard
 static function dashboard(){
 $id=Auth::user()->id;
+
+
+
+
+
+
+
+
+
+
+
 return[
 'dasuns_number'=>DasunsNumberController::get_dasuns_number_byUserID($id),
 'service_provider_count'=>User::where('status','active')->where('role','pssp')->count(),
-'recommendations'=>[],
-'count_appointments'=>[],
-'account_balance'=>null,
+'count_recommendations'=>[],
+'count_appointments'=>AppointmentModel::where('userID',Auth::user()->id)->where('status','accepted')->count(),
+'account_balance'=>WalletController::get_wallet_balance()->amount,
 'appointments'=>[]
 
 ];
@@ -143,6 +156,7 @@ $disabilities=UserDisabilityModel::select('user_disability.id','disability.name'
 
 
 return[
+
 'services'=>$user_service,
 'dasuns_number'=>PSSUController::get_dasuns_number(),
 'disabilities'=>$disabilities,

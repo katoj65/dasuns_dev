@@ -9,7 +9,7 @@
 
 
 
-<el-card class="card mt-2 mb-2" v-if="account_type=='personal'" shadow="never">
+<div class="card mt-2 mb-2" v-if="account_type=='personal'">
 <div class="card-inner">
 <div class="team">
 <div class="user-card user-card-s2 pt-5">
@@ -35,9 +35,9 @@
 <div class="row">
 <div class="col-12 col-md-3"></div>
 <div class="col-12 col-md-6">
-<div class="card mt-3 mb-5 thick-border" style="border-radius:30px;">
-<div class="card-header thick_bg border-bottom" style="border-radius:25px 25px 0 0">
-<h1 style="text-align:center;font-size:18px;color:white;" class="p-1">Create Your Profile</h1>
+<div class="card mt-3 mb-5 border">
+<div class="card-header">
+<h1 style="text-align:center;font-size:18px;" class="p-1">Create Your Profile</h1>
 </div>
 
 <div class="card-body pl-5 pr-5 pt-0">
@@ -132,7 +132,7 @@
 
 </div><!-- .team -->
 </div><!-- .card-inner -->
-</el-card>
+</div>
 
 
 

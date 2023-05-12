@@ -1,6 +1,6 @@
 <template>
 
-<div class="nk-header nk-header-fixed is-light" style="border:none;">
+<div class="nk-header nk-header-fixed is-light" style="border:none; box-shadow: 2px 2px 1px #EAEDED;">
 <div class="container-fluid">
 <div class="nk-header-wrap">
 <div class="nk-menu-trigger d-xl-none ml-n1">
@@ -13,40 +13,7 @@
 </Inertia-link>
 </div><!-- .nk-header-brand -->
 
-
-
 <div class="nk-header-news d-none d-xl-block" style="width:70%;">
-
-<!-- <div v-if="search_option==true">
-<form @submit.prevent="submit" class="row">
-<div class="col-12 p-0 m-0 border rounded" style="background:#F8F9F9;">
-<div class="row">
-<div class="col-12 col-md-1 border-right pl-2" style="text-align:center;padding:0;padding-top:7px;">
-<em class="icon ni ni-search"></em>
-</div>
-<div class="col-12 col-md-10 p-0 m-0">
-<input type="text" v-model="form.search" style="padding:10px;height:35px;width:100%;border:none;background:#F8F9F9;"  placeholder="Search....." id="focusID"/>
-</div>
-<div class="col-12 col-md-1 pt-1 pl-2 pr-0 pb-0 border-left">
-<el-dropdown trigger="click">
-<span class="el-dropdown-link">
-<em class="icon ni ni-opt-dot-alt" style="font-size:25px;color:#07372F;"></em>
-</span>
-<el-dropdown-menu slot="dropdown">
-<el-dropdown-item><a href="#" @click="filter_dialog()" style="width:100%;padding:10px;">
-Advanced Filter</a></el-dropdown-item>
-<el-dropdown-item><a href="#" @click="search_bar()" style="width:100%;padding:10px;">
-Exit
-</a></el-dropdown-item>
-</el-dropdown-menu>
-</el-dropdown>
-
-</div>
-</div>
-</div>
-
-</form>
-</div> -->
 <div class="nk-news-list">
 <a class="nk-news-item" href="#" @click="search_bar()">
 <div class="nk-news-icon">
@@ -54,8 +21,6 @@ Exit
 </div>
 <div>
 <p style="font-weight:bold;font-size:17px;color:#0B5345;">Search...</p>
-
-
 
 </div>
 </a>

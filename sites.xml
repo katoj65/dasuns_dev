@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FileZilla3 version="3.64.0" platform="mac">
+	<Servers>
+		<Server>
+			<Host>dasuns.org</Host>
+			<Port>443</Port>
+			<Protocol>5</Protocol>
+			<Logontype>0</Logontype>
+			<BypassProxy>0</BypassProxy>
+			<Name>New site</Name>
+			<RemoteDir>1 0</RemoteDir>
+			<SyncBrowsing>0</SyncBrowsing>
+			<DirectoryComparison>0</DirectoryComparison>
+		</Server>
+	</Servers>
+</FileZilla3>

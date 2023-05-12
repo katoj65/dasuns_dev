@@ -23,7 +23,7 @@
     <div class="modal-body">
 
 
-    <div class="card-inner border border-radius">
+    <div class="card-inner border-radius">
     <ul class="nav nav-tabs mt-n3">
     <li class="nav-item">
     <a class="nav-link active" data-toggle="tab" href="#tabItem5">

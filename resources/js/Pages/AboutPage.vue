@@ -1,10 +1,17 @@
 <template>
 <LayoutUnAuth>
+
 <div class="row m-0"  id="banner">
-<div class="col-12 col-md-12 p-0 m-0" :style="'margin-top:0px;z-index:0;background-image:url('+route+'images/pages/wheelchair1.jpg'+');height:250px;background-size:cover;background-position:100% 50%;     border-radius:0 0 20px 20px;'">
+<div class="col-12 col-md-12 p-0 m-0" :style="'margin-top:0px;z-index:0;background-image:url('+route+'images/pages/about.jpg'+');height:250px;background-size:cover;background-position:100% 50%;border-radius:0 0 20px 20px;'">
+</div>
 </div>
 
-</div>
+
+
+
+
+
+
 
 
 
@@ -84,6 +91,15 @@ Overview
 </div>
 </div>
 </div>
+
+
+
+
+
+
+
+
+
 <div class="nk-content nk-content-lg nk-content-fluid" style="background:#07372F;">
 <div class="container-xl wide-lg">
 <div class="nk-content-inner">
@@ -127,6 +143,13 @@ Our Team
 </div>
 </div>
 </div>
+
+
+
+
+
+
+
 </LayoutUnAuth>
 </template>
 <script>

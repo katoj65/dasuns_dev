@@ -1,12 +1,12 @@
 <template>
 <div class="nk-block pt-0">
 
-<!-- {{ response.user_data.dashboard }} -->
+
 
 
 <div class="row g-gs">
-<div class="col-md-3" v-for="t in tabs" :key="t.id" shadow="never">
-<el-card class="card  card-full" shadow="never">
+<div class="col-md-3" v-for="t in tabs" :key="t.id">
+<div class="card  card-full">
 <div class="card-inner">
 <div class="card-title-group align-start mb-0">
 <div class="card-title">
@@ -40,7 +40,7 @@
 
 </div>
 </div>
-</el-card><!-- .card -->
+</div><!-- .card -->
 </div>
 
 
@@ -539,20 +539,41 @@
 export default {
 props:{
 response:{},
+title:{},
 },
 data(){return{
+content:this.response.user_data.dashboard,
 
-tabs:[
 
-{icon:'icon ni ni-calender-date-fill',title:'APPOINTMENTS',count:100,id:2},
-{icon:'icon ni ni-grid-fill',title:'SERVICE PROVIDERS',count:this.response.user_data.dashboard.service_provider_count,id:1},
-{icon:'icon ni ni-bar-chart-fill',title:'RECOMMENDATIONS',count:40,id:3},
-{icon:'icon ni ni-wallet-fill',title:'WALLET',count:20,id:4},
-
-],
 
 
 }},
+
+
+computed:{
+tabs(){
+return [
+{icon:'icon ni ni-calender-date-fill',title:'APPOINTMENTS',count:this.response.user_data.dashboard.count_appointments,id:2},
+{icon:'icon ni ni-grid-fill',title:'SERVICE PROVIDERS',count:this.response.user_data.dashboard.service_provider_count,id:1},
+{icon:'icon ni ni-bar-chart-fill',title:'RECOMMENDATIONS',count:40,id:3},
+{icon:'icon ni ni-wallet-fill',title:'WALLET',count:this.response.user_data.dashboard.account_balance,id:4},
+
+];
+
+
+
+}
+
+
+
+
+
+
+}
+
+
+
+
 
 
 

@@ -22,7 +22,7 @@ Professional Support Services for every <span style="color:yellow;">Disability</
 
 
 <Inertia-link :href="route('profession-service',[s.id])">
-<div class="card" style="text-align:center;border-radius:12px;" id="item">
+<div class="card border-none shadow-none" style="text-align:center;border-radius:12px;" id="item">
 <div class="card-inner">
 <div class="card-title-group align-start mb-0">
 <div style="text-align:center;width:100%;padding-left:33%;">
@@ -31,7 +31,7 @@ Professional Support Services for every <span style="color:yellow;">Disability</
 </div>
 </div>
 <div style="text-align:center;width:100%;margin-top:30px;">
-<h3 style="color:white;font-size:20px;font-weight:bold;">
+<h3 style="color:white;font-size:20px;font-weight:bold;" class="text-transform">
 {{ s.name }}
 </h3>
 <div style="color:#48C9B0;padding:10px;font-size:16px;">
