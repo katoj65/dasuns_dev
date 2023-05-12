@@ -94,19 +94,14 @@ $id=Auth::user()->id;
 
 
 
-
-
-
-
-
-
 return[
 'dasuns_number'=>DasunsNumberController::get_dasuns_number_byUserID($id),
 'service_provider_count'=>User::where('status','active')->where('role','pssp')->count(),
 'count_recommendations'=>[],
 'count_appointments'=>AppointmentModel::where('userID',Auth::user()->id)->where('status','accepted')->count(),
 'account_balance'=>WalletController::get_wallet_balance()->amount,
-'appointments'=>[]
+'appointments'=>AppointmentModel::where('userID',Auth::user()->id)->where('status','accepted')->get(),
+
 
 ];
 

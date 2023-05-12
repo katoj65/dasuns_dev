@@ -49,132 +49,100 @@
 
 
 <div class="col-md-8 col-xxl-4">
-<el-card class="card card-full" shadow="never">
+<div class="card card-full">
 <div class="card-inner">
 <div class="card-title-group mb-1">
 <div class="card-title">
-    <h6 class="title">Appointments</h6>
-    <p>The investment overview of your platform. <a href="#">All Investment</a></p>
+<h3 class="title" style="font-size:18px;">Appointments</h3>
 </div>
 </div>
-<ul class="nav nav-tabs nav-tabs-card nav-tabs-xs">
-<li class="nav-item">
-    <a class="nav-link active" data-toggle="tab" href="#overview">Overview</a>
-</li>
-<li class="nav-item">
-    <a class="nav-link" data-toggle="tab" href="#thisyear">This Year</a>
-</li>
-<li class="nav-item">
-    <a class="nav-link" data-toggle="tab" href="#alltime">All Time</a>
-</li>
+
+
+
+<div class="card-inner p-0 mt-3">
+<table class="table table-tranx">
+
+
+<thead>
+
+<tr>
+<!-- <th class="tb-tnx-id"><span class="">#</span></th> -->
+<th class="tb-tnx-info">
+<span class="tb-tnx-desc d-none d-sm-inline-block">
+<span>Service requested</span>
+</span>
+<span class="tb-tnx-date d-md-inline-block d-none">
+<span class="d-md-none">Date</span>
+<span class="d-none d-md-block">
+<span>Date</span>
+<span>Time</span>
+</span>
+</span>
+</th>
+<th class="tb-tnx-amount is-alt">
+<span class="tb-tnx-total">Amount</span>
+<span class="tb-tnx-status d-none d-md-inline-block">Status</span>
+</th>
+<th class="tb-tnx-action">
+<span>&nbsp;</span>
+</th>
+</tr><!-- tb-tnx-item -->
+
+</thead>
+
+
+
+<tbody>
+<tr class="tb-tnx-item" v-for="n in 20" :key="n">
+<!-- <td class="tb-tnx-id">
+<a href="#"><span>4947</span></a>
+</td> -->
+<td class="tb-tnx-info">
+<div class="tb-tnx-desc">
+<span class="title">Enterprize Year Subscrition</span>
+</div>
+<div class="tb-tnx-date">
+<span class="date">10-05-2019</span>
+<span class="date">10-13-2019</span>
+</div>
+</td>
+<td class="tb-tnx-amount is-alt">
+<div class="tb-tnx-total">
+<span class="amount">$599.00</span>
+</div>
+<div class="tb-tnx-status">
+<span class="badge badge-dot badge-warning">Due</span>
+</div>
+</td>
+<td class="tb-tnx-action">
+<div class="dropdown">
+<a class="text-soft dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
+<div class="dropdown-menu dropdown-menu-right dropdown-menu-xs">
+<ul class="link-list-plain">
+<li><a href="#">View</a></li>
+<li><a href="#">Edit</a></li>
+<li><a href="#">Remove</a></li>
 </ul>
-<div class="tab-content mt-0">
-<div class="tab-pane active" id="overview">
-    <div class="invest-ov gy-2">
-        <div class="subtitle">Currently Actived Investment</div>
-        <div class="invest-ov-details">
-            <div class="invest-ov-info">
-                <div class="amount">49,395.395 <span class="currency currency-usd">USD</span></div>
-                <div class="title">Amount</div>
-            </div>
-            <div class="invest-ov-stats">
-                <div><span class="amount">56</span><span class="change up text-danger"><em class="icon ni ni-arrow-long-up"></em>1.93%</span></div>
-                <div class="title">Plans</div>
-            </div>
-        </div>
-        <div class="invest-ov-details">
-            <div class="invest-ov-info">
-                <div class="amount">49,395.395 <span class="currency currency-usd">USD</span></div>
-                <div class="title">Paid Profit</div>
-            </div>
-        </div>
-    </div>
-    <div class="invest-ov gy-2">
-        <div class="subtitle">Investment in this Month</div>
-        <div class="invest-ov-details">
-            <div class="invest-ov-info">
-                <div class="amount">49,395.395 <span class="currency currency-usd">USD</span></div>
-                <div class="title">Amount</div>
-            </div>
-            <div class="invest-ov-stats">
-                <div><span class="amount">23</span><span class="change down text-danger"><em class="icon ni ni-arrow-long-down"></em>1.93%</span></div>
-                <div class="title">Plans</div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="tab-pane" id="thisyear">
-    <div class="invest-ov gy-2">
-        <div class="subtitle">Currently Actived Investment</div>
-        <div class="invest-ov-details">
-            <div class="invest-ov-info">
-                <div class="amount">89,395.395 <span class="currency currency-usd">USD</span></div>
-                <div class="title">Amount</div>
-            </div>
-            <div class="invest-ov-stats">
-                <div><span class="amount">96</span><span class="change up text-danger"><em class="icon ni ni-arrow-long-up"></em>1.93%</span></div>
-                <div class="title">Plans</div>
-            </div>
-        </div>
-        <div class="invest-ov-details">
-            <div class="invest-ov-info">
-                <div class="amount">99,395.395 <span class="currency currency-usd">USD</span></div>
-                <div class="title">Paid Profit</div>
-            </div>
-        </div>
-    </div>
-    <div class="invest-ov gy-2">
-        <div class="subtitle">Investment in this Month</div>
-        <div class="invest-ov-details">
-            <div class="invest-ov-info">
-                <div class="amount">149,395.395 <span class="currency currency-usd">USD</span></div>
-                <div class="title">Amount</div>
-            </div>
-            <div class="invest-ov-stats">
-                <div><span class="amount">83</span><span class="change down text-danger"><em class="icon ni ni-arrow-long-down"></em>1.93%</span></div>
-                <div class="title">Plans</div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="tab-pane" id="alltime">
-    <div class="invest-ov gy-2">
-        <div class="subtitle">Currently Actived Investment</div>
-        <div class="invest-ov-details">
-            <div class="invest-ov-info">
-                <div class="amount">249,395.395 <span class="currency currency-usd">USD</span></div>
-                <div class="title">Amount</div>
-            </div>
-            <div class="invest-ov-stats">
-                <div><span class="amount">556</span><span class="change up text-danger"><em class="icon ni ni-arrow-long-up"></em>1.93%</span></div>
-                <div class="title">Plans</div>
-            </div>
-        </div>
-        <div class="invest-ov-details">
-            <div class="invest-ov-info">
-                <div class="amount">149,395.395 <span class="currency currency-usd">USD</span></div>
-                <div class="title">Paid Profit</div>
-            </div>
-        </div>
-    </div>
-    <div class="invest-ov gy-2">
-        <div class="subtitle">Investment in this Month</div>
-        <div class="invest-ov-details">
-            <div class="invest-ov-info">
-                <div class="amount">249,395.395 <span class="currency currency-usd">USD</span></div>
-                <div class="title">Amount</div>
-            </div>
-            <div class="invest-ov-stats">
-                <div><span class="amount">223</span><span class="change down text-danger"><em class="icon ni ni-arrow-long-down"></em>1.93%</span></div>
-                <div class="title">Plans</div>
-            </div>
-        </div>
-    </div>
 </div>
 </div>
+</td>
+</tr><!-- tb-tnx-item -->
+
+</tbody>
+</table>
 </div>
-</el-card>
+
+
+
+
+</div>
+</div>
 </div><!-- .col -->
+
+
+
+
+
 
 
 
@@ -560,8 +528,11 @@ return [
 
 ];
 
+},
 
 
+appointments(){
+return this.response.user_data.dashboard.appointments;
 }
 
 
