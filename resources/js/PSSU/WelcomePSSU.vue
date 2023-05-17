@@ -2,8 +2,6 @@
 <div class="nk-block pt-0">
 
 
-
-
 <div class="row g-gs">
 <div class="col-md-3" v-for="t in tabs" :key="t.id">
 <div class="card  card-full">
@@ -29,6 +27,7 @@
 <div class="invest-data-history">
 <!-- <div class="title">This Month</div> -->
 <div class="amount"> <span class="currency currency-usd" style="font-size:15px;color:#07372F;">
+
 <strong>{{ t.title }} </strong>
 </span></div>
 </div>
@@ -93,39 +92,48 @@
 
 
 <tbody>
-<tr class="tb-tnx-item" v-for="n in 20" :key="n">
+<tr class="tb-tnx-item" v-for="a in appointments" :key="a">
 <!-- <td class="tb-tnx-id">
 <a href="#"><span>4947</span></a>
 </td> -->
 <td class="tb-tnx-info">
 <div class="tb-tnx-desc">
-<span class="title">Enterprize Year Subscrition</span>
+<span class="title text-transform">
+<!-- <em class="icon ni ni-forward-alt-fill"></em> -->
+{{ a.name }} </span>
 </div>
-<div class="tb-tnx-date">
-<span class="date">10-05-2019</span>
-<span class="date">10-13-2019</span>
+<div class="tb-tnx-desc text-muted">
+<span class="date">{{ a.date.split('-').reverse().join('/') }} </span>
+<span class="date ml-2">
+<em class="icon ni ni-clock text-muted"></em>
+{{ a.from.substring(0,5) }}</span>
+<span class="date ml-2">{{ a.to.substring(0,5) }} </span>
 </div>
 </td>
-<td class="tb-tnx-amount is-alt">
-<div class="tb-tnx-total">
-<span class="amount">$599.00</span>
-</div>
+
+
+<td class="tb-tnx-amount is-alt" style="width:100px;">
 <div class="tb-tnx-status">
-<span class="badge badge-dot badge-warning">Due</span>
+<span class="badge badge-dot badge-warning text-transform" v-if="a.status=='pending'">{{ a.status }} </span>
+<span class="badge badge-dot badge-success text-transform" v-else-if="a.status=='accepted'">{{ a.status }} </span>
 </div>
 </td>
+
+
 <td class="tb-tnx-action">
 <div class="dropdown">
 <a class="text-soft dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
 <div class="dropdown-menu dropdown-menu-right dropdown-menu-xs">
 <ul class="link-list-plain">
-<li><a href="#">View</a></li>
-<li><a href="#">Edit</a></li>
+<li><a href="#" @click="show_appointment(a)">View</a></li>
 <li><a href="#">Remove</a></li>
 </ul>
 </div>
 </div>
 </td>
+
+
+
 </tr><!-- tb-tnx-item -->
 
 </tbody>
@@ -229,7 +237,7 @@
 
 
 <div class="col-md-4 col-xxl-4">
-<el-card class="card card-full" shadow="never">
+<div class="card card-full">
 <div class="card-inner d-flex flex-column h-100">
 <div class="card-title-group mb-3">
 <div class="card-title">
@@ -241,65 +249,43 @@
 <div class="col-lg-9 pt-2 size12"> Wallet</div>
 </div>
 </h6>
+</div>
+</div>
 
 
 
-<p>In last 30 days top invested schemes.</p>
+<div class="card-body">
+
+
+
+
+<div class="card-amount">
+<span class="amount"> 2000000 <span class="currency currency-usd">UGX</span>
+</span>
+<!-- <span class="change up text-danger"><em class="icon ni ni-arrow-long-up"></em>1.93%</span> -->
+</div>
+
+
+<div class="invest-data">
+<div class="invest-data-amount g-2">
+<div class="invest-data-history mt-4">
+<div class="title"> Withdraw and Deposit Funds</div>
+<div class="mt-2">
+</div>
+</div>
 </div>
 
 </div>
-<div class="progress-list gy-3">
-<div class="progress-wrap">
-    <div class="progress-text">
-        <div class="progress-label">Strater Plan</div>
-        <div class="progress-amount">58%</div>
-    </div>
-    <div class="progress progress-md">
-        <div class="progress-bar" data-progress="58" style="width: 58%;"></div>
-    </div>
+
+
+
 </div>
-<div class="progress-wrap">
-    <div class="progress-text">
-        <div class="progress-label">Silver Plan</div>
-        <div class="progress-amount">18.49%</div>
-    </div>
-    <div class="progress progress-md">
-        <div class="progress-bar bg-orange" data-progress="18.49" style="width: 18.49%;"></div>
-    </div>
+
 </div>
-<div class="progress-wrap">
-    <div class="progress-text">
-        <div class="progress-label">Dimond Plan</div>
-        <div class="progress-amount">16%</div>
-    </div>
-    <div class="progress progress-md">
-        <div class="progress-bar bg-teal" data-progress="16" style="width: 16%;"></div>
-    </div>
-</div>
-<div class="progress-wrap">
-    <div class="progress-text">
-        <div class="progress-label">Platinam Plan</div>
-        <div class="progress-amount">29%</div>
-    </div>
-    <div class="progress progress-md">
-        <div class="progress-bar bg-pink" data-progress="29" style="width: 29%;"></div>
-    </div>
-</div>
-<div class="progress-wrap">
-    <div class="progress-text">
-        <div class="progress-label">Vibranium Plan</div>
-        <div class="progress-amount">33%</div>
-    </div>
-    <div class="progress progress-md">
-        <div class="progress-bar bg-azure" data-progress="33" style="width: 33%;"></div>
-    </div>
+<div class="card-footer bg-white">
+<deposit-withdraw-component/>
 </div>
 </div>
-<div class="invest-top-ck mt-auto">
-<canvas class="iv-plan-purchase" id="planPurchase"></canvas>
-</div>
-</div>
-</el-card>
 </div><!-- .col -->
 
 
@@ -489,7 +475,72 @@
 </el-card>
 </div><!-- .col -->
 
+</div>
 
+
+
+
+
+
+
+
+
+
+
+
+<!-------Dialog-------->
+<div class=""  v-if="dialog.state==true" style="position:fixed;width:100%;left:0;top:0;z-index:10000;height:100%;background-color: hsla(210, 29%, 18%, 0.3);z-index:1000000;">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title">Appointment Details </h5>
+<a href="#" class="close" data-dismiss="modal" aria-label="Close" @click="dialog.state=false">
+<em class="icon ni ni-cross"></em>
+</a>
+</div>
+<div class="modal-body">
+
+
+
+<ul class="data-list is-compact">
+<li class="data-item">
+        <div class="data-col">
+            <div class="data-label bold">Appointment Date</div>
+            <div class="data-value">
+                <em class="icon ni ni-calender-date m-0 p-0"></em>
+                {{  dialog.appointment.date.split('-').reverse().join('/') }}
+                <span>{{ dialog.appointment.end_date }} </span>
+            </div>
+        </div>
+</li>
+<li class="data-item">
+        <div class="data-col">
+            <div class="data-label bold">Time</div>
+            <div class="data-value">
+                <em class="icon ni ni-clock"></em>
+               <span class="text-success mr-2"> {{ dialog.appointment.from }}</span> -  <span class="text-danger ml-2"> {{ dialog.appointment.to }}</span> </div>
+        </div>
+ </li>
+<li class="data-item">
+        <div class="data-col">
+            <div class="data-label bold">Service Requested</div>
+        <div class="data-value text-transform"><em class="icon ni ni-tag-fill"></em> {{ dialog.appointment.name }} </div>
+    </div>
+</li>
+
+<li class="data-item">
+        <div class="data-col">
+            <div class="data-label bold">Location </div>
+            <div class="data-value">
+                <em class="icon ni ni-map-pin-fill"></em>
+                {{ dialog.appointment.location }}
+        </div>
+    </div>
+</li>
+
+
+
+</ul>
 
 
 
@@ -501,15 +552,36 @@
 
 
 </div>
+<div class="modal-footer bg-light">
+<span class="sub-text">Modal Footer Text</span>
+</div>
+</div>
+</div>
+</div>
+
+<!------------>
+
+
+
 </div>
 </template>
 <script>
+import DepositWithdrawComponent from '@/Components/DepositWithdrawComponent';
 export default {
+components:{
+DepositWithdrawComponent
+},
+
+
 props:{
 response:{},
 title:{},
 },
 data(){return{
+dialog:{
+state:false,
+appointment:null,
+},
 content:this.response.user_data.dashboard,
 
 
@@ -533,8 +605,22 @@ return [
 
 appointments(){
 return this.response.user_data.dashboard.appointments;
-}
+},
 
+
+
+
+
+
+
+},
+
+
+methods:{
+show_appointment(a){
+this.dialog.appointment=a;
+this.dialog.state=true;
+}
 
 
 
@@ -552,3 +638,16 @@ return this.response.user_data.dashboard.appointments;
 }
 </script>
 
+<style scoped>
+table tr td{
+padding:10px;
+}
+
+.data-list li{
+border:none;
+}
+
+
+
+
+</style>

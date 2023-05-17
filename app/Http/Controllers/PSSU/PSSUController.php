@@ -89,7 +89,21 @@ class PSSUController extends Controller
 //dashboard
 static function dashboard(){
 $id=Auth::user()->id;
-
+$appointment=AppointmentModel::select('appointment.date',
+'appointment.end_date',
+'appointment.from',
+'appointment.to',
+'support_service.name',
+'appointment.status',
+'appointment.location',
+'appointment.comment')
+->join('appointment_service','appointment.id','=','appointment_service.appointmentID')
+->join('support_service','appointment_service.serviceID','=','support_service.ID')
+->where('appointment.userID',Auth::user()->id)
+->where('appointment.status','accepted')->orwhere('appointment.status','pending')
+->orderby('appointment.status','ASC')
+->orderby('appointment.date','DESC')
+->get();
 
 
 
@@ -100,7 +114,7 @@ return[
 'count_recommendations'=>[],
 'count_appointments'=>AppointmentModel::where('userID',Auth::user()->id)->where('status','accepted')->count(),
 'account_balance'=>WalletController::get_wallet_balance()->amount,
-'appointments'=>AppointmentModel::where('userID',Auth::user()->id)->where('status','accepted')->get(),
+'appointments'=>$appointment,
 
 
 ];
