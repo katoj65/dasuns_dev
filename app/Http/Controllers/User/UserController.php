@@ -96,6 +96,19 @@ return Inertia::render('AdminsPage',$data);
 
 
 
+//get users by ID
+static function userbyID($id){
+$get=User::where('id',$id)->limit(1)->get();
+$row=null;
+if(count($get)==1){
+foreach($get as $row);
+}
+return $row;
+}
+
+
+
+
 
 
 

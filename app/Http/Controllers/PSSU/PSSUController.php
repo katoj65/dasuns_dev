@@ -14,7 +14,7 @@ use App\Models\UserProfileModel;
 use App\Models\CountryModel;
 use App\Models\AppointmentModel;
 use App\Http\Controllers\Wallet\WalletController;
-
+use App\Models\ActivityLogModel;
 
 
 
@@ -96,9 +96,14 @@ $appointment=AppointmentModel::select('appointment.date',
 'support_service.name',
 'appointment.status',
 'appointment.location',
-'appointment.comment')
+'appointment.comment',
+'users.firstname',
+'users.lastname',
+'users.email',
+'users.tel')
 ->join('appointment_service','appointment.id','=','appointment_service.appointmentID')
 ->join('support_service','appointment_service.serviceID','=','support_service.ID')
+->join('users','appointment.providerID','=','users.id')
 ->where('appointment.userID',Auth::user()->id)
 ->where('appointment.status','accepted')->orwhere('appointment.status','pending')
 ->orderby('appointment.status','ASC')
@@ -115,6 +120,7 @@ return[
 'count_appointments'=>AppointmentModel::where('userID',Auth::user()->id)->where('status','accepted')->count(),
 'account_balance'=>WalletController::get_wallet_balance()->amount,
 'appointments'=>$appointment,
+'activity'=>ActivityLogModel::where('userID',Auth::user()->id)->orderby('created_at','DESC')->limit(5)->get()
 
 
 ];

@@ -14,6 +14,9 @@ use App\Models\DasunsCartModel;
 use App\Models\AppointmentClockingModel;
 use App\Http\Controllers\Wallet\DasunsWalletController;
 use App\Models\DasunsWalletModel;
+use App\Http\Controllers\Activity\ActivityController;
+use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\SupportServices\SupportServiceController;
 
 
 
@@ -121,8 +124,18 @@ AppointmentServiceModel::insert([
 'appointmentID'=>$row->id]);
 }
 
-return redirect('/appointment-details/'.$row->id)->with('success','Appointment request sent.');
+//create activity content
+$names=UserController::userbyID($request->psspID);
+$service=SupportServiceController::support_servicebyID($m);
+ActivityController::store_activity(['userID'=>Auth::user()->id,
+'title'=>'Service Request',
+'description'=>$service->name.'
+from
+'.$names->firstname.'
+'.$names->lastname.'
+, Tel: '.$names->tel]);
 
+return redirect('/appointment-details/'.$row->id)->with('success','Appointment request sent.');
 }else{
 return redirect('/service-provider/'.$request->psspID)->with('warning','Could not.');
 }

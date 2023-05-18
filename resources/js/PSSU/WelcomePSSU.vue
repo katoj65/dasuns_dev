@@ -1,10 +1,10 @@
 <template>
 <div class="nk-block pt-0">
-
+    <!-- {{ activity }} -->
 
 <div class="row g-gs">
 <div class="col-md-3" v-for="t in tabs" :key="t.id">
-<div class="card  card-full">
+<div class="card  card-full card-radius">
 <div class="card-inner">
 <div class="card-title-group align-start mb-0">
 <div class="card-title">
@@ -48,7 +48,7 @@
 
 
 <div class="col-md-8 col-xxl-4">
-<div class="card card-full">
+<div class="card card-full card-radius">
 <div class="card-inner">
 <div class="card-title-group mb-1">
 <div class="card-title">
@@ -156,12 +156,12 @@
 
 
 <div class="col-md-4 col-xxl-4">
-<el-card class="card card-full" shadow="never">
+<div class="card card-full card-radius">
 <div class="card-inner d-flex flex-column h-100">
 <div class="card-title-group mb-3">
 <div class="card-title">
-    <h6 class="title">Top Invested Plan</h6>
-    <p>In last 30 days top invested schemes.</p>
+    <h6 class="title"  style="font-size:18px;">Activities</h6>
+    <p>Activities performed in the last 30 days.</p>
 </div>
 <div class="card-tools mt-n4 mr-n1">
     <div class="drodown">
@@ -176,58 +176,64 @@
     </div>
 </div>
 </div>
-<div class="progress-list gy-3">
-<div class="progress-wrap">
-    <div class="progress-text">
-        <div class="progress-label">Strater Plan</div>
-        <div class="progress-amount">58%</div>
+
+
+
+
+
+
+<div class="card-body p-0 m-0">
+
+    <div class="simplebar-content m-0 " style="padding: 0px;" v-if="activity.length>0">
+        <div class="nk-msg-item current p-0 border-0 mb-1" data-msg-id="1" v-for="a in activity" :key="a.id">
+            <div class="user-avatar user-avatar-sm bg-success">
+                <span><em class="icon ni ni-bell" style="font-size:20px;"></em></span>
+            </div>
+            <div class="nk-msg-info">
+                <div class="nk-msg-from">
+                    <div class="nk-msg-sender">
+                        <div class="name bold" style="color:black;">{{ a.title}}</div>
+                        <div class="nk-msg-meta">
+                            <div class="attchment"><em class="icon ni ni-clock"></em></div>
+                            <div class="date text-primary" style="font-size:13px;">{{ a.created_at.substring(0,10).split('-').reverse().join('/') }} </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="nk-msg-context pb-3">
+                    <div class="text-muted">
+                        <p style="font-size:13px;">{{ a.description}}</p>
+                    </div>
+                    <!-- <div class="nk-msg-lables">
+                        <div class="asterisk"><a href="#"><em class="asterisk-off icon ni ni-star"></em><em class="asterisk-on icon ni ni-star-fill"></em></a></div>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+
     </div>
-    <div class="progress progress-md">
-        <div class="progress-bar" data-progress="58" style="width: 58%;"></div>
-    </div>
+
+<div class="text-muted" v-else>No content</div>
+
+
+
+
+
+
+
+
+
+
 </div>
-<div class="progress-wrap">
-    <div class="progress-text">
-        <div class="progress-label">Silver Plan</div>
-        <div class="progress-amount">18.49%</div>
-    </div>
-    <div class="progress progress-md">
-        <div class="progress-bar bg-orange" data-progress="18.49" style="width: 18.49%;"></div>
-    </div>
-</div>
-<div class="progress-wrap">
-    <div class="progress-text">
-        <div class="progress-label">Dimond Plan</div>
-        <div class="progress-amount">16%</div>
-    </div>
-    <div class="progress progress-md">
-        <div class="progress-bar bg-teal" data-progress="16" style="width: 16%;"></div>
-    </div>
-</div>
-<div class="progress-wrap">
-    <div class="progress-text">
-        <div class="progress-label">Platinam Plan</div>
-        <div class="progress-amount">29%</div>
-    </div>
-    <div class="progress progress-md">
-        <div class="progress-bar bg-pink" data-progress="29" style="width: 29%;"></div>
-    </div>
-</div>
-<div class="progress-wrap">
-    <div class="progress-text">
-        <div class="progress-label">Vibranium Plan</div>
-        <div class="progress-amount">33%</div>
-    </div>
-    <div class="progress progress-md">
-        <div class="progress-bar bg-azure" data-progress="33" style="width: 33%;"></div>
-    </div>
+
+
+
+
+
+
+
+
 </div>
 </div>
-<div class="invest-top-ck mt-auto">
-<canvas class="iv-plan-purchase" id="planPurchase"></canvas>
-</div>
-</div>
-</el-card>
 </div><!-- .col -->
 
 
@@ -237,19 +243,14 @@
 
 
 <div class="col-md-4 col-xxl-4">
-<div class="card card-full">
+<div class="card card-full card-radius">
 <div class="card-inner d-flex flex-column h-100">
 <div class="card-title-group mb-3">
 <div class="card-title">
-<h6 class="title">
-<div class="row">
-<div class="col-lg-3">
-<span class="user-avatar sq bg-warning-dim"><span><em class="icon ni ni-wallet-fill"></em></span></span>
+<h2 class="title" style="font-size:18px;">My Wallet </h2>
+<p>View transaction details</p>
 </div>
-<div class="col-lg-9 pt-2 size12"> Wallet</div>
-</div>
-</h6>
-</div>
+
 </div>
 
 
@@ -260,7 +261,7 @@
 
 
 <div class="card-amount">
-<span class="amount"> 2000000 <span class="currency currency-usd">UGX</span>
+<span class="amount"> {{ wallet_balance }} <span class="currency currency-usd">UGX</span>
 </span>
 <!-- <span class="change up text-danger"><em class="icon ni ni-arrow-long-up"></em>1.93%</span> -->
 </div>
@@ -306,13 +307,13 @@
 
 
 <div class="col-md-4 col-xxl-4">
-<el-card class="card card-full" shadow="never">
+<div class="card card-full card-radius">
 <div class="card-inner d-flex flex-column h-100">
 <div class="card-title-group mb-3">
-<div class="card-title">
-    <h6 class="title">Top Invested Plan</h6>
-    <p>In last 30 days top invested schemes.</p>
-</div>
+    <div class="card-title">
+        <h2 class="title" style="font-size:18px;">My Wallet </h2>
+        <p>View transaction details</p>
+        </div>
 <div class="card-tools mt-n4 mr-n1">
     <div class="drodown">
         <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
@@ -377,7 +378,7 @@
 <canvas class="iv-plan-purchase" id="planPurchase"></canvas>
 </div>
 </div>
-</el-card>
+</div>
 </div><!-- .col -->
 
 
@@ -401,13 +402,13 @@
 
 
 <div class="col-md-4 col-xxl-4">
-<el-card class="card card-full" shadow="never">
+<div class="card card-full card-radius">
 <div class="card-inner d-flex flex-column h-100">
 <div class="card-title-group mb-3">
-<div class="card-title">
-    <h6 class="title">Top Invested Plan</h6>
-    <p>In last 30 days top invested schemes.</p>
-</div>
+    <div class="card-title">
+        <h2 class="title" style="font-size:18px;">My Wallet </h2>
+        <p>View transaction details</p>
+        </div>
 <div class="card-tools mt-n4 mr-n1">
     <div class="drodown">
         <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
@@ -472,7 +473,7 @@
 <canvas class="iv-plan-purchase" id="planPurchase"></canvas>
 </div>
 </div>
-</el-card>
+</div>
 </div><!-- .col -->
 
 </div>
@@ -498,7 +499,7 @@
 <em class="icon ni ni-cross"></em>
 </a>
 </div>
-<div class="modal-body">
+<div class="modal-body" style="overflow:auto;max-height:500px;">
 
 
 
@@ -507,12 +508,24 @@
         <div class="data-col">
             <div class="data-label bold">Appointment Date</div>
             <div class="data-value">
+                <a href="#" class="text-primary" @click="show_calendar()">
                 <em class="icon ni ni-calender-date m-0 p-0"></em>
                 {{  dialog.appointment.date.split('-').reverse().join('/') }}
                 <span>{{ dialog.appointment.end_date }} </span>
+                <span><br/>
+
+                </span>
+            </a>
             </div>
         </div>
 </li>
+
+<li class="data-item" v-if="calendar.state==true">
+<calendar-component />
+</li>
+
+
+
 <li class="data-item">
         <div class="data-col">
             <div class="data-label bold">Time</div>
@@ -540,6 +553,39 @@
 
 
 
+<li class="data-item">
+    <div class="data-col">
+        <div class="data-label bold">Service Provider  </div>
+        <div class="data-value">
+            <em class="icon ni ni-user-alt-fill"></em>
+            {{ dialog.appointment.firstname }}  {{ dialog.appointment.lastname }}
+    </div>
+</div>
+</li>
+
+<li class="data-item">
+    <div class="data-col">
+        <div class="data-label bold">Telephone Number </div>
+        <div class="data-value">
+            <em class="icon ni ni-call-fill"></em>
+            {{ dialog.appointment.tel }}
+    </div>
+</div>
+</li>
+
+
+<li class="data-item">
+    <div class="data-col">
+        <div class="data-label bold">Email Address </div>
+        <div class="data-value">
+            <em class="icon ni ni-mail-fill"></em>
+            {{ dialog.appointment.email }}
+    </div>
+</div>
+</li>
+
+
+
 </ul>
 
 
@@ -552,8 +598,11 @@
 
 
 </div>
-<div class="modal-footer bg-light">
-<span class="sub-text">Modal Footer Text</span>
+<div class="modal-footer bg-light text-left">
+<span class="mr-3">You have made a payment of Shs: 100000</span>
+<span class="sub-text">
+    <a href="#" class="btn btn-dim btn-outline-light">Options available </a>
+</span>
 </div>
 </div>
 </div>
@@ -562,14 +611,18 @@
 <!------------>
 
 
-
+<create-appointment/>
 </div>
 </template>
 <script>
+import CreateAppointment from '../Components/CreateAppointment.vue';
 import DepositWithdrawComponent from '@/Components/DepositWithdrawComponent';
+import CalendarComponent from '@/Components/CalendarComponent';
 export default {
 components:{
-DepositWithdrawComponent
+DepositWithdrawComponent,
+CalendarComponent,
+CreateAppointment
 },
 
 
@@ -577,13 +630,22 @@ props:{
 response:{},
 title:{},
 },
-data(){return{
+
+
+
+
+data(){
+return{
+
 dialog:{
 state:false,
 appointment:null,
 },
-content:this.response.user_data.dashboard,
 
+content:this.response.user_data.dashboard,
+calendar:{
+state:false,
+},
 
 
 
@@ -592,11 +654,13 @@ content:this.response.user_data.dashboard,
 
 computed:{
 tabs(){
+const numbers = new Intl.NumberFormat('en-US');
 return [
 {icon:'icon ni ni-calender-date-fill',title:'APPOINTMENTS',count:this.response.user_data.dashboard.count_appointments,id:2},
 {icon:'icon ni ni-grid-fill',title:'SERVICE PROVIDERS',count:this.response.user_data.dashboard.service_provider_count,id:1},
 {icon:'icon ni ni-bar-chart-fill',title:'RECOMMENDATIONS',count:40,id:3},
-{icon:'icon ni ni-wallet-fill',title:'WALLET',count:this.response.user_data.dashboard.account_balance,id:4},
+{icon:'icon ni ni-wallet-fill',title:'WALLET',
+count:numbers.format(this.response.user_data.dashboard.account_balance),id:4},
 
 ];
 
@@ -607,6 +671,15 @@ appointments(){
 return this.response.user_data.dashboard.appointments;
 },
 
+wallet_balance(){
+const sum=new Intl.NumberFormat('en-US');
+return sum.format(this.response.user_data.dashboard.account_balance);
+},
+
+//activity list
+activity(){
+return this.response.user_data.dashboard.activity;
+}
 
 
 
@@ -620,6 +693,14 @@ methods:{
 show_appointment(a){
 this.dialog.appointment=a;
 this.dialog.state=true;
+},
+
+show_calendar(){
+if(this.calendar.state==false){
+this.calendar.state=true;
+}else{
+this.calendar.state=false;
+}
 }
 
 

@@ -71,12 +71,19 @@ $data['title']='Support Services';
 $data['response']=[];
 return Inertia::render('SupportServicesList',$data);
 
-
-
 }
 
 
+//get support services by ID
 
+static function support_servicebyID($id){
+$get=SupportServiceModel::where('id',$id)->limit(1)->get();
+$row=null;
+if(count($get)==1){
+foreach($get as $row);
+}
+return $row;
+}
 
 
 

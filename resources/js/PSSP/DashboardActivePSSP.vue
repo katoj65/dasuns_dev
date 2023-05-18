@@ -3,7 +3,7 @@
 
 <div class="row g-gs">
 <div class="col-md-3" v-for="t in tab" :key="t.id">
-<div class="card  card-full h-100">
+<div class="card  card-full h-100 card-radius">
 <div class="card-inner">
 <div class="card-title-group align-start mb-0">
 <div class="card-title">
@@ -38,7 +38,7 @@
 
 
 <div class="col-md-8">
-<div  class="h-100 card">
+<div  class="h-100 card card-radius">
 <div class="card-header">
 <h4 class="card-title">Appointments</h4>
 </div>
@@ -136,7 +136,7 @@
 
 
 <div class="col-md-4">
-<div  class="h-100 card">
+<div  class="h-100 card card-radius">
 <div class="card-header">
 <h1 class="card-title">Services I Provide</h1>
 </div>
@@ -170,7 +170,7 @@
 
 
 <div class="col-12 col-md-4">
-<div  class="h-100 card">
+<div  class="h-100 card card-radius">
 <div class="card-header">
 <h4 class="card-title">Wallet</h4>
 </div>
@@ -218,7 +218,7 @@
 
 
 <div class="col-12 col-md-4">
-<div  class="h-100 card">
+<div  class="h-100 card card-radius">
 <div class="card-header">
 <h4 class="card-title">Recommendations</h4>
 </div>
@@ -254,7 +254,7 @@
 
 
 <div class="col-12 col-md-4">
-<div shadow="never" class="h-100 card">
+<div shadow="never" class="h-100 card card-radius">
 <div class="card-header">
 <h4 class="card-title">Activities</h4>
 </div>

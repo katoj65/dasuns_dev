@@ -3,12 +3,9 @@
 
 <!-----------Personal-->
 <div v-if="user_details.account_type=='personal'">
+
 <WelcomePSSU :response="response" v-if="$page.props.auth.user.status=='active'"></WelcomePSSU>
 <div class="col-12 col-md-12" v-else-if="$page.props.auth.user.status=='pending'">
-
-
-
-
 <div class="card mt-2 mb-2" v-if="account_type=='personal'">
 <div class="card-inner">
 <div class="team">
@@ -132,6 +129,7 @@
 
 </div><!-- .team -->
 </div><!-- .card-inner -->
+
 </div>
 
 
@@ -156,6 +154,7 @@
 </div>
 </template>
 <script>
+
 import WelcomePSSU from '@/PSSU/WelcomePSSU';
 import InputError from '@/Alerts/InputError';
 import CreateInstitutionProfile from '@/PSSU/CreateInstitutionProfile';
@@ -165,7 +164,7 @@ components: {
 WelcomePSSU,
 InputError,
 CreateInstitutionProfile,
-DashboardInstitution
+DashboardInstitution,
 
 
 },

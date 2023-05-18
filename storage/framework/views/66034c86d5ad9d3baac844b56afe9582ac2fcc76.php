@@ -232,7 +232,7 @@ letter-spacing:0.3px;word-spacing:1px;
 
 .card-header{
 /* background:#F0EDE5;; */
-background:white;
+background:none;
 }
 /*
 .card-border{
@@ -329,6 +329,16 @@ box-shadow: none;
 .border-none{
 border:none;
 }
+
+.card-radius{
+border-radius:20px;
+
+
+
+}
+
+
+
 
 </style>
 

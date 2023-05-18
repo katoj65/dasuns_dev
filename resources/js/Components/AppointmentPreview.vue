@@ -49,7 +49,35 @@
         </div>
     </li>
 
+    <li class="data-item">
+        <div class="data-col">
+            <div class="data-label bold">Service Provider </div>
+            <div class="data-value">
+                <em class="icon ni ni-map-pin-fill"></em>
+               {{  }}
+        </div>
+    </div>
+</li>
 
+<li class="data-item">
+    <div class="data-col">
+        <div class="data-label bold">Location </div>
+        <div class="data-value">
+            <em class="icon ni ni-map-pin-fill"></em>
+           location
+    </div>
+</div>
+</li>
+
+<li class="data-item">
+    <div class="data-col">
+        <div class="data-label bold">Location </div>
+        <div class="data-value">
+            <em class="icon ni ni-map-pin-fill"></em>
+           location
+    </div>
+</div>
+</li>
 
     </ul>
 
