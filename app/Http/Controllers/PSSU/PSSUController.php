@@ -120,7 +120,15 @@ return[
 'count_appointments'=>AppointmentModel::where('userID',Auth::user()->id)->where('status','accepted')->count(),
 'account_balance'=>WalletController::get_wallet_balance()->amount,
 'appointments'=>$appointment,
-'activity'=>ActivityLogModel::where('userID',Auth::user()->id)->orderby('created_at','DESC')->limit(5)->get()
+'activity'=>ActivityLogModel::where('userID',Auth::user()->id)->orderby('created_at','DESC')->limit(5)->get(),
+'pssp'=>AppointmentModel::select('users.firstname','users.lastname','users.id','users.email')
+->join('users','appointment.providerID','=','users.id')
+// ->join('appointment_service','appointment.id','=','appointment_service.appointmentID')
+// ->join('support_service','appointment_service.serviceID','=','support_service.id')
+->where('appointment.userID',Auth::user()->id)
+->distinct()
+->limit(4)
+->get(),
 
 
 ];

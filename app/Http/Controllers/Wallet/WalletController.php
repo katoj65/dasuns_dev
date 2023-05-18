@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\DasunsWalletModel;
 use Illuminate\Support\Facades\Hash;
 use App\Models\DasunsUserNumberModel;
+use App\Http\Controllers\Activity\ActivityController;
 
 
 class WalletController extends Controller
@@ -150,7 +151,9 @@ foreach($get as $row);
 $amount=$row->amount;
 $total=$request->amount+$amount;
 DasunsWalletModel::where('userID',$id)->update(['amount'=>$total]);
-return redirect('/wallet')->with('success','Deposited has been created');
+ActivityController::store_activity(['userID'=>Auth::user()->id,
+'title'=>'Wallet Deposit','description'=>'Amount '.$request->amount.' has been deposited to your wallet']);
+return redirect('/wallet')->with('success','Deposited has been created.');
 
 }else{
     return redirect('/');

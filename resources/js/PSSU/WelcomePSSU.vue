@@ -1,8 +1,8 @@
 <template>
 <div class="nk-block pt-0">
-    <!-- {{ activity }} -->
 
 <div class="row g-gs">
+
 <div class="col-md-3" v-for="t in tabs" :key="t.id">
 <div class="card  card-full card-radius">
 <div class="card-inner">
@@ -161,9 +161,9 @@
 <div class="card-title-group mb-3">
 <div class="card-title">
     <h6 class="title"  style="font-size:18px;">Activities</h6>
-    <p>Activities performed in the last 30 days.</p>
+    <!-- <p>Activities performed in the last 30 days.</p> -->
 </div>
-<div class="card-tools mt-n4 mr-n1">
+<!-- <div class="card-tools mt-n4 mr-n1">
     <div class="drodown">
         <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
         <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
@@ -174,7 +174,7 @@
             </ul>
         </div>
     </div>
-</div>
+</div> -->
 </div>
 
 
@@ -406,10 +406,10 @@
 <div class="card-inner d-flex flex-column h-100">
 <div class="card-title-group mb-3">
     <div class="card-title">
-        <h2 class="title" style="font-size:18px;">My Wallet </h2>
-        <p>View transaction details</p>
+        <h2 class="title" style="font-size:18px;">My Service Providers </h2>
+        <!-- <p>View transaction details</p> -->
         </div>
-<div class="card-tools mt-n4 mr-n1">
+<!-- <div class="card-tools mt-n4 mr-n1">
     <div class="drodown">
         <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
         <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
@@ -420,58 +420,42 @@
             </ul>
         </div>
     </div>
+</div> -->
 </div>
-</div>
-<div class="progress-list gy-3">
-<div class="progress-wrap">
-    <div class="progress-text">
-        <div class="progress-label">Strater Plan</div>
-        <div class="progress-amount">58%</div>
-    </div>
-    <div class="progress progress-md">
-        <div class="progress-bar" data-progress="58" style="width: 58%;"></div>
-    </div>
-</div>
-<div class="progress-wrap">
-    <div class="progress-text">
-        <div class="progress-label">Silver Plan</div>
-        <div class="progress-amount">18.49%</div>
-    </div>
-    <div class="progress progress-md">
-        <div class="progress-bar bg-orange" data-progress="18.49" style="width: 18.49%;"></div>
-    </div>
-</div>
-<div class="progress-wrap">
-    <div class="progress-text">
-        <div class="progress-label">Dimond Plan</div>
-        <div class="progress-amount">16%</div>
-    </div>
-    <div class="progress progress-md">
-        <div class="progress-bar bg-teal" data-progress="16" style="width: 16%;"></div>
+<div class="card-inner-group p-0">
+<div v-if="providers.length>0">
+
+<Inertia-link :href="route('show.pssp',[p.id])" v-for="p in providers" :key="p.id">
+<div class="card-inner card-inner-md p-0 pb-2 mb-2 border-0" >
+    <div class="user-card">
+        <div class="user-avatar sq bg-warning-dim"><span><em class="icon ni ni-user-alt-fill"></em></span></div>
+        <div class="user-info">
+            <span class="lead-text">{{ p.firstname }} {{ p.lastname }} </span>
+            <span class="sub-text">{{ p.email }} </span>
+        </div>
+        <!-- <div class="user-action">
+            <div class="drodown">
+                <a href="#" class="dropdown-toggle btn btn-icon btn-trigger mr-n1" data-toggle="dropdown" aria-expanded="false"><em class="icon ni ni-more-h"></em></a>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <ul class="link-list-opt no-bdr">
+                        <li><a href="#"><em class="icon ni ni-setting"></em><span>Action Settings</span></a></li>
+                        <li><a href="#"><em class="icon ni ni-notify"></em><span>Push Notification</span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div> -->
     </div>
 </div>
-<div class="progress-wrap">
-    <div class="progress-text">
-        <div class="progress-label">Platinam Plan</div>
-        <div class="progress-amount">29%</div>
-    </div>
-    <div class="progress progress-md">
-        <div class="progress-bar bg-pink" data-progress="29" style="width: 29%;"></div>
-    </div>
+</Inertia-link>
+
+
 </div>
-<div class="progress-wrap">
-    <div class="progress-text">
-        <div class="progress-label">Vibranium Plan</div>
-        <div class="progress-amount">33%</div>
-    </div>
-    <div class="progress progress-md">
-        <div class="progress-bar bg-azure" data-progress="33" style="width: 33%;"></div>
-    </div>
+
+<div class="text-center tex-muted" v-else>No service provider services requested</div>
+
+
 </div>
-</div>
-<div class="invest-top-ck mt-auto">
-<canvas class="iv-plan-purchase" id="planPurchase"></canvas>
-</div>
+
 </div>
 </div>
 </div><!-- .col -->
@@ -679,6 +663,10 @@ return sum.format(this.response.user_data.dashboard.account_balance);
 //activity list
 activity(){
 return this.response.user_data.dashboard.activity;
+},
+
+providers(){
+return this.response.user_data.dashboard.pssp;
 }
 
 

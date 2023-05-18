@@ -129,11 +129,11 @@ $names=UserController::userbyID($request->psspID);
 $service=SupportServiceController::support_servicebyID($m);
 ActivityController::store_activity(['userID'=>Auth::user()->id,
 'title'=>'Service Request',
-'description'=>$service->name.'
+'description'=>$service->name.' service 
 from
 '.$names->firstname.'
 '.$names->lastname.'
-, Tel: '.$names->tel]);
+, Tel: '.$names->tel.'.']);
 
 return redirect('/appointment-details/'.$row->id)->with('success','Appointment request sent.');
 }else{
