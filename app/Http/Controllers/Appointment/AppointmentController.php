@@ -32,25 +32,27 @@ public function index()
 {
 $data['title']='Appointment';
 $data['response']=[
-'appointment'=>AppointmentModel::select('support_service.name',
-'appointment.date',
+'appointments'=>AppointmentModel::select('appointment.date',
 'appointment.end_date',
-'appointment.comment',
 'appointment.from',
 'appointment.to',
+'support_service.name',
+'appointment.status',
 'appointment.location',
+'appointment.comment',
 'users.firstname',
 'users.lastname',
-'users.gender',
 'users.email',
-'users.dob',
-'appointment.status')
-->join('support_service','appointment.serviceID','=','support_service.id')
+'users.tel')
+->join('appointment_service','appointment.id','=','appointment_service.appointmentID')
+->join('support_service','appointment_service.serviceID','=','support_service.ID')
 ->join('users','appointment.providerID','=','users.id')
 ->where('appointment.userID',Auth::user()->id)
+->where('appointment.status','accepted')
+->orwhere('appointment.status','pending')
+->orderby('appointment.status','ASC')
 ->orderby('appointment.date','DESC')
-->get(),
-
+->get()
 
 
 

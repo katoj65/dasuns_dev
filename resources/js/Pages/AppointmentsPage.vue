@@ -1,209 +1,254 @@
 <template>
 <app-layout>
-<el-card shadow="never" style="min-height:800px;">
-<div slot="header" class="clearfix">
-<h4>Appointments</h4>
+<div class="nk-block pt-0">
+
+
+
+<div class="row g-gs">
+
+<div class="col-md-8 col-xxl-4">
+<div class="card card-full card-radius">
+<div class="card-inner">
+<div class="card-title-group mb-1">
+<div class="card-title">
+<h3 class="title" style="font-size:18px;">Appointments</h3>
 </div>
-<div class="row">
-<div class="col-12 col-md-9 mb-2">
-<!-- <el-card shadow="never" class="h-100"> -->
-<!-- <table class="table table-hover border-0 p-0 m-0">
-<thead class="border-none">
-<tr style="border:none;">
-<th scope="col" class="border-0">Date</th>
-<th scope="col" class="border-0">End Date</th>
-<th scope="col" class="border-0">Time</th>
-<th scope="col" class="border-0">Services</th>
-</tr>
-</thead>
-<tbody v-if="appointments.length>0">
-<tr v-for="a in appointments" :key="a.id">
-<td>{{ a.date }} </td>
-<td>{{ a.end_date }} </td>
-<td>{{ a.from }} {{ a.to }} </td>
-<td>{{ a.name }} </td>
-</tr>
+</div>
+
+
+
+<div class="card-inner p-0 mt-0">
+<table class="table table-tranx">
+
+
+<!-- <thead>
+
 <tr>
-<td colspan="4">
 
-</td>
-</tr>
-</tbody>
-<tbody v-else>
-<tr>
-<td colspan="3">
-No appointments
-</td>
-</tr>
-</tbody>
-</table> -->
-
-
-
-<el-descriptions :column="3" border v-for="a in appointments" :key="a.id">
-<el-descriptions-item label-class-name="my-label" content-class-name="my-content">
-<template slot="label">
-<i class="el-icon-date"></i>
-Start Date
-</template>
-{{ a.date.split('-').reverse().join('/') }}
-</el-descriptions-item>
-<el-descriptions-item>
-<template slot="label">
-<i class="el-icon-date"></i>
-End Date
-</template>
-{{ a.end_date.split('-').reverse().join('/') }}
-</el-descriptions-item>
-<el-descriptions-item>
-<template slot="label">
-<i class="el-icon-time"></i>
-Time
-</template>
-{{ a.from }} - {{ a.to }}
-</el-descriptions-item>
-
-<!-- <el-descriptions-item label="Remarks">
-<el-tag size="small">School</el-tag>
-</el-descriptions-item> -->
-<el-descriptions-item>
-<template slot="label">
-<i class="el-icon-caret-right"></i>
-Service Requested
-</template>
-{{ a.name }}
-<span style="float:right">
-<a href="#" class="mr-2 text-primary" @click="show_appointment(a)">View</a>
+<th class="tb-tnx-info">
+<span class="tb-tnx-desc d-none d-sm-inline-block">
+<span>Service requested</span>
 </span>
-</el-descriptions-item>
-</el-descriptions>
+<span class="tb-tnx-date d-md-inline-block d-none">
+<span class="d-md-none">Date</span>
+<span class="d-none d-md-block">
+<span>Date</span>
+<span>Time</span>
+</span>
+</span>
+</th>
+<th class="tb-tnx-amount is-alt">
+<span class="tb-tnx-total">Amount</span>
+<span class="tb-tnx-status d-none d-md-inline-block">Status</span>
+</th>
+<th class="tb-tnx-action">
+<span>&nbsp;</span>
+</th>
+</tr>
 
-<!-- </el-card> -->
-</div>
-<div class="col-12 col-md-3">
-<v-calendar is-expanded title-position="left"></v-calendar>
-</div>
-</div>
-</el-card>
-
-
-
-
-
-
-
-
-
-
+</thead> -->
 
 
 
-<!---------------Modal------------>
-
-
-
-<div class=""  v-if="dialog.modal==true" style="position:fixed;width:100%;left:0;top:0;z-index:10000;height:100%;background-color: hsla(210, 29%, 18%, 0.3);">
-<div class="modal-dialog" role="document">
-<div class="modal-content">
-<div class="modal-header" style="background: #37BEA7;border:none;">
-<h5 class="modal-title" style="color:white;">Appointment Details</h5>
-<a href="#" class="close" data-dismiss="modal" aria-label="Close" @click="dialog.modal=false">
-<em class="icon ni ni-cross"></em>
-</a>
-</div>
-<div class="modal-body" style="max-height:500px;overflow:auto">
-<table style="width:100%;">
 <tbody>
-<tr>
-<th>
-Date
-</th>
-<td>
-{{ details.date.split('-').reverse().join('/') }}
-</td>
-<th>End Date</th>
-<td>
-{{ details.end_date.split('-').reverse().join('/') }}
-</td>
-</tr>
-<tr>
-<th>
-Time
-</th>
-<td>
-{{ details.from.substring(0,5) }} - {{ details.to.substring(0,5) }}
-</td>
-<th>
-Service
-</th>
-<td>
-{{ details.name }}
-</td>
-</tr>
+<tr class="tb-tnx-item" v-for="a in appointments" :key="a">
+<td class="tb-tnx-info">
+<div class="tb-tnx-desc">
+<span class="title text-transform">
+<em class="icon ni ni-check-circle-fill text-success mr-2" v-if="a.status=='accepted'"></em>
+<em class="icon ni ni-alert-circle-fill  text-warning mr-2" v-else></em>
 
-<tr>
-<th style="padding-bottom:20px;padding-top:20px;">Comment</th>
-<td colspan="3" style="padding-bottom:20px;padding-top:20px;bg-success-dim">
-{{ details.comment }}
-</td>
-</tr>
-
-
-<tr>
-<td colspan="4" class="border-2 p-0 mt-2">
-<div class="text-white p-2" style="background:#0B5345;">
-<h3>Service Provider Details</h3>
+{{ a.name }} </span>
 </div>
+<div class="tb-tnx-desc text-muted">
+<span class="date">{{ a.date.split('-').reverse().join('/') }} </span>
+<span class="date ml-2">
+<em class="icon ni ni-clock text-muted"></em>
+{{ a.from.substring(0,5) }}</span>
+<span class="date ml-2">{{ a.to.substring(0,5) }} </span>
+</div>
+</td>
 
 
+<td class="tb-tnx-amount is-alt" style="width:100px;">
+<div class="tb-tnx-status">
+<span class="badge badge-dot badge-warning text-transform" v-if="a.status=='pending'">{{ a.status }} </span>
+<span class="badge badge-dot badge-success text-transform" v-else-if="a.status=='accepted'">{{ a.status }} </span>
+</div>
+</td>
 
-    <ul class="data-list is-compact" style="margin-top:-5px;">
-    <li class="data-item border-0">
-    <div class="data-col">
-    <div class="data-label bold">Names</div>
-    <div class="data-value text-transform">{{ details.firstname +' '+details.lastname }} </div>
-    </div>
-    </li>
-    <li class="data-item border-0">
-    <div class="data-col">
-    <div class="data-label bold">Gender</div>
-    <div class="data-value text-transform">{{ details.gender }} </div>
-    </div>
-    </li>
-    <li class="data-item border-0">
-    <div class="data-col">
-    <div class="data-label bold">Date of Birth</div>
-    <div class="data-value">{{ details.dob.split('-').reverse().join('/') }} </div>
-    </div>
-    </li>
-    <!-- <li class="data-item">
-    <div class="data-col">
-    <div class="data-label">Telephone Number </div>
-    <div class="data-value">{{ details.tel }} </div>
-    </div>
-    </li> -->
-    <li class="data-item border-0">
-    <div class="data-col">
-    <div class="data-label bold">Email Address </div>
-    <div class="data-value">{{ details.email }} </div>
-    </div>
-    </li>
-    </ul>
-
-
-
+<td class="tb-tnx-action">
+<div class="dropdown">
+<a class="text-soft dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
+<div class="dropdown-menu dropdown-menu-right dropdown-menu-xs">
+<ul class="link-list-plain">
+<li><a href="#" @click="show_appointment(a)">View</a></li>
+<li><a href="#">Remove</a></li>
+</ul>
+</div>
+</div>
 </td>
 </tr>
 
 </tbody>
 </table>
+</div>
+
 
 </div>
-<div class="modal-footer bg-light">
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div class="col-md-4 col-xxl-4">
+<div class="card card-full card-radius">
+<div class="card-inner d-flex flex-column h-100">
+<div class="card-title-group mb-3">
+<div class="card-title">
+<h2 class="title" style="font-size:18px;">Calendar </h2>
+<!-- <p>View transaction details</p> -->
+</div>
+</div>
+
+<calendar-component/>
+</div>
+</div>
+</div><!-- .col -->
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<!-------Dialog-------->
+<div class=""  v-if="dialog.state==true" style="position:fixed;width:100%;left:0;top:0;z-index:10000;height:100%;background-color: hsla(210, 29%, 18%, 0.3);z-index:1000000;">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title">Appointment Details </h5>
+<a href="#" class="close" data-dismiss="modal" aria-label="Close" @click="dialog.state=false">
+<em class="icon ni ni-cross"></em>
+</a>
+</div>
+<div class="modal-body" style="overflow:auto;max-height:500px;">
+
+
+
+<ul class="data-list is-compact">
+<li class="data-item">
+<div class="data-col">
+    <div class="data-label bold">Appointment Date</div>
+    <div class="data-value">
+        <a href="#" class="text-primary" @click="show_calendar()">
+        <em class="icon ni ni-calender-date m-0 p-0"></em>
+        {{  dialog.appointment.date.split('-').reverse().join('/') }}
+        <span>{{ dialog.appointment.end_date }} </span>
+        <span><br/>
+
+        </span>
+    </a>
+    </div>
+</div>
+</li>
+
+<li class="data-item" v-if="calendar.state==true">
+<calendar-component />
+</li>
+
+
+
+<li class="data-item">
+<div class="data-col">
+    <div class="data-label bold">Time</div>
+    <div class="data-value">
+        <em class="icon ni ni-clock"></em>
+        <span class="text-success mr-2"> {{ dialog.appointment.from }}</span> -  <span class="text-danger ml-2"> {{ dialog.appointment.to }}</span> </div>
+</div>
+</li>
+<li class="data-item">
+<div class="data-col">
+    <div class="data-label bold">Service Requested</div>
+<div class="data-value text-transform"><em class="icon ni ni-tag-fill"></em> {{ dialog.appointment.name }} </div>
+</div>
+</li>
+
+<li class="data-item">
+<div class="data-col">
+    <div class="data-label bold">Location </div>
+    <div class="data-value">
+        <em class="icon ni ni-map-pin-fill"></em>
+        {{ dialog.appointment.location }}
+</div>
+</div>
+</li>
+
+
+
+<li class="data-item">
+<div class="data-col">
+<div class="data-label bold">Service Provider  </div>
+<div class="data-value">
+    <em class="icon ni ni-user-alt-fill"></em>
+    {{ dialog.appointment.firstname }}  {{ dialog.appointment.lastname }}
+</div>
+</div>
+</li>
+
+<li class="data-item">
+<div class="data-col">
+<div class="data-label bold">Telephone Number </div>
+<div class="data-value">
+    <em class="icon ni ni-call-fill"></em>
+    {{ dialog.appointment.tel }}
+</div>
+</div>
+</li>
+
+
+<li class="data-item">
+<div class="data-col">
+<div class="data-label bold">Email Address </div>
+<div class="data-value">
+    <em class="icon ni ni-mail-fill"></em>
+    {{ dialog.appointment.email }}
+</div>
+</div>
+</li>
+
+
+
+</ul>
+
+
+
+
+
+
+
+
+
+
+</div>
+<div class="modal-footer bg-light text-left">
+<span class="mr-3">You have made a payment of Shs: 100000</span>
 <span class="sub-text">
-
-
-<input type="button" class="button" value="Re-Schedule Appointment" style="border-radius:10px"/>
+<a href="#" class="btn btn-dim btn-outline-light">Options available </a>
 </span>
 </div>
 </div>
@@ -211,62 +256,77 @@ Service
 </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+</div>
 </app-layout>
 </template>
 <script>
-import AppLayout from '@/Layouts/AppLayout'
+import AppLayout from '@/Layouts/AppLayout.vue';
+import CalendarComponent from '@/Components/CalendarComponent.vue';
 export default {
-components: { AppLayout,
-
+components:{
+AppLayout,
+CalendarComponent
 },
+
+
 props:{
+response:{},
 title:{},
-response:{}
 },
 
-data(){return{
+
+
+
+data(){
+return{
 dialog:{
-modal:false,
-content:null,
+state:false,
+appointment:null,
 },
+
+calendar:{
+state:false,
+},
+
 
 
 }},
 
-methods:{
-show_appointment(item){
-this.dialog.content=item;
-this.dialog.modal=true;
-
-},
-
-
-},
 
 computed:{
 appointments(){
-return this.response.appointment;
+return this.response.appointments;
 },
 
-details(){
-return this.dialog.content;
+
+
+
+},
+
+
+methods:{
+show_appointment(a){
+this.dialog.appointment=a;
+this.dialog.state=true;
+},
+
+show_calendar(){
+if(this.calendar.state==false){
+this.calendar.state=true;
+}else{
+this.calendar.state=false;
+}
+},
+
+
+
+
+
+
+
 }
 
 
-
-}
 
 
 
@@ -275,9 +335,19 @@ return this.dialog.content;
 
 }
 </script>
-<style>
-table tbody tr td, table tbody tr th{
+
+<style scoped>
+table tr td{
 padding:10px;
 }
+
+.data-list li{
+border:none;
+}
+
+
+
+
+
 
 </style>

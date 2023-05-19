@@ -2,7 +2,7 @@
 <app-layout>
 <div class="row pt-2 pb-2">
 <div class="col-12 col-md-8 mb-2">
-<div class="card" style="min-height:600px;">
+<div class="card card-radius" style="min-height:600px;">
 <div class="card-header">
 <div class="card-title">
 <h4 class="title">
@@ -11,7 +11,7 @@ Dasus Wallet
 </div>
 </div>
 <div class="card-body p-4">
-<div class="card card-full p-0">
+<div class="card card-full p-0 shadow-none border-none">
 <div class="card-inner p-0">
 <div class="card-title-group align-start mb-0">
 <div class="card-title">
@@ -38,7 +38,7 @@ Dasus Wallet
 </div>
 </div>
 </div>
-<div class="card-footer" style="background:white;">
+<div class="card-footer mb-4" style="background:white;">
 <deposit-withdraw-component></deposit-withdraw-component>
 </div>
 </div>
@@ -49,7 +49,7 @@ Dasus Wallet
 
 </div>
 <div class="col-12 col-md-4">
-<div class="card mb-2">
+<div class="card mb-2 card-radius">
 <div class="card-body">
 <calendar-component></calendar-component>
 </div>
@@ -57,7 +57,7 @@ Dasus Wallet
 
 
 
-<div class="card">
+<div class="card card-radius">
 <div>
 <ul class="data-list is-compact">
 <li class="data-item border-0">

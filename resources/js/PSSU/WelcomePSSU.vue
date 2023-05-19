@@ -20,7 +20,8 @@
 </div>
 
 <div class="card-amount mb-2 mt-3">
-<span class="amount"><span class="currency currency-usd" style="color:#07372F;">{{ t.count }} </span>
+<span class="amount">
+<span class="currency currency-usd" style="color:#07372F;">{{ t.count }} </span>
 </span>
 </div>
 
@@ -29,8 +30,12 @@
 <div class="invest-data-history">
 <!-- <div class="title">This Month</div> -->
 <div class="amount"> <span class="currency currency-usd" style="font-size:15px;color:#07372F;">
+<Inertia-link :href="route(t.url)">
+    <strong>{{ t.title }} </strong>
+</Inertia-link>
 
-<strong>{{ t.title }} </strong>
+
+
 </span></div>
 </div>
 <!-- <div class="invest-data-history">
@@ -608,11 +613,29 @@ computed:{
 tabs(){
 const numbers = new Intl.NumberFormat('en-US');
 return [
-{icon:'icon ni ni-calender-date-fill',title:'APPOINTMENTS',count:this.response.user_data.dashboard.count_appointments,id:2},
-{icon:'icon ni ni-grid-fill',title:'SERVICE PROVIDERS',count:this.response.user_data.dashboard.service_provider_count,id:1},
-{icon:'icon ni ni-bar-chart-fill',title:'RECOMMENDATIONS',count:this.response.user_data.dashboard.count_recommendations,id:3},
-{icon:'icon ni ni-wallet-fill',title:'WALLET',
-count:numbers.format(this.response.user_data.dashboard.account_balance),id:4},
+{icon:'icon ni ni-calender-date-fill',
+title:'APPOINTMENTS',
+count:this.response.user_data.dashboard.count_appointments,
+id:2,
+url:'appointments'},
+
+{icon:'icon ni ni-grid-fill',
+title:'SERVICE PROVIDERS',
+count:this.response.user_data.dashboard.service_provider_count,
+id:1,
+url:'appointments'},
+
+{icon:'icon ni ni-bar-chart-fill',
+title:'RECOMMENDATIONS',
+count:this.response.user_data.dashboard.count_recommendations,
+id:3,
+url:'appointments'},
+
+{icon:'icon ni ni-wallet-fill',
+title:'WALLET',
+count:numbers.format(this.response.user_data.dashboard.account_balance),
+id:4,
+url:'wallet'},
 
 ];
 
