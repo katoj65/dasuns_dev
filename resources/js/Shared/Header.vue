@@ -50,69 +50,44 @@
 </li>
 <li class="dropdown notification-dropdown mr-n1">
 <a href="#" class="dropdown-toggle nk-quick-nav-icon" data-toggle="dropdown">
-<div><em class="icon ni ni-bell-fill" style="font-size:25px;color:#07372F;"></em></div>
+<div><em class="icon ni ni-bell-fill" style="font-size:25px;color:#07372F;"></em>
+<span class="badge badge-danger" style="position:absolute;margin-top:-10px;margin-left:-10px;" v-if="count_notification>0">
+    {{ count_notification }}</span>
+
+
+</div>
 </a>
-<div class="dropdown-menu dropdown-menu-xl dropdown-menu-right dropdown-menu-s1">
+<div class="dropdown-menu dropdown-menu-xl dropdown-menu-right dropdown-menu-s1 border-none">
 <div class="dropdown-head">
-<span class="sub-title nk-dropdown-title">Notifications</span>
-<a href="#">Mark All as Read</a>
+<span class="sub-title nk-dropdown-title bold">Notifications</span>
+<!-- <a href="#">Mark All as Read</a> -->
 </div>
 <div class="dropdown-body">
 <div class="nk-notification">
-<div class="nk-notification-item dropdown-inner">
+
+
+
+<div v-if="pending_notification.length>0">
+
+<div class="nk-notification-item dropdown-inner" v-for="p in pending_notification" :key="p.id">
 <div class="nk-notification-icon">
 <em class="icon icon-circle bg-warning-dim ni ni-curve-down-right"></em>
 </div>
 <div class="nk-notification-content">
-<div class="nk-notification-text">You have requested to <span>Widthdrawl</span></div>
-<div class="nk-notification-time">2 hrs ago</div>
+<div class="nk-notification-text">{{ p.title }} <span></span></div>
+<div class="nk-notification-time">{{ p.created_at.substring(0,10).split('-').reverse().join('/') }} </div>
 </div>
 </div>
-<div class="nk-notification-item dropdown-inner">
-<div class="nk-notification-icon">
-<em class="icon icon-circle bg-success-dim ni ni-curve-down-left"></em>
+
 </div>
-<div class="nk-notification-content">
-<div class="nk-notification-text">Your <span>Deposit Order</span> is placed</div>
-<div class="nk-notification-time">2 hrs ago</div>
+
+<div class="text-center text-muted" v-else>
+0 Notification
 </div>
-</div>
-<div class="nk-notification-item dropdown-inner">
-<div class="nk-notification-icon">
-<em class="icon icon-circle bg-warning-dim ni ni-curve-down-right"></em>
-</div>
-<div class="nk-notification-content">
-<div class="nk-notification-text">You have requested to <span>Widthdrawl</span></div>
-<div class="nk-notification-time">2 hrs ago</div>
-</div>
-</div>
-<div class="nk-notification-item dropdown-inner">
-<div class="nk-notification-icon">
-<em class="icon icon-circle bg-success-dim ni ni-curve-down-left"></em>
-</div>
-<div class="nk-notification-content">
-<div class="nk-notification-text">Your <span>Deposit Order</span> is placed</div>
-<div class="nk-notification-time">2 hrs ago</div>
-</div>
-</div>
-<div class="nk-notification-item dropdown-inner">
-<div class="nk-notification-icon">
-<em class="icon icon-circle bg-warning-dim ni ni-curve-down-right"></em>
-</div>
-<div class="nk-notification-content">
-<div class="nk-notification-text">You have requested to <span>Widthdrawl</span></div>
-<div class="nk-notification-time">2 hrs ago</div>
-</div>
-</div>
-<div class="nk-notification-item dropdown-inner">
-<div class="nk-notification-icon">
-<em class="icon icon-circle bg-success-dim ni ni-curve-down-left"></em>
-</div>
-<div class="nk-notification-content">
-<div class="nk-notification-text">Your <span>Deposit Order</span> is placed</div>
-<div class="nk-notification-time">2 hrs ago</div>
-</div>
-</div>
+
+
+
+
 </div><!-- .nk-notification -->
 </div><!-- .nk-dropdown-body -->
 <div class="dropdown-foot center">
@@ -403,7 +378,23 @@ test(){
 if(route().current()=='search.results'){
 this.dialog.search=false;
 }
+},
+
+
+count_notification(){
+return this.$page.props.notification.count;
+},
+
+pending_notification(){
+return this.$page.props.notification.pending;
 }
+
+
+
+
+
+
+
 }
 
 

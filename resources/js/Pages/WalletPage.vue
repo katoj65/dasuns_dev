@@ -1,6 +1,8 @@
 <template>
 <app-layout>
 <div class="row pt-2 pb-2">
+
+
 <div class="col-12 col-md-8 mb-2">
 <div class="card card-radius" style="min-height:600px;">
 <div class="card-header">

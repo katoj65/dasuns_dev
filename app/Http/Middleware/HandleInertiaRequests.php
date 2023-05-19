@@ -16,6 +16,7 @@ use App\Http\Controllers\Menu\MenuController;
 use App\Models\EmployeeModel;
 use App\Models\DasunsUserNumberModel;
 use App\Models\SystemModel;
+use App\Models\ActivityLogModel;
 
 
 class HandleInertiaRequests extends Middleware
@@ -168,6 +169,7 @@ return[
 ];
 },
 
+
 'flash'=>[
 'success'=>fn()=>$request->session()->get('success'),
 'warning'=>fn()=>$request->session()->get('warning'),
@@ -177,8 +179,14 @@ return[
 
 ],
 
+//notification section
+'notification'=>function()use($request){
+return [
+'count'=>ActivityLogModel::where('userID',Auth::user()->id)->where('status','pending')->count(),
+'pending'=>ActivityLogModel::where('userID',Auth::user()->id)->where('status','pending')->limit(8)->get(),
 
-
+];
+}
 
 
 
