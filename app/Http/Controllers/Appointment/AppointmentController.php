@@ -20,6 +20,7 @@ use App\Http\Controllers\SupportServices\SupportServiceController;
 
 
 
+
 class AppointmentController extends Controller
 {
 /**
@@ -129,7 +130,7 @@ $names=UserController::userbyID($request->psspID);
 $service=SupportServiceController::support_servicebyID($m);
 ActivityController::store_activity(['userID'=>Auth::user()->id,
 'title'=>'Service Request',
-'description'=>$service->name.' service 
+'description'=>$service->name.' service
 from
 '.$names->firstname.'
 '.$names->lastname.'

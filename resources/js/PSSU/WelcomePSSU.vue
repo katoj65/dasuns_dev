@@ -1,6 +1,8 @@
 <template>
 <div class="nk-block pt-0">
 
+
+
 <div class="row g-gs">
 
 <div class="col-md-3" v-for="t in tabs" :key="t.id">
@@ -93,13 +95,12 @@
 
 <tbody>
 <tr class="tb-tnx-item" v-for="a in appointments" :key="a">
-<!-- <td class="tb-tnx-id">
-<a href="#"><span>4947</span></a>
-</td> -->
 <td class="tb-tnx-info">
 <div class="tb-tnx-desc">
 <span class="title text-transform">
-<!-- <em class="icon ni ni-forward-alt-fill"></em> -->
+<em class="icon ni ni-check-circle-fill text-success mr-2" v-if="a.status=='accepted'"></em>
+<em class="icon ni ni-alert-circle-fill  text-warning mr-2" v-else></em>
+
 {{ a.name }} </span>
 </div>
 <div class="tb-tnx-desc text-muted">
@@ -119,7 +120,6 @@
 </div>
 </td>
 
-
 <td class="tb-tnx-action">
 <div class="dropdown">
 <a class="text-soft dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
@@ -131,21 +131,16 @@
 </div>
 </div>
 </td>
-
-
-
-</tr><!-- tb-tnx-item -->
+</tr>
 
 </tbody>
 </table>
 </div>
 
 
-
-
 </div>
 </div>
-</div><!-- .col -->
+</div>
 
 
 
@@ -247,26 +242,18 @@
 <div class="card-inner d-flex flex-column h-100">
 <div class="card-title-group mb-3">
 <div class="card-title">
-<h2 class="title" style="font-size:18px;">My Wallet </h2>
+<h2 class="title" style="font-size:18px;">Wallet </h2>
 <p>View transaction details</p>
 </div>
 
 </div>
 
-
-
 <div class="card-body">
-
-
-
-
 <div class="card-amount">
 <span class="amount"> {{ wallet_balance }} <span class="currency currency-usd">UGX</span>
 </span>
 <!-- <span class="change up text-danger"><em class="icon ni ni-arrow-long-up"></em>1.93%</span> -->
 </div>
-
-
 <div class="invest-data">
 <div class="invest-data-amount g-2">
 <div class="invest-data-history mt-4">
@@ -275,15 +262,10 @@
 </div>
 </div>
 </div>
-
 </div>
-
-
-
 </div>
-
 </div>
-<div class="card-footer bg-white">
+<div class="card-footer bg-white mb-3">
 <deposit-withdraw-component/>
 </div>
 </div>
@@ -308,76 +290,84 @@
 
 <div class="col-md-4 col-xxl-4">
 <div class="card card-full card-radius">
-<div class="card-inner d-flex flex-column h-100">
-<div class="card-title-group mb-3">
-    <div class="card-title">
-        <h2 class="title" style="font-size:18px;">My Wallet </h2>
-        <p>View transaction details</p>
+<div class="card-header">
+<div class="card-title">
+<h2 class="title" style="font-size:18px;">Recommendations </h2>
+</div>
+</div>
+
+
+
+<div class="card-inner d-flex flex-column h-100 p-0">
+<!-- <div class="card-body p-0 m-0">
+<ul class="chat-list m-0 p-0" v-if="recommendations.length>0">
+<li class="chat-item is-unread p-0 m-0" v-for="r in recommendations" :key="r.id">
+<a class="chat-link chat-open" href="#">
+    <div class="chat-media user-avatar">
+        <span>AB</span>
+        <span class="status dot dot-lg dot-gray"></span>
+    </div>
+    <div class="chat-info">
+        <div class="chat-from">
+            <div class="name">Abu Bin Ishtiyak</div>
+            <span class="time">4:49 AM</span>
         </div>
-<div class="card-tools mt-n4 mr-n1">
-    <div class="drodown">
-        <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
-        <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
+        <div class="chat-context">
+            <div class="text">
+                <p>Hi, I am Ishtiyak, can you help me with this problem ?</p>
+            </div>
+            <div class="status unread">
+                <em class="icon ni ni-bullet-fill"></em>
+            </div>
+        </div>
+    </div>
+</a>
+<div class="chat-actions">
+    <div class="dropdown">
+        <a href="#" class="btn btn-icon btn-sm btn-trigger dropdown-toggle" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
+        <div class="dropdown-menu dropdown-menu-right">
             <ul class="link-list-opt no-bdr">
-                <li><a href="#"><span>15 Days</span></a></li>
-                <li><a href="#" class="active"><span>30 Days</span></a></li>
-                <li><a href="#"><span>3 Months</span></a></li>
+                <li><a href="#">Mute</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Hide</a></li>
+                <li><a href="#">Delete</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Mark as Unread</a></li>
+                <li><a href="#">Ignore Messages</a></li>
+                <li><a href="#">Block Messages</a></li>
             </ul>
         </div>
     </div>
 </div>
+</li>
+</ul>
+</div> -->
+
+<div v-if="recommendations.length>0">
+
+<div class="card-inner m-0 pb-2 pt-0" v-for="r in recommendations" :key="r.id">
+<div class="nk-wg-action">
+<div class="nk-wg-action-content">
+<em class="icon ni ni-user-fill-c" style="font-size:40px;"></em>
+<div class="title pl-3 bold">{{ r.names }} </div>
+<p class="pl-3">{{ r.message }} </p>
 </div>
-<div class="progress-list gy-3">
-<div class="progress-wrap">
-    <div class="progress-text">
-        <div class="progress-label">Strater Plan</div>
-        <div class="progress-amount">58%</div>
-    </div>
-    <div class="progress progress-md">
-        <div class="progress-bar" data-progress="58" style="width: 58%;"></div>
-    </div>
-</div>
-<div class="progress-wrap">
-    <div class="progress-text">
-        <div class="progress-label">Silver Plan</div>
-        <div class="progress-amount">18.49%</div>
-    </div>
-    <div class="progress progress-md">
-        <div class="progress-bar bg-orange" data-progress="18.49" style="width: 18.49%;"></div>
-    </div>
-</div>
-<div class="progress-wrap">
-    <div class="progress-text">
-        <div class="progress-label">Dimond Plan</div>
-        <div class="progress-amount">16%</div>
-    </div>
-    <div class="progress progress-md">
-        <div class="progress-bar bg-teal" data-progress="16" style="width: 16%;"></div>
-    </div>
-</div>
-<div class="progress-wrap">
-    <div class="progress-text">
-        <div class="progress-label">Platinam Plan</div>
-        <div class="progress-amount">29%</div>
-    </div>
-    <div class="progress progress-md">
-        <div class="progress-bar bg-pink" data-progress="29" style="width: 29%;"></div>
-    </div>
-</div>
-<div class="progress-wrap">
-    <div class="progress-text">
-        <div class="progress-label">Vibranium Plan</div>
-        <div class="progress-amount">33%</div>
-    </div>
-    <div class="progress progress-md">
-        <div class="progress-bar bg-azure" data-progress="33" style="width: 33%;"></div>
-    </div>
+
 </div>
 </div>
-<div class="invest-top-ck mt-auto">
-<canvas class="iv-plan-purchase" id="planPurchase"></canvas>
+
+
+
+
 </div>
 </div>
+
+
+
+
+
+
+
 </div>
 </div><!-- .col -->
 
@@ -405,22 +395,11 @@
 <div class="card card-full card-radius">
 <div class="card-inner d-flex flex-column h-100">
 <div class="card-title-group mb-3">
-    <div class="card-title">
-        <h2 class="title" style="font-size:18px;">My Service Providers </h2>
-        <!-- <p>View transaction details</p> -->
-        </div>
-<!-- <div class="card-tools mt-n4 mr-n1">
-    <div class="drodown">
-        <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
-        <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
-            <ul class="link-list-opt no-bdr">
-                <li><a href="#"><span>15 Days</span></a></li>
-                <li><a href="#" class="active"><span>30 Days</span></a></li>
-                <li><a href="#"><span>3 Months</span></a></li>
-            </ul>
-        </div>
-    </div>
-</div> -->
+<div class="card-title">
+<h2 class="title" style="font-size:18px;">My Service Providers </h2>
+<!-- <p>View transaction details</p> -->
+</div>
+
 </div>
 <div class="card-inner-group p-0">
 <div v-if="providers.length>0">
@@ -433,17 +412,7 @@
             <span class="lead-text">{{ p.firstname }} {{ p.lastname }} </span>
             <span class="sub-text">{{ p.email }} </span>
         </div>
-        <!-- <div class="user-action">
-            <div class="drodown">
-                <a href="#" class="dropdown-toggle btn btn-icon btn-trigger mr-n1" data-toggle="dropdown" aria-expanded="false"><em class="icon ni ni-more-h"></em></a>
-                <div class="dropdown-menu dropdown-menu-right">
-                    <ul class="link-list-opt no-bdr">
-                        <li><a href="#"><em class="icon ni ni-setting"></em><span>Action Settings</span></a></li>
-                        <li><a href="#"><em class="icon ni ni-notify"></em><span>Push Notification</span></a></li>
-                    </ul>
-                </div>
-            </div>
-        </div> -->
+
     </div>
 </div>
 </Inertia-link>
@@ -593,8 +562,6 @@
 </div>
 
 <!------------>
-
-
 <create-appointment/>
 </div>
 </template>
@@ -637,12 +604,13 @@ state:false,
 
 
 computed:{
+//
 tabs(){
 const numbers = new Intl.NumberFormat('en-US');
 return [
 {icon:'icon ni ni-calender-date-fill',title:'APPOINTMENTS',count:this.response.user_data.dashboard.count_appointments,id:2},
 {icon:'icon ni ni-grid-fill',title:'SERVICE PROVIDERS',count:this.response.user_data.dashboard.service_provider_count,id:1},
-{icon:'icon ni ni-bar-chart-fill',title:'RECOMMENDATIONS',count:40,id:3},
+{icon:'icon ni ni-bar-chart-fill',title:'RECOMMENDATIONS',count:this.response.user_data.dashboard.count_recommendations,id:3},
 {icon:'icon ni ni-wallet-fill',title:'WALLET',
 count:numbers.format(this.response.user_data.dashboard.account_balance),id:4},
 
@@ -650,11 +618,11 @@ count:numbers.format(this.response.user_data.dashboard.account_balance),id:4},
 
 },
 
-
+//
 appointments(){
 return this.response.user_data.dashboard.appointments;
 },
-
+//
 wallet_balance(){
 const sum=new Intl.NumberFormat('en-US');
 return sum.format(this.response.user_data.dashboard.account_balance);
@@ -664,9 +632,14 @@ return sum.format(this.response.user_data.dashboard.account_balance);
 activity(){
 return this.response.user_data.dashboard.activity;
 },
-
+//
 providers(){
 return this.response.user_data.dashboard.pssp;
+},
+
+//
+recommendations(){
+return this.response.user_data.dashboard.recommendations;
 }
 
 
@@ -689,7 +662,9 @@ this.calendar.state=true;
 }else{
 this.calendar.state=false;
 }
-}
+},
+
+
 
 
 
@@ -715,6 +690,8 @@ padding:10px;
 .data-list li{
 border:none;
 }
+
+
 
 
 

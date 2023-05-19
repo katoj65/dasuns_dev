@@ -9,6 +9,7 @@ use App\Models\DasunsWalletModel;
 use Illuminate\Support\Facades\Hash;
 use App\Models\DasunsUserNumberModel;
 use App\Http\Controllers\Activity\ActivityController;
+use App\Models\LogWalletModel;
 
 
 class WalletController extends Controller
@@ -18,8 +19,7 @@ class WalletController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+public function index(){
         //
 $get=DasunsWalletModel::where('userID',Auth::user()->id)->get();
 if(count($get)==1){
@@ -159,12 +159,29 @@ return redirect('/wallet')->with('success','Deposited has been created.');
     return redirect('/');
 }
 
+}
 
 
 
 
 
 
+
+
+//transaction log
+static function store_wallet_log($insert){
+$get=DasunsWalletModel::where('userID',Auth::user()->id)->get();
+if(count($get)==1){
+foreach($get as $row);
+$insert[]=['walletID'=>$row->id];
+if(LogWalletModel::insert($insert)){
+return true;
+}else{
+return false;
+}
+}else{
+return null;
+}
 }
 
 

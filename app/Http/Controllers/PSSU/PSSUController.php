@@ -15,6 +15,7 @@ use App\Models\CountryModel;
 use App\Models\AppointmentModel;
 use App\Http\Controllers\Wallet\WalletController;
 use App\Models\ActivityLogModel;
+use App\Models\DasunsRecommendationsModel;
 
 
 
@@ -105,7 +106,8 @@ $appointment=AppointmentModel::select('appointment.date',
 ->join('support_service','appointment_service.serviceID','=','support_service.ID')
 ->join('users','appointment.providerID','=','users.id')
 ->where('appointment.userID',Auth::user()->id)
-->where('appointment.status','accepted')->orwhere('appointment.status','pending')
+->where('appointment.status','accepted')
+->orwhere('appointment.status','pending')
 ->orderby('appointment.status','ASC')
 ->orderby('appointment.date','DESC')
 ->get();
@@ -116,7 +118,7 @@ $appointment=AppointmentModel::select('appointment.date',
 return[
 'dasuns_number'=>DasunsNumberController::get_dasuns_number_byUserID($id),
 'service_provider_count'=>User::where('status','active')->where('role','pssp')->count(),
-'count_recommendations'=>[],
+'count_recommendations'=>DasunsRecommendationsModel::count(),
 'count_appointments'=>AppointmentModel::where('userID',Auth::user()->id)->where('status','accepted')->count(),
 'account_balance'=>WalletController::get_wallet_balance()->amount,
 'appointments'=>$appointment,
@@ -129,6 +131,9 @@ return[
 ->distinct()
 ->limit(4)
 ->get(),
+'recommendations'=>DasunsRecommendationsModel::get(),
+
+
 
 
 ];
