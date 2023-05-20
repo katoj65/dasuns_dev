@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Notification;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\ActivityLogModel;
+use Inertia\Inertia;
+use Illuminate\Support\Facades\Auth;
 
 class NotificationController extends Controller
 {
@@ -16,6 +18,16 @@ class NotificationController extends Controller
     public function index()
     {
         //
+ActivityLogModel::where('userID',Auth::user()->id)->where('status','pending')->update(['status'=>'seen']);
+$data['title']='Notifications';
+$data['response']=[
+'notification'=>ActivityLogModel::where('userID',Auth::user()->id)->orderby('created_at','DESC')->get(),
+
+
+];
+return Inertia::render('NotificationPage',$data);
+
+
     }
 
     /**
@@ -71,7 +83,11 @@ return ActivityLogModel::where('userID',Auth::user()->id)->where('status','pendi
 }
 
 
-
+//update status to seen from pending
+public function update_status(){
+ActivityLogModel::where('userID',Auth::user()->id)->where('status','pending')->update(['status'=>'seen']);
+return null;
+}
 
 
 

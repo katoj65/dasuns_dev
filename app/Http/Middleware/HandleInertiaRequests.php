@@ -181,11 +181,13 @@ return[
 
 //notification section
 'notification'=>function()use($request){
+if(Auth::user()!=null){
 return [
 'count'=>ActivityLogModel::where('userID',Auth::user()->id)->where('status','pending')->count(),
 'pending'=>ActivityLogModel::where('userID',Auth::user()->id)->where('status','pending')->limit(8)->get(),
 
 ];
+}
 }
 
 

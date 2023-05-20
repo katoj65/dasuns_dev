@@ -28,6 +28,7 @@ use App\Http\Controllers\Request\RequestController;
 use App\Http\Controllers\Information\AboutController;
 use App\Http\Controllers\Information\WhatwedoController;
 use App\Http\Controllers\Pages\PageController;
+use App\Http\Controllers\Notification\NotificationController;
 
 
 /*
@@ -261,3 +262,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/services-pssp',[PSSPContr
 Route::middleware(['auth:sanctum', 'verified'])->post('/request/find-services',[RequestController::class,'request_service'])->name('request-service');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('request/service/{id}/location/{any}',[RequestController::class,'request_service_provider'])->name('request-srvice-search');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/notifications',[NotificationController::class,'index'])->name('notifications');
+
+// Route::middleware(['auth:sanctum', 'verified'])->post('/notifications/update-status',[NotificationController::class,'update_status'])->name('notification-status-update');

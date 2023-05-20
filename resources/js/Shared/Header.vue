@@ -91,7 +91,7 @@
 </div><!-- .nk-notification -->
 </div><!-- .nk-dropdown-body -->
 <div class="dropdown-foot center">
-<a href="#">View All</a>
+<Inertia-link :href="route('notifications')">View All</Inertia-link>
 </div>
 </div>
 </li><!-- .dropdown -->
