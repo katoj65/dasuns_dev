@@ -11,7 +11,7 @@
 
 <div class="card-body m-0 p-0 pb-4" style="min-height:600px; ">
 
-
+<div v-if="notifications.length>0">
 
     <div class="nk-msg-item current" data-msg-id="1" v-for="n in notifications" :key="n.id">
         <div class="user-avatar user-avatar-sm bg-success-dim">
@@ -41,7 +41,8 @@
     </div>
 
 
-
+</div>
+<div v-else class="text-muted">No notification content</div>
 
 
 

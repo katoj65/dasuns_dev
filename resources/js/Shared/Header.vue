@@ -74,7 +74,9 @@
 <em class="icon icon-circle bg-warning-dim ni ni-curve-down-right"></em>
 </div>
 <div class="nk-notification-content">
-<div class="nk-notification-text">{{ p.title }} <span></span></div>
+<div class="nk-notification-text"> <span v-if="p.status=='pending'" class="bold">{{ p.title }}</span>
+<span v-else>{{ p.title }} </span>
+</div>
 <div class="nk-notification-time">{{ p.created_at.substring(0,10).split('-').reverse().join('/') }} </div>
 </div>
 </div>

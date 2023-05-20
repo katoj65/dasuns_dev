@@ -31,6 +31,7 @@ use App\Http\Controllers\Pages\PageController;
 use App\Http\Controllers\Notification\NotificationController;
 
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -266,3 +267,5 @@ Route::middleware(['auth:sanctum', 'verified'])->get('request/service/{id}/locat
 Route::middleware(['auth:sanctum', 'verified'])->get('/notifications',[NotificationController::class,'index'])->name('notifications');
 
 // Route::middleware(['auth:sanctum', 'verified'])->post('/notifications/update-status',[NotificationController::class,'update_status'])->name('notification-status-update');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/service-providers',[ServiceProviderController::class,'index'])->name('service-providers');
