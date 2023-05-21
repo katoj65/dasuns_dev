@@ -121,15 +121,13 @@ $get=AppointmentModel::where('providerID',$request->psspID)
 if(count($get)==1){
 foreach($get as $row);
 
-foreach($request->services as $m){
 AppointmentServiceModel::insert([
-'serviceID'=>$m,
+'serviceID'=>$request->services,
 'appointmentID'=>$row->id]);
-}
 
 //create activity content
 $names=UserController::userbyID($request->psspID);
-$service=SupportServiceController::support_servicebyID($m);
+$service=SupportServiceController::support_servicebyID($request->services);
 ActivityController::store_activity(['userID'=>Auth::user()->id,
 'title'=>'Service Request',
 'description'=>$service->name.' service
