@@ -17,6 +17,17 @@ class SupportServiceController extends Controller
     public function index()
     {
         //
+$data['title']='Support Services';
+$data['response']=[
+'service'=>SupportServiceModel::orderby('name','ASC')->get(),
+
+
+
+];
+
+return Inertia::render('SupportServicesPage',$data);
+
+
     }
 
     /**

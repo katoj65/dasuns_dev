@@ -307,8 +307,8 @@ border-bottom:solid 1px #EBEEF5
 
 .card{
 /* border:solid 1px #EBEEF5; */
-box-shadow: 0px 0px 3px #EAEDED;
-border:1px solid #EBEEF5
+/* box-shadow: 0px 0px 3px #EAEDED; */
+/* border:1px solid #EBEEF5 */
 
 
 }
@@ -337,7 +337,7 @@ border-radius:20px;
 
 }
 
-
+.page-title{  font-family: 'Roboto', sans-serif; font-size:18px;}
 
 
 </style>

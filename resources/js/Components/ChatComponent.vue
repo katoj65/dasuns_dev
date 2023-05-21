@@ -2,11 +2,15 @@
 <div id="chat">
 
 
-<div class="card shadow" style="border:none;">
+<div class="card shadow" style="border:none;" v-if="isOpen==true">
 <div class="card-header">
-<div class="card-title">
+<div class="card-title-group">
 <h4 class="title">Chat</h4>
+<div class="card-tools">
+ <a href="#" @click="chat()">Close</a>
+    </div>
 </div>
+
 </div>
 
 <div class="card-body">
@@ -17,7 +21,7 @@
         <div class="chat-content">
             <div class="chat-bubbles">
                 <div class="chat-bubble">
-                    <div class="chat-msg bg-primary-dim text-muted"> Thanks for inform. We just solved the issues. Please check now. </div>
+                    <div class="chat-msg bg-primary-dim text-muted"> Thanks for inform. We just solved  </div>
                     <ul class="chat-msg-more">
                         <li class="d-none d-sm-block"><a href="#" class="btn btn-icon btn-sm btn-trigger"><em class="icon ni ni-reply-fill"></em></a></li>
                         <li>
@@ -46,7 +50,7 @@
     <div class="chat-content">
         <div class="chat-bubbles">
             <div class="chat-bubble">
-                <div class="chat-msg bg-success-dim"> Hey, I am facing problem as i can not login into application. Can you help me to reset my password? </div>
+                <div class="chat-msg bg-success-dim"> Hey, I am facing problem as i can not login into? </div>
                 <ul class="chat-msg-more">
                     <li class="d-none d-sm-block"><a href="#" class="btn btn-icon btn-sm btn-trigger"><em class="icon ni ni-reply-fill"></em></a></li>
                     <li>
@@ -76,7 +80,7 @@
 </div>
 </div>
 
-<a href="">
+<a href="#" v-if="isOpen==false" @click="chat()">
 <div class="nk-activity-media user-avatar bg-success shadow" style="padding:30px;">
 <em class="icon ni ni-chat-circle-fill text-white" style="font-size:30px;"></em></div>
 
@@ -89,7 +93,37 @@
 export default {
     props:{
 
-    }
+    },
+
+data(){
+return{
+isOpen:false,
+
+}
+},
+
+
+
+methods:{
+chat(){
+if(this.isOpen==false){
+this.isOpen=true;
+}else{
+this.isOpen=false;
+}
+}
+
+
+
+
+
+
+}
+
+
+
+
+
 }
 </script>
 
@@ -109,7 +143,7 @@ width:300px;
 height:400px;
 position: inherit;
 bottom:0;
-right:10px;
+right:30px;
 
 }
 
@@ -126,8 +160,8 @@ color:white;
 padding:0;
 }
 
-.card-title{
-padding:0px;
+.card-title-group{
+padding:10px;
 }
 
 .card-body{

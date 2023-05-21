@@ -29,6 +29,7 @@ use App\Http\Controllers\Information\AboutController;
 use App\Http\Controllers\Information\WhatwedoController;
 use App\Http\Controllers\Pages\PageController;
 use App\Http\Controllers\Notification\NotificationController;
+use App\Http\Controllers\Chat\ChatController;
 
 
 
@@ -269,3 +270,5 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/notifications',[Notificat
 // Route::middleware(['auth:sanctum', 'verified'])->post('/notifications/update-status',[NotificationController::class,'update_status'])->name('notification-status-update');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/service-providers',[ServiceProviderController::class,'index'])->name('service-providers');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/support-services',[SupportServiceController::class,'index'])->name('support-services');

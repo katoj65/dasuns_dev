@@ -15,7 +15,7 @@
 <div class="nk-sidebar-content">
 <div class="nk-sidebar-menu" data-simplebar>
 <ul class="nk-menu" v-if="$page.props.auth.user.status=='active'">
-<li class="nk-menu-item" v-for="m in menu" :key="m">
+<li class="nk-menu-item" v-for="m in menu" :key="m.id">
 <Inertia-link :href="route(m.url)" class="nk-menu-link" style="color:white;">
 <span class="nk-menu-icon" style="color:white;">
 <em :class="m.icon"></em></span>
@@ -110,13 +110,13 @@ panelist_menu:[
 //
 
 pssu_menu:[
-{name:'Dashboard',url:'dashboard',icon:'icon ni ni-layout'},
-{name:'Appointments',url:'dashboard',icon:'icon ni ni-calender-date-fill'},
-{name:'Requests',url:'dashboard',icon:'icon ni ni-layout'},
-{name:'Services',url:'dashboard',icon:'icon ni ni-view-grid-fill'},
-{name:'Service Providers',url:'dashboard',icon:'icon ni ni-user-list-fill'},
-{name:'Recommendations',url:'dashboard',icon:'icon ni ni-bar-chart-fill'},
-{name:'Wallet',url:'dashboard',icon:'icon ni ni-wallet-alt'},
+{id:1, name:'Dashboard',url:'dashboard',icon:'icon ni ni-layout'},
+{id:2, name:'Appointments',url:'appointments',icon:'icon ni ni-calender-date-fill'},
+{id:3, name:'Service Providers',url:'service-providers',icon:'icon ni ni-user-list-fill'},
+{id:4, name:'Support Services',url:'support-services',icon:'icon ni ni-view-grid-fill'},
+{id:6, name:'Recommendations',url:'dashboard',icon:'icon ni ni-bar-chart-fill'},
+{id:7, name:'Wallet',url:'wallet',icon:'icon ni ni-wallet-alt'},
+// {id:5, name:'Chat',url:'dashboard',icon:'icon ni ni-chat-circle-fill'},
 
 ],
 
