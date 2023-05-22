@@ -5,9 +5,9 @@
 
 <!-------------------->
 
-<div class="row">
+<div class="row mt-2">
 <div class="col-12 col-md-8">
-<div class="card">
+<div class="card card-radius h-100">
 <div class="card-header mb-3">
 <div class="card-title-group">
 <div class="card-title">
@@ -15,7 +15,7 @@
 </div>
 <div class="card-tools mr-n1">
 <el-dropdown trigger="click">
-<span class="el-dropdown-link btn btn-outline-light">
+<span class="el-dropdown-link btn">
 <em class="icon ni ni-more-h"></em>
 </span>
 <el-dropdown-menu slot="dropdown">
@@ -35,7 +35,7 @@
 
 <div class="card-header bg-white">
 <div class="card-title bg-white">
-<h5 class="title">{{ response.appointment.end_date!=null?'Start Date':'Appointment Date' }}: {{ response.appointment.date.split('-').reverse().join('/') }}
+<h5 class="title">{{ response.appointment.end_date!=null?'Dates':'Date' }}: <span style="font-weight:normal;">{{ response.appointment.date.split('-').reverse().join('/') }}</span>
 
 <span style="padding-left:50px;">
 {{ response.appointment.end_date!=null?'End Date:':'' }}
@@ -81,7 +81,7 @@
 <ul class="data-list is-compact" style="margin-top:-10px;padding:0;margin:0;">
 <li class="data-item border-0">
 <h4>
-Services
+Service requested
 </h4>
 </li>
 
@@ -103,16 +103,6 @@ Services
 </div>
 </div>
 </li>
-
-<li class="data-item border-0">
-<h4>
-Message
-</h4>
-</li>
-<li class="data-item border-0">
-{{ response.appointment.comment }}
-</li>
-
 <li v-if="response.appointment.end_date!=null" class="data-item border mt-2">
 
 <div style="width:100%;">
@@ -152,31 +142,19 @@ Message
 
 
 
-
-
-<div class="card-footer pb-3">
-<div class="nk-order-ovwg-data mt-4">
-<div class="amount" style="color:#0B5345;">{{ response.total_amount }} <small class="currenct currency-usd">{{ response.currency}} <span class="mr-5" style="float:right">
-{{ response.number_of_days>1?response.number_of_days+' Days':response.number_of_days+' Day' }} booked
-</span>
-</small></div>
-<!-- <div class="info">Last month <strong>39,485 <span class="currenct currency-usd">USD</span></strong></div> -->
-<div class="title">
-
-<button class="btn btn-success mt-2" style="font-size:18px;" @click="add_cart()" v-if="response.cart_status==false">
-Add to cart
-</button>
-
-<button class="btn btn-warning mt-2" style="font-size:18px;" @click="submit_remove_from_cart()" v-else>
-Remove from Cart
-</button>
-
-
+<div class="nk-msg-item" data-msg-id="2" style="margin-top:-30px;">
+<div class="nk-msg-info">
+<div class="nk-msg-context">
+<div class="nk-msg-text">
+ <h6 class="title"><em class="icon ni ni-mail-fill"></em> Message</h6>
+<p>{{ response.appointment.comment }}</p>
+</div>
+<div class="nk-msg-lables">
+<div class="asterisk"><a class="active" href="#"><em class="asterisk-off icon ni ni-star"></em><em class="asterisk-on icon ni ni-star-fill"></em></a></div>
 </div>
 </div>
-
 </div>
-
+</div>
 
 
 
@@ -193,7 +171,7 @@ Remove from Cart
 
 
 <div class="col-12 col-md-4">
-<div class="card h-100">
+<div class="card h-100 card-radius">
 <div class="card-header pt-2 pb-1">
 <div class="card-title">
 <h4>

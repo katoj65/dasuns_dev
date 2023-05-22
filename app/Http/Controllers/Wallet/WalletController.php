@@ -216,7 +216,7 @@ $mesage=false;
 }else{
 //payment.
 PaymentModel::insert(['userID'=>Auth::user()->id,
-'serviceID'=>$sid,
+'appointmentID'=>$sid,
 'amount'=>$cost,
 'paid_to'=>'dasuns'
 ]);
@@ -232,15 +232,6 @@ return $mesage;
 
 
 
-
-
-
-
-
-
-
-
-
 //transfer funds to dasuns account
 static function deposit_escrow_account($amount){
 $get=EscrowAccountModel::get();
@@ -252,6 +243,18 @@ $update=$row->amount+$amount;
 EscrowAccountModel::where('id','!=','')->update(['amount'=>$update]);
 }
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

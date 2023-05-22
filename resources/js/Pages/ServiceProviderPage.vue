@@ -162,51 +162,41 @@
 
 
 
-                <li class="nk-support-item border-0">
-                <div class="nk-support-content">
-                <div class="title mb-3">
-                <span style="font-size:18px;">Recommendations</span>
-                </div>
+<!-- <li class="nk-support-item border-0">
+<div class="nk-support-content">
+<div class="title mb-3">
+<span style="font-size:18px;">Recommendations</span>
+</div>
+<div class="nk-msg-item current  border-radius mb-2 " data-msg-id="1" v-for="n in 4" :key="n" style="background:#F8F9F9;border:none;">
+<div class="nk-msg-media user-avatar">
+    <span>AB</span>
+</div>
+<div class="nk-msg-info">
+    <div class="nk-msg-from">
+        <div class="nk-msg-sender">
+            <div class="name" style="font-weight:bolder;color:black;">Abu Bin Ishtiyak</div>
+
+        </div>
+        <div class="nk-msg-meta">
+            <div class="attchment"><em class="icon ni ni-clip-h"></em></div>
+            <div class="date">12 Jan</div>
+        </div>
+    </div>
+    <div class="nk-msg-context">
+        <div class="nk-msg-text">
+
+            <p>Hello team, I am facing problem as i can not select currency on buy order page.</p>
+        </div>
+
+    </div>
+</div>
+</div>
+</div>
+</li> -->
 
 
 
 
-                <div class="nk-msg-item current  border-radius mb-2 " data-msg-id="1" v-for="n in 4" :key="n" style="background:#F8F9F9;border:none;">
-                    <div class="nk-msg-media user-avatar">
-                        <span>AB</span>
-                    </div>
-                    <div class="nk-msg-info">
-                        <div class="nk-msg-from">
-                            <div class="nk-msg-sender">
-                                <div class="name" style="font-weight:bolder;color:black;">Abu Bin Ishtiyak</div>
-
-                            </div>
-                            <div class="nk-msg-meta">
-                                <div class="attchment"><em class="icon ni ni-clip-h"></em></div>
-                                <div class="date">12 Jan</div>
-                            </div>
-                        </div>
-                        <div class="nk-msg-context">
-                            <div class="nk-msg-text">
-                                <!-- <h6 class="title">Unable to select currency when order.</h6> -->
-                                <p>Hello team, I am facing problem as i can not select currency on buy order page.</p>
-                            </div>
-                            <!-- <div class="nk-msg-lables">
-                                <div class="asterisk"><a href="#"><em class="asterisk-off icon ni ni-star"></em><em class="asterisk-on icon ni ni-star-fill"></em></a></div>
-                            </div> -->
-                        </div>
-                    </div>
-                </div>
-
-
-
-
-
-
-
-
-                </div>
-                </li>
                 </ul>
                 </div>
 

@@ -147,7 +147,7 @@ from
 
 
 //transfer funds to dasuns account
-WalletController::make_service_payment($request->services);
+WalletController::make_service_payment($row->id);
 
 return redirect('/appointment-details/'.$row->id)->with('success','Appointment request sent.');
 }else{
@@ -629,7 +629,28 @@ return[];
 }
 
 
-//
+
+
+
+//expired appointments
+static function appointment_expired(){
+$current_date=date('y-m-d');
+$get=AppointmentModel::where('date','>=',$current_date)->where('status')->get();
+
+
+
+
+
+
+
+
+
+}
+
+
+
+
+
 
 
 
