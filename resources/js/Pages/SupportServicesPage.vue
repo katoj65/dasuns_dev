@@ -26,7 +26,7 @@
 
                 <div class="user-card user-card-s2">
                     <div class="user-avatar lg bg-success">
-                        <span style="padding:10px;"><img :src="url+s.icon"/> </span>
+                        <span style="padding:20px;"><img :src="url+s.icon"/> </span>
 
                     </div>
                     <div class="user-info">
