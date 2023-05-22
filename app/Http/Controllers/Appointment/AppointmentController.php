@@ -17,6 +17,7 @@ use App\Models\DasunsWalletModel;
 use App\Http\Controllers\Activity\ActivityController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\SupportServices\SupportServiceController;
+use App\Http\Controllers\Wallet\WalletController;
 
 
 
@@ -68,6 +69,7 @@ return Inertia::render('AppointmentsPage',$data);
  * @param  \Illuminate\Http\Request  $request
  * @return \Illuminate\Http\Response
  */
+
 public function store(Request $request){
 
 $request->validate([
@@ -106,6 +108,9 @@ AppointmentModel::insert([
 'comment'=>$request->comment
 ]);
 
+
+
+
 //
 
 $get=AppointmentModel::where('providerID',$request->psspID)
@@ -117,6 +122,8 @@ $get=AppointmentModel::where('providerID',$request->psspID)
 ->limit(1)
 ->get();
 
+
+
 //
 if(count($get)==1){
 foreach($get as $row);
@@ -124,6 +131,8 @@ foreach($get as $row);
 AppointmentServiceModel::insert([
 'serviceID'=>$request->services,
 'appointmentID'=>$row->id]);
+
+
 
 //create activity content
 $names=UserController::userbyID($request->psspID);
@@ -135,6 +144,10 @@ from
 '.$names->firstname.'
 '.$names->lastname.'
 , Tel: '.$names->tel.'.']);
+
+
+//transfer funds to dasuns account
+WalletController::make_service_payment($request->services);
 
 return redirect('/appointment-details/'.$row->id)->with('success','Appointment request sent.');
 }else{

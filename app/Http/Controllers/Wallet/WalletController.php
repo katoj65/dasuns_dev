@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\DasunsUserNumberModel;
 use App\Http\Controllers\Activity\ActivityController;
 use App\Models\LogWalletModel;
+use App\Models\DasunsPaymentFeesModel;
+use App\Models\PaymentModel;
+use App\Models\EscrowAccountModel;
 
 
 class WalletController extends Controller
@@ -183,6 +186,74 @@ return false;
 return null;
 }
 }
+
+
+
+
+
+//dasuns service costs
+static function dasuns_service_cost(){
+$get=DasunsPaymentFeesModel::get();
+$amount=0;
+if(count($get)==1){
+foreach($get as $row);
+$amount=$row->amount;
+}
+return $amount;
+}
+
+
+
+
+
+//make payment for the service
+static function make_service_payment($sid){
+$balance=WalletController::get_wallet_balance()->amount;
+$cost=WalletController:: dasuns_service_cost();
+$mesage=true;
+if($balance<=$cost){
+$mesage=false;
+}else{
+//payment.
+PaymentModel::insert(['userID'=>Auth::user()->id,
+'serviceID'=>$sid,
+'amount'=>$cost,
+'paid_to'=>'dasuns'
+]);
+//send to dusuns account.
+WalletController::deposit_escrow_account($cost);
+//update wallet balance.
+$update=$balance-$cost;
+DasunsWalletModel::where('userID',Auth::user()->id)->update(['amount'=>$update]);
+}
+return $mesage;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+//transfer funds to dasuns account
+static function deposit_escrow_account($amount){
+$get=EscrowAccountModel::get();
+if(count($get)==0){
+EscrowAccountModel::insert(['amount'=>$amount]);
+}else{
+foreach($get as $row);
+$update=$row->amount+$amount;
+EscrowAccountModel::where('id','!=','')->update(['amount'=>$update]);
+}
+}
+
+
 
 
 
