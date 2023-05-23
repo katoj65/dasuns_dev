@@ -226,7 +226,7 @@
 </div>
 </div>
 <div class="col-12 col-md-4">
-<div class="card card-radius h-100">
+<div class="card card-radius">
 <div class="card-header mb-0">
 <div class="card-title">
 <h4 class="title">Service Provider Details</h4>
@@ -250,18 +250,28 @@
 </div>
 </div>
 
-
-<div class="m-3 border-top p-2">
-<div>
-<strong>Calendar </strong>
 </div>
+
+
+<div class="card card-radius">
+<div class="card-header">
+<div class="card-title">
+<h3>Calendar</h3>
+</div>
+</div>
+
+<div class="card-body">
 <chat-component></chat-component>
 <calendar-component/>
+</div>
 
 </div>
 
 
-</div>
+
+
+
+
 </div>
 
 

@@ -2,7 +2,7 @@
 <div id="chat">
 
 
-<div class="card shadow" style="border:none;" v-if="isOpen==true">
+<!-- <div class="card shadow" style="border:none;" v-if="isOpen==true">
 <div class="card-header">
 <div class="card-title-group">
 <h4 class="title">Chat</h4>
@@ -84,7 +84,7 @@
 <div class="nk-activity-media user-avatar bg-success shadow" style="padding:30px;">
 <em class="icon ni ni-chat-circle-fill text-white" style="font-size:30px;"></em></div>
 
-</a>
+</a> -->
 
 
 </div>
