@@ -30,7 +30,8 @@
 
 <h4 class="mb-2">Who we are</h4>
 
-<p>We are Diversity Ability Support Network System (Dasuns), a Social Enterprise
+<p>
+    We are Diversity Ability Support Network System (Dasuns), a Social Enterprise
 Company registered in Uganda, with a mission of to promoteing inclusive socio-
 economic development through facilitating access to professional support services
 and assistive technologies to advance rights, choices and opportunities for persons

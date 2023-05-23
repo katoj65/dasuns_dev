@@ -33,13 +33,13 @@
     We facilitate research on innovative context specific Assistive
     Technologies and work with users to produce a range of low cost
     assistive devices and technologies based on their express needs
-    that are customised to their needs.
+    that are customised to their requirements.
     </p>
 
 
     <p>
     We also provide users with tailored advice and information
-    Products support regarding assessment, fitting, procurement, and post-
+    Product support regarding assessment, fitting, procurement, and post-
     purchase repair and maintenance of Assistive Technology
     products.
     </p>
@@ -48,16 +48,12 @@
     Through our broader network system, we work with relevant AT
     manufacturers, innovators, accelerators, and organizations
     supporting Assistive Technology Innovations; to get meaning
-    user feedback on their products and services for their continued
+    meaningful user feedback on their products and services for their continued
     improvement and relevancy to particular contexts.
     </p>
 
 
-    <p>
-    We facilitate access to professional support service through a digital
-    platform (Dasuns) that connects providers with users. Users could choose the type of
-    service by interacting through a digital system.
-    </p>
+
 
     <br/>
 
@@ -67,6 +63,12 @@
 
 
 <h4 class="mb-2 pb-2 mt-4"><em class="icon ni ni-headphone" style="background:#1ee0ac;color:white;padding:5px;border-radius:5px;"></em><br/><br/> We Provide Support Services</h4>
+<p>
+    We facilitate access to professional support service through a digital
+    platform (Dasuns) that connects providers with users. Users could choose the type of
+    service by interacting through a digital system.
+    </p>
+
 <p>
 Service providers and users only need to sign up for an account once. Users can
 then log on to the system and request for their preferred support service from
@@ -152,7 +154,7 @@ Mentorship for Youth with Disabilities in ICTs
 <p class="pt-2">
 Information and Communication Technology skill development is an important
 strategy for the social inclusion of persons with disabilities in the mainstream of
-community life. Effective participation in educational, employment and social
+community life. Effective participation in education, employment and social
 opportunities may be dependent upon being able to make use of computers and the
 internet.
 </p>

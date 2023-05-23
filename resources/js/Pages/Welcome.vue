@@ -7,13 +7,13 @@
 <div class="nk-content-inner">
 <div class="nk-content-body">
 <div class="row g-gs" style="margin:300px;padding-top:30px;padding-bottom:30px;">
-<div class="col-md-4 col-12"></div>
-<div class="col-md-5 col-12">
+<div class="col-md-3 col-12"></div>
+<div class="col-md-6 col-12">
 <h1 style="text-align:center;color:white;text-shadow: 0px 0px 1px black;font-weight:bolder;font-size:30px;word-spacing:5px;line-height:50px;font-family: Arial, Helvetica, sans-serif;">
-Professional Support Services for every <span style="color:yellow;">Disability</span>
+Professional Care Support Services for Persons with <span style="color:yellow;">Disabilities</span>
 </h1>
 </div>
-<div class="col-md-4 col-12"></div>
+<div class="col-md-3 col-12"></div>
 </div>
 
 
@@ -34,9 +34,9 @@ Professional Support Services for every <span style="color:yellow;">Disability</
 <h3 style="color:white;font-size:20px;font-weight:bold;" class="text-transform">
 {{ s.name }}
 </h3>
-<div style="color:#48C9B0;padding:10px;font-size:16px;">
+<!-- <div style="color:#48C9B0;padding:10px;font-size:16px;">
 {{ s.providers<2?s.providers+' Service Provider':s.providers+' Service Providers' }}
-</div>
+</div> -->
 </div>
 
 </div>

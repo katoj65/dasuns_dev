@@ -72,7 +72,7 @@ Route::middleware('guest')->post('/post-contact',[PageController::class,'store_c
 
 Route::middleware('guest')->get('/terms',[TermsController::class,'index'])->name('terms');
 Route::middleware('guest')->get('/about-us',[AboutController::class,'index'])->name('about');
-Route::middleware('guest')->get('/what-we-do',[WhatwedoController::class,'index'])->name('whatwedo');
+// Route::middleware('guest')->get('/what-we-do',[WhatwedoController::class,'index'])->name('whatwedo');
 //
 Route::middleware('guest')->get('/support-services',[PageController::class,'support_services'])->name('support-services-page');
 Route::middleware('guest')->get('/support-service-providers',[PageController::class,'support_services_providers'])->name('support-service-provider-page');
