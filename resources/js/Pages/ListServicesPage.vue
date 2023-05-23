@@ -18,8 +18,8 @@
 
 <div class="row mt-5" v-if="response.providers.length>0">
 <div class="col-md-3 col-12 mb-5" v-for="p in response.providers" :key="p.id">
-<el-card class="card p-0" style="border-radius:10px;">
-<div class="card-inner p-0">
+<div class="card p-0 card-radius shadow">
+<div class="card-inner p-2">
 <div class="team">
 <div class="user-card user-card-s2">
 <div class="user-avatar lg bg-success">
@@ -32,13 +32,13 @@
 </div>
 
 <div class="team-view">
-<Inertia-link :href="route('login')" class="btn btn-block  btn-outline-light btn-dim" style="font-size:15px;"><span>
+<Inertia-link :href="route('login')" class="btn btn-block  btn-success-dim" style="font-size:15px;"><span>
 Make Appointment
 </span></Inertia-link>
 </div>
 </div><!-- .team -->
 </div><!-- .card-inner -->
-</el-card><!-- .card -->
+</div><!-- .card -->
 </div>
 </div>
 <div class="center" v-else>No service provider for this service</div>
