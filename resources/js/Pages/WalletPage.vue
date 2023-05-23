@@ -125,7 +125,12 @@ computed:{
 balance(){
 const nf = new Intl.NumberFormat('en-US');
 return nf.format(this.response.balance);
-}
+},
+
+
+
+
+
 
 
 

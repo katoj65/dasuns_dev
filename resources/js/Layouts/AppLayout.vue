@@ -86,8 +86,24 @@ props: {
 
 },
 
+methods:{
+// test(){
+// const josh='m';
+// if(josh==josh.toUpperCase()){
+// var x=true;
+// }else{
+// var x=false;
+// }
+// console.log(x);
+// }
 
 
+
+},
+
+mounted(){
+// this.test();
+}
 
 
 

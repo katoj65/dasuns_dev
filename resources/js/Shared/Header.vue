@@ -389,7 +389,10 @@ return this.$page.props.notification.count;
 
 pending_notification(){
 return this.$page.props.notification.pending;
-}
+},
+
+
+
 
 
 
