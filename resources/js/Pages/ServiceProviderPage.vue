@@ -256,7 +256,7 @@
 <div class="card card-radius">
 <div class="card-header">
 <div class="card-title">
-<h3>Calendar</h3>
+<h3 class="text-transform">{{ response.pssp.firstname }}'s Schedule </h3>
 </div>
 </div>
 
