@@ -123,9 +123,18 @@ return null;
 }
 }
 
-//
 
 
+//send email
+//$options=['sender'=>'',receiver=>'',title=>'',message=>'];
+static function send_email($to,$subject,$txt,$headers){
+if(mail($to,$subject,$txt,$headers)){
+$status=true;
+}else{
+$status=false;
+}
+return $status;
+}
 
 
 

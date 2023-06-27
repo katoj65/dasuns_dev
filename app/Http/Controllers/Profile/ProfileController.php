@@ -34,6 +34,8 @@ use App\Models\CountryModel;
 use App\Http\Controllers\PSSP\PSSPController;
 use App\Http\Controllers\Administration\AdministrationController;
 use App\Models\AccountStatusMessageModel;
+use App\Http\Controllers\User\UserController;
+
 
 
 
@@ -264,6 +266,15 @@ $request->validate([
 
 //
 $id=Auth::user()->id;
+return UserController::send_email(
+'katoj65@gmail.com',
+'Dasuns account has been created',
+'You have successfully created an account with Dasuns.',
+'info@dasuns.org');
+
+
+
+
 UserProfileModel::insert(
 ['userID'=>$id,
 'location'=>$request->location,

@@ -178,7 +178,7 @@
 <div class="col-12 col-md-4 pb-3">
 <div class="card h-100">
 <div class="card-header">
-<h3 class="card-title">Wallet</h3>
+<h3 class="card-title"><em class="icon ni ni-wallet-fill" style="font-size:30px;"></em> Wallet</h3>
 
 </div>
 <div class="card-body">
@@ -189,7 +189,12 @@
 </span>
 </div>
 <div class="card-footer border-0">
-<deposit-withdraw-component/>
+<!-- <deposit-withdraw-component :errors="errors"/> -->
+<div class="list-group border-0 list-widget" style="border:none;">
+    <Inertia-link :href="route('wallet.deposit')" class="list-group-item" style="font-size:16px;color:black;"><em class="icon ni ni-wallet-out"></em> Deposit Funds</Inertia-link>
+    <Inertia-link :href="route('wallet.withdraw')" class="list-group-item" style="font-size:16px;color:black"><em class="icon ni ni-wallet-in"></em> Withdraw Funds</Inertia-link>
+
+</div>
 </div>
 </div>
 
@@ -242,7 +247,7 @@
 
 <div class="card h-100">
 <div class="card-header">
-<h3 class="card-title">Built card1111</h3>
+<h3 class="card-title">Tasks</h3>
 <div class="card-options">
     <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
     <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>
@@ -456,6 +461,8 @@ CreateAppointment
 props:{
 response:{},
 title:{},
+errors:{}
+
 },
 
 

@@ -362,7 +362,7 @@ z-index: 1;
 
 
 .page-title{  font-family: 'Roboto', sans-serif; font-size:18px;}
-
+.text-danger{color:red;}
 
 </style>
 

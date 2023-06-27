@@ -247,6 +247,26 @@ EscrowAccountModel::where('id','!=','')->update(['amount'=>$update]);
 
 
 
+//depisit funs view
+
+public function deposit_funds_view(Request $request){
+$data['title']='Deposit funcds';
+$data['response']=[];
+return Inertia::render('WalletDepositPage',$data);
+}
+
+
+//withdraw funds view
+public function withdraw_funds_view(Request $request){
+$data['title']='Deposit funcds';
+$data['response']=[];
+return Inertia::render('WalletWithdrawPage',$data);
+}
+
+
+
+
+
 
 
 

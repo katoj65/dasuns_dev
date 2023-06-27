@@ -8,7 +8,7 @@
 
 
 
-
+{{ errors }}
 
 
 <div class=""  style="position:fixed;width:100%;left:0;top:0;z-index:10000;height:100%;background-color: hsla(210, 29%, 18%, 0.3);" v-if="modal==true">
@@ -17,13 +17,13 @@
     <div class="modal-header">
     <h5 class="modal-title">Deposit Funds to your Wallet</h5>
     <a href="#" class="close" data-dismiss="modal" aria-label="Close" @click="modal=false">
-    <em class="icon ni ni-cross"></em>
+
     </a>
     </div>
-    <div class="modal-body">
+    <div class="modal-body p-0">
 
 
-    <div class="card-inner border-radius">
+    <div class="card-inner border-radius p-3 m-0">
     <ul class="nav nav-tabs mt-n3">
     <li class="nav-item">
     <a class="nav-link active" data-toggle="tab" href="#tabItem5">
@@ -58,7 +58,8 @@
     <div class="col-sm-12">
     <div class="form-group">
     <label class="form-label" for="default-01">Mobile service Provider
-<span class="text-danger ml-2" v-if="errors.type!=null">{{ errors.type }} </span>
+<span class="text-danger ml-2" v-if="errors.type!=null" style="color:red;">{{ errors.type }} </span>
+
 
     </label>
     <div class="form-control-wrap">
@@ -76,7 +77,7 @@
     <div class="form-group">
     <label class="form-label" for="default-01">Telephone Number
 
-        <span class="text-danger ml-2" v-if="errors.tel!=null">{{ errors.tel }} </span>
+        <span class="text-danger ml-2" v-if="errors.tel!=null"  style="color:red;">{{ errors.tel }} </span>
     </label>
     <div class="form-control-wrap">
     <input type="number" class="form-control" id="default-01" placeholder="Enter telephone number" v-model="form1.tel">
@@ -139,7 +140,18 @@
 </template>
 <script>
 import InputError from '../Alerts/InputError.vue';
+
+
 export default {
+props:{
+errors:{}
+
+
+
+},
+
+
+
 components:{
 InputError,
 },

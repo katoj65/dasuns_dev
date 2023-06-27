@@ -272,3 +272,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/notifications',[Notificat
 Route::middleware(['auth:sanctum', 'verified'])->get('/service-providers',[ServiceProviderController::class,'index'])->name('service-providers');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/support-services',[SupportServiceController::class,'index'])->name('support-services');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/wallet/deposit',[WalletController::class,'deposit_funds_view'])->name('wallet.deposit');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/wallet/withdraw',[WalletController::class,'withdraw_funds_view'])->name('wallet.withdraw');
