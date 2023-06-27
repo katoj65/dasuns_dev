@@ -13,20 +13,32 @@
 
 <!-- Styles -->
 <link rel="stylesheet" href="<?php echo e(asset('/public/css/app.css')); ?>">
-
-
 <link rel="stylesheet" href="<?php echo e(asset('/public/css/dashlite.css?ver=2.2.0')); ?>">
 <link id="skin-default" rel="stylesheet" href="<?php echo e(asset('/public/css/theme.css?ver=2.2.0')); ?>">
-
 <!-- Styles -->
 <link rel="stylesheet" href="<?php echo e(asset('/public/css/app.css')); ?>">
 
 <!-- Scripts -->
 
+
+<link rel="stylesheet" href="<?php echo e(asset('/public/assets/plugins/bootstrap/css/bootstrap.min.css')); ?>" />
+<!-- Core css -->
+<link rel="stylesheet" href="<?php echo e(asset('/public/assets/css/main.css')); ?>"/>
+<link rel="stylesheet" href="<?php echo e(asset('/public/assets/css/theme1.css')); ?>"/>
+
+
+
+
+
+
 <?php echo app('Tightenco\Ziggy\BladeRouteGenerator')->generate(); ?>
+
+
+
 <script src="<?php echo e(asset('/public/js/app.js')); ?>" defer></script>
 <script src="<?php echo e(asset('/public/js/bundle.js?ver=2.2.0')); ?>"></script>
 <script src="<?php echo e(asset('/public/js/scripts.js?ver=2.2.0')); ?>"></script>
+
 <!-- import CSS -->
 <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
 <!-- import JavaScript -->
@@ -34,6 +46,11 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+
+
+
+
 
 
 <style type="text/css">
@@ -106,6 +123,7 @@ color:#001713;
 body {
     font-family: 'Roboto', sans-serif;
     background:#f8f9fa;
+    /* background: #f4f6f9; */
 }
 
 p{
@@ -306,9 +324,7 @@ border-bottom:solid 1px #EBEEF5
 }
 
 .card{
-/* border:solid 1px #EBEEF5; */
-/* box-shadow: 0px 0px 3px #EAEDED; */
-/* border:1px solid #EBEEF5 */
+border:none;
 
 
 }
@@ -333,9 +349,17 @@ border:none;
 .card-radius{
 border-radius:20px;
 
-
-
 }
+
+.modal-content{
+border:none;
+}
+
+.dropdown-menu{
+z-index: 1;
+}
+
+
 
 .page-title{  font-family: 'Roboto', sans-serif; font-size:18px;}
 
@@ -344,7 +368,7 @@ border-radius:20px;
 
 
 </head>
-<body class="font-sans antialiased">
+<body class="font-sans antialiased font-montserrat">
 <div id="app" data-page="<?php echo e(json_encode($page)); ?>"></div>
 </body>
 </html>

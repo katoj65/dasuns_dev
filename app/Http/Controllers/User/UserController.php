@@ -111,7 +111,19 @@ return $row;
 
 
 
+//email verification
+public function email_verification(){
+$email=Auth::user()->email;
+$count=User::where('email',$email)->where('email_verified_at','')->count();
+if($count==0){
+User::where('email',$email)->update(['email_verified_at',date('Y-m-d H:i:s')]);
+return true;
+}else{
+return null;
+}
+}
 
+//
 
 
 

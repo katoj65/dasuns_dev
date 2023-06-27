@@ -6,8 +6,74 @@
 <div class="container-xl wide-lg" style="border:none;">
 <div class="nk-header-wrap" style="border:none;">
 <div class="nk-menu-trigger mr-sm-2 d-lg-none">
-<a href="#" class="nk-nav-toggle nk-quick-nav-icon" data-target="headerNav">
+
+<!----Menu for mobile navigation------>
+<a href="#" class="nk-quick-nav-icon" v-b-toggle.sidebar-no-header style="color:white;">
 <em class="icon ni ni-menu"></em></a>
+<!-- <b-button v-b-toggle.sidebar-footer>Toggle Sidebar</b-button> -->
+
+
+
+
+
+
+<div>
+<b-sidebar id="sidebar-no-header" aria-labelledby="sidebar-no-header-title" no-header style="position:fixed;background:white;top:0;left:0;z-index:10000;height:100%;margin-right:50px;box-shadow:0px 0px 20px silver;">
+<template #default="{ hide }" >
+<div class="p-3" style="background:white;width:280px;min-height:800px;">
+<h4 id="sidebar-no-header-title">
+<!-- <img :src="$page.props.system.route+'images/logo/color-logo.png'" style="width:30px;"/>
+<a href="" style="float:right;" @click="hide">Close</a> -->
+
+<div>
+<b-nav small>
+<b-nav-item active style="margin-top:15px;" @click="hide">
+<em class="icon ni ni-arrow-left" style="font-size:25px;"></em></b-nav-item>
+<b-nav-item>
+<img :src="$page.props.system.route+'images/logo/color-logo.png'" style="width:100px;"/>
+</b-nav-item>
+</b-nav>
+</div>
+
+
+
+</h4>
+<ul id="flip-menu" style="margin-top:20px;">
+<li style="margin-bottom:20px;">
+<Inertia-link :href="route('home')">Home</Inertia-link>
+</li>
+<li style="margin-bottom:20px;">
+<Inertia-link :href="route('about')">About</Inertia-link>
+</li>
+<li style="margin-bottom:20px;">
+<Inertia-link :href="route('instructions')">What We Do</Inertia-link>
+</li>
+<li style="margin-bottom:20px;">
+<Inertia-link :href="route('contact')">Get Help</Inertia-link>
+</li>
+</ul>
+<!-- {{ $page.props.system.route }} -->
+
+</div>
+</template>
+</b-sidebar>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </div>
 <div class="nk-header-brand" style="padding:20px;">
 <Inertia-link :href="route('home')" class="logo-link">
@@ -27,6 +93,8 @@
 </Inertia-link>
 </div>
 <div class="nk-menu-trigger mr-n2">
+
+<!-----Left menu closing arrow-------->
 <a href="#" class="nk-nav-toggle nk-quick-nav-icon"><em class="icon ni ni-arrow-left"></em></a>
 </div>
 </div>
@@ -254,13 +322,48 @@
 
 </div>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </div>
 </template>
 <script>
 
 export default {
 components:{
-
 
 
 },
@@ -281,6 +384,10 @@ return this.$page.props.system;
 //
 image_route(){
 return this.$page.props;
+},
+
+url(){
+return this.$page.props.system.route;
 }
 
 
@@ -350,6 +457,11 @@ color:white;
 color:yellow ;
 
 
+}
+
+.flip-menu li{
+padding:20px;
+margin-bottom: 25px;
 }
 
 </style>
