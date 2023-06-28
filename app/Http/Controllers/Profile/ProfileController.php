@@ -256,6 +256,9 @@ AccountStatusMessageModel::insert(['userID'=>Auth::user()->id,'message'=>'Fill i
     }
 
 
+
+
+
 //create user profile
 public function create_pssu_profile(Request $request){
 $request->validate([
@@ -266,11 +269,12 @@ $request->validate([
 
 //
 $id=Auth::user()->id;
+
 UserController::send_email(
 Auth::user()->email,
 'Dasuns account has been created',
 'You have successfully created an account with Dasuns.',
-'info@dasuns.org');
+['From'=>'dasuns-no-reply@dasuns.org']);
 
 
 
@@ -305,14 +309,11 @@ DasunsUserNumberModel::insert([
 'account_status'=>'verified'
 ]);
 
+
 //
-
-
-
 User::where('id',Auth::user()->id)->update(['status'=>'active']);
-
-
 return redirect()->route('profile');
+
 }
 
 
@@ -352,6 +353,14 @@ public function create_institution_profile(Request $request){
         'tel'=>$request->tel,
         ]);
 
+
+
+//send email
+UserController::send_email(
+Auth::user()->email,
+'Dasuns account has been created',
+'You have successfully created an account with Dasuns.',
+['From'=>'dasuns-no-reply@dasuns.org']);
 
 
 //create a dasuns user number
@@ -474,7 +483,7 @@ UserController::send_email(
 Auth::user()->email,
 'Dasuns account has been created',
 'You have successfully created an account with Dasuns.',
-'info@dasuns.org');
+['From'=>'dasuns-no-reply@dasuns.org']);
 
 ServiceProviderProfileModel::insert(['userID'=>Auth::user()->id,
 'location'=>$request->location,
