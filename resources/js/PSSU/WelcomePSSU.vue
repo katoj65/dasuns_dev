@@ -17,7 +17,7 @@
 <h3 class="pt-3"><span class="counter">{{ t.count }}</span></h3>
 <span>
 <Inertia-link :href="route(t.url)">
-    <strong style="color:black;">{{ t.title }} </strong>
+<strong style="color:black;">{{ t.title }} </strong>
 </Inertia-link>
 </span>
 </div>
@@ -37,7 +37,7 @@
 <div class="col-12 col-md-8 h-100">
 <div class="card h-100">
     <div class="card-header">
-    <h3 class="card-title bold">Appointments</h3>
+    <h3 class="card-title">Appointments</h3>
     <div class="card-options">
 
         <div class="item-action dropdown ml-2">
@@ -60,9 +60,7 @@
 <thead>
 
 <tr >
-
-<th></th>
-<th class="bold" style="font-weight:bold;">Request Title</th>
+<th class="bold" style="font-weight:bold;" colspan="2">Request Title</th>
 <th class="bold" style="font-weight:bold;">Date</th>
 <th class="bold" style="font-weight:bold;">Start</th>
 <th class="bold" style="font-weight:bold;">End</th>
@@ -123,7 +121,7 @@
 
     <div class="card h-100">
         <div class="card-header">
-            <h3 class="card-title bold">Activities</h3>
+            <h3 class="card-title">Activities</h3>
             <div class="card-options">
 
                 <div class="item-action dropdown ml-2">

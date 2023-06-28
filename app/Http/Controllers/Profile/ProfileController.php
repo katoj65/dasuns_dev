@@ -266,8 +266,8 @@ $request->validate([
 
 //
 $id=Auth::user()->id;
-return UserController::send_email(
-'katoj65@gmail.com',
+UserController::send_email(
+Auth::user()->email,
 'Dasuns account has been created',
 'You have successfully created an account with Dasuns.',
 'info@dasuns.org');
@@ -469,6 +469,12 @@ $request->validate([
 'location'=>['required'],
 'countryID'=>['required']
 ],['required'=>'* Field is required.']);
+
+UserController::send_email(
+Auth::user()->email,
+'Dasuns account has been created',
+'You have successfully created an account with Dasuns.',
+'info@dasuns.org');
 
 ServiceProviderProfileModel::insert(['userID'=>Auth::user()->id,
 'location'=>$request->location,
