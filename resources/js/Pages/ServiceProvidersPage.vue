@@ -44,7 +44,7 @@
 
                 </div>
                 <div class="user-info">
-                    <h6>{{ p.firstname }} {{ p.lastname }}</h6>
+                    <h6 class="text-transform">{{ p.firstname }} {{ p.lastname }}</h6>
                     <span class="sub-text"><span class="sub-text"><b class="mr-1">Service No:</b>  {{ p.number}}</span></span>
                 </div>
             </div>

@@ -267,6 +267,13 @@ return Inertia::render('WalletWithdrawPage',$data);
 
 
 
+//wallet histroy
+public function wallet_history(Request $request){
+$data['title']='Wallet history';
+$data['response']=[];
+return Inertia::render('WalletHistoryPage',$data);
+}
+
 
 
 

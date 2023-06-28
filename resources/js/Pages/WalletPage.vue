@@ -1,97 +1,109 @@
 <template>
 <app-layout>
-<div class="row pt-2 pb-2">
-
-
-<div class="col-12 col-md-8 mb-2">
-<div class="card card-radius" style="min-height:600px;">
-<div class="card-header">
-<div class="card-title">
-<h4 class="title">
-Dasus Wallet
-</h4>
-</div>
-</div>
-<div class="card-body p-4">
-<div class="card card-full p-0 shadow-none border-none">
-<div class="card-inner p-0">
-<div class="card-title-group align-start mb-0">
-<div class="card-title">
-<h6 class="subtitle" style="font-size:18px;">Service Number: {{ response.service_number }} </h6>
-</div>
-<div class="card-tools">
-<em class="icon ni ni-wallet-fill" style="font-size:65px;"></em>
-</div>
-</div>
-<div class="card-amount">
-<span class="amount"> {{ balance }} <span class="currency currency-usd text-succes bold">{{ response.currence }}</span>
-</span>
-<span class="change up text-danger bold">
-</span>
-</div>
-<div class="invest-data pt-2">
-<div class="invest-data-amount g-2">
-
-</div>
-<div class="invest-data-ck">
-<canvas class="iv-data-chart" id="totalDeposit"></canvas>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="card-footer mb-4" style="background:white;">
-<deposit-withdraw-component></deposit-withdraw-component>
-</div>
-</div>
+<div class="row">
+<div class="col-12 col-md-3"></div>
+<div class="col-12 col-md-6 mt-4">
 
 
 
 
 
+
+
+
+
+
+
+
+
+
+    <div class="card" style="min-height:600px;">
+        <div class="card-header">
+            <h3 class="card-title bold"><em class="icon ni ni-wallet-fill mr-2" style="font-size:20px;"></em>Wallet</h3>
+            <div class="card-options">
+<Inertia-link :href="route('wallet.history')" style="font-size:13px;">
+History
+</Inertia-link>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+
+
+<div class="col-lg-4 col-md-4">
+<div class="card">
+<div class="card-body currency_state">
+    <div class="content">
+        <div class="text">Service No.</div>
+        <h5 class="number">{{ response.service_number }}  </h5>
+    </div>
 </div>
-<div class="col-12 col-md-4">
-<div class="card mb-2 card-radius">
-<div class="card-body">
-<calendar-component></calendar-component>
 </div>
 </div>
 
 
+<div class="col-lg-4 col-md-4">
+<div class="card">
+<div class="card-body currency_state">
+    <div class="content">
+        <div class="text">Balance</div>
+        <h5 class="number"> {{ balance }}</h5>
+    </div>
+</div>
+</div>
+</div>
 
-<div class="card card-radius">
-<div>
-<ul class="data-list is-compact">
-<li class="data-item border-0">
-<a href="">
-<div class="data-col">
-<div class=""><em class="icon ni ni-wallet-saving mr-1" style="font-size:21px;"></em> Transaction Information</div>
+
+<div class="col-lg-4 col-md-4">
+<div class="card">
+<div class="card-body currency_state">
+    <div class="content">
+        <div class="text" style="color:white;">Currency</div>
+        <h5 class="number">Shillings{{ response.currence }}</h5>
+    </div>
 </div>
-</a>
-</li>
-<li class="data-item border-0">
-<a href="">
-<div class="data-col" style="width:100%;">
-<div class="" style="width:100%;">
-<em class="icon ni ni-shield-alert mr-1" style="font-size:21px;"></em> Report</div>
-</div>
-</a>
-</li>
-<li class="data-item border-0">
-<a href="">
-<div class="data-col" style="width:100%;">
-<div class="" style="width:100%;"><em class="icon ni ni-call mr-1" style="font-size:21px;"></em> Contact Us</div>
-</div>
-</a>
-</li>
-</ul>
 </div>
 </div>
 
 
 
 
+            </div>
+
+
+
 </div>
+
+
+
+
+
+<div class="card-footer">
+    <div>
+
+        <Inertia-link :href="route('wallet.deposit')" class="btn btn-default btn-sm">Deposit Funds</Inertia-link>
+
+        <Inertia-link :href="route('wallet.withdraw')" class="btn btn-default btn-sm">Withdraw Funds
+
+        </Inertia-link>
+    </div>
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+</div>
+<div class="col-12 col-md-3"></div>
 </div>
 </app-layout>
 </template>
