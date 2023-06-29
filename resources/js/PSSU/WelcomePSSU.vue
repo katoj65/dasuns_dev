@@ -150,7 +150,9 @@
                 </tr>
 
             </tbody>
-            <tbody v-else><tr><td>No content</td></tr></tbody>
+            <tbody v-else><tr>
+                <td colspan="3">No content</td>
+            </tr></tbody>
         </table>
     </div>
 

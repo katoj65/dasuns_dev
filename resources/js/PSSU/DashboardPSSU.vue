@@ -118,7 +118,7 @@
 
 
         <div class="form-group pt-10 pb-10" style="text-align:center;">
-        <button type="submit" class="btn btn-success button-green border-radius border-radius" style="padding-left:50px;padding-right:50px;font-size:17px;">Save</button>
+        <button type="submit" class="btn button-green border-radius border-radius" style="padding-left:50px;padding-right:50px;font-size:17px;">Save</button>
         </div>
 
 
