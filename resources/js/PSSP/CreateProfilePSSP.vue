@@ -9,7 +9,7 @@
 <div class="team">
 
 <div class="user-card user-card-s2 pt-3">
-<div class="user-avatar md" style="background:#0B5345;width:100px;height:100px;">
+<div class="user-avatar md" style="background:#0B5345;width:70px;height:70px;">
 <img src="" alt="">
 <!-- <div class="status dot dot-lg dot-success"></div> -->
 <em class="icon ni ni-user-alt-fill" style="font-size:50px;"></em>
@@ -30,7 +30,7 @@
 
 <div class="card  mb-5 thick-border" style="border-radius:30px;">
     <div class="card-header thick_bg" style="border-radius: 26px 26px 0 0;">
-    <h1 style="font-size:18px;text-align:center;letter-spacing:0.3px;word-spacing:1px;"> Create professional support service provider profile</h1>
+    <h1 style="font-size:16px;text-align:center;letter-spacing:0.3px;word-spacing:1px;"> Create professional support service provider profile</h1>
     </div>
     <div class="card-body">
     <form class="row" @submit.prevent="submit">
