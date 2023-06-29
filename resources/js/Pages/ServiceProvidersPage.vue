@@ -33,7 +33,7 @@
 </div>
 
 <div class="mt-2">
-<small class="float-right text-muted text-transform">
+<small class="float-right">
 {{ p.email }}
 </small>
 <h6>Email </h6>
@@ -59,16 +59,7 @@
 
             <!-- <button class="btn btn-default btn-sm">View Profile</button>
             <button class="btn btn-default btn-sm">Message</button> -->
-            <div class="row text-center mt-2 pb-3">
-                <div class="col-12 col-md-6 border-right">
-                    <label class="mb-0">Rating</label>
-                    <h4 class="font-18">31</h4>
-                </div>
-                <div class="col-12 col-md-6">
-                    <label class="mb-0">Tasks done</label>
-                    <h4 class="font-18">39</h4>
-                </div>
-            </div>
+
         </div>
     </div>
 </Inertia-link>

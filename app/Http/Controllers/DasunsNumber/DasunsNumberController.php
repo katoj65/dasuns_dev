@@ -188,6 +188,16 @@ return [];
 
 
 
+//show dasuns user number content
+static function show_dasuns_user_number(){
+    $get=DasunsUserNumberModel::where('userID',Auth::user()->id)->get();
+    if(count($get)==1){
+        foreach($get as $row);
+return $row->number;
+    }else{
+        return null;
+    }
+}
 
 
 

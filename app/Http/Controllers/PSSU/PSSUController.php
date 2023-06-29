@@ -16,6 +16,7 @@ use App\Models\AppointmentModel;
 use App\Http\Controllers\Wallet\WalletController;
 use App\Models\ActivityLogModel;
 use App\Models\DasunsRecommendationsModel;
+use App\Models\DisabilityModel;
 
 
 
@@ -171,8 +172,6 @@ $user_profile=[];
 }
 
 
-
-
 //
 $user_service=UserSupportServiceModel::select('support_service.name','user_support_service.id')
 ->join('support_service','user_support_service.serviceID','=','support_service.id')
@@ -191,9 +190,12 @@ return[
 'services'=>$user_service,
 'dasuns_number'=>PSSUController::get_dasuns_number(),
 'disabilities'=>$disabilities,
+'select_disability'=>DisabilityModel::get(),
 'contact_person'=>Auth::user()->account_type=='institutional'?PSSUController::get_contact_person():[],
 'user_profile'=>Auth::user()->account_type=='personal'?$user_profile:[],
 'country'=>CountryModel::get(),
+'service_number'=>DasunsNumberController::show_dasuns_user_number(),
+
 
 ];
 }
@@ -313,25 +315,23 @@ return redirect('/profile')->with('warning','Could not find contact person for t
 //personal profile update
 function update_personal_profile(Request $request){
 $request->validate(['location'=>['required'],
-'country'=>['required'],
-'disability'=>['required']],
+'country'=>['required']],
 ['required'=>'* Field is required']);
 //
 $get=UserProfileModel::where('userID',Auth::user()->id)->get();
 if(count($get)==1){
 foreach($get as $row);
 
-if($request->location!=$row->location or $request->country!=$row->countryID or $request->disability!=$row->disability){
+if($request->location!=$row->location or $request->country!=$row->countryID){
 
 UserProfileModel::where('userID',Auth::user()->id)->update([
 'location'=>$request->location,
-'disability'=>$request->disability,
 'countryID'=>$request->country]);
 
-return redirect('/profile')->with('success','Profile information has been updated.');
+return redirect('/profile')->with('success','Location information has been updated.');
 
 }else{
-return redirect('/profile')->with('warning','Profile information was not updated.');
+return redirect('/profile')->with('warning','Location information was not updated.');
 }
 
 }else{
