@@ -1,11 +1,8 @@
 <template>
-<div class="row mt-2">
-
+<div class="row m-2">
 <div class="col-12 col-md-4">
 
-
-
-<el-card shadow="never" class="card h-100">
+<el-card class="card h-100">
 <div class="card-inner">
 <div class="team">
 <div class="user-card user-card-s2">
@@ -48,8 +45,7 @@
 
 <div class="col-12 col-md-8">
 
-
-<el-card shadow="never" class="card h-100">
+<el-card class="card h-100">
 <div slot="header" class="clearfix">
 <h4>Professional Service Provider Account</h4>
 <!-- <el-button style="float: right; padding: 3px 0" type="text">Operation button</el-button> -->

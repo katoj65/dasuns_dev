@@ -107,10 +107,9 @@ $appointment=AppointmentModel::select('appointment.date',
 ->join('support_service','appointment_service.serviceID','=','support_service.ID')
 ->join('users','appointment.providerID','=','users.id')
 ->where('appointment.userID',Auth::user()->id)
-->where('appointment.status','accepted')
-->orwhere('appointment.status','pending')
 ->orderby('appointment.status','ASC')
 ->orderby('appointment.date','DESC')
+->orderby('appointment.from','ASC')
 ->get();
 
 
