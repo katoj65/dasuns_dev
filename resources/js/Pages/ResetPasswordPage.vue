@@ -20,6 +20,21 @@ Forgot your password? No problem. Just let us know your email address and we wil
 </div> -->
 
 
+<div v-if="flash!=null">
+
+
+<div class="alert alert-fill alert-success alert-icon border-0" v-if="flash.success!=null">
+<em class="icon ni ni-check-circle"></em>
+{{ flash.success }}. </div>
+
+
+<div class="alert alert-fill alert-danger alert-icon border-0" v-if="flash.error!=null">
+
+    {{ flash.error }}. </div>
+
+
+</div>
+
 
 
 
@@ -125,7 +140,9 @@ Forgot your password? No problem. Just let us know your email address and we wil
 
             props: {
                 status: String,
-                response:{}
+                response:{},
+                errors:{},
+                flash:{}
             },
 
             data() {
@@ -141,7 +158,7 @@ Forgot your password? No problem. Just let us know your email address and we wil
 
             methods: {
                 submit() {
-                    this.form.post(this.route('password.forgot'));
+                    this.form.post(this.route('password.new'));
 
 
                 }

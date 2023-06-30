@@ -148,6 +148,7 @@ return $status;
 //forgot password
 public function forgot_password(Request $request){
 $request->validate(['email'=>'required']);
+PasswordResetModel::where('email',$request->email)->delete();
 //send code
 $code=Date('is');
 $send=UserController::send_email(
@@ -189,12 +190,11 @@ public function create_new_password(Request $request){
 $request->validate(['email'=>'required','code'=>'required','password'=>'required','retype_password'=>'required']);
 //check
 if($request->password==$request->retype_password){
-
-$count=PasswordReset::where('email',$request->email)->where('code',$request->code)->limit(1)->orderby('created_at','DESC')->count();
+$count=PasswordResetModel::where('email',$request->email)->where('code',$request->code)->limit(1)->orderby('created_at','DESC')->count();
 if($count==1){
-
 $password=Hash::make($request->password);
 User::where('email',$request->email)->update(['password'=>$password]);
+PasswordResetModel::where('email',$request->email)->update(['status'=>'expired']);
 $request->session()->forget('user_email');
 
 return redirect('/login')->with('success','Your password has been changed.');
@@ -208,9 +208,6 @@ return redirect('/email/verification')->with('error','Invalid password reset cod
 return redirect('/email/verification')->with('error','Passwords do not match.');
 
 }
-
-
-
 
 return $request;
 }
