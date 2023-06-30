@@ -110,6 +110,7 @@ return array(
     'App\\Models\\PSSPInterviewScheduleModel' => $baseDir . '/app/Models/PSSPInterviewScheduleModel.php',
     'App\\Models\\PanelistProfessionProfileModel' => $baseDir . '/app/Models/PanelistProfessionProfileModel.php',
     'App\\Models\\PartnerModel' => $baseDir . '/app/Models/PartnerModel.php',
+    'App\\Models\\PasswordResetModel' => $baseDir . '/app/Models/PasswordResetModel.php',
     'App\\Models\\PaymentModel' => $baseDir . '/app/Models/PaymentModel.php',
     'App\\Models\\PolicyModel' => $baseDir . '/app/Models/PolicyModel.php',
     'App\\Models\\SecurityDocumentsModel' => $baseDir . '/app/Models/SecurityDocumentsModel.php',

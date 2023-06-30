@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use App\Models\PasswordResetModel;
+use Illuminate\Support\Facades\Hash;
+
 
 class UserController extends Controller
 {
@@ -153,27 +156,62 @@ $request->email,
 'You password reset code is '.$code,
 ['From'=>'dasuns-no-reply@dasuns.org']);
 if($send==true){
+//send code to database.
+PasswordResetModel::insert(['email'=>$request->email,'code'=>$code]);
+//create session
+$request->session()->put('user_email', $request->email);
 
 return redirect('/email/verification')->with('success','Password reset code has been sent to your email');
-
 }else{
 return redirect('/forgot-password')->with('error','Invalid email address');
 }
-
 }
 
-//password reset account
 
+
+
+
+//password reset account
 public function password_reset(Request $request){
 $data['title']='Password reset';
-$data['response']=[];
+$data['response']=[
+'session'=>$request->session()->get('user_email'),
+];
 return Inertia::render('ResetPasswordPage',$data);
 }
 
 
+
+
+
 //create new password
 public function create_new_password(Request $request){
-$request->validate(['code'=>'request','password'=>'request','retype_password'=>'required']);
+$request->validate(['email'=>'required','code'=>'required','password'=>'required','retype_password'=>'required']);
+//check
+if($request->password==$request->retype_password){
+
+$count=PasswordReset::where('email',$request->email)->where('code',$request->code)->limit(1)->orderby('created_at','DESC')->count();
+if($count==1){
+
+$password=Hash::make($request->password);
+User::where('email',$request->email)->update(['password'=>$password]);
+$request->session()->forget('user_email');
+
+return redirect('/login')->with('success','Your password has been changed.');
+
+}else{
+return redirect('/email/verification')->with('error','Invalid password reset code.');
+
+}
+}else{
+
+return redirect('/email/verification')->with('error','Passwords do not match.');
+
+}
+
+
+
+
 return $request;
 }
 

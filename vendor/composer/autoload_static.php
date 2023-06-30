@@ -710,6 +710,7 @@ class ComposerStaticInit6ca39d84c378fa455e59eb566042b810
         'App\\Models\\PSSPInterviewScheduleModel' => __DIR__ . '/../..' . '/app/Models/PSSPInterviewScheduleModel.php',
         'App\\Models\\PanelistProfessionProfileModel' => __DIR__ . '/../..' . '/app/Models/PanelistProfessionProfileModel.php',
         'App\\Models\\PartnerModel' => __DIR__ . '/../..' . '/app/Models/PartnerModel.php',
+        'App\\Models\\PasswordResetModel' => __DIR__ . '/../..' . '/app/Models/PasswordResetModel.php',
         'App\\Models\\PaymentModel' => __DIR__ . '/../..' . '/app/Models/PaymentModel.php',
         'App\\Models\\PolicyModel' => __DIR__ . '/../..' . '/app/Models/PolicyModel.php',
         'App\\Models\\SecurityDocumentsModel' => __DIR__ . '/../..' . '/app/Models/SecurityDocumentsModel.php',
