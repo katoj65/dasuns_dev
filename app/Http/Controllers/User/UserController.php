@@ -140,18 +140,42 @@ return $status;
 
 
 
+
+
 //forgot password
 public function forgot_password(Request $request){
-$request->validate(['email'=>['required|email']]);
+$request->validate(['email'=>'required']);
 //send code
+$code=Date('is');
+$send=UserController::send_email(
+$request->email,
+'Dasuns Password Reset Code',
+'You password reset code is '.$code,
+['From'=>'dasuns-no-reply@dasuns.org']);
+if($send==true){
 
-return $request;
+return redirect('/email/verification')->with('success','Password reset code has been sent to your email');
 
+}else{
+return redirect('/forgot-password')->with('error','Invalid email address');
+}
 
 }
 
+//password reset account
+
+public function password_reset(Request $request){
+$data['title']='Password reset';
+$data['response']=[];
+return Inertia::render('ResetPasswordPage',$data);
+}
 
 
+//create new password
+public function create_new_password(Request $request){
+$request->validate(['code'=>'request','password'=>'request','retype_password'=>'required']);
+return $request;
+}
 
 
 
