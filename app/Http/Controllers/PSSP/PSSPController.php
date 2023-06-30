@@ -22,7 +22,7 @@ use App\Models\InterviewPanelistModel;
 use App\Http\Controllers\Wallet\WalletController;
 use App\Models\AppointmentServiceModel;
 use App\Models\DasunsRecommendationsModel;
-
+use App\Http\Controllers\User\UserController;
 
 
 
@@ -426,6 +426,17 @@ $request->validate([
 'location'=>['required'],
 'countryID'=>['required']
 ],['required'=>'* Field is required.']);
+
+
+UserController::send_email(
+Auth::user()->email,
+'Dasuns account has been created',
+'You have successfully created an account with Dasuns.',
+['From'=>'dasuns-no-reply@dasuns.org']);
+
+
+
+
 
 ServiceProviderProfileModel::insert(['userID'=>Auth::user()->id,
 'location'=>$request->location,

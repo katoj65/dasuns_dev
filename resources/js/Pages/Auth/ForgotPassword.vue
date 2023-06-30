@@ -14,7 +14,7 @@
 <div class="col-12 col-md-4">
 
 
-<h1 class="pt-4 pb-4" style="font-size:25px;text-align:center;">Forgot password</h1>
+<h1 class="pt-4 pb-4" style="font-size:25px;text-align:center;">Forgot</h1>
 <!-- <div class="mb-4 text-sm text-gray-600">
 Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.
 </div> -->
@@ -24,7 +24,7 @@ Forgot your password? No problem. Just let us know your email address and we wil
 </div>
 
 <jet-validation-errors class="mb-4" />
-<form @submit.prevent="submit" class="card">
+<form @submit.prevent="submit" class="card border">
 <div class="card-title">
   <div class="card-header  bg-white"></div>
 
@@ -117,7 +117,7 @@ Forgot your password? No problem. Just let us know your email address and we wil
 
         methods: {
             submit() {
-                this.form.post(this.route('password.email'))
+                this.form.post(this.route('password.forgot'))
             }
         }
     }

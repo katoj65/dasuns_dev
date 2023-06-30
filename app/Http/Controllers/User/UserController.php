@@ -140,6 +140,20 @@ return $status;
 
 
 
+//forgot password
+public function forgot_password(Request $request){
+$request->validate(['email'=>['required|email']]);
+//send code
+
+return $request;
+
+
+}
+
+
+
+
+
 
 
 
