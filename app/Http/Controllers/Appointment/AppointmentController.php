@@ -636,19 +636,86 @@ return[];
 static function appointment_expired(){
 $current_date=date('y-m-d');
 $get=AppointmentModel::where('date','>=',$current_date)->where('status')->get();
-
-
-
-
-
-
-
-
-
 }
 
 
 
+//get all appointments
+static function get_appointement($id=null){
+if($id!=''){
+$get=AppointmentModel::where('id',$id)->get();
+}else{
+$get=AppointmentModel::get();
+}
+return $get;
+}
+
+
+
+
+
+
+//show appointment
+public function showAppointment(Request $request){
+
+$data=[];
+$get=AppointmentModel::
+select('users.firstname',
+'users.lastname',
+'appointment.status',
+'appointment.id',
+'appointment.date',
+'appointment.end_date',
+'dasuns_user_number.number',
+'users.tel',
+'users.email')
+->join('users','appointment.providerID','=','users.id')
+->join('dasuns_user_number','users.id','=','dasuns_user_number.userID')
+->where('appointment.id',$request->segment(2))
+->get();
+if(count($get)>0){
+foreach($get as $row){
+$content[]=[
+'firstname'=>$row->firstname,
+'lastname'=>$row->lastname,
+'status'=>$row->status,
+'id'=>$row->id,
+'date'=>$row->date,
+'end_date'=>$row->end_date,
+'number'=>$row->number,
+'tel'=>$row->tel,
+'email'=>$row->email,
+'service'=>AppointmentServiceModel::select('support_service.name')
+->join('support_service','appointment_service.serviceID','=','support_service.id')
+->where('appointmentID',$row->id)
+->limit(1)
+->get(),
+];
+
+}
+}
+
+
+if(count($get)==0){
+return redirect('/')->with('warning','could not find content');
+}
+
+$data['title']='Appointment';
+$data['response']=[
+'appointment'=>$content];
+return Inertia::render('ShowAppointmentPage',$data);
+}
+
+
+
+
+//update appointment option
+public function update_appointment_status(Request $request){
+$request->validate(['option'=>['required']]);
+
+return $request;
+
+}
 
 
 

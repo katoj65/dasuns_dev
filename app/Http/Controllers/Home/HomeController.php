@@ -21,7 +21,8 @@ use App\Http\Controllers\PSSU\PSSUController;
 use App\Http\Controllers\Wallet\WalletController;
 use App\Models\TestimonialModel;
 use App\Models\PartnerModel;
-
+use App\Models\AppointmentModel;
+use App\Models\AppointmentServiceModel;
 
 class HomeController extends Controller
 {
@@ -59,7 +60,13 @@ $user_data['statistics']=[
 'count_PSSP'=>count(User::where('role','pssp')->get()),
 'count_admin'=>count(User::where('role','!=','pssu')->where('role','!=','pssp')->get()),
 'count_services'=>count(SupportServiceModel::get()),
-$user_data['get_pssp_services']=$this->get_registered_positions()];
+$user_data['get_pssp_services']=$this->get_registered_positions(),
+];
+
+
+$user_data['appointments']=HomeController::admin_appointment_formation();
+
+
 
 }
 
@@ -249,11 +256,53 @@ $data[]=[
 }
 return $data;
 }else{
-    return [];
+return [];
 }
 
 
 }
+
+
+
+
+
+//admin appointment request formation
+static function admin_appointment_formation(){
+$data=[];
+$get=AppointmentModel::
+select('users.firstname',
+'users.lastname',
+'appointment.status',
+'appointment.id',
+'appointment.date',
+'appointment.end_date')
+->join('users','appointment.providerID','=','users.id')
+// ->orderby('appointment.status','DESC')
+->orderby('appointment.date','DESC')
+->get();
+if(count($get)>0){
+foreach($get as $row){
+$data[]=[
+'firstname'=>$row->firstname,
+'lastname'=>$row->lastname,
+'status'=>$row->status,
+'id'=>$row->id,
+'date'=>$row->date,
+'end_date'=>$row->end_date,
+'service'=>AppointmentServiceModel::select('support_service.name')
+->join('support_service','appointment_service.serviceID','=','support_service.id')
+->where('appointmentID',$row->id)
+->limit(1)
+->get(),
+];
+
+}
+}
+
+return $data;
+
+}
+
 
 
 

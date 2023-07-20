@@ -365,6 +365,13 @@ z-index: 1;
 
 .page-title{  font-family: 'Roboto', sans-serif; font-size:18px;}
 .text-danger{color:red;}
+.submit_button{
+background: #0B5345;
+padding:15px;
+color:white;
+font-weight: bold;
+border-radius: 10px;
+}
 
 </style>
 

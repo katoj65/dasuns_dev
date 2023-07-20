@@ -1,16 +1,8 @@
 <template>
-<div class="nk-content p-0">
-<div class="container-fluid pt-0">
-<div class="nk-content-inner pt-0">
-<div class="nk-content-body pt-0">
-<div class="nk-block pt-0">
+<div class="nk-content p-4">
 <div class="row g-gs">
-
-
-
-
 <div class="col-md-3" v-for="t in tabs" :key="t.id">
-<el-card class="card  card-full" shadow="never">
+<div class="card  card-full h-100">
 <div class="card-inner">
 <div class="card-title-group align-start mb-0">
 <div class="card-title">
@@ -18,10 +10,8 @@
 <em :class="t.icon" style="font-size:50px;color:#07372F;"></em>
 </h6>
 </div>
-<!-- <div class="card-tools">
-<em class="card-hint icon ni ni-help-fill" data-toggle="tooltip" data-placement="left" title="" data-original-title="Total Deposited" aria-describedby="tooltip481665"></em>
-</div> -->
 </div>
+
 <div class="card-amount mb-2 mt-3">
 <span class="amount"><span class="currency currency-usd" style="color:#07372F;">{{ t.count }} </span>
 </span>
@@ -30,183 +20,69 @@
 <div class="invest-data mt-3">
 <div class="invest-data-amount g-2">
 <div class="invest-data-history">
-<!-- <div class="title">This Month</div> -->
+
 <div class="amount"> <span class="currency currency-usd" style="font-size:15px;color:#07372F;">
-<strong>{{ t.title }} </strong>
+<Inertia-link href="#" style="color:#07372F;"><strong>{{ t.title }} </strong></Inertia-link>
 </span></div>
 </div>
-<!-- <div class="invest-data-history">
-<div class="title">This Week</div>
-<div class="amount">1,259.28 <span class="currency currency-usd">USD</span></div>
-</div> -->
+
 </div>
 
 </div>
 </div>
-</el-card><!-- .card -->
+</div><!-- .card -->
 </div>
 
+</div>
 
-<!-- .col -->
-
-
-
-
+<div class="row g-gs mt-2">
+<div class="col-12 col-md-8 p-0">
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="col-md-8 col-xxl-4">
-<el-card class="card card-full" shadow="never">
-<div class="card-inner">
-<div class="card-title-group mb-1">
-<div class="card-title">
-<h6 class="title">Investment Overview</h6>
-<p>The investment overview of your platform. <a href="#">All Investment</a></p>
+<div class="card h-100" style="min-height:500px;">
+<div class="card-header">
+<h3 class="card-title" style="text-transform:capitalize;">Appointment Requests</h3>
+<div class="card-options">
+<!-- <a href="#" class="btn btn-primary btn-sm">Action 1</a>
+<a href="#" class="btn btn-secondary btn-sm ml-2">Action 2</a> -->
 </div>
 </div>
-<ul class="nav nav-tabs nav-tabs-card nav-tabs-xs">
-<li class="nav-item">
-<a class="nav-link active" data-toggle="tab" href="#overview">Overview</a>
-</li>
-<li class="nav-item">
-<a class="nav-link" data-toggle="tab" href="#thisyear">This Year</a>
-</li>
-<li class="nav-item">
-<a class="nav-link" data-toggle="tab" href="#alltime">All Time</a>
+<div class="card-body">
+<table class="table card-table">
+<thead>
+<tr>
+<th>Service Provider</th>
+<th>Service Requested</th>
+<th>Dates</th>
+<th>status</th>
+</tr>
+</thead>
+<tbody>
+<tr v-for="(a,key) in appointments" :key="key">
+<td class="text-muted text-transform">
+    <em class="icon ni ni-label-fill mr-2"></em>
+{{ a.firstname }} {{ a.lastname }}
+</td>
+<td class="text-muted">
+<ul v-if="a.service.length>0">
+<li v-for="(l,key) in a.service" :key="key">
+<Inertia-link class="text-muted" :href="route('appoitment.show',{id:a.id})">{{ l.name }}</Inertia-link>
 </li>
 </ul>
-<div class="tab-content mt-0">
-<div class="tab-pane active" id="overview">
-<div class="invest-ov gy-2">
-<div class="subtitle">Currently Actived Investment</div>
-<div class="invest-ov-details">
-<div class="invest-ov-info">
-<div class="amount">49,395.395 <span class="currency currency-usd">USD</span></div>
-<div class="title">Amount</div>
+<div v-else>
+No service
 </div>
-<div class="invest-ov-stats">
-<div><span class="amount">56</span><span class="change up text-danger"><em class="icon ni ni-arrow-long-up"></em>1.93%</span></div>
-<div class="title">Plans</div>
-</div>
-</div>
-<div class="invest-ov-details">
-<div class="invest-ov-info">
-<div class="amount">49,395.395 <span class="currency currency-usd">USD</span></div>
-<div class="title">Paid Profit</div>
-</div>
-</div>
-</div>
-<div class="invest-ov gy-2">
-<div class="subtitle">Investment in this Month</div>
-<div class="invest-ov-details">
-<div class="invest-ov-info">
-<div class="amount">49,395.395 <span class="currency currency-usd">USD</span></div>
-<div class="title">Amount</div>
-</div>
-<div class="invest-ov-stats">
-<div><span class="amount">23</span><span class="change down text-danger"><em class="icon ni ni-arrow-long-down"></em>1.93%</span></div>
-<div class="title">Plans</div>
-</div>
-</div>
-</div>
-</div>
-<div class="tab-pane" id="thisyear">
-<div class="invest-ov gy-2">
-<div class="subtitle">Currently Actived Investment</div>
-<div class="invest-ov-details">
-<div class="invest-ov-info">
-<div class="amount">89,395.395 <span class="currency currency-usd">USD</span></div>
-<div class="title">Amount</div>
-</div>
-<div class="invest-ov-stats">
-<div><span class="amount">96</span><span class="change up text-danger"><em class="icon ni ni-arrow-long-up"></em>1.93%</span></div>
-<div class="title">Plans</div>
-</div>
-</div>
-<div class="invest-ov-details">
-<div class="invest-ov-info">
-<div class="amount">99,395.395 <span class="currency currency-usd">USD</span></div>
-<div class="title">Paid Profit</div>
-</div>
-</div>
-</div>
-<div class="invest-ov gy-2">
-<div class="subtitle">Investment in this Month</div>
-<div class="invest-ov-details">
-<div class="invest-ov-info">
-<div class="amount">149,395.395 <span class="currency currency-usd">USD</span></div>
-<div class="title">Amount</div>
-</div>
-<div class="invest-ov-stats">
-<div><span class="amount">83</span><span class="change down text-danger"><em class="icon ni ni-arrow-long-down"></em>1.93%</span></div>
-<div class="title">Plans</div>
-</div>
-</div>
-</div>
-</div>
-<div class="tab-pane" id="alltime">
-<div class="invest-ov gy-2">
-<div class="subtitle">Currently Actived Investment</div>
-<div class="invest-ov-details">
-<div class="invest-ov-info">
-<div class="amount">249,395.395 <span class="currency currency-usd">USD</span></div>
-<div class="title">Amount</div>
-</div>
-<div class="invest-ov-stats">
-<div><span class="amount">556</span><span class="change up text-danger"><em class="icon ni ni-arrow-long-up"></em>1.93%</span></div>
-<div class="title">Plans</div>
-</div>
-</div>
-<div class="invest-ov-details">
-<div class="invest-ov-info">
-<div class="amount">149,395.395 <span class="currency currency-usd">USD</span></div>
-<div class="title">Paid Profit</div>
-</div>
-</div>
-</div>
-<div class="invest-ov gy-2">
-<div class="subtitle">Investment in this Month</div>
-<div class="invest-ov-details">
-<div class="invest-ov-info">
-<div class="amount">249,395.395 <span class="currency currency-usd">USD</span></div>
-<div class="title">Amount</div>
-</div>
-<div class="invest-ov-stats">
-<div><span class="amount">223</span><span class="change down text-danger"><em class="icon ni ni-arrow-long-down"></em>1.93%</span></div>
-<div class="title">Plans</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</el-card>
-</div><!-- .col -->
-
-
-
-
-
-
-
-
-
-
-
-
-
+</td>
+<td class="text-muted">
+{{ a.date.substring(0,10).split('-').reverse().join('/') }}
+</td>
+<td class="text-muted text-transform">
+{{ a.status }}
+</td>
+</tr>
 
+</tbody>
+</table>
 
 
 
@@ -216,334 +92,31 @@
 
 
 
-
-<div class="col-md-4 col-xxl-4">
-<el-card class="card card-full" shadow="never">
-<div class="card-inner d-flex flex-column h-100">
-<div class="card-title-group mb-4">
-<div class="card-title">
-<h6 class="title">Registered Positions ({{ positions.length }}) </h6>
-<!-- <p>In last 30 days top invested schemes.</p> -->
-</div>
-</div>
-<div class="progress-list gy-3" v-if="positions.length>0">
-<div class="card-inner card-inner-md m-0 p-0" style="border-bottom:solid thin #F2F3F4;" v-for="p in positions" :key="p.id">
-<div class="user-card">
-<div class="user-avatar sq bg-success-dim">
-<span><em class="icon ni ni-sign-xrp-old" style="color:#07372F;"></em></span>
-</div>
-<div class="user-info p-0">
-<span class="lead-text">{{ p.service }} </span>
-<span class="sub-text">
-{{ p.providers }}
-</span>
-</div>
-</div>
 </div>
-
-</div>
-<div v-else>No content</div>
-<div class="invest-top-ck mt-auto">
-<canvas class="iv-plan-purchase" id="planPurchase"></canvas>
-</div>
 </div>
-</el-card>
-</div><!-- .col -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
 
 
 
-
-
-
-
-
-
-
-
-<div class="col-md-4 col-xxl-4">
-<el-card class="card card-full" shadow="never">
-<div class="card-inner d-flex flex-column h-100">
-<div class="card-title-group mb-3">
-<div class="card-title">
-<h6 class="title">
-<em class="icon ni ni-wallet-fill" style="font-size:30px;"></em>
-Payments</h6>
-<p>In last 30 days top invested schemes.</p>
-</div>
-<div class="card-tools mt-n4 mr-n1">
-<div class="drodown">
-<a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
-<div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
-<ul class="link-list-opt no-bdr">
-<li><a href="#"><span>15 Days</span></a></li>
-<li><a href="#" class="active"><span>30 Days</span></a></li>
-<li><a href="#"><span>3 Months</span></a></li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div class="progress-list gy-3">
-<div class="progress-wrap">
-<div class="progress-text">
-<div class="progress-label">Strater Plan</div>
-<div class="progress-amount">58%</div>
-</div>
-<div class="progress progress-md">
-<div class="progress-bar" data-progress="58" style="width: 58%;"></div>
-</div>
-</div>
-<div class="progress-wrap">
-<div class="progress-text">
-<div class="progress-label">Silver Plan</div>
-<div class="progress-amount">18.49%</div>
-</div>
-<div class="progress progress-md">
-<div class="progress-bar bg-orange" data-progress="18.49" style="width: 18.49%;"></div>
-</div>
-</div>
-<div class="progress-wrap">
-<div class="progress-text">
-<div class="progress-label">Dimond Plan</div>
-<div class="progress-amount">16%</div>
-</div>
-<div class="progress progress-md">
-<div class="progress-bar bg-teal" data-progress="16" style="width: 16%;"></div>
-</div>
-</div>
-<div class="progress-wrap">
-<div class="progress-text">
-<div class="progress-label">Platinam Plan</div>
-<div class="progress-amount">29%</div>
-</div>
-<div class="progress progress-md">
-<div class="progress-bar bg-pink" data-progress="29" style="width: 29%;"></div>
-</div>
 </div>
-<div class="progress-wrap">
-<div class="progress-text">
-<div class="progress-label">Vibranium Plan</div>
-<div class="progress-amount">33%</div>
-</div>
-<div class="progress progress-md">
-<div class="progress-bar bg-azure" data-progress="33" style="width: 33%;"></div>
-</div>
-</div>
-</div>
-<div class="invest-top-ck mt-auto">
-<canvas class="iv-plan-purchase" id="planPurchase"></canvas>
-</div>
-</div>
-</el-card>
-</div><!-- .col -->
-
-
-
-
-
-
+<div class="col-12 col-md-4">
+<div class="card h-100">
+<div class="card-header">
+<h3 class="card-title">Panel with custom buttons</h3>
 
-
-
-
-
-
-
-
-
-
-<div class="col-md-4 col-xxl-4">
-<el-card class="card card-full" shadow="never">
-<div class="card-inner d-flex flex-column h-100">
-<div class="card-title-group mb-3">
-<div class="card-title">
-<h6 class="title">Top Invested Plan</h6>
-<p>In last 30 days top invested schemes.</p>
-</div>
-<div class="card-tools mt-n4 mr-n1">
-<div class="drodown">
-<a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
-<div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
-<ul class="link-list-opt no-bdr">
-<li><a href="#"><span>15 Days</span></a></li>
-<li><a href="#" class="active"><span>30 Days</span></a></li>
-<li><a href="#"><span>3 Months</span></a></li>
-</ul>
-</div>
-</div>
 </div>
+<div class="card-body">
+Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam deleniti fugit incidunt, iste, itaque minima neque pariatur perferendis sed suscipit velit vitae voluptatem. A consequuntur, deserunt eaque error nulla temporibus!
 </div>
-<div class="progress-list gy-3">
-<div class="progress-wrap">
-<div class="progress-text">
-<div class="progress-label">Strater Plan</div>
-<div class="progress-amount">58%</div>
 </div>
-<div class="progress progress-md">
-<div class="progress-bar" data-progress="58" style="width: 58%;"></div>
-</div>
-</div>
-<div class="progress-wrap">
-<div class="progress-text">
-<div class="progress-label">Silver Plan</div>
-<div class="progress-amount">18.49%</div>
-</div>
-<div class="progress progress-md">
-<div class="progress-bar bg-orange" data-progress="18.49" style="width: 18.49%;"></div>
-</div>
-</div>
-<div class="progress-wrap">
-<div class="progress-text">
-<div class="progress-label">Dimond Plan</div>
-<div class="progress-amount">16%</div>
-</div>
-<div class="progress progress-md">
-<div class="progress-bar bg-teal" data-progress="16" style="width: 16%;"></div>
-</div>
-</div>
-<div class="progress-wrap">
-<div class="progress-text">
-<div class="progress-label">Platinam Plan</div>
-<div class="progress-amount">29%</div>
-</div>
-<div class="progress progress-md">
-<div class="progress-bar bg-pink" data-progress="29" style="width: 29%;"></div>
-</div>
-</div>
-<div class="progress-wrap">
-<div class="progress-text">
-<div class="progress-label">Vibranium Plan</div>
-<div class="progress-amount">33%</div>
-</div>
-<div class="progress progress-md">
-<div class="progress-bar bg-azure" data-progress="33" style="width: 33%;"></div>
-</div>
-</div>
-</div>
-<div class="invest-top-ck mt-auto">
-<canvas class="iv-plan-purchase" id="planPurchase"></canvas>
-</div>
-</div>
-</el-card>
-</div><!-- .col -->
-
-
-
-
-
-
-
 
 
 
 
-
-
-
-
-
-
-
-
-<div class="col-md-4 col-xxl-4">
-<el-card class="card card-full" shadow="never">
-<div class="card-inner d-flex flex-column h-100">
-<div class="card-title-group mb-3">
-<div class="card-title">
-<h6 class="title">Top Invested Plan</h6>
-<p>In last 30 days top invested schemes.</p>
-</div>
-<div class="card-tools mt-n4 mr-n1">
-<div class="drodown">
-<a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
-<div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
-<ul class="link-list-opt no-bdr">
-<li><a href="#"><span>15 Days</span></a></li>
-<li><a href="#" class="active"><span>30 Days</span></a></li>
-<li><a href="#"><span>3 Months</span></a></li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div class="progress-list gy-3">
-<div class="progress-wrap">
-<div class="progress-text">
-<div class="progress-label">Strater Plan</div>
-<div class="progress-amount">58%</div>
-</div>
-<div class="progress progress-md">
-<div class="progress-bar" data-progress="58" style="width: 58%;"></div>
-</div>
-</div>
-<div class="progress-wrap">
-<div class="progress-text">
-<div class="progress-label">Silver Plan</div>
-<div class="progress-amount">18.49%</div>
-</div>
-<div class="progress progress-md">
-<div class="progress-bar bg-orange" data-progress="18.49" style="width: 18.49%;"></div>
-</div>
-</div>
-<div class="progress-wrap">
-<div class="progress-text">
-<div class="progress-label">Dimond Plan</div>
-<div class="progress-amount">16%</div>
-</div>
-<div class="progress progress-md">
-<div class="progress-bar bg-teal" data-progress="16" style="width: 16%;"></div>
-</div>
-</div>
-<div class="progress-wrap">
-<div class="progress-text">
-<div class="progress-label">Platinam Plan</div>
-<div class="progress-amount">29%</div>
-</div>
-<div class="progress progress-md">
-<div class="progress-bar bg-pink" data-progress="29" style="width: 29%;"></div>
-</div>
 </div>
-<div class="progress-wrap">
-<div class="progress-text">
-<div class="progress-label">Vibranium Plan</div>
-<div class="progress-amount">33%</div>
 </div>
-<div class="progress progress-md">
-<div class="progress-bar bg-azure" data-progress="33" style="width: 33%;"></div>
-</div>
-</div>
-</div>
-<div class="invest-top-ck mt-auto">
-<canvas class="iv-plan-purchase" id="planPurchase"></canvas>
-</div>
-</div>
-</el-card>
-</div><!-- .col -->
-
-
-
-
-
-
-
 
 
 
@@ -552,18 +125,6 @@ Payments</h6>
 
 
 
-
-
-
-
-
-
-
-</div>
-</div>
-</div>
-</div>
-</div>
 </div>
 </template>
 <script>
@@ -586,5 +147,32 @@ positions:this.response.user_data.get_pssp_services,
 }},
 
 
+computed:{
+appointments(){
+return this.response.user_data.appointments;
+}
+
+
+
+
+}
+
+
 }
 </script>
+<style scoped>
+table tr td{
+padding:10px;
+}
+
+table tr td ul li{
+padding:0;
+margin:0;
+}
+table tr td ul{
+    padding:0;
+    margin:0;
+    }
+
+
+</style>

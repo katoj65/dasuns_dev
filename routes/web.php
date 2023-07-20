@@ -283,3 +283,7 @@ Route::middleware('guest')->post('/password/forgot',[UserController::class,'forg
 Route::middleware('guest')->get('/email/verification',[UserController::class,'password_reset'])->name('password.code');
 
 Route::middleware('guest')->post('/new-password',[UserController::class,'create_new_password'])->name('password.new');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/appointment/{id}',[AppointmentController::class,'showAppointment'])->name('appoitment.show');
+
+Route::middleware(['auth:sanctum','verified'])->post('/appointemnt/update-status',[AppointmentController::class,'update_appointment_status'])->name('appoinment.update_status');
