@@ -160,10 +160,11 @@ return this.response.appointment;
 //
 data(){return{
 show:false,
-option:[{name:'Accepted'},{name:'Completed'},{name:'Pending'},{name:'Decline'},{name:'Cancelled'}],
+option:[{name:'Accepted'},{name:'Completed'},{name:'Pending'},{name:'Declined'},{name:'Cancelled'}],
 //
 form:this.$inertia.form({
 option:'',
+id:'',
 }),
 
 }},
@@ -174,9 +175,18 @@ this.form.option=event.target.value;
 },
 
 submit(){
+this.response.appointment.forEach(element=>{
+this.form.id=element.id;
+});
 this.form.post(this.route('appoinment.update_status'),{
 onSuccess:()=>{
 this.show=false;
+this.$notify({
+position:'bottom-right',
+title:'Successful',
+message:this.page.props.flash.success,
+type:'success'
+});
 }
 });
 

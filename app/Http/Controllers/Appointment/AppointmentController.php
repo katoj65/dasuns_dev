@@ -709,11 +709,13 @@ return Inertia::render('ShowAppointmentPage',$data);
 
 
 
+
 //update appointment option
 public function update_appointment_status(Request $request){
 $request->validate(['option'=>['required']]);
+AppointmentModel::where('id',$request->id)->update(['status'=>$request->option]);
+return redirect('/appointment/'.$request->id)->with('success','Appointment is '.$request->option);
 
-return $request;
 
 }
 
