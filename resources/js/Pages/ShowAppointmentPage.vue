@@ -182,11 +182,12 @@ this.form.post(this.route('appoinment.update_status'),{
 onSuccess:()=>{
 this.show=false;
 this.$notify({
-position:'bottom-right',
-title:'Successful',
-message:this.page.props.flash.success,
+position: 'bottom-right',
+title: 'Successful',
+message:this.$page.props.flash.success,
 type:'success'
 });
+
 }
 });
 
