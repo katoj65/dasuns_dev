@@ -93,10 +93,15 @@ UserModel::inser([
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
-    }
+public function destroy(Request $request){
+//
+User::where('id',$request->segment(2))->delete();
+return redirect('/admin/accounts')->with('success','Account has been deleted');
+
+}
+
+
+
 
 
 //get user
@@ -185,6 +190,131 @@ $request->validate(['status'=>['required']]);
 EmployeeProfileModel::where('userID',12)->update(['tag'=>$request->status]);
 return redirect('/employee/'.$request->id)->with('success','Status was changed.');
 }
+
+
+
+
+
+
+//admin accounts
+public function accounts(Request $request){
+if(Auth::user()->role=='admin'){
+//formation
+$row=[];
+$get=User::select('users.firstname',
+'users.lastname',
+'users.gender',
+'users.tel',
+'users.email',
+'users.status',
+'users.role',
+'users.id')
+->where('users.role','!=','pssp')->where('users.role','!=','pssu')->get();
+if(count($get)>0){
+foreach($get as $l){
+$row[]=$l;
+}
+}
+
+$data['title']='Admin accounts';
+$data['response']=[
+'users'=>$row
+];
+return Inertia::render('AdminAccountsPage',$data);
+}else{
+return redirect('/');
+}
+}
+
+
+
+
+
+
+
+
+
+//show admins
+public function show_admins(Request $request){
+if(Auth::user()->role=='admin'){
+$data['title']='Administrator';
+$data['response']=[
+'user'=>User::where('id',$request->segment(2))->get(),
+
+];
+
+return Inertia::render('AdminShowPage',$data);
+}else{
+return redirect('/');
+}
+}
+
+
+
+
+
+//admin service providers
+public function service_providers(Request $request){
+if(Auth::user()->role=='admin'){
+$data['title']='';
+$data['response']=[
+'users'=>User::select('users.firstname',
+'users.lastname',
+'users.gender',
+'users.tel',
+'users.email',
+'users.role',
+'users.id',
+'dasuns_user_number.number',
+'users.status')
+->join('dasuns_user_number','users.id','=','dasuns_user_number.userID')
+->where('users.role','pssp')
+->orderby('users.status','DESC')
+->get()
+];
+
+return Inertia::render('AdminServiceProvidersPage',$data);
+
+}else{
+return redirect('/');
+}
+}
+
+
+
+//service providers
+public function show_service_providers(Request $request){
+if(Auth::user()->role=='admin'){
+$data['title']='Administrator';
+$data['response']=[
+'user'=>User::select('users.firstname',
+'users.lastname',
+'users.gender',
+'users.tel',
+'users.email',
+'users.role',
+'users.id',
+'dasuns_user_number.number',
+'users.status',
+'users.dob')
+->join('dasuns_user_number','users.id','=','dasuns_user_number.userID')
+->where('users.id',$request->segment(2))
+->get()
+
+];
+
+return Inertia::render('AdminShowPage',$data);
+}else{
+return redirect('/');
+}
+}
+
+
+
+
+
+
+
 
 
 

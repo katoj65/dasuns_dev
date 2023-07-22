@@ -22,7 +22,7 @@
 <div class="invest-data-history">
 
 <div class="amount"> <span class="currency currency-usd" style="font-size:15px;color:#07372F;">
-<Inertia-link href="#" style="color:#07372F;"><strong>{{ t.title }} </strong></Inertia-link>
+<Inertia-link :href="route(t.url)" style="color:#07372F;"><strong>{{ t.title }} </strong></Inertia-link>
 </span></div>
 </div>
 
@@ -134,10 +134,10 @@ response:{},
 },
 data(){return{
 tabs:[
-{icon:'icon ni ni-users-fill',title:'TOTAL ACTIVE USERS',count:this.response.user_data.statistics.count_user,id:1},
-{icon:'icon ni ni-user-list-fill',title:'SERVICE PROVIDERS',count:this.response.user_data.statistics.count_PSSP,id:2},
-{icon:'icon ni ni-shield-check-fill',title:'ADMIN ACCOUNTS',count:this.response.user_data.statistics.count_admin,id:3},
-{icon:'icon ni ni-swap-alt-fill',title:'REGISTERED SERVICES',count:this.response.user_data.statistics.count_services,id:4},
+{icon:'icon ni ni-users-fill',title:'TOTAL ACTIVE USERS',count:this.response.user_data.statistics.count_user,id:1,url:'admin.accounts'},
+{icon:'icon ni ni-user-list-fill',title:'SERVICE PROVIDERS',count:this.response.user_data.statistics.count_PSSP,id:2,url:'service.providers'},
+{icon:'icon ni ni-shield-check-fill',title:'ADMIN ACCOUNTS',count:this.response.user_data.statistics.count_admin,id:3,url:'admin.accounts'},
+{icon:'icon ni ni-swap-alt-fill',title:'REGISTERED SERVICES',count:this.response.user_data.statistics.count_services,id:4,url:'admin.accounts'},
 ],
 
 positions:this.response.user_data.get_pssp_services,

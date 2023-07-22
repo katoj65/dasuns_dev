@@ -287,3 +287,13 @@ Route::middleware('guest')->post('/new-password',[UserController::class,'create_
 Route::middleware(['auth:sanctum', 'verified'])->get('/appointment/{id}',[AppointmentController::class,'showAppointment'])->name('appoitment.show');
 
 Route::middleware(['auth:sanctum','verified'])->post('/appointemnt/update-status',[AppointmentController::class,'update_appointment_status'])->name('appoinment.update_status');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/admin/accounts',[AdministrationController::class,'accounts'])->name('admin.accounts');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/admin/{id}',[AdministrationController::class,'show_admins'])->name('admins.show');
+
+Route::middleware(['auth:sanctum', 'verified'])->post('/admin/{id}/destroy',[AdministrationController::class,'destroy'])->name('admin.destroy');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/service/providers',[AdministrationController::class,'service_providers'])->name('service.providers');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/service-provider/{id}',[AdministrationController::class,'show_service_providers'])->name('service_provider.profile');

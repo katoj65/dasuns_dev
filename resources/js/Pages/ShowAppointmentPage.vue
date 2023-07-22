@@ -96,9 +96,7 @@
 <a href="#" class="close" data-dismiss="modal" @click="show=false" aria-label="Close">
 </a>
 </div>
-<div class="modal-body">
-
-
+<div class="modal-body" style="padding:30px;">
 
 <div class="form-group">
 <label class="form-label" for="default-01">
