@@ -6,9 +6,6 @@
 <div class="col-12 col-md-6">
 
 
-<!-- {{ employment }} -->
-
-
 
 
 <div v-if="user.length>0">
@@ -18,7 +15,7 @@
 <em class="icon ni ni-user-circle-fill" style="font-size:80px;"></em>
 </div>
 <h5 class="mt-3 text-transform">{{ u.firstname }} {{ u.lastname }} </h5>
-<div class="text-center text-muted mb-3 text-transform">{{u.role}} </div>
+<div class="text-center text-muted mb-3 text-transform">Service Provider </div>
 <button type="button" class="btn btn-icon btn-outline-primary"><em class="icon ni ni-edit-fill"></em></button>
 <button type="button" class="btn btn-icon btn-outline-danger" @click="submit1(u.id)"><em class="icon ni ni-trash-empty-fill"></em></button>
 </div>
@@ -85,11 +82,11 @@
 
 
 <li class="data-item">
-    <div class="data-col">
-    <div class="data-label">Country</div>
-    <div class="data-value">{{ u.name }} </div>
-    </div>
-    </li>
+<div class="data-col">
+<div class="data-label">Country</div>
+<div class="data-value">{{ u.name }} </div>
+</div>
+</li>
 
 
 <li class="data-item">
@@ -237,10 +234,9 @@ No content
 
 
 
-<!-------->
+<!----Academic Qualification---->
 <el-drawer title="ACADEMIC QUALIFICATIONS" :visible.sync="drawer" size="50%">
 <div class="p-1">
-
 <div class="card">
 <div class="card-body">
 <div class="table-responsive">
@@ -277,37 +273,46 @@ No content
 </el-drawer>
 
 
-<el-drawer title="EMPLOYMENT HISTORY" :visible.sync="drawer1" size="30%">
+
+
+
+<!----History---->
+
+<el-drawer title="EMPLOYMENT HISTORY" :visible.sync="drawer1" size="40%">
 <div class="p-1">
-    <div class="card">
-        <div class="card-body">
-        <div class="table-responsive">
-        <table class="table mb-0">
-        <thead>
-        <tr>
-        <th>SCHOOL / INSTITUTION</th>
-        <th>DATES</th>
-        <th>QUALIFICATION</th>
-        </tr>
-        </thead>
-        <tbody v-if="education.length>0">
-        <tr v-for="(e,key) in education" :key="key">
+<div class="card">
+<div class="card-body">
+<div class="table-responsive">
+<table class="table mb-0">
+<thead>
+<tr>
+<th>JOB</th>
+<th>DATES</th>
+<th>EMPLOYER</th>
+<th>LOCATION</th>
+</tr>
+</thead>
+<tbody v-if="employment.length>0">
+<tr v-for="(j,key) in employment" :key="key">
 
-        <td>{{e.institution}} </td>
-        <td>{{e.from.split('-').reverse().join('/')}} - {{e.to.split('-').reverse().join('/')}} </td>
-        <td>
-        {{ e.qualification }}
-        </td>
-        </tr>
+<td>{{j.job}} </td>
+<td>{{j.from.split('-').reverse().join('/')}} - {{j.to}} </td>
+<td>
+{{ j.employer }}
+</td>
+<td>
+{{ j.location }}
+</td>
+</tr>
 
-        </tbody>
-        <tbody v-else>
-        <tr><td colspan="5">No content</td> </tr>
-        </tbody>
-        </table>
-        </div>
-        </div>
-        </div>
+</tbody>
+<tbody v-else>
+<tr><td colspan="5">No content</td> </tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
 
 
 </div>
@@ -317,38 +322,37 @@ No content
 
 <!----References----->
 
-<el-drawer title="REFERENCES" :visible.sync="drawer2" size="30%">
+<el-drawer title="REFERENCES" :visible.sync="drawer2" size="40%">
 <div class="p-1">
+<div class="card">
+<div class="card-body">
+<div class="table-responsive">
+<table class="table mb-0">
+<thead>
+<tr>
+<th>SCHOOL / INSTITUTION</th>
+<th>DATES</th>
+<th>QUALIFICATION</th>
+</tr>
+</thead>
+<tbody v-if="education.length>0">
+<tr v-for="(e,key) in education" :key="key">
 
-    <div class="card">
-        <div class="card-body">
-        <div class="table-responsive">
-        <table class="table mb-0">
-        <thead>
-        <tr>
-        <th>SCHOOL / INSTITUTION</th>
-        <th>DATES</th>
-        <th>QUALIFICATION</th>
-        </tr>
-        </thead>
-        <tbody v-if="education.length>0">
-        <tr v-for="(e,key) in education" :key="key">
+<td>{{e.institution}} </td>
+<td>{{e.from.split('-').reverse().join('/')}} - {{e.to.split('-').reverse().join('/')}} </td>
+<td>
+{{ e.qualification }}
+</td>
+</tr>
 
-        <td>{{e.institution}} </td>
-        <td>{{e.from.split('-').reverse().join('/')}} - {{e.to.split('-').reverse().join('/')}} </td>
-        <td>
-        {{ e.qualification }}
-        </td>
-        </tr>
-
-        </tbody>
-        <tbody v-else>
-        <tr><td colspan="5">No content</td> </tr>
-        </tbody>
-        </table>
-        </div>
-        </div>
-        </div>
+</tbody>
+<tbody v-else>
+<tr><td colspan="5">No content</td> </tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
 
 
 
@@ -401,6 +405,10 @@ return this.response.employment;
 
 education(){
 return this.response.education;
+},
+
+reference(){
+return this.response.reference;
 }
 
 

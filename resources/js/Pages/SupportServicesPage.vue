@@ -1,47 +1,16 @@
 <template>
 <app-layout>
-<div class="mt-2">
-    <div class="nk-block-head nk-block-head-sm">
-        <div class="nk-block-between">
-            <div class="nk-block-head-content">
-                <h3 class="nk-block-title page-title"><em class="icon ni ni-view-x6"></em> Support Services</h3>
-                <div class="nk-block-des text-soft">
-
-                </div>
-            </div><!-- .nk-block-head-content -->
-
-        </div><!-- .nk-block-between -->
-    </div>
+<div class="nk-content p-3">
 
 
-
-
-
-<div class="row">
-<div class="col-md-3 mb-4" v-for="s in service" :key="s.id">
-
-    <div class="card card-radius">
-        <div class="card-inner">
-            <div class="team">
-
-                <div class="user-card user-card-s2">
-                    <div class="user-avatar lg bg-success">
-                        <span style="padding:20px;"><img :src="url+s.icon"/> </span>
-
-                    </div>
-                    <div class="user-info">
-                        <h6 class="text-transform">{{ s.name }} </h6>
-                        <span class="sub-text mt-2">UI/UX Designer</span>
-                    </div>
-                </div>
-                <!-- <ul class="team-info">
-                    <li><span>Join Date</span><span>24 Jun 2015</span></li>
-
-                </ul> -->
-
-            </div><!-- .team -->
-        </div><!-- .card-inner -->
-    </div>
+<div class="card">
+<div class="card-header">
+<h3 class="card-title text-transform">Support Services </h3>
+<div class="card-options" v-if="role=='admin'">
+<div class="input-group">
+<button class="btn btn-sm btn-default" type="submit">Add</button>
+</div>
+</div>
 </div>
 
 
@@ -51,31 +20,47 @@
 
 
 
+<div class="card-body">
+<div class="table-responsive">
+<table class="table mb-0">
+<thead>
+<tr>
 
+<th colspan="2">PROFESSION SERVICE</th>
+<!-- <th>LAST NAME</th>
+<th>USERNAME</th> -->
+</tr>
+</thead>
+<tbody v-if="service.length>0">
+<tr v-for="(s,key) in service" :key="key">
 
+<td>
+<Inertia-link class="text-muted">
+<em class="icon ni ni-caret-right-fill"></em> {{ s.name }}
+</Inertia-link>
+</td>
+<td style="width:50px;" v-if="role=='admin'">
+<a href="#"  style="padding:0;margin:0;" class="text-muted">
+<em class="icon ni ni-trash-empty-fill" style="font-size:16px;"></em>
+</a>
+</td>
+</tr>
 
-
-
-
-
-
-
+</tbody>
+<tbody v-else>
+<tr>
+<td colspan="5">No content</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 
 
 
 
-
-
-
 </div>
-
-
-
-
-
-
-
 </app-layout>
 </template>
 
@@ -83,34 +68,38 @@
 
 import AppLayout from '@/Layouts/AppLayout';
 
-    export default {
-    components:{
-    AppLayout,
+export default {
+components:{
+AppLayout,
 
 
-    },
-    props:{
-    title:{},
-    response:{},
-    },
-    data(){return{
+},
+props:{
+title:{},
+response:{},
+},
+data(){return{
 
 
-    }},
+}},
 
 
-    //computed method
+//computed method
 computed:{
 service(){
 return this.response.service;
 },
 url(){
 return this.$page.props.system.route ;
+},
+
+role(){
+return this.$page.props.auth.user.role;
 }
 
 
 
-    }
+}
 
 
 
@@ -118,5 +107,18 @@ return this.$page.props.system.route ;
 
 
 
-    }
-    </script>
+}
+</script>
+
+
+<style scoped>
+input{
+padding:5px;
+height:35px;
+border-radius:30px;
+}
+button{
+height:35px;
+padding:10px;
+}
+</style>
