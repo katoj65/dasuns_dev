@@ -299,4 +299,9 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/service/providers',[Admin
 Route::middleware(['auth:sanctum', 'verified'])->get('/service-provider/{id}',[AdministrationController::class,'show_service_providers'])->name('service_provider.profile');
 
 Route::middleware(['auth:sanctum', 'verified'])->post('/service-provider/{id}/destroy',[AdministrationController::class,'destroy_pssp'])->name('service_provider.destroy');
+
 Route::middleware(['auth:sanctum', 'verified'])->get('/services',[SupportServiceController::class,'index'])->name('services');
+
+Route::middleware(['auth:sanctum', 'verified'])->post('/services/{id}/destroy',[SupportServiceController::class,'destroy'])->name('services.destroy');
+
+Route::middleware(['auth:sanctum', 'verified'])->post('/services/store',[SupportServiceController::class,'store'])->name('services.store');

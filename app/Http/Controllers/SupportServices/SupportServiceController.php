@@ -21,14 +21,10 @@ $data['title']='Support Services';
 $data['response']=[
 'service'=>SupportServiceModel::orderby('name','ASC')->get(),
 
-
-
 ];
 
 return Inertia::render('SupportServicesPage',$data);
-
-
-    }
+}
 
     /**
      * Store a newly created resource in storage.
@@ -36,9 +32,11 @@ return Inertia::render('SupportServicesPage',$data);
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(Request $request){
+    //
+    $request->validate(['name'=>['required']]);
+    return $request;
+
     }
 
     /**
@@ -70,10 +68,13 @@ return Inertia::render('SupportServicesPage',$data);
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
-    }
+public function destroy(Request $request){
+SupportServiceModel::where('id',$request->segment(2))->delete();
+return redirect('/services')->with('success','Support service has been deleted.');
+}
+
+
+
 
 
 //support service list
@@ -86,7 +87,6 @@ return Inertia::render('SupportServicesList',$data);
 
 
 //get support services by ID
-
 static function support_servicebyID($id){
 $get=SupportServiceModel::where('id',$id)->limit(1)->get();
 $row=null;
