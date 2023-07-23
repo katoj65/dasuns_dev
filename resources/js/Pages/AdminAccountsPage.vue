@@ -1,7 +1,6 @@
 <template>
 <app-layout>
 <div class="nk-content p-3">
-
 <div class="card">
 <div class="card-header">
 <h3 class="card-title text-transform">Administrators</h3>
@@ -41,39 +40,11 @@
 <td><label class="tag tag-success">{{ u.status }}</label></td>
 <td><button class="btn btn-danger btn-sm"><i class="icon-trash"></i></button></td>
 </tr>
-
 </tbody>
 </table>
 </div>
 </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 </div>
 </app-layout>

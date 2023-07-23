@@ -10,6 +10,11 @@ use App\Models\User;
 use App\Models\UserModel;
 use Illuminate\Support\Facades\Auth;
 use App\Models\EmployeeProfileModel;
+use App\Models\ServiceProviderServicesModel;
+use App\Models\ServiceProviderSecurityDetailsModel;
+use App\Models\ServiceProviderEmploymentHistoryModel;
+use App\Models\ServiceProviderReferenceModel;
+use App\Models\ServiceProviderEducationModel;
 
 class AdministrationController extends Controller
 {
@@ -296,14 +301,44 @@ $data['response']=[
 'users.id',
 'dasuns_user_number.number',
 'users.status',
-'users.dob')
+'users.dob',
+'country.name',
+'service_provider_profile.location',
+'service_provider_profile.about')
 ->join('dasuns_user_number','users.id','=','dasuns_user_number.userID')
+->join('service_provider_profile','users.id','=','service_provider_profile.userID')
+->join('country','service_provider_profile.countryID','=','country.id')
 ->where('users.id',$request->segment(2))
-->get()
+->get(),
+
+//
+'services'=>ServiceProviderServicesModel::select('*')
+->join('support_service','service_provider_services.serviceID','=','support_service.id')
+->where('service_provider_services.userID',$request->segment(2))
+->get(),
+
+//
+'documents'=>ServiceProviderSecurityDetailsModel::select('*')
+->where('userID',$request->segment(2))
+->get(),
+
+//
+'employment'=>ServiceProviderEmploymentHistoryModel::
+where('userID',$request->segment(2))
+->get(),
+
+//
+'reference'=>ServiceProviderReferenceModel::
+where('userID',$request->segment(2))
+->get(),
+
+'education'=>ServiceProviderEducationModel::where('userID',$request->segment(2))->get(),
+
+
 
 ];
 
-return Inertia::render('AdminShowPage',$data);
+return Inertia::render('PSSPPage',$data);
 }else{
 return redirect('/');
 }
@@ -315,7 +350,10 @@ return redirect('/');
 
 
 
-
+public function destroy_pssp(Request $request){
+User::where('id',$request->segment(2))->delete();
+return redirect('/service/providers')->with('success','Account has been deleted');
+}
 
 
 
