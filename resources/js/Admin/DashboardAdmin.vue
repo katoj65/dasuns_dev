@@ -39,6 +39,11 @@
 <div class="col-12 col-md-8 p-0">
 
 
+
+
+
+
+
 <div class="card h-100" style="min-height:500px;">
 <div class="card-header">
 <h3 class="card-title" style="text-transform:capitalize;">Appointment Requests</h3>
@@ -104,13 +109,14 @@ No service
 <div class="col-12 col-md-4">
 <div class="card h-100">
 <div class="card-header">
-<h3 class="card-title">Panel with custom buttons</h3>
+<h3 class="card-title text-transform">Transactions</h3>
 
 </div>
 <div class="card-body">
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam deleniti fugit incidunt, iste, itaque minima neque pariatur perferendis sed suscipit velit vitae voluptatem. A consequuntur, deserunt eaque error nulla temporibus!
-</div>
-</div>
+
+
+
+    {{ wallet }}
 
 
 
@@ -118,7 +124,140 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam deleniti fugit
 </div>
 </div>
 
+</div>
+</div>
 
+
+
+
+
+<div class="row g-gs mt-2">
+<div class="col-12 col-md-4">
+
+
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Wallet</h3>
+        </div>
+        <div class="card-body">
+            <span>Balance</span>
+            <h4>Shs.<span class="counter ml-3">{{ wallet }} </span></h4>
+
+            <div class="form-group">
+                <label class="d-block">Service Providers<span class="float-right">$<span class="counter">15,025</span></span></label>
+                <div class="progress progress-xs">
+                    <div class="progress-bar bg-azure" role="progressbar" aria-valuenow="77" aria-valuemin="0" aria-valuemax="100" style="width: 77%;"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="d-block">Service Users <span class="float-right">$<span class="counter">1,843</span></span></label>
+                <div class="progress progress-xs">
+                    <div class="progress-bar bg-green" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%;"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="d-block">Others <span class="float-right">$<span class="counter">3,640</span></span></label>
+                <div class="progress progress-xs">
+                    <div class="progress-bar bg-blue" role="progressbar" aria-valuenow="23" aria-valuemin="0" aria-valuemax="100" style="width: 23%;"></div>
+                </div>
+            </div>
+       </div>
+        <div class="card-footer">
+            <a href="javascript:void(0)" class="btn btn-block btn-info btn-sm">View More</a>
+        </div>
+    </div>
+
+
+
+
+
+
+
+</div>
+<div class="col-12 col-md-4">
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Wallet</h3>
+        </div>
+        <div class="card-body">
+            <span>Balance</span>
+            <h4>Shs.<span class="counter">{{ wallet }} </span></h4>
+
+            <div class="form-group">
+                <label class="d-block">Bank of America <span class="float-right">$<span class="counter">15,025</span></span></label>
+                <div class="progress progress-xs">
+                    <div class="progress-bar bg-azure" role="progressbar" aria-valuenow="77" aria-valuemin="0" aria-valuemax="100" style="width: 77%;"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="d-block">RBC Bank <span class="float-right">$<span class="counter">1,843</span></span></label>
+                <div class="progress progress-xs">
+                    <div class="progress-bar bg-green" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%;"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="d-block">Frost Bank <span class="float-right">$<span class="counter">3,640</span></span></label>
+                <div class="progress progress-xs">
+                    <div class="progress-bar bg-blue" role="progressbar" aria-valuenow="23" aria-valuemin="0" aria-valuemax="100" style="width: 23%;"></div>
+                </div>
+            </div>
+       </div>
+        <div class="card-footer">
+            <a href="javascript:void(0)" class="btn btn-block btn-info btn-sm">View More</a>
+        </div>
+    </div>
+
+
+
+
+</div>
+<div class="col-12 col-md-4">
+
+
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Wallet</h3>
+        </div>
+        <div class="card-body">
+            <span>Balance</span>
+            <h4>Shs.<span class="counter">{{ wallet }} </span></h4>
+
+            <div class="form-group">
+                <label class="d-block">Bank of America <span class="float-right">$<span class="counter">15,025</span></span></label>
+                <div class="progress progress-xs">
+                    <div class="progress-bar bg-azure" role="progressbar" aria-valuenow="77" aria-valuemin="0" aria-valuemax="100" style="width: 77%;"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="d-block">RBC Bank <span class="float-right">$<span class="counter">1,843</span></span></label>
+                <div class="progress progress-xs">
+                    <div class="progress-bar bg-green" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%;"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="d-block">Frost Bank <span class="float-right">$<span class="counter">3,640</span></span></label>
+                <div class="progress progress-xs">
+                    <div class="progress-bar bg-blue" role="progressbar" aria-valuenow="23" aria-valuemin="0" aria-valuemax="100" style="width: 23%;"></div>
+                </div>
+            </div>
+       </div>
+        <div class="card-footer">
+            <a href="javascript:void(0)" class="btn btn-block btn-info btn-sm">View More</a>
+        </div>
+    </div>
+
+
+
+
+
+</div>
+
+
+
+</div>
 
 
 
@@ -147,10 +286,21 @@ positions:this.response.user_data.get_pssp_services,
 }},
 
 
+
+
+
+
 computed:{
 appointments(){
 return this.response.user_data.appointments;
+},
+
+wallet(){
+return this.response.user_data.wallet;
 }
+
+
+
 
 
 

@@ -23,6 +23,8 @@ use App\Models\TestimonialModel;
 use App\Models\PartnerModel;
 use App\Models\AppointmentModel;
 use App\Models\AppointmentServiceModel;
+use App\Models\LogWalletModel;
+use App\Models\DasunsWalletModel;
 
 class HomeController extends Controller
 {
@@ -63,8 +65,19 @@ $user_data['statistics']=[
 $user_data['get_pssp_services']=$this->get_registered_positions(),
 ];
 
-
 $user_data['appointments']=HomeController::admin_appointment_formation();
+$user_data['transactions']=LogWalletModel::select('*')->get();
+$user_data['wallet']=number_format(DasunsWalletModel::select('amount')->sum('amount'));
+$user_data['counts']=[
+'pssp'=>null,
+'pssu'=>null,
+'other'=>null
+];
+
+
+
+
+
 
 
 

@@ -18,7 +18,7 @@
 <th>Role</th>
 <th>Status</th>
 <th></th>
-<th></th>
+
 </tr>
 </thead>
 <tbody v-if="users.length>0">
@@ -38,7 +38,7 @@
 <td style="text-transform:lowercase;" class="text-muted">{{ u.email }} </td>
 <td class="text-muted">{{ u.role }}</td>
 <td><label class="tag tag-success">{{ u.status }}</label></td>
-<td><button class="btn btn-danger btn-sm"><i class="icon-trash"></i></button></td>
+
 </tr>
 </tbody>
 </table>
