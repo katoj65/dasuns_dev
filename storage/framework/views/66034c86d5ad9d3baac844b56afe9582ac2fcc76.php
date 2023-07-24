@@ -56,7 +56,7 @@
 <style type="text/css">
 .form-control,input, select{
 border:solid thin #E5E8E8;
-border-radius:10px;
+border-radius:5px;
 padding:15px;
 padding-left:20px;
 padding-right:20px;
@@ -111,7 +111,7 @@ color:#001713;
  background:#37BEA7;
  border:none;
  padding:15px;
- border-radius: 30px;
+ border-radius: 5px;
  color:white;
 }
 

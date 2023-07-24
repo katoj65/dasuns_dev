@@ -302,6 +302,8 @@ Route::middleware(['auth:sanctum', 'verified'])->post('/service-provider/{id}/de
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/services',[SupportServiceController::class,'index'])->name('services');
 
-Route::middleware(['auth:sanctum', 'verified'])->post('/services/{id}/destroy',[SupportServiceController::class,'destroy'])->name('services.destroy');
+Route::middleware(['auth:sanctum', 'verified'])->post('/services/destroy',[SupportServiceController::class,'destroy'])->name('services.destroy');
 
 Route::middleware(['auth:sanctum', 'verified'])->post('/services/store',[SupportServiceController::class,'store'])->name('services.store');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/users/active/admin',[AdministrationController::class,'active_users'])->name('users.active');

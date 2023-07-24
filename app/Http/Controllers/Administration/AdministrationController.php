@@ -15,6 +15,7 @@ use App\Models\ServiceProviderSecurityDetailsModel;
 use App\Models\ServiceProviderEmploymentHistoryModel;
 use App\Models\ServiceProviderReferenceModel;
 use App\Models\ServiceProviderEducationModel;
+use App\Models\DasunsUserNumberModel;
 
 class AdministrationController extends Controller
 {
@@ -349,11 +350,80 @@ return redirect('/');
 
 
 
-
+//
 public function destroy_pssp(Request $request){
 User::where('id',$request->segment(2))->delete();
 return redirect('/service/providers')->with('success','Account has been deleted');
 }
+
+
+
+
+
+
+
+//active users
+public function active_users(Request $request){
+if(Auth::user()->role=='admin'){
+$row=[];
+$get=User::select(
+'firstname',
+'lastname',
+'gender',
+'tel',
+'email',
+'role',
+'status',
+'id'
+
+)
+->where('status','active')
+->get();
+if(count($get)>0){
+foreach($get as $l){
+$num='none';
+$get1=DasunsUserNumberModel::select('number')->where('userID',$l->id)->limit(1)->get();
+if(count($get1)==1){
+foreach($get1 as $row1){
+$num=$row1->number;
+}
+}
+
+$row[]=[
+'firstname'=>$l->firstname,
+'lastname'=>$l->lastname,
+'gender'=>$l->gender,
+'tel'=>$l->tel,
+'email'=>$l->email,
+'role'=>$l->role,
+'status'=>$l->status,
+'id'=>$l->id,
+'number'=>$num
+];
+
+
+}
+}
+
+
+
+$data['title']='active users';
+$data['response']=[
+'active'=>$row
+];
+return Inertia::render('ActiveUserPage',$data);
+}else{
+return redirect('/');
+}
+}
+
+
+
+
+
+
+
+
 
 
 

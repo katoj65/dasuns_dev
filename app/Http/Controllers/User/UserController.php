@@ -39,10 +39,20 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
+public function show(Request $request){
         //
-    }
+
+$data['title']='';
+$data['response']=[
+'user'=>null
+];
+
+
+
+
+
+
+}
 
     /**
      * Update the specified resource in storage.

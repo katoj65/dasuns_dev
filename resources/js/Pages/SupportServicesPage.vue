@@ -87,19 +87,30 @@
 </div>
 
 
+
+
+
+
+<div class="form-group">
+<label class="form-label" for="default-textarea">
+<input-error :error="errors.description"></input-error>
+</label>
+<div class="form-control-wrap">
+<textarea class="form-control no-resize" id="default-textarea" v-model="form.description" placeholder="Enter service description">
+</textarea>
+</div>
+</div>
+
+
+
+
+
 <div class="form-group">
 <label class="form-label" for="default-01"></label>
 <div class="form-control-wrap">
 <input type="file" class="form-control" id="default-01">
 </div>
 </div>
-
-
-
-
-
-
-
 
 
 
@@ -143,9 +154,17 @@ errors:{}
 data(){return{
 show:false,
 form:this.$inertia.form({
-name:''
+name:'',
+description:'',
+file:'images/icons/international-sign.png',
 
 }),
+
+form1:this.$inertia.form({
+id:null,
+}),
+
+
 
 }},
 
@@ -169,24 +188,35 @@ return this.$page.props.auth.user.role;
 
 methods:{
 submit2(id){
-this.$inertia.post(this.route('services.destroy',{id:id}),{
+this.form1.id=id;
+this.form1.post(this.route('services.destroy'),{
 onSuccess:()=>{
-
 this.$notify({
 title:'Successful',
 message:this.$page.props.flash.success,
 position:'bottom-right',
 type:'success'
 });
-
-
-
 }
 });
+
+
 },
 
 submit(){
-this.form.post(this.route('services.store'));
+this.form.post(this.route('services.store'),{
+onSuccess:()=>{
+this.$notify({
+title:'Successful',
+message:this.$page.props.flash.success,
+position:'bottom-right',
+type:'success'
+});
+this.show=false;
+this.form.reset();
+}
+
+});
 }
 
 

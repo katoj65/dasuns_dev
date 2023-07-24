@@ -16,7 +16,9 @@
 </div>
 <h5 class="mt-3 text-transform">{{ u.firstname }} {{ u.lastname }} </h5>
 <div class="text-center text-muted mb-3 text-transform">Service Provider </div>
-<button type="button" class="btn btn-icon btn-outline-primary"><em class="icon ni ni-edit-fill"></em></button>
+<button type="button" class="btn btn-icon btn-outline-primary">
+<em class="icon ni ni-mail-fill"></em>
+</button>
 <button type="button" class="btn btn-icon btn-outline-danger" @click="submit1(u.id)"><em class="icon ni ni-trash-empty-fill"></em></button>
 </div>
 
@@ -278,7 +280,7 @@ No content
 
 <!----History---->
 
-<el-drawer title="EMPLOYMENT HISTORY" :visible.sync="drawer1" size="40%">
+<el-drawer title="EMPLOYMENT HISTORY" :visible.sync="drawer1" size="50%">
 <div class="p-1">
 <div class="card">
 <div class="card-body">
@@ -322,7 +324,7 @@ No content
 
 <!----References----->
 
-<el-drawer title="REFERENCES" :visible.sync="drawer2" size="40%">
+<el-drawer title="REFERENCES" :visible.sync="drawer2" size="60%">
 <div class="p-1">
 <div class="card">
 <div class="card-body">
@@ -330,18 +332,25 @@ No content
 <table class="table mb-0">
 <thead>
 <tr>
-<th>SCHOOL / INSTITUTION</th>
-<th>DATES</th>
-<th>QUALIFICATION</th>
+<th>NAMES</th>
+<th>TELEPHONE</th>
+<th>EMAIL</th>
+<th>POSITION</th>
+<th>ADDRESS</th>
 </tr>
 </thead>
-<tbody v-if="education.length>0">
-<tr v-for="(e,key) in education" :key="key">
-
-<td>{{e.institution}} </td>
-<td>{{e.from.split('-').reverse().join('/')}} - {{e.to.split('-').reverse().join('/')}} </td>
+<tbody v-if="reference.length>0">
+<tr v-for="(r,key) in reference" :key="key">
+<td>{{r.names}} </td>
+<td>{{ r.tel }}  </td>
 <td>
-{{ e.qualification }}
+{{ r.email}}
+</td>
+<td>
+{{ r.position}}
+</td>
+<td>
+{{ r.address}}
 </td>
 </tr>
 

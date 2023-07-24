@@ -14,8 +14,7 @@ class SupportServiceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+public function index(){
         //
 $data['title']='Support Services';
 $data['response']=[
@@ -34,8 +33,12 @@ return Inertia::render('SupportServicesPage',$data);
      */
     public function store(Request $request){
     //
-    $request->validate(['name'=>['required']]);
-    return $request;
+    $request->validate(['name'=>['required'],'description'=>['required']]);
+    SupportServiceModel::insert(
+    ['name'=>$request->name,
+    'description'=>$request->description,
+    'icon'=>$request->file]);
+    return redirect('/services')->with('success','Service has been added.');
 
     }
 
@@ -69,8 +72,9 @@ return Inertia::render('SupportServicesPage',$data);
      * @return \Illuminate\Http\Response
      */
 public function destroy(Request $request){
-SupportServiceModel::where('id',$request->segment(2))->delete();
+SupportServiceModel::where('id',$request->id)->delete();
 return redirect('/services')->with('success','Support service has been deleted.');
+
 }
 
 
