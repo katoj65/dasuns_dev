@@ -90,11 +90,6 @@
 
 
 
-
-
-
-
-
 <thead>
 <tr>
 <th>Interviewer Details</th>
@@ -119,8 +114,8 @@
 <div class="row">
 <div class="col-md-12 align-right">
 <el-button-group v-if="role=='admin'">
-<el-button type="secondary">Edit</el-button>
-<el-button type="danger">Delete
+<el-button type="secondary" @click="show=true">Edit</el-button>
+<el-button type="danger" @click="submit1(interview.interviewID)">Delete
 </el-button>
 </el-button-group>
 </div>
@@ -133,22 +128,125 @@
 </div>
 <div class="col-12 col-md-2"></div>
 </div>
-
-
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+<!-------------->
+<form class=""  v-if="show==true" style="position:fixed;width:100%;left:0;top:0;z-index:10000;height:100%;background-color: hsla(210, 29%, 18%, 0.3);" @submit.prevent="submit">
+    <div class="modal-dialog" role="document">
+    <div class="modal-content">
+    <div class="modal-header" style="background: #37BEA7;border:none;">
+    <h5 class="modal-title" style="color:white;">Change Interview Details</h5>
+    <a href="#" class="close" data-dismiss="modal" aria-label="Close" @click="show=false">
+
+    </a>
+    </div>
+    <div class="modal-body" style="max-height:500px;overflow:auto">
+
+
+
+
+    <div class="form-group">
+    <label class="form-label" for="default-01">
+    Date
+    <input-error :error="errors.date"></input-error>
+    </label>
+    <div class="form-control-wrap">
+    <input type="date" class="form-control" id="default-01" placeholder="Enter date" v-model="form.date">
+    </div>
+    </div>
+
+    <div class="form-group">
+    <label class="form-label" for="default-01">
+    Time
+     <input-error :error="errors.time"></input-error>
+    </label>
+    <div class="form-control-wrap">
+    <input type="time" class="form-control" id="default-01" placeholder="Enter time" v-model="form.time">
+    </div>
+    </div>
+
+
+
+    <div class="form-group">
+    <label class="form-label" for="default-01">
+    Comment
+     <input-error :error="errors.comment"></input-error>
+    </label>
+    <div class="form-control-wrap">
+    <input type="text" class="form-control" id="default-01" placeholder="Enter comment" v-model="form.comment">
+    </div>
+    </div>
+
+    </div>
+    <div class="modal-footer bg-light">
+    <span class="sub-text">
+    <input type="submit" class="button" value="Save" style="border-radius:10px"/>
+    </span>
+    </div>
+    </div>
+    </div>
+</form>
+
+
+
+
+
+
+
+
+
+
+
 </app-layout>
 </template>
 <script>
+import InputError from '../Alerts/InputError.vue';
 import AppLayout from '../Layouts/AppLayout.vue';
 export default {
 components:{
 AppLayout,
+InputError
 
 },
 props:{
 title:{},
-response:{}
+response:{},
+flash:{},
+errors:{}
 },
+
+data(){return{
+form1:this.$inertia.form({
+id:null,
+}),
+
+//
+show:false,
+//
+
+form:this.$inertia.form({
+date:'',
+time:'',
+comment:'',
+id:null
+}),
+
+
+
+
+
+}},
 
 computed:{
 interview(){
@@ -162,6 +260,67 @@ return this.$page.props.auth.user.role;
 
 
 
+},
+
+
+
+methods:{
+
+
+
+//
+submit1(id){
+this.form1.id=id;
+this.form1.post(this.route('delete.interview'),{
+onSuccess:()=>{
+this.$notify({
+title:'Successful',
+message:this.$page.props.flash.success,
+position:'bottom-right',
+type:'success'
+});
+}
+});
+},
+
+
+
+
+
+//
+submit(){
+this.form.post(this.route('update.interview'),{
+onSuccess:()=>{
+this.$notify({
+title:this.$page.props.flash.success!=null?'Successful':'Warning',
+message:this.$page.props.flash.success!=null?this.$page.props.flash.success:this.$page.props.flash.warning,
+position:'bottom-right',
+type:this.$page.props.flash.success!=null?'success':'warning'
+});
+this.show=false;
+}
+});
+},
+
+
+
+
+payload(){
+const id=this.response.interview.interviewID;
+this.form.id=id;
+this.form.date=this.response.interview.date;
+this.form.time=this.response.interview.time;
+this.form.comment=this.response.interview.comment;
+}
+
+
+
+
+
+
+},
+mounted(){
+this.payload();
 }
 
 

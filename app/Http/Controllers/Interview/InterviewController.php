@@ -67,9 +67,9 @@ class InterviewController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request)
-    {
+public function show(Request $request){
         //
+
 $row=[];
 $get=PSSPInterviewScheduleModel::select('pssp_interview_schedule.created_at',
 'pssp_interview_schedule.date',
@@ -85,8 +85,7 @@ $get=PSSPInterviewScheduleModel::select('pssp_interview_schedule.created_at',
 'users.dob',
 'dasuns_user_number.number',
 'users.id',
-'pssp_interview_schedule.id as interviewID'
-)
+'pssp_interview_schedule.id as interviewID')
 ->join('users','pssp_interview_schedule.service_providerID','=','users.id')
 ->join('dasuns_user_number','users.id','=','dasuns_user_number.userID')
 ->where('pssp_interview_schedule.id',$request->segment(2))
@@ -109,6 +108,7 @@ $item=[
 'number'=>$row->number,
 'created_at'=>$row->created_at,
 'id'=>$row->id,
+'interviewID'=>$row->interviewID,
 
 //services
 'services'=>ServiceProviderServicesModel::
@@ -128,9 +128,17 @@ $data['response']=['interview'=>$item];
 
 return Inertia::render('ShowInterviewPage',$data);
 
+
+
 }else{
 return redirect('/');
 }
+
+
+
+
+
+
 
 
 
@@ -152,12 +160,35 @@ $request->validate(['date'=>['required'],
 'time'=>['required'],
 'comment'=>['required']],
 ['required'=>'* Field is required.']);
+
+//
+$get=PSSPInterviewScheduleModel::where('id',$request->id)
+->limit(1)
+->get();
+if(count($get)==1){
+foreach($get as $row);
+if($request->date!=$row->date || $request->time!=$row->time || $request->comment!=$row->comment){
+
 //
 PSSPInterviewScheduleModel::where('id',$request->id)
 ->update(['time'=>$request->time,'date'=>$request->date,'comment'=>$request->comment]);
 return redirect('/interview/'.$request->id)->with('success','Interview information hase been updated.');
 
+}else{
+return redirect('/interview/'.$request->id)->with('warning','Interview details not changed.');
+}
 
+
+
+
+
+
+}else{
+return redirect('/');
+}
+
+
+return $request;
 
 }
 
@@ -175,10 +206,7 @@ return redirect('/interview/'.$request->id)->with('success','Interview informati
 
 
 public function destroy(Request $request){
-$item=InterviewController::get_interview_and_dasuns_number($request->id);
 PSSPInterviewScheduleModel::where('id',$request->id)->delete();
-DasunsUserNumberModel::where('id',$item->applicationID)->update(['account_status'=>'pending']);
-User::where('id',$item->userID)->update(['status'=>'pending']);
 return redirect('/')->with('success','Interview has been deleted.');
 }
 
