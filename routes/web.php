@@ -33,6 +33,7 @@ use App\Http\Controllers\Chat\ChatController;
 
 
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -141,7 +142,8 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/application-preview/{id}'
 
 Route::middleware(['auth:sanctum', 'verified'])->post('/store-interview',[VettingController::class,'create_interview_schedule'])->name('store-interview');
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/interview/{id}',[ReceptionController::class,'show_interview'])->name('interview');
+// Route::middleware(['auth:sanctum', 'verified'])->get('/interview/{id}',[ReceptionController::class,'show_interview'])->name('interview');
+
 
 Route::middleware(['auth:sanctum', 'verified'])->post('/create-panelist-profile',[PanelistController::class,'store_profession_profile'])->name('store.profession_profile');
 
@@ -307,3 +309,5 @@ Route::middleware(['auth:sanctum', 'verified'])->post('/services/destroy',[Suppo
 Route::middleware(['auth:sanctum', 'verified'])->post('/services/store',[SupportServiceController::class,'store'])->name('services.store');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/users/active/admin',[AdministrationController::class,'active_users'])->name('users.active');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/interview/{id}',[InterviewController::class,'show'])->name('interview');

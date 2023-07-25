@@ -41,9 +41,6 @@
 
 
 
-
-
-
 <div class="card h-100" style="min-height:500px;">
 <div class="card-header">
 <h3 class="card-title" style="text-transform:capitalize;">Appointment Requests</h3>
@@ -99,24 +96,85 @@ No service
 
 </div>
 </div>
-
-
-
-
-
-
 </div>
+
+
 <div class="col-12 col-md-4">
 <div class="card h-100">
 <div class="card-header">
-<h3 class="card-title text-transform">Transactions</h3>
+<h3 class="card-title text-transform">Interviews</h3>
 
 </div>
 <div class="card-body">
 
+    <div class="row text-center">
+        <div class="col-sm-4 border-right pb-4 pt-4">
+            <label class="mb-0">Scheduled</label>
+            <h4 class="font-30 font-weight-bold text-col-blue counter">
+                {{ interview.all }}
+            </h4>
+        </div>
+        <div class="col-sm-4 border-right pb-4 pt-4">
+            <label class="mb-0">Accepted</label>
+            <h4 class="font-30 font-weight-bold text-col-blue counter">
+                {{ interview.success }}
+            </h4>
+        </div>
+        <div class="col-sm-4 pb-4 pt-4">
+            <label class="mb-0">Failed</label>
+            <h4 class="font-30 font-weight-bold text-col-blue counter">
+                {{ interview.fail }}
+            </h4>
+        </div>
+    </div>
 
 
-    {{ wallet }}
+
+
+
+<table class="table card-table">
+<thead>
+<th>Service No.</th>
+<th>Date</th>
+<th>Status</th>
+</thead>
+
+<tbody v-if="interview.latest.length>0">
+<tr v-for="(i,key) in interview.latest" :key="key">
+<td>
+<inertia-link class="text-muted" :href="route('interview',{id:i.id})">
+{{ i.number }}
+</inertia-link>
+</td>
+<td>
+{{ i.date.split('-').reverse().join('/') }}
+</td>
+<td class="text-right">
+<span class="tag tag-default text-transform">
+{{ i.status }}
+</span>
+</td>
+</tr>
+
+</tbody>
+<tbody v-else>
+<tr>
+<td>
+No content
+</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -136,40 +194,87 @@ No service
 
 
 
-    <div class="card">
-        <div class="card-header">
-            <h3 class="card-title">Wallet</h3>
-        </div>
-        <div class="card-body">
-            <span>Balance</span>
-            <h4>Shs.<span class="counter ml-3">{{ wallet }} </span></h4>
+<div class="card">
+<div class="card-header">
+<h3 class="card-title text-transform">Wallet</h3>
+</div>
+<div class="card-body">
+<span>Balance</span>
+<h4>Shs.<span class="counter ml-3">{{ wallet }} </span></h4>
 
-            <div class="form-group">
-                <label class="d-block">Service Providers<span class="float-right">$<span class="counter">15,025</span></span></label>
-                <div class="progress progress-xs">
-                    <div class="progress-bar bg-azure" role="progressbar" aria-valuenow="77" aria-valuemin="0" aria-valuemax="100" style="width: 77%;"></div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="d-block">Service Users <span class="float-right">$<span class="counter">1,843</span></span></label>
-                <div class="progress progress-xs">
-                    <div class="progress-bar bg-green" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%;"></div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="d-block">Others <span class="float-right">$<span class="counter">3,640</span></span></label>
-                <div class="progress progress-xs">
-                    <div class="progress-bar bg-blue" role="progressbar" aria-valuenow="23" aria-valuemin="0" aria-valuemax="100" style="width: 23%;"></div>
-                </div>
-            </div>
-       </div>
-        <div class="card-footer">
-            <a href="javascript:void(0)" class="btn btn-block btn-info btn-sm">View More</a>
-        </div>
-    </div>
+<div class="form-group">
+<label class="d-block">Service Providers<span class="float-right">Shs.<span class="counter">{{ counts.pssp }} </span></span></label>
+<div class="progress progress-xs">
+
+</div>
+</div>
+<div class="form-group">
+<label class="d-block">Service Users <span class="float-right">Shs. <span class="counter">{{ counts.pssu }}</span></span></label>
+<div class="progress progress-xs">
+</div>
+</div>
+<div class="form-group">
+<label class="d-block">Others <span class="float-right">Shs.<span class="counter">
+{{ counts.other }}</span></span></label>
+<div class="progress progress-xs">
+
+</div>
+</div>
+</div>
+<div class="card-footer">
+<a href="javascript:void(0)" class="btn btn-block btn-info btn-sm">Transaction History </a>
+</div>
+</div>
+
+</div>
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="col-12 col-md-4">
+
+<div class="card">
+<div class="card-header">
+<h3 class="card-title">Wallet</h3>
+</div>
+<div class="card-body">
+<span>Balance</span>
+<h4>Shs.<span class="counter">{{ wallet }} </span></h4>
+
+<div class="form-group">
+<label class="d-block">Bank of America <span class="float-right">$<span class="counter">15,025</span></span></label>
+<div class="progress progress-xs">
+<div class="progress-bar bg-azure" role="progressbar" aria-valuenow="77" aria-valuemin="0" aria-valuemax="100" style="width: 77%;"></div>
+</div>
+</div>
+<div class="form-group">
+<label class="d-block">RBC Bank <span class="float-right">$<span class="counter">1,843</span></span></label>
+<div class="progress progress-xs">
+    <div class="progress-bar bg-green" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%;"></div>
+</div>
+</div>
+<div class="form-group">
+<label class="d-block">Frost Bank <span class="float-right">$<span class="counter">3,640</span></span></label>
+<div class="progress progress-xs">
+    <div class="progress-bar bg-blue" role="progressbar" aria-valuenow="23" aria-valuemin="0" aria-valuemax="100" style="width: 23%;"></div>
+</div>
+</div>
+</div>
+<div class="card-footer">
+<a href="javascript:void(0)" class="btn btn-block btn-info btn-sm">View More</a>
+</div>
+</div>
 
 
 
@@ -177,77 +282,39 @@ No service
 </div>
 <div class="col-12 col-md-4">
 
-    <div class="card">
-        <div class="card-header">
-            <h3 class="card-title">Wallet</h3>
-        </div>
-        <div class="card-body">
-            <span>Balance</span>
-            <h4>Shs.<span class="counter">{{ wallet }} </span></h4>
-
-            <div class="form-group">
-                <label class="d-block">Bank of America <span class="float-right">$<span class="counter">15,025</span></span></label>
-                <div class="progress progress-xs">
-                    <div class="progress-bar bg-azure" role="progressbar" aria-valuenow="77" aria-valuemin="0" aria-valuemax="100" style="width: 77%;"></div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="d-block">RBC Bank <span class="float-right">$<span class="counter">1,843</span></span></label>
-                <div class="progress progress-xs">
-                    <div class="progress-bar bg-green" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%;"></div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="d-block">Frost Bank <span class="float-right">$<span class="counter">3,640</span></span></label>
-                <div class="progress progress-xs">
-                    <div class="progress-bar bg-blue" role="progressbar" aria-valuenow="23" aria-valuemin="0" aria-valuemax="100" style="width: 23%;"></div>
-                </div>
-            </div>
-       </div>
-        <div class="card-footer">
-            <a href="javascript:void(0)" class="btn btn-block btn-info btn-sm">View More</a>
-        </div>
-    </div>
 
 
-
-
+<div class="card">
+<div class="card-header">
+    <h3 class="card-title">Wallet</h3>
 </div>
-<div class="col-12 col-md-4">
+<div class="card-body">
+    <span>Balance</span>
+    <h4>Shs.<span class="counter">{{ wallet }} </span></h4>
 
-
-
-    <div class="card">
-        <div class="card-header">
-            <h3 class="card-title">Wallet</h3>
-        </div>
-        <div class="card-body">
-            <span>Balance</span>
-            <h4>Shs.<span class="counter">{{ wallet }} </span></h4>
-
-            <div class="form-group">
-                <label class="d-block">Bank of America <span class="float-right">$<span class="counter">15,025</span></span></label>
-                <div class="progress progress-xs">
-                    <div class="progress-bar bg-azure" role="progressbar" aria-valuenow="77" aria-valuemin="0" aria-valuemax="100" style="width: 77%;"></div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="d-block">RBC Bank <span class="float-right">$<span class="counter">1,843</span></span></label>
-                <div class="progress progress-xs">
-                    <div class="progress-bar bg-green" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%;"></div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="d-block">Frost Bank <span class="float-right">$<span class="counter">3,640</span></span></label>
-                <div class="progress progress-xs">
-                    <div class="progress-bar bg-blue" role="progressbar" aria-valuenow="23" aria-valuemin="0" aria-valuemax="100" style="width: 23%;"></div>
-                </div>
-            </div>
-       </div>
-        <div class="card-footer">
-            <a href="javascript:void(0)" class="btn btn-block btn-info btn-sm">View More</a>
+    <div class="form-group">
+        <label class="d-block">Bank of America <span class="float-right">$<span class="counter">15,025</span></span></label>
+        <div class="progress progress-xs">
+            <div class="progress-bar bg-azure" role="progressbar" aria-valuenow="77" aria-valuemin="0" aria-valuemax="100" style="width: 77%;"></div>
         </div>
     </div>
+    <div class="form-group">
+        <label class="d-block">RBC Bank <span class="float-right">$<span class="counter">1,843</span></span></label>
+        <div class="progress progress-xs">
+            <div class="progress-bar bg-green" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%;"></div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="d-block">Frost Bank <span class="float-right">$<span class="counter">3,640</span></span></label>
+        <div class="progress progress-xs">
+            <div class="progress-bar bg-blue" role="progressbar" aria-valuenow="23" aria-valuemin="0" aria-valuemax="100" style="width: 23%;"></div>
+        </div>
+    </div>
+</div>
+<div class="card-footer">
+    <a href="javascript:void(0)" class="btn btn-block btn-info btn-sm">View More</a>
+</div>
+</div>
 
 
 
@@ -297,12 +364,16 @@ return this.response.user_data.appointments;
 
 wallet(){
 return this.response.user_data.wallet;
+},
+
+counts(){
+return this.response.user_data.counts;
+},
+
+
+interview(){
+return this.response.user_data.interview;
 }
-
-
-
-
-
 
 
 }

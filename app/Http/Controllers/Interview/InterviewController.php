@@ -15,6 +15,9 @@ use App\Models\User;
 use App\Http\Controllers\DasunsNumber\DasunsNumberController;
 use App\Models\PSSPInterviewRejectionModel;
 use App\Models\AccountStatusMessageModel;
+use Inertia\Inertia;
+use App\Models\ServiceProviderServicesModel;
+use App\Models\InterviewPanelistModel;
 
 
 
@@ -64,10 +67,75 @@ class InterviewController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
         //
-    }
+$row=[];
+$get=PSSPInterviewScheduleModel::select('pssp_interview_schedule.created_at',
+'pssp_interview_schedule.date',
+'pssp_interview_schedule.time',
+'pssp_interview_schedule.comment',
+'pssp_interview_schedule.status',
+'pssp_interview_schedule.type',
+'users.firstname',
+'users.lastname',
+'users.gender',
+'users.tel',
+'users.email',
+'users.dob',
+'dasuns_user_number.number',
+'users.id',
+'pssp_interview_schedule.id as interviewID'
+)
+->join('users','pssp_interview_schedule.service_providerID','=','users.id')
+->join('dasuns_user_number','users.id','=','dasuns_user_number.userID')
+->where('pssp_interview_schedule.id',$request->segment(2))
+->limit(1)
+->get();
+if(count($get)==1){
+foreach($get as $row);
+$item=[
+'date'=>$row->date,
+'time'=>$row->time,
+'comment'=>$row->comment,
+'status'=>$row->status,
+'type'=>$row->type,
+'firstname'=>$row->firstname,
+'lastname'=>$row->lastname,
+'gender'=>$row->gender,
+'tel'=>$row->tel,
+'email'=>$row->email,
+'dob'=>$row->dob,
+'number'=>$row->number,
+'created_at'=>$row->created_at,
+'id'=>$row->id,
+
+//services
+'services'=>ServiceProviderServicesModel::
+join('support_service','service_provider_services.serviceID','=','support_service.id')->where('service_provider_services.userID',$row->id)->get(),
+
+//panelists
+'panelist'=>InterviewPanelistModel::select('users.firstname','users.lastname')
+->join('users','interview_panelist.userID','=','users.id')
+->where('interviewID',$row->interviewID)
+->get()
+
+];
+
+
+$data['title']='Interview';
+$data['response']=['interview'=>$item];
+
+return Inertia::render('ShowInterviewPage',$data);
+
+}else{
+return redirect('/');
+}
+
+
+
+
+}
 
     /**
      * Update the specified resource in storage.
