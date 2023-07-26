@@ -316,4 +316,6 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/interviews',[InterviewCon
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/wallet/admin',[WalletController::class,'admin_wallet'])->name('wallet.admin');
 
+Route::middleware(['auth:sanctum', 'verified'])->get('/sections',[PageController::class,'sections'])->name('sections');
+
 

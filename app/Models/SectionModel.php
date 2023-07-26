@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class SectionModel extends Model
 {
-    use HasFactory;
-    protected $table='section';
+use HasFactory;
+protected $table='section';
 }

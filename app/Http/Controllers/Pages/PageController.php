@@ -11,6 +11,9 @@ use App\Models\ContactModel;
 use App\Models\SupportServiceModel;
 use App\Models\User;
 use App\Models\ServiceProviderServicesModel;
+use App\Http\Controllers\Role\RoleController;
+use App\Models\SectionModel;
+
 
 class PageController extends Controller
 {
@@ -217,6 +220,34 @@ $data['response']=[
 return Inertia::render('ListServicesPage',$data);
 
 }
+
+
+
+//section
+public function sections(Request $request){
+$permission=RoleController::permission(['admin']);
+if($permission!=null){
+$data['title']='Sections';
+$data['response']=[
+'section'=>SectionModel::orderby('tag','ASC')->get(),
+'pages'=>SectionModel::select('tag')->get(),
+
+
+
+];
+
+
+return Inertia::render('SectionPage',$data);
+
+}else{
+return redirect('/');
+}
+
+}
+
+
+
+
 
 
 

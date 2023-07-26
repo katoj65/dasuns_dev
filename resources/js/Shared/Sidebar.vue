@@ -95,6 +95,7 @@ admin_menu:[
 {name:'Interviews',url:'interviews',icon:'icon ni ni-list-thumb-alt'},
 {name:'Dasuns Services',url:'services',icon:'icon ni ni-brick'},
 {name:'Payments',url:'wallet.admin',icon:'icon ni ni-wallet-alt'},
+{name:'Pages',url:'sections',icon:'icon ni ni-article'},
 ],
 
 
