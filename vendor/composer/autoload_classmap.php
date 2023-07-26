@@ -45,6 +45,7 @@ return array(
     'App\\Http\\Controllers\\Profile\\ProfileController' => $baseDir . '/app/Http/Controllers/Profile/ProfileController.php',
     'App\\Http\\Controllers\\Reception\\ReceptionController' => $baseDir . '/app/Http/Controllers/Reception/ReceptionController.php',
     'App\\Http\\Controllers\\Request\\RequestController' => $baseDir . '/app/Http/Controllers/Request/RequestController.php',
+    'App\\Http\\Controllers\\Role\\RoleController' => $baseDir . '/app/Http/Controllers/Role/RoleController.php',
     'App\\Http\\Controllers\\Roles\\RolesController' => $baseDir . '/app/Http/Controllers/Roles/RolesController.php',
     'App\\Http\\Controllers\\Search\\SearchController' => $baseDir . '/app/Http/Controllers/Search/SearchController.php',
     'App\\Http\\Controllers\\ServiceProvider\\ServiceProviderController' => $baseDir . '/app/Http/Controllers/ServiceProvider/ServiceProviderController.php',

@@ -290,11 +290,13 @@ $data['response']=[
 'pssp'=>number_format(DasunsWalletModel::select('dasuns_wallet.amount')
 ->join('users','dasuns_wallet.userID','=','users.id')
 ->where('users.role','pssp')
+
 ->sum('dasuns_wallet.amount')),
 'pssu'=>number_format(DasunsWalletModel::select('dasuns_wallet.amount')
 ->join('users','dasuns_wallet.userID','=','users.id')
 ->where('users.role','pssu')
 ->sum('dasuns_wallet.amount')),
+
 'other'=>number_format(DasunsWalletModel::select('dasuns_wallet.amount')
 ->join('users','dasuns_wallet.userID','=','users.id')
 ->where('users.role','admin')
@@ -302,7 +304,10 @@ $data['response']=[
 ->orwhere('users.role','panelist')
 ->orwhere('users.role','secretary')
 ->sum('dasuns_wallet.amount')),
-'log'=>LogWalletModel::orderby('created_at','DESC')->get(),
+
+'log'=>LogWalletModel::select('*')
+->orderby('log_wallet.created_at','DESC')
+->get(),
 
 ];
 

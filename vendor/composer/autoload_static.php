@@ -645,6 +645,7 @@ class ComposerStaticInit6ca39d84c378fa455e59eb566042b810
         'App\\Http\\Controllers\\Profile\\ProfileController' => __DIR__ . '/../..' . '/app/Http/Controllers/Profile/ProfileController.php',
         'App\\Http\\Controllers\\Reception\\ReceptionController' => __DIR__ . '/../..' . '/app/Http/Controllers/Reception/ReceptionController.php',
         'App\\Http\\Controllers\\Request\\RequestController' => __DIR__ . '/../..' . '/app/Http/Controllers/Request/RequestController.php',
+        'App\\Http\\Controllers\\Role\\RoleController' => __DIR__ . '/../..' . '/app/Http/Controllers/Role/RoleController.php',
         'App\\Http\\Controllers\\Roles\\RolesController' => __DIR__ . '/../..' . '/app/Http/Controllers/Roles/RolesController.php',
         'App\\Http\\Controllers\\Search\\SearchController' => __DIR__ . '/../..' . '/app/Http/Controllers/Search/SearchController.php',
         'App\\Http\\Controllers\\ServiceProvider\\ServiceProviderController' => __DIR__ . '/../..' . '/app/Http/Controllers/ServiceProvider/ServiceProviderController.php',

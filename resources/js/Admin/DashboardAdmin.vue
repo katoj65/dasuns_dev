@@ -246,33 +246,14 @@ No content
 
 <div class="card">
 <div class="card-header">
-<h3 class="card-title">Wallet</h3>
+<h3 class="card-title"></h3>
 </div>
 <div class="card-body">
-<span>Balance</span>
-<h4>Shs.<span class="counter">{{ wallet }} </span></h4>
 
-<div class="form-group">
-<label class="d-block">Bank of America <span class="float-right">$<span class="counter">15,025</span></span></label>
-<div class="progress progress-xs">
-<div class="progress-bar bg-azure" role="progressbar" aria-valuenow="77" aria-valuemin="0" aria-valuemax="100" style="width: 77%;"></div>
-</div>
-</div>
-<div class="form-group">
-<label class="d-block">RBC Bank <span class="float-right">$<span class="counter">1,843</span></span></label>
-<div class="progress progress-xs">
-    <div class="progress-bar bg-green" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%;"></div>
-</div>
-</div>
-<div class="form-group">
-<label class="d-block">Frost Bank <span class="float-right">$<span class="counter">3,640</span></span></label>
-<div class="progress progress-xs">
-    <div class="progress-bar bg-blue" role="progressbar" aria-valuenow="23" aria-valuemin="0" aria-valuemax="100" style="width: 23%;"></div>
-</div>
-</div>
+
 </div>
 <div class="card-footer">
-<a href="javascript:void(0)" class="btn btn-block btn-info btn-sm">View More</a>
+
 </div>
 </div>
 
@@ -286,33 +267,17 @@ No content
 
 <div class="card">
 <div class="card-header">
-    <h3 class="card-title">Wallet</h3>
+    <h3 class="card-title"></h3>
 </div>
 <div class="card-body">
-    <span>Balance</span>
-    <h4>Shs.<span class="counter">{{ wallet }} </span></h4>
 
-    <div class="form-group">
-        <label class="d-block">Bank of America <span class="float-right">$<span class="counter">15,025</span></span></label>
-        <div class="progress progress-xs">
-            <div class="progress-bar bg-azure" role="progressbar" aria-valuenow="77" aria-valuemin="0" aria-valuemax="100" style="width: 77%;"></div>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="d-block">RBC Bank <span class="float-right">$<span class="counter">1,843</span></span></label>
-        <div class="progress progress-xs">
-            <div class="progress-bar bg-green" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%;"></div>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="d-block">Frost Bank <span class="float-right">$<span class="counter">3,640</span></span></label>
-        <div class="progress progress-xs">
-            <div class="progress-bar bg-blue" role="progressbar" aria-valuenow="23" aria-valuemin="0" aria-valuemax="100" style="width: 23%;"></div>
-        </div>
-    </div>
+
+
+
+
 </div>
 <div class="card-footer">
-    <a href="javascript:void(0)" class="btn btn-block btn-info btn-sm">View More</a>
+
 </div>
 </div>
 
