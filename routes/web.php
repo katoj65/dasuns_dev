@@ -314,4 +314,6 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/interview/{id}',[Intervie
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/interviews',[InterviewController::class,'index'])->name('interviews');
 
+Route::middleware(['auth:sanctum', 'verified'])->get('/wallet/admin',[WalletController::class,'admin_wallet'])->name('wallet.admin');
+
 

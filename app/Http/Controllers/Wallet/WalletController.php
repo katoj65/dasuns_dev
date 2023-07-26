@@ -13,10 +13,10 @@ use App\Models\LogWalletModel;
 use App\Models\DasunsPaymentFeesModel;
 use App\Models\PaymentModel;
 use App\Models\EscrowAccountModel;
+use App\Http\Controllers\Role\RoleController;
 
 
-class WalletController extends Controller
-{
+class WalletController extends Controller{
     /**
      * Display a listing of the resource.
      *
@@ -36,7 +36,6 @@ return redirect('/');
 }
 
 
-
 $data['title']='Wallet';
 $data['response']=[
 'balance'=>$row->amount,
@@ -47,9 +46,9 @@ $data['response']=[
 ];
 return Inertia::render('WalletPage',$data);
 }else{
-    return redirect('/');
+return redirect('/');
 }
-    }
+}
 
     /**
      * Store a newly created resource in storage.
@@ -273,6 +272,49 @@ $data['title']='Wallet history';
 $data['response']=[];
 return Inertia::render('WalletHistoryPage',$data);
 }
+
+
+
+
+
+
+
+//admin wallet method
+public function admin_wallet(Request $request){
+$permission=RoleController::permission(['admin','reception']);
+if($permission!=null){
+
+$data['title']='Admin Wallet';
+$data['response']=[
+'balance'=>number_format(DasunsWalletModel::select('amount')->sum('amount')),
+'pssp'=>number_format(DasunsWalletModel::select('dasuns_wallet.amount')
+->join('users','dasuns_wallet.userID','=','users.id')
+->where('users.role','pssp')
+->sum('dasuns_wallet.amount')),
+'pssu'=>number_format(DasunsWalletModel::select('dasuns_wallet.amount')
+->join('users','dasuns_wallet.userID','=','users.id')
+->where('users.role','pssu')
+->sum('dasuns_wallet.amount')),
+'other'=>number_format(DasunsWalletModel::select('dasuns_wallet.amount')
+->join('users','dasuns_wallet.userID','=','users.id')
+->where('users.role','admin')
+->orwhere('users.role','reception')
+->orwhere('users.role','panelist')
+->orwhere('users.role','secretary')
+->sum('dasuns_wallet.amount')),
+'log'=>LogWalletModel::orderby('created_at','DESC')->get(),
+
+];
+
+return Inertia::render('AdminWallet',$data);
+
+}else{
+
+return redirect('/');
+
+}
+}
+
 
 
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Role;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Model\UserRoleModel;
 
 class RoleController extends Controller
 {
@@ -66,22 +67,14 @@ class RoleController extends Controller
 //user role check
 
 static function permission($roles){
-$check=false;
 $role=Auth::user()->role;
-if(count($roles)>0){
-foreach($roles as $item){
-if($role==$item){
-$check=true;
-}else{
-$check=false;
+$item=false;
+for($x=0;$x<count($roles);$x++){
+if($roles[$x]==$role){
+$item=true;
 }
 }
-return $check;
-}else{
-return null;
-}
-
-
+return $item;
 }
 
 

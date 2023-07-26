@@ -93,8 +93,8 @@ admin_menu:[
 {name:'Service Providers',url:'service.providers',icon:'icon ni ni-user-list-fill'},
 {name:'Appointments',url:'appointments',icon:'icon ni ni-notes-alt'},
 {name:'Interviews',url:'interviews',icon:'icon ni ni-list-thumb-alt'},
-{name:'Dasuns Services',url:'dashboard',icon:'icon ni ni-brick'},
-{name:'Payments',url:'dashboard',icon:'icon ni ni-wallet-alt'},
+{name:'Dasuns Services',url:'services',icon:'icon ni ni-brick'},
+{name:'Payments',url:'wallet.admin',icon:'icon ni ni-wallet-alt'},
 ],
 
 

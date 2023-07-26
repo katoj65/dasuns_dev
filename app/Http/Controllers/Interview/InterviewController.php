@@ -47,8 +47,7 @@ class InterviewController extends Controller
 
 
 public function index(Request $request){
-if(RoleController::permission(['reception','admin'])==1){
-    
+if(RoleController::permission(['admin','reception'])!=null){
 $data['title']='Interviews';
 $data['response']=[
 'interviews'=>PSSPInterviewScheduleModel::select(
