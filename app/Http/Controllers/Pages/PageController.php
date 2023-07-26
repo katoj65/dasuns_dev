@@ -230,7 +230,7 @@ if($permission!=null){
 $data['title']='Sections';
 $data['response']=[
 'section'=>SectionModel::orderby('tag','ASC')->get(),
-'pages'=>SectionModel::select('tag')->get(),
+'pages'=>SectionModel::select('tag')->distinct()->get(),
 
 
 
@@ -246,7 +246,14 @@ return redirect('/');
 }
 
 
-
+//add section
+public function store_section(Request $request){
+$request->validate(['description'=>['required'],'page'=>['required']]);
+SectionModel::insert(['title'=>$request->title,
+'description'=>$request->description,
+'tag'=>$request->page]);
+return redirect('/sections')->with('succes','Section has been added.');
+}
 
 
 
