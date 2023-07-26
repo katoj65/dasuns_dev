@@ -88,11 +88,11 @@ pssp_menu:[
 //
 admin_menu:[
 {name:'Dashboard',url:'dashboard',icon:'icon ni ni-layout'},
-{name:'User Accounts',url:'dashboard',icon:'icon ni ni-users-fill'},
-{name:'Admin Accounts',url:'dashboard',icon:'icon ni ni-shield-check'},
-{name:'Service Providers',url:'dashboard',icon:'icon ni ni-user-list-fill'},
+{name:'User Accounts',url:'users.active',icon:'icon ni ni-users-fill'},
+{name:'Admin Accounts',url:'admin.accounts',icon:'icon ni ni-shield-check'},
+{name:'Service Providers',url:'admin.accounts',icon:'icon ni ni-user-list-fill'},
 {name:'Applicants',url:'dashboard',icon:'icon ni ni-notes-alt'},
-{name:'Interviews',url:'dashboard',icon:'icon ni ni-list-thumb-alt'},
+{name:'Interviews',url:'interviews',icon:'icon ni ni-list-thumb-alt'},
 {name:'Dasuns Services',url:'dashboard',icon:'icon ni ni-brick'},
 {name:'Payments',url:'dashboard',icon:'icon ni ni-wallet-alt'},
 ],

@@ -45,10 +45,39 @@ class InterviewController extends Controller
 
 
 
-    public function index()
-    {
-        //
-    }
+public function index(Request $request){
+$data['title']='Interviews';
+$data['response']=[
+'interviews'=>PSSPInterviewScheduleModel::select('pssp_interview_schedule.created_at',
+'pssp_interview_schedule.date',
+'pssp_interview_schedule.time',
+'pssp_interview_schedule.comment',
+'pssp_interview_schedule.status',
+'pssp_interview_schedule.type',
+'users.firstname',
+'users.lastname',
+'users.gender',
+'users.tel',
+'users.email',
+'users.dob',
+'dasuns_user_number.number',
+'users.id',
+'pssp_interview_schedule.id as interviewID')
+->join('users','pssp_interview_schedule.service_providerID','=','users.id')
+->join('dasuns_user_number','users.id','=','dasuns_user_number.userID')
+->get(),
+
+
+
+
+
+
+
+];
+
+return Inertia::render('InterviewsPage',$data);
+
+}
 
     /**
      * Store a newly created resource in storage.
