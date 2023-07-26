@@ -313,3 +313,5 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/users/active/admin',[Admi
 Route::middleware(['auth:sanctum', 'verified'])->get('/interview/{id}',[InterviewController::class,'show'])->name('interview');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/interviews',[InterviewController::class,'index'])->name('interviews');
+
+

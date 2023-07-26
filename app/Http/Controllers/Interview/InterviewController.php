@@ -18,6 +18,7 @@ use App\Models\AccountStatusMessageModel;
 use Inertia\Inertia;
 use App\Models\ServiceProviderServicesModel;
 use App\Models\InterviewPanelistModel;
+use App\Http\Controllers\Role\RoleController;
 
 
 
@@ -46,6 +47,8 @@ class InterviewController extends Controller
 
 
 public function index(Request $request){
+if(RoleController::permission(['reception','admin'])==1){
+    
 $data['title']='Interviews';
 $data['response']=[
 'interviews'=>PSSPInterviewScheduleModel::select(
@@ -67,16 +70,16 @@ $data['response']=[
 ->join('users','pssp_interview_schedule.service_providerID','=','users.id')
 ->join('dasuns_user_number','users.id','=','dasuns_user_number.userID')
 ->get(),
-
-
-
-
-
-
-
 ];
 
 return Inertia::render('InterviewsPage',$data);
+
+
+
+
+}else{
+return redirect('/');
+}
 
 }
 

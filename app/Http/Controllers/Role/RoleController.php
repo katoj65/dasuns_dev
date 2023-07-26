@@ -65,12 +65,23 @@ class RoleController extends Controller
 
 //user role check
 
-static function user_permission($roles){
+static function permission($roles){
+$check=false;
 $role=Auth::user()->role;
-$search=array_search($role,$roles);
-if($search==null){
-return redirect('/');
+if(count($roles)>0){
+foreach($roles as $item){
+if($role==$item){
+$check=true;
+}else{
+$check=false;
 }
+}
+return $check;
+}else{
+return null;
+}
+
+
 }
 
 
