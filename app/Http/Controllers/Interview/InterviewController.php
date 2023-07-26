@@ -48,7 +48,8 @@ class InterviewController extends Controller
 public function index(Request $request){
 $data['title']='Interviews';
 $data['response']=[
-'interviews'=>PSSPInterviewScheduleModel::select('pssp_interview_schedule.created_at',
+'interviews'=>PSSPInterviewScheduleModel::select(
+'pssp_interview_schedule.created_at',
 'pssp_interview_schedule.date',
 'pssp_interview_schedule.time',
 'pssp_interview_schedule.comment',
