@@ -165,15 +165,16 @@ return Inertia::render('ContactPage',$data);
 
 function about(){
 
-    $data['title']='About Us';
-    $data['response']=[
-        'team'=>TeamModel::get(),
+$data['title']='About Us';
+$data['response']=[
+    'team'=>TeamModel::get(),
+    'about'=>SectionModel::where('tag','about')->orderby('created_at','ASC')->get(),
 
 
 
-    ];
-    return Inertia::render('AboutPage',$data);
-    }
+];
+return Inertia::render('AboutPage',$data);
+}
 
 
 

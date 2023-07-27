@@ -28,60 +28,20 @@
 </h3>
 
 
-<h4 class="mb-2">Who we are</h4>
-
+<div v-if="about.length>0">
+<ul>
+<li v-for="(a,key) in about" :key="key" class="mb-5">
+<h4>{{ a.title }} </h4>
 <p>
-    We are Diversity Ability Support Network System (Dasuns), a Social Enterprise
-Company registered in Uganda, with a mission of to promoteing inclusive socio-
-economic development through facilitating access to professional support services
-and assistive technologies to advance rights, choices and opportunities for persons
-with disabilities.
-
+{{ a.description }}
 </p>
-
-
-<p class="mt-3">
-We believe in the revolutionary power of Assistive
-Technologies (AT) in enabling Persons with Disabilities
-to live healthy, productive, independent, and dignified
-lives, and to effectively participate in education, the
-labour market and civic life. We acknowledge the role
-of AT products and services in helping to reducing the
-need for formal health and support services, long-term
-care and the work of caregivers for Persons with
-Disabilities.
-</p>
-
-
-<h4 class="mt-5 border-top pt-3 mb-3">
-Overview
-</h4>
-
-<p class="mt-3">
-    The Uganda Demographic and Health Survey (2016)
-    indicates that the total population of Persons with
-    Disabilities add up to about seven (7) million total
-    population of Persons with Disabilities. Few of them
-    can obtain a tertiary level degree, 75 percent are not
-    employed, and 80 percent are walloping in poverty.
-    The main challenges include the inadequate access to
-    assistive products and services, such as an accessible
-    Professional Support Service System to facilitate the
-    effective participation of Persons with Disabilities in
-
-    education, employment and community life.
-</p>
-
-
-
-<div>
-
-
-
-
-
-
+</li>
+</ul>
 </div>
+<div v-else>
+No content
+</div>
+
 
 
 </div>
@@ -186,7 +146,12 @@ return this.response.team;
 
 images(){
 return this.response.images;
+},
+
+about(){
+return this.response.about;
 }
+
 
 
 
@@ -206,8 +171,8 @@ return this.response.images;
 <style scoped>
 h4{font-size:20px;
 line-height: 30px;}
-p{font-size:17px; font-family: Arial, sans-serif;
-line-height: 30px;
+p{font-size:15px; font-family: Arial, sans-serif;
+line-height: 25px;
 
 }
 

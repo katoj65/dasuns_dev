@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Information;
 use Inertia\Inertia;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\SectionModel;
 
 class AboutController extends Controller
 {
@@ -14,7 +15,11 @@ class AboutController extends Controller
      */
     public function index(){
 $data['title']='About Us';
-$data['response']=[];
+$data['response']=[
+'about'=>SectionModel::where('page','about')->orderby('created_at','ASC')->get(),
+
+
+];
 return Inertia::render('AboutPage',$data);
     }
 
