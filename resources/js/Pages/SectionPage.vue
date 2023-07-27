@@ -112,7 +112,7 @@
 </label>
 <div class="form-control-wrap">
 <select class="form-control" id="default-01" @change="select_page($event)">
-<option value="">--Select--</option>
+<option value="">--Select page--</option>
 <option v-for="(p,key) in pages" :key="key" :value="p.tag">
 {{ p.tag }}
 </option>

@@ -59,7 +59,7 @@
 <th>status</th>
 </tr>
 </thead>
-<tbody>
+<tbody v-if="appointments.length>0">
 <tr v-for="(a,key) in appointments" :key="key">
 <td class="text-muted text-transform">
     <em class="icon ni ni-label-fill mr-2"></em>
@@ -83,6 +83,11 @@ No service
 </td>
 </tr>
 
+</tbody>
+<tbody>
+<tr>
+<td colspan="4">No content</td>
+</tr>
 </tbody>
 </table>
 
