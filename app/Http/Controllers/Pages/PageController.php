@@ -252,7 +252,50 @@ $request->validate(['description'=>['required'],'page'=>['required']]);
 SectionModel::insert(['title'=>$request->title,
 'description'=>$request->description,
 'tag'=>$request->page]);
-return redirect('/sections')->with('succes','Section has been added.');
+return redirect('/sections')->with('success','Section has been added.');
+}
+
+
+
+
+
+
+
+
+//uodate section
+public function update_section(Request $request){
+$request->validate(['description'=>['required'],'page'=>['required']]);
+$section=SectionModel::where('id',$request->id)->limit(1)->get();
+if(count($section)==1){
+foreach($section as $row);
+//
+if($row->title==$request->title and $row->description==$request->description and $row->tag==$request->page){
+return redirect('/sections')->with('warning','Content was not changed.');
+}else{
+SectionModel::where('id',$request->id)->update([
+'title'=>$request->title,
+'description'=>$request->description,
+'tag'=>$request->page
+]);
+return redirect('/sections')->with('success','Section has been updated.');
+}
+
+
+}else{
+return redirect('/');
+}
+}
+
+
+
+
+
+
+
+//destroy section
+public function destroy_section(Request $request){
+SectionModel::where('id',$request->id)->delete();
+return redirect('/sections')->with('success','Content has been deleted.');
 }
 
 

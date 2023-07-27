@@ -222,7 +222,7 @@ No content
 </div>
 </div>
 <div class="card-footer">
-<a href="javascript:void(0)" class="btn btn-block btn-info btn-sm">Transaction History </a>
+<Inertia-link :href="route('wallet.admin')" class="btn btn-block btn-info btn-sm">Transaction History </Inertia-link>
 </div>
 </div>
 

@@ -319,3 +319,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/wallet/admin',[WalletCont
 Route::middleware(['auth:sanctum', 'verified'])->get('/sections',[PageController::class,'sections'])->name('sections');
 
 Route::middleware(['auth:sanctum', 'verified'])->post('/section/store',[PageController::class,'store_section'])->name('section.store');
+
+Route::middleware(['auth:sanctum', 'verified'])->post('/section/update',[PageController::class,'update_section'])->name('section.update');
+
+Route::middleware(['auth:sanctum', 'verified'])->post('/section/destroy',[PageController::class,'destroy_section'])->name('section.destroy');

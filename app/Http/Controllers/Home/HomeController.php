@@ -78,8 +78,7 @@ $user_data['counts']=[
 'other'=>number_format(DasunsWalletModel::select('amount')->join('users','dasuns_wallet.userID','=','users.id')
 ->where('users.role','!=','pssu')
 ->where('users.role','!=','pssp')
-->sum('amount'))
-];
+->sum('amount'))];
 
 
 $user_data['interview']=[
@@ -92,12 +91,9 @@ $user_data['interview']=[
 ->join('dasuns_user_number','pssp_interview_schedule.service_providerID','=','dasuns_user_number.userID')
 ->orderby('pssp_interview_schedule.date','DESC')
 ->limit(10)
-->get()
+->get()];
 
-
-];
-
-
+$user_data['services']=null;
 
 
 

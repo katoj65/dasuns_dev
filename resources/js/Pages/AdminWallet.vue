@@ -1,6 +1,6 @@
 <template>
 <app-layout>
-<div class="nk-content p-3">
+<div class="nk-content p-4">
 <div class="row">
 <div class="col-12 col-md-2"></div>
 <div class="col-12 col-md-8">
