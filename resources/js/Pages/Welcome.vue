@@ -21,7 +21,7 @@ Professional Care Support Services for Persons with <span style="color:yellow;">
 <div class="col-md-4" v-for="s in response.services" :key="s.name">
 
 
-<Inertia-link :href="route('profession-service',[s.id])">
+
 <div class="card border-none shadow-none" style="text-align:center;border-radius:12px;" id="item">
 <div class="card-inner">
 <div class="card-title-group align-start mb-0">
@@ -41,8 +41,6 @@ Professional Care Support Services for Persons with <span style="color:yellow;">
 
 </div>
 </div>
-</Inertia-link>
-
 
 
 

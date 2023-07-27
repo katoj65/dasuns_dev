@@ -9,7 +9,6 @@
 {{ service.name }}
 </h4>
 
-<p class="text-center pt-3" style="font-size:17px;">Here are the professional {{ service.name }} near you.</p>
 
 
 
@@ -17,32 +16,15 @@
 
 
 <div class="row mt-5" v-if="response.providers.length>0">
-<div class="col-md-3 col-12 mb-5" v-for="p in response.providers" :key="p.id">
-<div class="card p-0 card-radius shadow">
-<div class="card-inner p-2">
-<div class="team">
-<div class="user-card user-card-s2">
-<div class="user-avatar lg bg-success">
-<span><em class="icon ni ni-user-alt-fill"></em></span>
 </div>
-<div class="user-info">
-<h6 class="text-transform">{{ p.firstname }}  {{ p.lastname }} </h6>
-<span class="sub-text pt-2 pb-2"> <em class="icon ni ni-star-fill mr-1"></em> {{ service.name }} </span>
-</div>
+<div class="center" v-else></div>
 </div>
 
-<div class="team-view">
-<Inertia-link :href="route('login')" class="btn btn-block  btn-success-dim" style="font-size:15px;"><span>
-Make Appointment
-</span></Inertia-link>
-</div>
-</div><!-- .team -->
-</div><!-- .card-inner -->
-</div><!-- .card -->
-</div>
-</div>
-<div class="center" v-else>No service provider for this service</div>
-</div>
+
+
+
+
+
 </div>
 </div>
 </div>
