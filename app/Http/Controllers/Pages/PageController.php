@@ -146,6 +146,7 @@ $data['response']=[
 'images'=>ImagesModel::where('caption','training')->get(),
 'pic5'=>ImagesModel::where('caption','pic5')->get(),
 'pic6'=>ImagesModel::where('caption','pic6')->get(),
+'article'=>SectionModel::where('tag','what we do')->orderby('created_at','ASC')->get(),
 
 
 ];
