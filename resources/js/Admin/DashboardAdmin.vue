@@ -84,7 +84,7 @@ No service
 </tr>
 
 </tbody>
-<tbody>
+<tbody v-else>
 <tr>
 <td colspan="4">No content</td>
 </tr>
@@ -199,7 +199,7 @@ No content
 
 
 
-<div class="card">
+<div class="card h-100">
 <div class="card-header">
 <h3 class="card-title text-transform">Wallet</h3>
 </div>
@@ -248,40 +248,64 @@ No content
 
 
 <div class="col-12 col-md-4">
-
-<div class="card">
+<div class="card h-100">
 <div class="card-header">
-<h3 class="card-title"></h3>
+<h3 class="card-title text-transform">Transactions</h3>
 </div>
-<div class="card-body">
+<div class="card-body p-0">
+<div v-if="transactions.length>0">
 
+<table class="table table-hover mb-0">
+<thead>
+<tr>
+<th>Date</th>
+<th>Amount</th>
+<th>Transaction</th>
+</tr>
+</thead>
+<tbody>
+<tr v-for="(t,key) in transactions" :key="key">
+<td><em class="icon ni ni-wallet-fill mr-2"></em>{{t.created_at.substring(0,10).split('-').reverse().join('/')}} </td>
+<td>{{t.amount}} </td>
+<td class="text-transform">{{t.transaction}} </td>
+</tr>
+</tbody>
+</table>
 
 </div>
-<div class="card-footer">
-
+<div v-else>No Content</div>
 </div>
 </div>
-
-
-
-
 </div>
+
+
+
+
+
+
+
+
 <div class="col-12 col-md-4">
-
-
-
-<div class="card">
+<div class="card h-100">
 <div class="card-header">
-    <h3 class="card-title"></h3>
+<h3 class="card-title text-transform">Support Services</h3>
 </div>
-<div class="card-body">
-
-
-
-
-
+<div class="card-body p-0">
+<div v-if="services.length>0">
+<table class="table card-table">
+<tbody>
+<tr v-for="(s,key) in services" :key="key">
+<td><em class="icon ni ni-grid-fill mr-2"></em> {{ s.name }} </td>
+<td class="text-right">
+<span class="tag tag-default">30</span>
+</td>
+</tr>
+</tbody>
+</table>
 </div>
-<div class="card-footer">
+<div v-else>No Content</div>
+
+
 
 </div>
 </div>
@@ -343,6 +367,14 @@ return this.response.user_data.counts;
 
 interview(){
 return this.response.user_data.interview;
+},
+
+services(){
+return this.response.user_data.services;
+},
+
+transactions(){
+return this.response.user_data.transactions;
 }
 
 

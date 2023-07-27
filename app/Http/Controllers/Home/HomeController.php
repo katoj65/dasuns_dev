@@ -27,6 +27,7 @@ use App\Models\LogWalletModel;
 use App\Models\DasunsWalletModel;
 use App\Models\PSSPInterviewScheduleModel;
 
+
 class HomeController extends Controller
 {
     /**
@@ -92,9 +93,8 @@ $user_data['interview']=[
 ->orderby('pssp_interview_schedule.date','DESC')
 ->limit(10)
 ->get()];
-
-$user_data['services']=null;
-
+$user_data['services']=SupportServiceModel::get();
+$user_data['transactions']=LogWalletModel::orderby('created_at','DESC')->limit(5)->get();
 
 
 
