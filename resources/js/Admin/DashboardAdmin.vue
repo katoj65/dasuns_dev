@@ -273,7 +273,7 @@ No content
 </table>
 
 </div>
-<div v-else>No Content</div>
+<div v-else class="p-3">No Content</div>
 </div>
 </div>
 </div>
@@ -303,7 +303,7 @@ No content
 </tbody>
 </table>
 </div>
-<div v-else>No Content</div>
+<div v-else class="p-3">No Content</div>
 
 
 
