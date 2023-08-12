@@ -96,7 +96,7 @@
 
 <div class="col-lg-12 pt-10 pb-20">
 <div class="form-group">
-<button type="submit" class="btn btn-success button" style="padding-left:50px;padding-right:50px;font-size:17px;">Continue</button>
+<button type="submit" class="btn  button" style="padding-left:50px;padding-right:50px;font-size:17px;">Continue</button>
 </div>
 
 

@@ -1,12 +1,11 @@
 <template>
 <div>
 
+
 <!-----------Personal-->
 <div v-if="user_details.account_type=='personal'">
-
 <WelcomePSSU :response="response" v-if="$page.props.auth.user.status=='active'"></WelcomePSSU>
 <div class="col-12 col-md-12" v-else-if="$page.props.auth.user.status=='pending'">
-
 
 <div class="row mb-5"  v-if="account_type=='personal'">
 <div class="col-12 col-md-3"></div>
@@ -157,11 +156,6 @@
 </div>
 
 
-
-
-
-
-
 <!-- .card -->
 <create-institution-profile v-else-if="account_type=='institutional'" :response="response" :errors="errors"></create-institution-profile>
 </div>
@@ -170,8 +164,9 @@
 
 <!----Institutional------->
 <div v-else>
+
 <create-institution-profile :response="response" :errors="errors" v-if="$page.props.auth.user.status=='pending'"></create-institution-profile>
-<dashboard-institution v-else-if="$page.props.auth.user.status=='active'"></dashboard-institution>
+<dashboard-institution v-else-if="$page.props.auth.user.status=='active'" :response="response"></dashboard-institution>
 </div>
 </div>
 </template>

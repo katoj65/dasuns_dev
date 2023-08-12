@@ -66,9 +66,16 @@ return ServiceProviderReferenceModel::where('userID',$id)->get();
 
 
 
-    public function index()
-    {
+public function index(User $user)
+{
         //
+$data['title']='Service providers';
+$data['response']=[
+'service_providers'=>$user->active_pssp(),
+];
+
+return Inertia::render('ServiceProviderList',$data);
+
     }
 
 
@@ -89,54 +96,47 @@ return ServiceProviderReferenceModel::where('userID',$id)->get();
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-public function show(Request $request){
+public function show(User $user, Request $request){
+$get=$user->show($request->segment(2));
 
-// $get=User::where('id',$request->segment(2))->get();
-$get=User::select('users.firstname',
-'users.lastname',
-'users.id',
-'users.gender',
-'users.email',
-'users.tel',
-'users.dob',
-'service_provider_profile.location',
-'service_provider_profile.profile_picture',
-'country.name as country',
-'service_provider_profile.about',
-'users.created_at')
-->join('service_provider_profile','users.id','=','service_provider_profile.userID')
-->join('country','service_provider_profile.countryID','=','country.id')
-->where('users.id',$request->segment(2))
-->where('users.role','pssp')
-->where('users.status','active')
-->get();
-
-//get services
-$svs=ServiceProviderServicesModel::select('support_service.name','support_service.id')
-->join('support_service','service_provider_services.serviceID','=','support_service.id')
-->where('service_provider_services.userID',$request->segment(2))
-->get();
+//pssp profile
+if($get!=null){
+$profile_data=new ServiceProviderProfileModel;
+$profiles=$profile_data->show($get->id);
+if(count($profiles)==1){
+foreach($profiles as $p);
+}
+//pssp_services
 
 
+//pssp details
 
-if(count($get)==1){
-foreach($get as $row);
-
-
-
-$data['title']='Service Provider';
-$data['response']=[
-'pssp'=>$row,
-'dasuns_number'=>DasunsNumberController::get_dasuns_number_byUserID($row->id)->number,
-'services'=>$svs
-
-
-
+$profile=[
+'firstname'=>$get->firstname,
+'lastname'=>$get->lastname,
+'gender'=>$get->gender,
+'tel'=>$get->tel,
+'email'=>$get->email,
+'status'=>$get->status,
+'profile'=>$p,
+'services'=>$user->pssp_services($get->id),
+'service_number'=>$user->show_dasuns_number($get->id)
 
 ];
-return Inertia::render('ServiceProviderPage',$data);
+
+
+
+
+
+
+$data['title']='Profile';
+$data['response']=[
+'profile'=>$profile,
+
+];
+return Inertia::render('ProfilePSSP',$data);
 }else{
-return redirect('/')->with('warning','Could not find user information');
+return redirect('/')->with('warning','Could not find user');
 }
 }
 

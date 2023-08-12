@@ -34,6 +34,7 @@ use App\Http\Controllers\Chat\ChatController;
 
 
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -323,3 +324,7 @@ Route::middleware(['auth:sanctum', 'verified'])->post('/section/store',[PageCont
 Route::middleware(['auth:sanctum', 'verified'])->post('/section/update',[PageController::class,'update_section'])->name('section.update');
 
 Route::middleware(['auth:sanctum', 'verified'])->post('/section/destroy',[PageController::class,'destroy_section'])->name('section.destroy');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/users/service-providers',[PSSPController::class,'index'])->name('user.service-providers');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/profile/{id}/service-provider',[PSSPController::class,'show'])->name('profile.pssp');
