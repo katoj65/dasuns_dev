@@ -9,4 +9,11 @@ class DasunsRecommendationsModel extends Model
 {
     use HasFactory;
     protected $table='dasuns_recommendation';
+
+
+public function scopeCount_recommendations($query,$id){
+return $query->where('recommendID',$id)->count();
+}
+
+
 }

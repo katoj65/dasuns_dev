@@ -9,4 +9,12 @@ class ServiceRecommendationModel extends Model
 {
     use HasFactory;
     protected $table='service_recommendation';
+
+
+
+public function scopeCount_recommendations($query,$id){
+return $query->where('userID',$id)->count();
+}
+
+
 }

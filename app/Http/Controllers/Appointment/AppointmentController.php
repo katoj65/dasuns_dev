@@ -70,7 +70,7 @@ return Inertia::render('AppointmentsPage',$data);
  * @return \Illuminate\Http\Response
  */
 
-public function store(Request $request){
+public function store(Request $request,DasunsWalletModel $wallet){
 
 $request->validate([
 'services'=>['required'],
@@ -80,24 +80,15 @@ $request->validate([
 'location'=>['required']],
 ['required'=>'* Required.']);
 
-//dates
-$x=explode("-",$request->date);
-$dt=$x[0].$x[1].$x[2];
-if($dt>date('Ymd')){
-
-//payment details.
-$service_payments=AppointmentController::get_payment_fees();
-$amount=$service_payments->amount;
-$charges=$service_payments->charges;
-//Wallet balance
-$wallet_balance=AppointmentController::wallet_balance();
-//changes plus wallet
-$actual_charge=$amount+$charges;
-
-if($wallet_balance>=$actual_charge){
+//
+$balance=$wallet->my_balance();
+$fees=new DasunsPaymentFeesModel;
+$fee=$fees->service_fee();
+$appointment=new AppointmentModel;
 
 //
 AppointmentModel::insert([
+'serviceID'=>$request->services,
 'providerID'=>$request->psspID,
 'userID'=>Auth::user()->id,
 'date'=>$request->date,
@@ -108,50 +99,13 @@ AppointmentModel::insert([
 'comment'=>$request->comment
 ]);
 
-
-
-
 //
-
-$get=AppointmentModel::where('providerID',$request->psspID)
-->where('userID',Auth::user()->id)
-->where('date',$request->date)
-->where('from',$request->start)
-->where('to',$request->end)
-->orderby('created_at','DESC')
-->limit(1)
-->get();
-
-
-
-//
+$get=$appointment->get_created_appointment($request);
 if(count($get)==1){
 foreach($get as $row);
-
-AppointmentServiceModel::insert([
-'serviceID'=>$request->services,
-'appointmentID'=>$row->id]);
-
-
-
-//create activity content
-$names=UserController::userbyID($request->psspID);
-$service=SupportServiceController::support_servicebyID($request->services);
-ActivityController::store_activity(['userID'=>Auth::user()->id,
-'title'=>'Service Request',
-'description'=>$service->name.' service
-from
-'.$names->firstname.'
-'.$names->lastname.'
-, Tel: '.$names->tel.'.']);
-
-
-//transfer funds to dasuns account
-WalletController::make_service_payment($row->id);
-
 return redirect('/appointment-details/'.$row->id)->with('success','Appointment request sent.');
 }else{
-return redirect('/service-provider/'.$request->psspID)->with('warning','Could not.');
+return redirect('/profile/'.$row->id.'/service-provider')->with('warning','Could not find appointment details.');
 }
 
 
@@ -161,14 +115,88 @@ return redirect('/service-provider/'.$request->psspID)->with('warning','Could no
 
 
 
-}else{
-return redirect('/service-provider/'.$request->psspID)->with('warning','You do not have enough money in your wallet to make an appointment. Please recharge your wallet.');
-}
+// //dates
+// $x=explode("-",$request->date);
+// $dt=$x[0].$x[1].$x[2];
+// if($dt>date('Ymd')){
+
+// //payment details.
+// $service_payments=AppointmentController::get_payment_fees();
+// $amount=$service_payments->amount;
+// $charges=$service_payments->charges;
+// //Wallet balance
+// $wallet_balance=AppointmentController::wallet_balance();
+// //changes plus wallet
+// $actual_charge=$amount+$charges;
+
+// if($wallet_balance>=$actual_charge){
+
+// //
+// AppointmentModel::insert([
+// 'providerID'=>$request->psspID,
+// 'userID'=>Auth::user()->id,
+// 'date'=>$request->date,
+// 'end_date'=>$request->end_date,
+// 'from'=>$request->start,
+// 'to'=>$request->end,
+// 'location'=>$request->location,
+// 'comment'=>$request->comment
+// ]);
 
 
-}else{
-return redirect('/service-provider/'.$request->psspID)->with('warning','You seleted a date that has passed.');
-}
+
+
+// //
+
+// $get=AppointmentModel::where('providerID',$request->psspID)
+// ->where('userID',Auth::user()->id)
+// ->where('date',$request->date)
+// ->where('from',$request->start)
+// ->where('to',$request->end)
+// ->orderby('created_at','DESC')
+// ->limit(1)
+// ->get();
+
+
+
+// //
+// if(count($get)==1){
+// foreach($get as $row);
+
+// AppointmentServiceModel::insert([
+// 'serviceID'=>$request->services,
+// 'appointmentID'=>$row->id]);
+
+
+
+// //create activity content
+// $names=UserController::userbyID($request->psspID);
+// $service=SupportServiceController::support_servicebyID($request->services);
+// ActivityController::store_activity(['userID'=>Auth::user()->id,
+// 'title'=>'Service Request',
+// 'description'=>$service->name.' service
+// from
+// '.$names->firstname.'
+// '.$names->lastname.'
+// , Tel: '.$names->tel.'.']);
+
+
+// //transfer funds to dasuns account
+// WalletController::make_service_payment($row->id);
+
+// return redirect('/appointment-details/'.$row->id)->with('success','Appointment request sent.');
+// }else{
+// return redirect('/service-provider/'.$request->psspID)->with('warning','Could not.');
+// }
+
+
+// }else{
+// return redirect('/service-provider/'.$request->psspID)->with('warning','You do not have enough money in your wallet to make an appointment. Please recharge your wallet.');
+// }
+
+// }else{
+// return redirect('/service-provider/'.$request->psspID)->with('warning','You seleted a date that has passed.');
+// }
 
 }
 
@@ -211,107 +239,126 @@ return 0;
  * @param  int  $id
  * @return \Illuminate\Http\Response
  */
-public function show(Request $request)
+public function show(Request $request, AppointmentModel $appointment)
 {
-//
-
-$get=AppointmentModel::select('users.firstname',
-'users.lastname',
-'users.gender',
-'users.tel',
-'users.email',
-'users.created_at as joined',
-'appointment.id',
-'appointment.date',
-'appointment.from',
-'appointment.to',
-'appointment.location',
-'appointment.comment',
-'dasuns_user_number.number',
-'users.id',
-'appointment.id as appointmentID',
-'country.name as country',
-'service_provider_profile.about',
-'country.id as countryID',
-'appointment.end_date')
-//
-->join('users','appointment.providerID','=','users.id')
-->join('dasuns_user_number','users.id','=','dasuns_user_number.userID')
-->join('service_provider_profile','appointment.providerID','=','service_provider_profile.userID')
-->join('country','service_provider_profile.countryID','=','country.id')
-->where('appointment.id',$request->segment(2))->get();
-
-//
-
+$get=$appointment->show($request->segment(2));
 if(count($get)==1){
 foreach($get as $row);
 
-//
-
-$services=AppointmentServiceModel::select('support_service.name','appointment_service.id')
-->join('support_service','appointment_service.serviceID','=','support_service.id')
-->where('appointment_service.appointmentID',$request->segment(2))
-->get();
-
-
-//
-$pssp_services=ServiceProviderServicesModel::select('*')
-->join('support_service','service_provider_services.serviceID','=','support_service.id')
-->where('service_provider_services.userID',$row->id)
-->get();
-
-//
-$amount=$this->countryPaymentAmount($row->countryID);
-//
-
-$clocking=AppointmentClockingModel::where('appointmentID',$request->segment(2))->orderby('date','ASC')->get();
-if(count($clocking)>0){
-foreach($clocking as $c){
-$clock[]=[
-'date'=>$c->date
-];
-}
-}else{
-$clock=[];
-}
-
-
-
-//get number of days for the appointment
-if(count($clocking)==0){
-$num_days=$this->number_of_appointment_days($row);
-}else{
-$num_days=count($clocking);
-}
-
-
-//calculate the amount to be paid.
-$amount_paid=$num_days*$amount->amount;
-
-//
-
 $data['title']='Appointment';
-$data['response']=[
-'appointment'=>$row,
-'services'=>$services,
-'pssp_services'=>$pssp_services,
-'amount'=>number_format($amount->amount),
-'currency'=>$amount->name,
-'amount_original'=>$amount_paid,
-'clocking'=>$clocking,
-'number_of_days'=>$num_days,
-'total_amount'=>number_format($amount_paid),
-'clocking_date_format'=>$this->format_clocking_dates($clocking),
-'cart_status'=>$this->check_cart_item($row->appointmentID),
+$data['response']=['appointment'=>$row];
 
 
-];
 
 return Inertia::render('ShowAppointment',$data);
 
 }else{
-    return redirect('/');
+    return redirect('/')->with('error','No appointment details.');
 }
+
+
+
+
+
+
+//
+// $get=AppointmentModel::select('users.firstname',
+// 'users.lastname',
+// 'users.gender',
+// 'users.tel',
+// 'users.email',
+// 'users.created_at as joined',
+// 'appointment.id',
+// 'appointment.date',
+// 'appointment.from',
+// 'appointment.to',
+// 'appointment.location',
+// 'appointment.comment',
+// 'dasuns_user_number.number',
+// 'users.id',
+// 'appointment.id as appointmentID',
+// 'country.name as country',
+// 'service_provider_profile.about',
+// 'country.id as countryID',
+// 'appointment.end_date')
+// //
+// ->join('users','appointment.providerID','=','users.id')
+// ->join('dasuns_user_number','users.id','=','dasuns_user_number.userID')
+// ->join('service_provider_profile','appointment.providerID','=','service_provider_profile.userID')
+// ->join('country','service_provider_profile.countryID','=','country.id')
+// ->where('appointment.id',$request->segment(2))->get();
+
+// //
+
+// if(count($get)==1){
+// foreach($get as $row);
+
+// //
+
+// $services=AppointmentServiceModel::select('support_service.name','appointment_service.id')
+// ->join('support_service','appointment_service.serviceID','=','support_service.id')
+// ->where('appointment_service.appointmentID',$request->segment(2))
+// ->get();
+
+
+// //
+// $pssp_services=ServiceProviderServicesModel::select('*')
+// ->join('support_service','service_provider_services.serviceID','=','support_service.id')
+// ->where('service_provider_services.userID',$row->id)
+// ->get();
+
+// //
+// $amount=$this->countryPaymentAmount($row->countryID);
+// //
+
+// $clocking=AppointmentClockingModel::where('appointmentID',$request->segment(2))->orderby('date','ASC')->get();
+// if(count($clocking)>0){
+// foreach($clocking as $c){
+// $clock[]=[
+// 'date'=>$c->date
+// ];
+// }
+// }else{
+// $clock=[];
+// }
+
+
+
+// //get number of days for the appointment
+// if(count($clocking)==0){
+// $num_days=$this->number_of_appointment_days($row);
+// }else{
+// $num_days=count($clocking);
+// }
+
+
+// //calculate the amount to be paid.
+// $amount_paid=$num_days*$amount->amount;
+
+// //
+
+// $data['title']='Appointment';
+// $data['response']=[
+// 'appointment'=>$row,
+// 'services'=>$services,
+// 'pssp_services'=>$pssp_services,
+// 'amount'=>number_format($amount->amount),
+// 'currency'=>$amount->name,
+// 'amount_original'=>$amount_paid,
+// 'clocking'=>$clocking,
+// 'number_of_days'=>$num_days,
+// 'total_amount'=>number_format($amount_paid),
+// 'clocking_date_format'=>$this->format_clocking_dates($clocking),
+// 'cart_status'=>$this->check_cart_item($row->appointmentID),
+
+
+// ];
+
+// return Inertia::render('ShowAppointment',$data);
+
+// }else{
+//     return redirect('/');
+// }
 
 }
 

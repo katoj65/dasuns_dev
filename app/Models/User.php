@@ -123,7 +123,7 @@ return $query->select('service_provider_experience.organisation_name',
 
 //get pssp services
 public function scopePssp_services($query,$id){
-return $query->select('service_provider_services.userID','support_service.name')
+return $query->select('service_provider_services.userID','support_service.name','support_service.id')
 ->join('service_provider_services','users.id','=','service_provider_services.userID')
 ->join('support_service','service_provider_services.serviceID','=','support_service.id')
 ->where('service_provider_services.userID',$id)

@@ -22,8 +22,41 @@ return $query->where('userID',Auth::user()->id)
 }
 
 
+//pssp appointments completed
+public function scopeCount_pssp_tasks_completed($query,$id){
+return $query->where('providerID',$id)->where('status','completed')->count();
+}
 
 
+
+
+
+//get created user
+public function scopeGet_created_appointment($query,$request){
+return $query->select('appointment.date','appointment.id','appointment.end_date','appointment.from','appointment.to','appointment.location','appointment.comment','users.firstname','users.lastname','users.tel','users.email','users.gender','users.dob')
+->join('users','appointment.providerID','=','users.id')
+->where('appointment.userID',Auth::user()->id)
+->where('appointment.from',$request->start)
+->where('appointment.location',$request->location)
+->where('appointment.serviceID',$request->services)
+->where('appointment.providerID',$request->psspID)
+->limit(1)
+->get();
+}
+
+
+
+
+//show appointment
+public function scopeShow($query,$id){
+return $query->select('appointment.date','appointment.id','appointment.end_date','appointment.from','appointment.to','appointment.location','appointment.comment','users.firstname','users.lastname','users.tel','users.email','users.gender','users.dob','appointment.status','dasuns_user_number.number','support_service.name as service','appointment.created_at')
+->join('users','appointment.providerID','=','users.id')
+->join('dasuns_user_number','users.id','=','dasuns_user_number.userId')
+->join('support_service','appointment.serviceID','=','support_service.id')
+->where('appointment.userID',Auth::user()->id)
+->where('appointment.id',$id)
+->get();
+}
 
 
 

@@ -10,4 +10,11 @@ class ServiceProviderServicesModel extends Model
     use HasFactory;
     protected $table='service_provider_services';
 
+
+
+//get appointment 
+
+
+
+
 }

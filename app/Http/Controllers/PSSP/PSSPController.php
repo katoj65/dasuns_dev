@@ -23,6 +23,7 @@ use App\Http\Controllers\Wallet\WalletController;
 use App\Models\AppointmentServiceModel;
 use App\Models\DasunsRecommendationsModel;
 use App\Http\Controllers\User\UserController;
+use App\Models\PSSPRatingModel;
 
 
 
@@ -106,12 +107,15 @@ $profiles=$profile_data->show($get->id);
 if(count($profiles)==1){
 foreach($profiles as $p);
 }
-//pssp_services
-
+//rating
+$rate=new PSSPRatingModel;
+$appointment=new AppointmentModel;
+$recommend=new DasunsRecommendationsModel;
 
 //pssp details
 
 $profile=[
+'id'=>$get->id,
 'firstname'=>$get->firstname,
 'lastname'=>$get->lastname,
 'gender'=>$get->gender,
@@ -120,7 +124,10 @@ $profile=[
 'status'=>$get->status,
 'profile'=>$p,
 'services'=>$user->pssp_services($get->id),
-'service_number'=>$user->show_dasuns_number($get->id)
+'service_number'=>$user->show_dasuns_number($get->id),
+'rating'=>$rate->sum_rating($get->id),
+'recommendations'=>$recommend->count_recommendations($get->id),
+'tasks_complete'=>$appointment->count_pssp_tasks_completed($get->id)
 
 ];
 
@@ -130,10 +137,7 @@ $profile=[
 
 
 $data['title']='Profile';
-$data['response']=[
-'profile'=>$profile,
-
-];
+$data['response']=['profile'=>$profile];
 return Inertia::render('ProfilePSSP',$data);
 }else{
 return redirect('/')->with('warning','Could not find user');
