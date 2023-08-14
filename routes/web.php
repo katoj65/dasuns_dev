@@ -204,7 +204,10 @@ Route::middleware(['auth:sanctum,', 'verified'])->post('/store/appointment',
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/appointment-details/{id}',[AppointmentController::class,'show'])->name('appointment.details');
 
-Route::middleware(['auth:sanctum', 'verified'])->post('/aoopintment-update',[AppointmentController::class,'update'])->name('update.appointment');
+
+Route::middleware(['auth:sanctum', 'verified'])->post('/appintment-update',[AppointmentController::class,'update'])->name('update.appointment');
+
+
 
 Route::middleware(['auth:sanctum', 'verified'])->post('/appointment/add-services',[AppointmentController::class,'add_services'])->name('appointment.add_services');
 

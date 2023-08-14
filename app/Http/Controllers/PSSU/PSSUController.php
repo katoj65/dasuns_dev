@@ -21,6 +21,7 @@ use App\Models\DisabilityModel;
 
 
 
+
 class PSSUController extends Controller
 {
     /**
@@ -122,14 +123,15 @@ $appointment=AppointmentModel::select('appointment.date',
 ->orderby('appointment.from','ASC')
 ->get();
 
-
-
+//models
+$appoint=new AppointmentModel;
 
 return[
 'dasuns_number'=>DasunsNumberController::get_dasuns_number_byUserID($id),
 'service_provider_count'=>User::where('status','active')->where('role','pssp')->count(),
 'count_recommendations'=>DasunsRecommendationsModel::count(),
-'count_appointments'=>AppointmentModel::my_appointments()->count(),
+// 'count_appointments'=>AppointmentModel::my_appointments()->count(),
+'count_appointments'=>$appoint->count_my_appointments(),
 'account_balance'=>WalletController::get_wallet_balance()->amount,
 'appointments'=>$appointment,
 'activity'=>ActivityLogModel::where('userID',Auth::user()->id)->orderby('created_at','DESC')->limit(5)->get(),

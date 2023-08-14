@@ -18,6 +18,7 @@ use App\Http\Controllers\Activity\ActivityController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\SupportServices\SupportServiceController;
 use App\Http\Controllers\Wallet\WalletController;
+use App\Models\User;
 
 
 
@@ -243,10 +244,17 @@ public function show(Request $request, AppointmentModel $appointment)
 {
 $get=$appointment->show($request->segment(2));
 if(count($get)==1){
+$user = new User;
 foreach($get as $row);
-
 $data['title']='Appointment';
-$data['response']=['appointment'=>$row];
+$data['response']=[
+'appointment'=>$row,
+'services'=>$user->pssp_services($row->providerID),
+
+
+];
+
+
 
 
 
@@ -432,7 +440,7 @@ return $data;
  * @param  int  $id
  * @return \Illuminate\Http\Response
  */
-public function update(Request $request)
+public function update(Request $request, AppointmentModel $appointment)
 {
 //
 
@@ -444,49 +452,110 @@ $request->validate([
 'location'=>['required']],
 ['required'=>'* Required.']);
 
-
-//dates
-$x=explode("-",$request->date);
-$dt=$x[0].$x[1].$x[2];
-$ed=explode("-",$request->end_date);
-$end_date_format=$ed[0].$ed[1].$ed[2];
-
+$date=explode('-',$request->date);
+$date=join($date);
+$end_date=explode('-',$request->end_date);
+$end_date=join($end_date);
+$cdate=date('Y').'-'.date('m').'-'.date('d');
+$curdate=explode('-',$cdate);
+$curdate=join($curdate);
 //
-if($dt<$end_date_format){
-
-$get=AppointmentModel::where('id',$request->id)->get();
-if(count($get)==1){
+if($date>=$curdate){
+if($date<=$end_date or ($date!=null and $end_date==null) ){
+$get=$appointment->show($request->id);
 foreach($get as $row);
-
 //
+if($row->date!=$request->date or
+$row->end_date!=$request->end_date or
+$row->location!=$request->location or
+$row->comment!=$request->comment or
+$row->from!=$request->start or
+$row->to!=$request->end or
+$row->serviceID!=$request->services
+){
 
-if($request->date!=$row->date or $request->start!=$row->from or $request->end!=$row->to or $request->location!=$row->location or $request->comment!=$row->comment or $request->end_date!=$row->end_date){
-
-//
-AppointmentModel::where('id',$request->id)
-->update(['date'=>$request->date,
+AppointmentModel::where('id',$request->id)->where('userID',Auth::user()->id)
+->update([
+'serviceID'=>$request->services,
+'providerID'=>$request->psspID,
+'date'=>$request->date,
 'end_date'=>$request->end_date,
 'from'=>$request->start,
 'to'=>$request->end,
-'comment'=>$request->comment,
-'location'=>$request->location]);
+'location'=>$request->location,
+'comment'=>$request->comment
+]);
 
-
-
-return redirect('/appointment-details/'.$request->id)->with('success','Appointment has been updated.');
-
-
+return redirect('/appointment-details/'.$request->id)->with('success','Appointment update.');
 }else{
 return redirect('/appointment-details/'.$request->id)->with('warning','Appointment was not updated.');
 }
 
+}else{
+return redirect('/appointment-details/'.$request->id)->with('warning','Invalid dates');
+}
+}else{
+return redirect('/appointment-details/'.$request->id)->with('warning','Invalid dates');
+}
 
-}else{
-return redirect('/appointment-details/'.$request->id);
-}
-}else{
-return redirect('/appointment-details/'.$request->id)->with('warning','You seleted a date that has passed.');
-}
+
+
+
+
+
+
+
+
+
+// //dates
+// $x=explode("-",$request->date);
+// $dt=$x[0].$x[1].$x[2];
+// $ed=explode("-",$request->end_date);
+// $end_date_format=$ed[0].$ed[1].$ed[2];
+
+// //
+// if($dt<$end_date_format){
+
+// $get=AppointmentModel::where('id',$request->id)->get();
+// if(count($get)==1){
+// foreach($get as $row);
+
+// //
+
+// if($request->date!=$row->date or $request->start!=$row->from or $request->end!=$row->to or $request->location!=$row->location or $request->comment!=$row->comment or $request->end_date!=$row->end_date){
+
+// //
+// AppointmentModel::where('id',$request->id)
+// ->update(['date'=>$request->date,
+// 'end_date'=>$request->end_date,
+// 'from'=>$request->start,
+// 'to'=>$request->end,
+// 'comment'=>$request->comment,
+// 'location'=>$request->location]);
+
+
+
+// return redirect('/appointment-details/'.$request->id)->with('success','Appointment has been updated.');
+
+
+// }else{
+// return redirect('/appointment-details/'.$request->id)->with('warning','Appointment was not updated.');
+// }
+
+
+// }else{
+// return redirect('/appointment-details/'.$request->id);
+// }
+// }else{
+// return redirect('/appointment-details/'.$request->id)->with('warning','You seleted a date that has passed.');
+// }
+
+
+
+
+
+
+
 
 }
 

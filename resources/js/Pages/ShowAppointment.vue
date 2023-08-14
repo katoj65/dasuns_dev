@@ -13,7 +13,10 @@ Appointment
 
 
 <div class="card-options">
-Created on <span class="ml-3">{{ appointment.created_at.substring(0,7).split('-').reverse().join('/') }}</span>
+<el-button-group class="ml-3">
+<el-button type="success" @click="show=true">Edit</el-button>
+<el-button type="danger" @click="delete_appoointment(appointment.id)">Delete</el-button>
+</el-button-group>
 </div>
 
 
@@ -31,103 +34,106 @@ Created on <span class="ml-3">{{ appointment.created_at.substring(0,7).split('-'
 
 
 
-
-
-
 <ul class="data-list is-compact">
-    <li class="data-item">
-        <div class="data-col">
-            <div class="data-label">Appointment Start Date</div>
-            <div class="data-value">{{ appointment.date.split('-').reverse().join('/') }} </div>
-        </div>
-    </li>
-    <li class="data-item">
-        <div class="data-col">
-            <div class="data-label">End Date</div>
-            <div class="data-value">{{ appointment.end_date.split('-').reverse().join('/') }}</div>
-        </div>
-    </li>
-    <li class="data-item">
-        <div class="data-col">
-            <div class="data-label">Service Requested</div>
-            <div class="data-value">{{ appointment.service }} </div>
-        </div>
-    </li>
-    <li class="data-item">
-        <div class="data-col">
-            <div class="data-label">Time </div>
-            <div class="data-value"><span class="mr-3">{{ appointment.from.substring(0,5) }}</span> - <span class="ml-3">{{ appointment.to.substring(0,5) }}</span> </div>
-        </div>
-    </li>
+<li class="data-item">
+<div class="data-col">
+<div class="data-label">Appointment Start Date</div>
+<div class="data-value">{{ appointment.date.split('-').reverse().join('/') }} </div>
+</div>
+</li>
+<li class="data-item">
+<div class="data-col">
+<div class="data-label">End Date</div>
+<div class="data-value">{{ appointment.end_date!=null?appointment.end_date.split('-').reverse().join('/'):'-' }}</div>
+</div>
+</li>
+<li class="data-item">
+<div class="data-col">
+<div class="data-label">Service Requested</div>
+<div class="data-value">{{ appointment.service }} </div>
+</div>
+</li>
+<li class="data-item">
+<div class="data-col">
+<div class="data-label">Time </div>
+<div class="data-value"><span class="mr-3">{{ appointment.from.substring(0,5) }}</span> - <span class="ml-3">{{ appointment.to.substring(0,5) }}</span> </div>
+</div>
+</li>
 
-  <li class="data-item">
-        <div class="data-col">
-            <div class="data-label">Location</div>
-            <div class="data-value text-transform">{{ appointment.location }} </div>
-        </div>
-    </li>
-
-
-
-    <li class="data-item">
-        <div class="data-col">
-            <div class="data-label">Comment </div>
-            <div class="data-value text-transform">{{ appointment.comment }} </div>
-        </div>
-    </li>
-      <li class="data-item">
-        <div class="data-col">
-            <div class="data-label">Service Provder Name </div>
-            <div class="data-value text-transform">{{ appointment.firstname }} {{ appointment.lastname }} </div>
-        </div>
-    </li>
-
-
-    <li class="data-item">
-        <div class="data-col">
-            <div class="data-label">Telephone Number</div>
-            <div class="data-value">{{ appointment.tel }} </div>
-        </div>
-    </li>
-
-
-    <li class="data-item">
-        <div class="data-col">
-            <div class="data-label">Email Eddress </div>
-            <div class="data-value">{{ appointment.email }} </div>
-        </div>
-    </li>
-
-
-    <li class="data-item">
-        <div class="data-col">
-            <div class="data-label">Gender</div>
-            <div class="data-value text-transform">{{ appointment.gender }} </div>
-        </div>
-    </li>
+<li class="data-item">
+<div class="data-col">
+<div class="data-label">Location</div>
+<div class="data-value text-transform">{{ appointment.location }} </div>
+</div>
+</li>
 
 
 
-        <li class="data-item">
-        <div class="data-col">
-            <div class="data-label">Date of Birth </div>
-            <div class="data-value">{{ appointment.dob.split('-').reverse().join('/') }} </div>
-        </div>
-    </li>
-
-        <li class="data-item">
-        <div class="data-col">
-            <div class="data-label">Status</div>
-            <div class="data-value text-transform">
-                <button type="button" class="btn btn-primary bold" style="font-size:18px;">
-                {{ appointment.status=='payment'?'Make payment':appointment.status }}
-                </button>
-
-            </div>
-        </div>
-    </li>
+<li class="data-item">
+<div class="data-col">
+<div class="data-label">Comment </div>
+<div class="data-value text-transform">{{ appointment.comment }} </div>
+</div>
+</li>
+<li class="data-item">
+<div class="data-col">
+<div class="data-label">Service Provider Names </div>
+<div class="data-value text-transform">{{ appointment.firstname }} {{ appointment.lastname }} </div>
+</div>
+</li>
 
 
+<li class="data-item">
+<div class="data-col">
+<div class="data-label">Telephone Number</div>
+<div class="data-value">{{ appointment.tel }} </div>
+</div>
+</li>
+
+
+<li class="data-item">
+<div class="data-col">
+<div class="data-label">Email Address </div>
+<div class="data-value">{{ appointment.email }} </div>
+</div>
+</li>
+
+
+<li class="data-item">
+<div class="data-col">
+<div class="data-label">Gender</div>
+<div class="data-value text-transform">{{ appointment.gender }} </div>
+</div>
+</li>
+
+
+
+<li class="data-item">
+<div class="data-col">
+<div class="data-label">Date of Birth </div>
+<div class="data-value">{{ appointment.dob.split('-').reverse().join('/') }} </div>
+</div>
+</li>
+
+
+<li class="data-item">
+<div class="data-col">
+<div class="data-label">Request Created On </div>
+<div class="data-value">{{ appointment.created_at.substring(0,7).split('-').reverse().join('/')  }} </div>
+</div>
+</li>
+
+<li class="data-item">
+<div class="data-col">
+<div class="data-label">Status</div>
+<div class="data-value text-transform">
+<button type="button" class="btn button bold " style="font-size:16px;" v-if="appointment.status=='payment'">
+Make Payment
+</button>
+<span v-else> {{ appointment.status=='payment'?'Make payment':appointment.status }}</span>
+</div>
+</div>
+</li>
 
 
 </ul>
@@ -146,6 +152,221 @@ Created on <span class="ml-3">{{ appointment.created_at.substring(0,7).split('-'
 </div>
 <div class="col-12 col-md-2"></div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!------------------->
+
+
+<form @submit.prevent="submit"    class="" style="position:fixed;width:100%;left:0;top:0;z-index:10000;height:100%;background-color: hsla(210, 29%, 18%, 0.3);" v-if="show==true">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-header" style="background: #37BEA7;border:none;">
+<h5 class="modal-title" style="color:white;">Make Appointment</h5>
+<a href="#" class="close" data-dismiss="modal" aria-label="Close" @click="show=false">
+
+</a>
+</div>
+<div class="modal-body" style="max-height:500px;overflow:auto">
+
+
+<div class="mb-2" style="font-size:16px;font-weight:bold;">
+
+<el-alert :title="flash.warning" type="error" v-if="flash.warning!=null">
+</el-alert>
+
+
+
+
+
+</div>
+
+<div class="form-group">
+<label class="form-label" for="default-07">Select Services
+<input-error :error="errors.services"></input-error>
+</label>
+<div class="form-control-wrap">
+<div class="form-control-select-multiple">
+<select class="custom-select form-control" id="default-07" @change=" select_service($event)">
+<!-- <option value="">--Select--</option> -->
+<option  v-for="i in old_service" :key="i.id" :value="i.id">
+{{ i.name }}
+</option>
+<option  v-for="n in new_service" :key="n.id" :value="n.id">
+{{ n.name }}
+</option>
+</select>
+</div>
+</div>
+</div>
+
+
+
+
+
+<div class="row mb-3">
+<div class="col-12 col-md-6">
+
+<div class="form-group">
+<label class="form-label" for="default-01">
+<!-- {{ dialog.change_label }} -->
+<input-error :error="errors.date"></input-error>
+</label>
+<div class="form-control-wrap">
+<input type="date" class="form-control" id="default-01" placeholder="Enter appointment date" v-model="form.date">
+</div>
+</div>
+
+
+</div>
+<div class="col-12 col-md-6">
+
+
+
+    <div class="form-group" v-if="change_field==true">
+        <label class="form-label" for="default-01">
+        <input-error></input-error>
+        </label>
+
+        <div class="form-control-wrap">
+        <div class="form-icon form-icon-right">
+        <a href="#" class="text-warning pl-3 pr-3 text-danger" @click="end_date(false)">
+        <em class="icon ni ni-cross" style="font-weight:bold;color:red;"></em>
+        </a>
+        </div>
+        <input type="date" class="form-control" id="default-04" placeholder="End date" v-model="form.end_date">
+        </div>
+        </div>
+
+
+
+
+        <div class="form-group" v-else>
+        <label class="form-label text-center" for="default-01">
+        <!-- <a href="#" class="text-warning pl-3" @click="end_date(true)">Select end date</a> -->
+        </label>
+        <div class="form-control-wrap">
+        <!-- <input type="date" class="form-control" id="default-01" placeholder="Enter appointment date" disabled> -->
+
+
+    <button  @click="end_date(true)" class="form-control" id="default-01">
+     Select end date
+    </button>
+
+        </div>
+        </div>
+
+
+
+
+
+
+
+
+
+</div>
+</div>
+
+<div class="row mb-3">
+<div class="col-md-6 col-12">
+
+<div class="form-group">
+<label class="form-label" for="default-01">From Time
+<input-error :error="errors.start"></input-error>
+</label>
+<div class="form-control-wrap">
+<input type="time" class="form-control" id="default-01" placeholder="Enter start time" v-model="form.start">
+</div>
+</div>
+
+</div>
+<div class="col-12 col-md-6">
+<div class="form-group">
+<label class="form-label" for="default-01"> To Time
+<input-error :error="errors.end"></input-error>
+</label>
+<div class="form-control-wrap">
+<input type="time" class="form-control" id="default-01" placeholder="Enter end time" v-model="form.end">
+</div>
+</div>
+
+</div>
+</div>
+
+
+
+
+<div class="form-group">
+<label class="form-label" for="default-01">Location
+<input-error :error="errors.location"></input-error>
+</label>
+<div class="form-control-wrap">
+<input type="text" class="form-control" id="default-01" placeholder="Enter appointment location" v-model="form.location">
+</div>
+</div>
+
+<div class="form-group mt-2">
+<label class="form-label" for="default-01">Message</label>
+<div class="form-control-wrap">
+<input type="text" class="form-control" id="default-01" placeholder="Enter message" v-model="form.comment">
+</div>
+</div>
+
+
+
+
+
+
+
+</div>
+<div class="modal-footer bg-light">
+<span class="sub-text">
+<span class="text-danger text-center" v-if="flash.warning!=null" style="padding-right:70px;">
+{{ flash.warning }}
+</span>
+
+
+<input type="submit" class="button" value="Make appointment" style="border-radius:10px"/>
+
+
+
+</span>
+</div>
+</div>
+</div>
+</form>
+
+
+
+
+
+
+
+
+
+
 </app-layout>
 </template>
 <script>
@@ -168,60 +389,46 @@ errors:{},
 },
 
 data(){return{
-formatted_date:[],
-calendar:{range: {
-start:this.response.appointment.date.split('-').join(','),
-end:this.response.appointment.end_date!=null?this.response.appointment.end_date.split('-').join(','):null
-},
-select:null,
+//
 show:false,
-
-},
-
-dialog:{
-change:false,
-edit:false,
-},
+show2:false,
+change_field:false,
 //
+old_service:[],
+new_service:[],
 
-list:{
-services:[],
-service_id:[],
-},
-
-
-//
-select_service:false,
-//
-service_options:null,
-//
-form2:this.$inertia.form(
-{
-service:null,
-id:this.response.appointment.appointmentID,
-}
-),
-
-//
 form:this.$inertia.form({
 date:null,
-comment:null,
 end_date:null,
 start:null,
 end:null,
+services:null,
+psspID:this.response.appointment.providerID,
+comment:null,
 location:null,
-id:this.response.appointment.appointmentID,
-services:[],
-
+id:this.response.appointment.id
 }),
 
+
 //
-form2:this.$inertia.form(
-{
-id:this.response.appointment.appointmentID,
-service:null,
+end_date(status){
+if(status==true){
+this.change_field=true;
+
+}else{
+this.change_field=false;
+this.form.end_date=null;
 }
-),
+}
+
+
+
+
+
+
+
+
+
 
 
 }},
@@ -229,28 +436,18 @@ service:null,
 
 //
 methods:{
-change(item){
-this.dialog.change=item;
+select_service(event){
+this.form.services=event.target.value;
 },
-//
-
-change_edit(state){
-this.dialog.edit=state;
-},
-
-
-
-
-
-
 
 //
 submit(){
+
 this.form.post(this.route('update.appointment'),{
 onSuccess:()=>{
-this.dialog.change=false;
+this.show=false;
 this.$notify({
-title:this.$page.props.flash.success!=null?'Successful':'Error',
+title:this.$page.props.flash.success!=null?'Successful':'Warning',
 message:this.$page.props.flash.success!=null?this.$page.props.flash.success:this.$page.props.flash.warning,
 type:this.$page.props.flash.success!=null?'success':'warning',
 position:'bottom-right'
@@ -260,46 +457,9 @@ position:'bottom-right'
 
 },
 
-//
-
-form_formation(){
-this.form.date=this.response.appointment.date;
-this.form.start=this.response.appointment.from;
-this.form.end=this.response.appointment.to;
-this.form.comment=this.response.appointment.comment;
-this.form.location=this.response.appointment.location;
-this.form.end_date=this.response.appointment.end_date;
-const ids=[];
-this.response.services.forEach(element => {
-ids.push(element.id);
-});
-this.form.services=ids;
-},
-
-//
-submit2(){
-this.form2.post(this.route('appointment.add_services'),{
-onSuccess:()=>{
-this.dialog.edit=false;
-this.$notify({
-title:this.$page.props.flash.success!=null?'Successful':'Error',
-message:this.$page.props.flash.success!=null?this.$page.props.flash.success:this.$page.props.flash.warning,
-type:this.$page.props.flash.success!=null?'success':'warning',
-position:'bottopm-right'
-
-});
-}
-});
-},
 
 
 
-
-
-//
-select_field(event){
-this.form2.service=event.target.value;
-},
 
 
 //
@@ -323,77 +483,44 @@ position:'bottom-right'
 );
 },
 
-//
-
-delete_appoointment(){
-this.$inertia.post(this.route('appointment.delete'),{id:this.response.appointment.appointmentID},{
-onSuccess:()=>{
-this.$notify({
-title:'Deleted',
-message:this.$page.props.flash.success,
-type:'success',
-position:'bottom-right'
-});
-}
-});
 
 
-},
 
 //
-
-add_cart(){
-this.$inertia.post(this.route('cart.add'),{
-id:this.response.appointment.appointmentID,
-amount:this.response.amount_original,
-currency:this.response.currency,
-num_days:this.response.number_of_days,
-},
-{
-onSuccess:()=>{
-this.$notify({
-title:this.$page.props.flash.success!=null?'Successful':'Error',
-message:this.$page.props.flash.success!=null?this.$page.props.flash.success:this.$page.props.flash.warning,
-type:this.$page.props.flash.success!=null?'success':'warning',
-position:'bottom-right'
-});
-}
-
-});
+select_service(event){
+this.form.services=event.target.value;
 },
 
-//
-calendar_date_formation(){
-if(this.response.clocking.length!=0){
-const format_array=[];
-this.response.clocking.forEach(item=>{
-format_array.push({dates:item.date,key: 'today',highlight: true,});
-});
-this.formatted_date=format_array;
+//format service
+format_appointment(){
+this.form.date=this.response.appointment.date;
+this.form.location=this.response.appointment.location;
+this.form.comment=this.response.appointment.comment;
+this.form.end=this.response.appointment.to;
+this.form.start=this.response.appointment.from;
+this.form.end_date=this.response.appointment.end_date==null?this.response.appointment.end_date:this.response.appointment.date;
+this.form.services=this.response.appointment.serviceID;
+//format
+const services=this.response.services;
+const id=this.response.appointment.serviceID;
+
+
+services.forEach(element=>{
+if(element.id==id){
+this.old_service.push(element);
 }else{
-this.formatted_date=[];
+this.new_service.push(element);
 }
-},
 
 
-//
-submit_remove_from_cart(){
-this.$inertia.post(this.route('cart.remove'),{
-id:this.response.appointment.appointmentID,
-},{
-onSuccess:()=>{
-this.$notify({
-title:'Successful',
-message:this.$page.props.flash.success,
-type:'success',
-position:'bottom-right'
+if(this.form.end_date!=null){
+this.change_field=true;
+}
+
 
 });
-}
-});
-}
 
-
+}
 
 
 
@@ -407,9 +534,7 @@ position:'bottom-right'
 //
 
 mounted(){
-this.form_formation();
-this.calendar_date_formation();
-
+this.format_appointment();
 },
 
 
@@ -418,7 +543,10 @@ computed:{
 appointment(){
 return this.response.appointment;
 },
-
+//
+services(){
+return this.response.services;
+}
 
 
 
