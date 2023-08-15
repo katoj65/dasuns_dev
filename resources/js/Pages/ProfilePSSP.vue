@@ -3,7 +3,10 @@
 <div class="nk-block">
 <div class="row p-3">
 
-<!-- {{ response }} -->
+
+
+
+
 <div class="col-12 col-md-12"></div>
 <div class="col-12 col-md-12">
 <div class="card">
@@ -87,7 +90,7 @@
 <table class="table card-table mt-2">
     <tbody>
         <tr>
-            <td class="width45"><span class="avatar" style="background:#37BEA7">
+            <td class="width45"><span class="avatar" style="background:#37BEA7;">
                 <em class="icon ni ni-map-pin-fill"></em>
             </span></td>
             <td>

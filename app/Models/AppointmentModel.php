@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use App\Models\DasunsPaymentFeeModel;
 
 class AppointmentModel extends Model
 {
@@ -69,6 +70,42 @@ return $query->where('userID',Auth::user()->id)
 ->where('status','accepted')
 ->count();
 }
+
+
+//number of days
+public function scopeNumber_of_days($query,$id){
+$get=$query->find($id);
+$start=$get->date;
+$end=$get->end_date;
+if($end!=null){
+$c=date_create($start);
+$e=date_create($end);
+$days=date_diff($c,$e);
+$days=$days->days;
+}else{
+$days=1;
+}
+return $days+1;
+}
+
+
+//amount to be paid
+public function scopeService_amount($query,$id){
+$days=$this->number_of_days($id);
+$fees=new DasunsPaymentFeesModel;
+$fee=$fees->service_fee();
+$amount=$days*$fee;
+return $amount;
+}
+
+
+
+
+
+
+
+
+
 
 
 

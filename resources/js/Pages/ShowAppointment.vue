@@ -6,6 +6,21 @@
 <div class="col-12 col-md-8">
 
 <div class="card">
+<div class="card-header" v-if="appointment.status=='pending'" style="background:#37BEA7;">
+<div style="color:white">
+You can now make payment for the service requested.
+</div>
+</div>
+
+<div class="card-header bg-danger is-dim" v-if="appointment.status=='cancelled'" style="background:red;">
+<div style="color:white">
+Appointment was cancelled.
+</div>
+</div>
+
+
+
+
 <div class="card-header">
 <div class="card-title bold">
 Appointment
@@ -13,10 +28,16 @@ Appointment
 
 
 <div class="card-options">
-<el-button-group class="ml-3">
+
+
+<el-button-group class="ml-3" v-if="appointment.status=='pending'">
 <el-button type="success" @click="show=true">Edit</el-button>
 <el-button type="danger" @click="delete_appoointment(appointment.id)">Delete</el-button>
 </el-button-group>
+<el-button-group class="ml-3" v-else-if="appointment.status!='cancelled'">
+<el-button type="danger" @click="cancel_appointment(appointment.id)">Cancel</el-button>
+</el-button-group>
+
 </div>
 
 
@@ -24,11 +45,6 @@ Appointment
 </div>
 
 <div class="card-body">
-
-
-
-
-
 
 
 
@@ -60,6 +76,28 @@ Appointment
 </div>
 </li>
 
+
+
+<li class="data-item">
+<div class="data-col">
+<div class="data-label">Number of Days </div>
+<div class="data-value text-transform">{{ response.count_days>1?response.count_days+' Days':response.count_days+' Day' }} </div>
+</div>
+</li>
+
+
+
+<li class="data-item">
+    <div class="data-col">
+    <div class="data-label">Amount to be paid </div>
+    <div class="data-value text-transform">Sh. {{ response.service_amount }} </div>
+    </div>
+    </li>
+
+
+
+
+
 <li class="data-item">
 <div class="data-col">
 <div class="data-label">Location</div>
@@ -69,12 +107,17 @@ Appointment
 
 
 
+
+
+
+
 <li class="data-item">
 <div class="data-col">
 <div class="data-label">Comment </div>
 <div class="data-value text-transform">{{ appointment.comment }} </div>
 </div>
 </li>
+
 <li class="data-item">
 <div class="data-col">
 <div class="data-label">Service Provider Names </div>
@@ -82,6 +125,12 @@ Appointment
 </div>
 </li>
 
+<li class="data-item">
+<div class="data-col">
+<div class="data-label">Service Number </div>
+<div class="data-value text-transform">{{ appointment.number}}  </div>
+</div>
+</li>
 
 <li class="data-item">
 <div class="data-col">
@@ -127,7 +176,7 @@ Appointment
 <div class="data-col">
 <div class="data-label">Status</div>
 <div class="data-value text-transform">
-<button type="button" class="btn button bold " style="font-size:16px;" v-if="appointment.status=='payment'">
+<button type="button" class="btn button bold " style="font-size:16px;" v-if="appointment.status=='pending'" @click="show2=true">
 Make Payment
 </button>
 <span v-else> {{ appointment.status=='payment'?'Make payment':appointment.status }}</span>
@@ -177,9 +226,7 @@ Make Payment
 
 
 
-<!------------------->
-
-
+<!--------Edit----------->
 <form @submit.prevent="submit"    class="" style="position:fixed;width:100%;left:0;top:0;z-index:10000;height:100%;background-color: hsla(210, 29%, 18%, 0.3);" v-if="show==true">
 <div class="modal-dialog" role="document">
 <div class="modal-content">
@@ -333,25 +380,13 @@ Make Payment
 <input type="text" class="form-control" id="default-01" placeholder="Enter message" v-model="form.comment">
 </div>
 </div>
-
-
-
-
-
-
-
 </div>
 <div class="modal-footer bg-light">
 <span class="sub-text">
 <span class="text-danger text-center" v-if="flash.warning!=null" style="padding-right:70px;">
 {{ flash.warning }}
 </span>
-
-
 <input type="submit" class="button" value="Make appointment" style="border-radius:10px"/>
-
-
-
 </span>
 </div>
 </div>
@@ -364,6 +399,83 @@ Make Payment
 
 
 
+
+
+
+
+
+
+
+
+
+<!--------Make Paymennt Here-->
+<form class=""  v-if="show2==true" style="position:fixed;width:100%;left:0;top:0;z-index:10000;height:100%;background-color: hsla(210, 29%, 18%, 0.3);" @submit.prevent="submit2">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-header" style="background: #37BEA7;border:none;">
+<h5 class="modal-title" style="color:white;">Make Payment</h5>
+<a href="#" class="close" data-dismiss="modal" aria-label="Close" @click="show2=false">
+
+</a>
+</div>
+<div class="modal-body" style="max-height:500px;overflow:auto">
+
+
+<div class="row">
+<div class="col-5 py-1"><strong>Appointment date:</strong></div>
+<div class="col-7 py-1">{{ appointment.date.split('-').reverse().join('/') }} -  {{ appointment.end_date!=null?appointment.end_date.split('-').reverse().join('/'):'-' }}</div>
+
+
+<div class="col-5 py-1"><strong>Service provder names:</strong></div>
+<div class="col-7 py-1 text-transform">{{ appointment.firstname }} {{ appointment.lastname }}  </div>
+
+<div class="col-5 py-1"><strong>Service Number:</strong></div>
+<div class="col-7 py-1">{{ appointment.number }} </div>
+
+
+<div class="col-5 py-1"><strong>Number of days booked:</strong></div>
+<div class="col-7 py-1">{{response.count_days>1?response.count_days+'':response.count_days+''}} </div>
+
+
+<div class="col-5 py-1"><strong>Amount to be paid:</strong></div>
+<div class="col-7 py-1">Shs. {{ response.service_amount}} </div>
+
+
+<div class="col-5 py-1"><strong>Service cost per day:</strong></div>
+<div class="col-7 py-1">Shs. {{response.dasuns_fees }} </div>
+
+<div class="col-5 py-1"><strong>Account balance:</strong></div>
+<div class="col-7 py-1">Shs. {{response.balance }} </div>
+
+</div>
+
+
+
+
+
+
+
+<div class="form-group mt-3">
+<label class="form-label" for="default-01"></label>
+<div class="form-control-wrap">
+<input type="number" class="form-control" id="default-01" placeholder="Enter amount to be paid" v-model="form2.amount" disabled>
+</div>
+</div>
+
+
+
+
+</div>
+<div class="modal-footer bg-light">
+<span class="sub-text">
+
+<input type="submit" class="button" value="Pay Now" style="border-radius:10px"/>
+
+</span>
+</div>
+</div>
+</div>
+</form>
 
 
 
@@ -408,7 +520,11 @@ comment:null,
 location:null,
 id:this.response.appointment.id
 }),
-
+form2:this.$inertia.form({
+amount:this.response.amount_int,
+psspID:this.response.appointment.providerID,
+id:this.response.appointment.id,
+}),
 
 //
 end_date(status){
@@ -436,13 +552,27 @@ this.form.end_date=null;
 
 //
 methods:{
+submit2(){
+this.form2.post(this.route('appointment.pay'),{
+onSuccess:()=>{
+this.show2=false;
+this.$notify({
+title:this.$page.props.flash.success!=null?'Successful':'Low Balance',
+message:this.$page.props.flash.success!=null?this.$page.props.flash.success:this.$page.props.flash.warning,
+type:this.$page.props.flash.success!=null?'success':'warning',
+position:'bottom-right'
+});
+}
+});
+},
+
+
 select_service(event){
 this.form.services=event.target.value;
 },
 
 //
 submit(){
-
 this.form.post(this.route('update.appointment'),{
 onSuccess:()=>{
 this.show=false;
@@ -454,7 +584,6 @@ position:'bottom-right'
 });
 }
 });
-
 },
 
 
@@ -482,6 +611,33 @@ position:'bottom-right'
 
 );
 },
+
+
+
+
+//
+cancel_appointment(id){
+this.$inertia.post(this.route('appointment.cancel'),{
+id:id,
+appointmentID:this.response.appointment.appointmentID,
+},
+{
+onSuccess:()=>{
+this.$notify({
+title:'Deleted',
+message:this.$page.props.flash.success,
+type:'success',
+position:'bottom-right'
+});
+}
+
+}
+
+);
+},
+
+
+
 
 
 

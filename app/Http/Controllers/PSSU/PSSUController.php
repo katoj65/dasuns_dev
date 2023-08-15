@@ -113,7 +113,8 @@ $appointment=AppointmentModel::select('appointment.date',
 'users.firstname',
 'users.lastname',
 'users.email',
-'users.tel')
+'users.tel',
+'appointment.id')
 ->join('appointment_service','appointment.id','=','appointment_service.appointmentID')
 ->join('support_service','appointment_service.serviceID','=','support_service.ID')
 ->join('users','appointment.providerID','=','users.id')

@@ -373,6 +373,14 @@ font-weight: bold;
 border-radius: 10px;
 }
 
+.green-light:{
+background:#37BEA7;
+}
+
+.green-dark{background:#07372F;}
+
+
+
 </style>
 
 

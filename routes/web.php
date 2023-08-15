@@ -331,3 +331,7 @@ Route::middleware(['auth:sanctum', 'verified'])->post('/section/destroy',[PageCo
 Route::middleware(['auth:sanctum', 'verified'])->get('/users/service-providers',[PSSPController::class,'index'])->name('user.service-providers');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/profile/{id}/service-provider',[PSSPController::class,'show'])->name('profile.pssp');
+
+Route::middleware(['auth:sanctum', 'verified'])->post('/appointment/pay',[AppointmentController::class,'make_payment'])->name('appointment.pay');
+
+Route::middleware(['auth:sanctum', 'verified'])->post('/appointment/cancel',[AppointmentController::class,'cancel_appointment'])->name('appointment.cancel');

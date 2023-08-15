@@ -37,7 +37,7 @@
     <div class="col-12 col-md-8 h-100">
     <div class="card h-100">
         <div class="card-header">
-        <h3 class="card-title">Appointments</h3>
+        <h3 class="card-title bold">Appointments</h3>
         <div class="card-options">
 
             <div class="item-action dropdown ml-2">
@@ -60,12 +60,12 @@
     <thead>
 
     <tr >
-    <th class="bold" style="font-weight:bold;" colspan="2">Request Title</th>
-    <th class="bold" style="font-weight:bold;">Date</th>
-    <th class="bold" style="font-weight:bold;">Start</th>
-    <th class="bold" style="font-weight:bold;">End</th>
-    <th class="bold" style="font-weight:bold;">Status</th>
-    <th class="bold"></th>
+    <th class="bold text-transform" style="font-weight:bold;" colspan="2">Appointment Request</th>
+    <th class="bold text-transform" style="font-weight:bold;">Date</th>
+    <th class="bold text-transform" style="font-weight:bold;">Start</th>
+    <th class="bold text-transform" style="font-weight:bold;">End</th>
+    <th class="bold text-transform" style="font-weight:bold;">Status</th>
+    <th class="bold text-transform"></th>
     </tr>
     </thead>
     <tbody v-if="appointments.length>0">
@@ -80,15 +80,14 @@
     <td><span>{{ a.date.split('-').reverse().join('/') }}</span></td>
     <td><span>{{ a.from.substring(0,5) }}</span></td>
     <td><span>{{ a.to.substring(0,5) }}</span></td>
-    <td>
-        <span class="text-transform" v-if="a.status=='pending'">{{ a.status }} </span>
-        <span class="text-transform" v-else-if="a.status=='accepted'">{{ a.status }} </span>
+    <td class="text-transform">
+    {{ a.status }}
     </td>
     <td style="width:50px;">
         <!-- <span class="badge badge-dot badge-warning text-transform" v-if="a.status=='pending'">{{ a.status }} </span>
         <span class="badge badge-dot badge-success text-transform" v-else-if="a.status=='accepted'">{{ a.status }} </span> -->
 
-    <a href="#" @click="show_appointment(a)" class="btn btn-default btn-sm text-primary" style="border:none;margin:0;">View</a>
+    <Inertia-link :href="route('appointment.details',{id:a.id})" class="btn btn-default btn-sm text-primary" style="border:none;margin:0;">View</Inertia-link>
     </td>
     </tr>
     </tbody>
@@ -599,7 +598,9 @@
     padding-bottom:10px;
     }
 
-
+table thead tr th{
+text-transform: capitalize;
+}
 
 
     </style>
