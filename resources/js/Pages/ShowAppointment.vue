@@ -6,14 +6,14 @@
 <div class="col-12 col-md-8">
 
 <div class="card">
-<div class="card-header" v-if="appointment.status=='pending'" style="background:#37BEA7;">
-<div style="color:white">
+<div class="card-header bold" v-if="appointment.status=='pending'" style="background:#D5F5E3;">
+<div style="color:green;">
 You can now make payment for the service requested.
 </div>
 </div>
 
-<div class="card-header bg-danger is-dim" v-if="appointment.status=='cancelled'" style="background:red;">
-<div style="color:white">
+<div class="card-header bg-danger-dim bold text-danger" v-if="appointment.status=='cancelled'">
+<div style="color:red;">
 Appointment was cancelled.
 </div>
 </div>

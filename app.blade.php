@@ -298,6 +298,10 @@ border-bottom:solid 1px #EBEEF5
     border-top:solid 1px #EBEEF5
 }
 
+.bg-green-dim{
+ background:#D5F5E3;
+}
+
 
 </style>
 
