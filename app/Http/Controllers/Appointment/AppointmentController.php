@@ -30,31 +30,11 @@ class AppointmentController extends Controller
  *
  * @return \Illuminate\Http\Response
  */
-public function index()
+public function index(AppointmentModel $appointments)
 {
 $data['title']='Appointment';
 $data['response']=[
-'appointments'=>AppointmentModel::select('appointment.date',
-'appointment.end_date',
-'appointment.from',
-'appointment.to',
-'support_service.name',
-'appointment.status',
-'appointment.location',
-'appointment.comment',
-'users.firstname',
-'users.lastname',
-'users.email',
-'users.tel')
-->join('appointment_service','appointment.id','=','appointment_service.appointmentID')
-->join('support_service','appointment_service.serviceID','=','support_service.ID')
-->join('users','appointment.providerID','=','users.id')
-->where('appointment.userID',Auth::user()->id)
-->where('appointment.status','accepted')
-->orwhere('appointment.status','pending')
-->orderby('appointment.status','ASC')
-->orderby('appointment.date','DESC')
-->get()
+'appointments'=>$appointments->my_accepted_appointments(),
 
 
 

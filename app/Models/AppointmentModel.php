@@ -99,8 +99,28 @@ return $amount;
 }
 
 
+//get pssu accepted appointment
+public function scopeMy_accepted_appointments($query){
+return $query->select('appointment.date',
+'appointment.end_date',
+'appointment.from',
+'appointment.to',
+'support_service.name',
+'appointment.status',
+'appointment.location',
+'users.email',
+'users.tel')
+->join('appointment_service','appointment.id','=','appointment_service.appointmentID')
+->join('support_service','appointment_service.serviceID','=','support_service.ID')
+->join('users','appointment.providerID','=','users.id')
+->where('appointment.userID',Auth::user()->id)
+->where('appointment.status','accepted')
+->orderby('appointment.date','DESC')
+->get();
 
 
+
+}
 
 
 
