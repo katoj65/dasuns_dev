@@ -30,6 +30,7 @@ use App\Http\Controllers\Information\WhatwedoController;
 use App\Http\Controllers\Pages\PageController;
 use App\Http\Controllers\Notification\NotificationController;
 use App\Http\Controllers\Chat\ChatController;
+use App\Http\Controllers\Messages\MessageController;
 
 
 
@@ -335,3 +336,5 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/profile/{id}/service-prov
 Route::middleware(['auth:sanctum', 'verified'])->post('/appointment/pay',[AppointmentController::class,'make_payment'])->name('appointment.pay');
 
 Route::middleware(['auth:sanctum', 'verified'])->post('/appointment/cancel',[AppointmentController::class,'cancel_appointment'])->name('appointment.cancel');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/messages/{id}',[MessageController::class,'show'])->name('messages');

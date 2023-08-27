@@ -113,7 +113,7 @@ panelist_menu:[
 pssu_menu:[
 {id:1, name:'Dashboard',url:'dashboard',icon:'icon ni ni-layout'},
 {id:2, name:'Appointments',url:'appointments',icon:'icon ni ni-calender-date-fill'},
-{id:3, name:'Service Providers',url:'service-providers',icon:'icon ni ni-user-list-fill'},
+{id:3, name:'Service Providers',url:'user.service-providers',icon:'icon ni ni-user-list-fill'},
 {id:4, name:'Support Services',url:'support-services',icon:'icon ni ni-view-grid-fill'},
 {id:6, name:'Recommendations',url:'dashboard',icon:'icon ni ni-bar-chart-fill'},
 {id:7, name:'Wallet',url:'wallet',icon:'icon ni ni-wallet-alt'},

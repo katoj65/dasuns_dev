@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use App\Models\AppointmentModel;
+use App\Models\User;
 
 class DasunsWalletModel extends Model
 {
@@ -42,6 +43,9 @@ $query->where('userID',Auth::user()->id)
 return $app->status;
 }return $app->status;
 }
+
+
+
 
 
 

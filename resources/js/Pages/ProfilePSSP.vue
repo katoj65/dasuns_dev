@@ -33,7 +33,9 @@
 </ul>
 <button class="btn btn-default btn-sm" style="background:#37BEA7;color:white;font-weight:bold;border:none;" @click="show=true">
 <em class="icon ni ni-edit"></em> Make Appointment</button>
-<button class="btn btn-default btn-sm"><em class="icon ni ni-mail-fill"></em></button>
+<Inertia-link class="btn btn-default btn-sm" :href="route('messages',{id:user.id})">
+<em class="icon ni ni-mail-fill"></em>
+</Inertia-link>
 
 </div>
 </div>
@@ -90,7 +92,7 @@
 <table class="table card-table mt-2">
     <tbody>
         <tr>
-            <td class="width45"><span class="avatar" style="background:#37BEA7;">
+            <td class="width45"><span class="avatar" style="background:#37BEA7;color:white;">
                 <em class="icon ni ni-map-pin-fill"></em>
             </span></td>
             <td>

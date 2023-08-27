@@ -48,7 +48,7 @@ return $query->select('appointment.date','appointment.id','appointment.end_date'
 
 
 
-//show appointment
+//show my appointment
 public function scopeShow($query,$id){
 return $query->select('appointment.date','appointment.id','appointment.end_date','appointment.from','appointment.to','appointment.location','appointment.comment','users.firstname','users.lastname','users.tel','users.email','users.gender','users.dob','appointment.status','dasuns_user_number.number','support_service.name as service',
 'appointment.created_at',
@@ -81,11 +81,11 @@ if($end!=null){
 $c=date_create($start);
 $e=date_create($end);
 $days=date_diff($c,$e);
-$days=$days->days;
+$days=$days->days+1;
 }else{
 $days=1;
 }
-return $days+1;
+return $days;
 }
 
 
