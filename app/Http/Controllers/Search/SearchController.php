@@ -10,6 +10,9 @@ use App\Models\User;
 use App\Models\ServiceProviderServicesModel;
 use Illuminate\Support\Facades\Auth;
 use App\Models\UserSupportServiceModel;
+use App\Http\Requests\SearchRequest;
+use App\Models\DasunsUserNumberModel;
+
 
 
 class SearchController extends Controller
@@ -20,20 +23,17 @@ class SearchController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-public function index(Request $request){
+public function index(Request $request, SearchRequest $search_request){
+$user=new User;
+$number=new DasunsUserNumberModel;
+$service=new SupportServiceModel;
 $search=$request->segment(2);
-$data['title']='Search';
-
-$services=SearchController::find_services($search);
-$providers=SearchController::find_pssp($search);
-$count=count($services)+count($providers);
-
+$data['title']='search';
 $data['response']=[
-
-'services'=>$services,
-'providers'=>$providers,
-'count_results'=>$count,
-'search'=>$request->segment(2)
+'search'=>$search,
+'pssp'=>$search_request->search_by_names($user, $search),
+'number'=>$search_request->search_by_dasuns_number($number,$search),
+'service'=>$search_request->search_by_support_service($service,$search),
 
 ];
 
@@ -120,14 +120,10 @@ $get=User::select('users.firstname',
 'users.tel',
 'users.email',
 'users.id')
-
 ->join('dasuns_user_number','users.id','=','dasuns_user_number.userID')
 ->where('users.role','pssp')
 ->where('users.status','active')
 ->where('users.firstname','LIKE','%'.$search.'%')
-->where('users.id','!=',Auth::user()->id)
-
-// ->orwhere('lastname','LIKE','%'.$search.'%')
 ->get();
 
 if(count($get)>0){
@@ -222,11 +218,9 @@ return [];
      * @return \Illuminate\Http\Response
      */
 public function store(Request $request){
-    //
-$request->validate(['search'=>['required','string']]);
-if($request->search!=null){
-return redirect('/search/'.$request->search);
-}
+$request->validate(['search'=>'required']);
+$search=$request->search;
+return redirect('/search/'.$search);
 }
 
     /**

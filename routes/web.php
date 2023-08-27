@@ -176,9 +176,9 @@ Route::middleware(['auth:sanctum', 'verified'])->post('/store/pssp-account-appro
 Route::middleware(['auth:sanctum', 'verified'])->post('store/interview-rejection',[InterviewController::class,'store_interview_rejection'])->name('store.interview_rejection');
 
 
-Route::middleware(['auth:sanctum', 'verified'])->post('/search-response',[SearchController::class,'store'])->name('store.search');
+// Route::middleware(['auth:sanctum', 'verified'])->post('/search-response',[SearchController::class,'store'])->name('store.search');
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/search/{any}',[SearchController::class,'index'])->name('search.results');
+Route::middleware(['auth:sanctum', 'verified'])->get('/searching/{any}',[SearchController::class,'index'])->name('search.results');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/search/service/{id}',[SearchController::class,'show'])->name('search.service');
 
@@ -338,3 +338,7 @@ Route::middleware(['auth:sanctum', 'verified'])->post('/appointment/pay',[Appoin
 Route::middleware(['auth:sanctum', 'verified'])->post('/appointment/cancel',[AppointmentController::class,'cancel_appointment'])->name('appointment.cancel');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/messages/{id}',[MessageController::class,'show'])->name('messages');
+
+Route::middleware(['auth:sanctum', 'verified'])->post('/search/store',[SearchController::class,'store'])->name('search.store');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/search/{any}',[SearchController::class,'index'])->name('search.found');

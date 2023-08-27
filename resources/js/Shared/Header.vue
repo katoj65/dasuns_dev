@@ -29,8 +29,8 @@
 
         <div class="left">
             <div class="input-group xs-hide" style="margin-left:-25px;;">
-            <form style="width:400px;">
-            <input type="text" class="form-control" placeholder="Search..." style="border:none;border-radius:10px;background:#f8f9fa;"></form>
+            <form style="width:400px;"  @submit.prevent="submit">
+            <input type="text" class="form-control" placeholder="Search..." style="border:none;border-radius:10px;background:#f8f9fa;" v-model="form.search"></form>
             </div>
             </div>
 
@@ -230,33 +230,6 @@
 
 
 
-        <form style="position:fixed;width:100%;left:0;top:0;z-index:10000;height:100%;background-color: hsla(192, 25%, 99%, 0.6);" @submit.prevent="submit" v-if="dialog.search==true">
-
-        <div style="width:100%;height:100%; margin-top:-200px;border-radius:10px;" class="modal-dialog" role="document">
-        <div class="modal-content" style="border-radius:100px;">
-        <div class="modal-header" style="border:none;border-radius:10px;background:#0B5345;">
-        <div style="width:100%;">
-
-        <div class="form-control-wrap" style="width:100%; border-radius:100px;">
-        <div class="form-icon form-icon-left">
-        <em class="icon ni ni-search"></em>
-        </div>
-        <input type="text" class="form-control" id="default-03" placeholder="Search for services, service providers ..." style="border-radius:50px;padding-right:50px;border:none;" v-model="form.search">
-        </div>
-
-        </div>
-        </div>
-
-        <a href="#" class="close" data-dismiss="modal" aria-label="Close" @click="dialog.search=false" style="position:absolute;margin-right:20px;margin-top:10px;">
-        <em class="icon ni ni-cross"></em>
-        </a>
-        </div>
-        </div>
-        </form>
-
-
-
-
 
 
 
@@ -272,13 +245,13 @@ SearchPanel,
 },
 
 
-data(){return{
-dialog:{
-search:false,
-
+//props
+props:{
+response:{},
+title:{},
 },
 
-
+data(){return{
 form:this.$inertia.form({
 search:null,
 }),
@@ -302,29 +275,24 @@ filter:false,
 
 //search option
 methods:{
+//
+search_field(){
+const title=this.$page.props.title;
+if(title=='search'){
+this.form.search=this.$page.props.response.search;
+}
+},
 
+
+//
 submit(){
-this.form.post(this.route('store.search'),{
+this.form.post(this.route('search.store'),{
 onSuccess:()=>{
-this.dialog.search=false;
+
 }
 });
 },
 
-
-
-
-
-search_bar(){
-this.dialog.search=true;
-if(this.search_option==false){
-this.search_option=true;
-}else{
-this.search_option=false;
-}
-$('#focusID').focus();
-},
-//
 
 
 
@@ -361,6 +329,7 @@ $('#focusID').focus();
 
 //
 mounted(){
+this.search_field();
 this.check_result();
 if(this.$page.props.response.search!=null){
 this.dialog.search=false;
