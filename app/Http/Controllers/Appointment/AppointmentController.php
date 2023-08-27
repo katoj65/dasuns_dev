@@ -19,6 +19,8 @@ use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\SupportServices\SupportServiceController;
 use App\Http\Controllers\Wallet\WalletController;
 use App\Models\User;
+use App\Models\PaymentModel;
+use App\Http\Requests\PaymentRequest;
 
 
 
@@ -174,17 +176,12 @@ return redirect('/')->with('error','No appointment details.');
 
 //make payment
 public function make_payment(Request $request,AppointmentModel $appointment){
-$wallet=new DasunsWalletModel;
-$balance=$wallet->my_balance();
-$fees=new DasunsPaymentFeesModel;
-$fee=$fees->service_fee();
-$amount=$appointment->service_amount($request->id);
-$days=$appointment->number_of_days($request->id);
-if($amount<$balance){
-$payment_status= $wallet->service_payment($request->id,$amount);
+$payment_request=new PaymentRequest;
+$pay=$payment_request->pssu_pay_for_service($request,$appointment);
+if($pay==true){
 return redirect('/appointment-details/'.$request->id)->with('success','You have successfully paid.');
 }else{
-return redirect('/appointment-details/'.$request->id)->with('warning','Your account balance is low.');
+return  redirect('/appointment-details/'.$request->id)->with('warning','Your account balance is low.');
 }
 }
 
@@ -563,26 +560,18 @@ return $get;
 
 
 //show appointment
-public function showAppointment(Request $request){
-
+public function showAppointment(Request $request, AppointmentModel $appointment){
+$payment=new PaymentModel;
 $data=[];
-$get=AppointmentModel::
-select('users.firstname',
-'users.lastname',
-'appointment.status',
-'appointment.id',
-'appointment.date',
-'appointment.end_date',
-'dasuns_user_number.number',
-'users.tel',
-'users.email')
-->join('users','appointment.providerID','=','users.id')
-->join('dasuns_user_number','users.id','=','dasuns_user_number.userID')
-->where('appointment.id',$request->segment(2))
-->get();
+$get=$appointment->my_appointment_details($request);
 if(count($get)>0){
 foreach($get as $row){
 $content[]=[
+
+'payment'=>number_format($payment->cost_of_service($row->id)),
+'location'=>$row->location,
+'from'=>$row->from,
+'to'=>$row->to,
 'firstname'=>$row->firstname,
 'lastname'=>$row->lastname,
 'status'=>$row->status,
@@ -597,6 +586,7 @@ $content[]=[
 ->where('appointmentID',$row->id)
 ->limit(1)
 ->get(),
+
 ];
 
 }

@@ -4,7 +4,7 @@
 <div class="col-12 col-md-12">
 
 
-<div class="card">
+<div class="card" style="min-height:800px;">
 <div class="card-header">
 <h3 class="card-title bold">Appointments </h3>
 </div>
@@ -30,12 +30,13 @@
 <tbody v-if="appointments.length>0">
 <tr  v-for="a in appointments" :key="a">
 <th scope="row">
-
+<Inertia-link :href="route('appoitment.show',{id:a.id})" class="text-black">
     <em class="icon ni ni-check-circle-fill text-success mr-2" v-if="a.status=='accepted'"></em>
     <em class="icon ni ni-alert-circle-fill  text-warning mr-2" v-else></em>
     {{ a.name }}
 
 
+</Inertia-link>
 </th>
 <td>
     {{ a.date.split('-').reverse().join('/') }}

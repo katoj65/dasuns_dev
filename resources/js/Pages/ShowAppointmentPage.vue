@@ -8,56 +8,123 @@
 
 <div class="card" v-for="(a,key) in appointment" :key="key">
 <div class="card-header">
-<h3 class="card-title text-transform">Appointment Details</h3>
+<h3 class="card-title text-transform bold">Appointment Details</h3>
 </div>
 
 <div class="card-body" style="border:none;">
 
-<ul class="list-group" style="border:none;">
-<li class="list-group-item">
-<small class="text-muted">Appointment Date: </small>
-<p class="mb-0 pt-2">{{ a.date.split('-').reverse().join('/') }} <span>{{ a.end_date!=null?a.end_date:'' }} </span> </p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ul class="data-list is-compact">
+
+
+
+    <li class="data-item">
+        <div class="data-col">
+        <div class="data-label">Date</div>
+        <div class="data-value text-transform">{{ a.date.split('-').reverse().join('/') }}
+
+    <span class="ml-3">-</span>
+            <span class="ml-3">
+            {{ a.end_date!=null?a.end_date.split('-').reverse().join('/'):'' }}</span> </div>
+        </div>
+        </li>
+
+
+<li class="data-item">
+<div class="data-col">
+<div class="data-label">Time</div>
+<div class="data-value text-transform">{{ a.from.substring(0,5) }}<span class="mr-3"></span> - <span class="ml-3">  {{a.to.substring(0,5)}} </span></div>
+</div>
 </li>
-<li class="list-group-item">
-<small class="text-muted">Service Requested: </small>
-<div class="mb-0 pt-2" v-if="a.service.length==1">
+
+
+
+<li class="data-item">
+<div class="data-col">
+<div class="data-label">Service Requested</div>
+<div class="data-value" v-if="a.service.length==1">
 <p v-for="(s,key) in a.service" :key="key">
 {{ s.name }}
 </p>
 </div>
+</div>
 </li>
-<li class="list-group-item">
-<small class="text-muted">Service Provider: </small>
-<p class="mb-0 pt-2">
-{{ a.firstname +' '+ a.lastname}}
-</p>
+<li class="data-item">
+<div class="data-col">
+<div class="data-label">Service Provider</div>
+<div class="data-value text-transform">{{ a.firstname +' '+ a.lastname}}</div>
+</div>
 </li>
-<li class="list-group-item">
-<small class="text-muted">Service Number: </small>
-<p class="mb-0 pt-2">{{ a.number }} </p>
+<li class="data-item">
+<div class="data-col">
+<div class="data-label">Service Number</div>
+<div class="data-value">{{ a.number }}</div>
+</div>
 </li>
+<li class="data-item">
+<div class="data-col">
+<div class="data-label">Telephone Number</div>
+<div class="data-value text-soft">{{ a.tel }}</div>
+</div>
+</li>
+    <li class="data-item">
+        <div class="data-col">
+            <div class="data-label">Email Address</div>
+            <div class="data-value">{{ a.email }}</div>
+        </div>
+    </li>
+    <li class="data-item">
+        <div class="data-col">
+            <div class="data-label">Location</div>
+            <div class="data-value text-transform">{{ a.location }} </div>
+        </div>
+    </li>
 
-<li class="list-group-item">
-<small class="text-muted">Telephone Number: </small>
-<p class="mb-0 pt-2">{{ a.tel }} </p>
-</li>
-
-<li class="list-group-item">
-<small class="text-muted">Email Address: </small>
-<p class="mb-0 pt-2">{{ a.email }} </p>
-</li>
+    <li class="data-item">
+        <div class="data-col">
+            <div class="data-label">Payment</div>
+            <div class="data-value text-transform">{{ a.payment }} </div>
+        </div>
+    </li>
+    <li class="data-item">
+        <div class="data-col">
+            <div class="data-label"></div>
+            <div class="data-value">
+                <button type="button" class="btn btn-primary text-transform" @click="show=true">{{ a.status }} </button>
+            </div>
+        </div>
+    </li>
 
 
 </ul>
 
+
+
+
+
+
+
 </div>
 
 
-<div class="card-footer border-0">
-<div class="text-right">
-<button type="button" class="btn btn-primary text-transform" @click="show=true">{{ a.status }} </button>
-</div>
-</div>
+
 </div>
 
 

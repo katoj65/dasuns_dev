@@ -109,7 +109,8 @@ return $query->select('appointment.date',
 'appointment.status',
 'appointment.location',
 'users.email',
-'users.tel')
+'users.tel',
+'appointment.id')
 ->join('appointment_service','appointment.id','=','appointment_service.appointmentID')
 ->join('support_service','appointment_service.serviceID','=','support_service.ID')
 ->join('users','appointment.providerID','=','users.id')
@@ -118,13 +119,32 @@ return $query->select('appointment.date',
 ->orderby('appointment.date','DESC')
 ->get();
 
+}
 
 
+//get my appointment details
+public function scopeMy_appointment_details($query,$request){
+return $query->select('users.firstname',
+'users.lastname',
+'appointment.status',
+'appointment.id',
+'appointment.date',
+'appointment.end_date',
+'dasuns_user_number.number',
+'users.tel',
+'users.email',
+'appointment.from',
+'appointment.to',
+'appointment.location')
+->join('users','appointment.providerID','=','users.id')
+->join('dasuns_user_number','users.id','=','dasuns_user_number.userID')
+->where('appointment.id',$request->segment(2))
+->get();
 }
 
 
 
-
+//
 
 
 
