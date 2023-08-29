@@ -2,7 +2,7 @@
 <app-layout>
 <div class="row m-2 pt-2">
 <div class="card" style="min-height:800px;">
-<div class="card-header">
+<div class="card-header" v-if="pssp.length>0 || number.length>0">
 <div class="card-title">
 <h6 class="bold">Search results</h6>
 </div>
@@ -39,32 +39,6 @@
 </div>
 </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <div class="card-body" v-if="pssp.length>0">
     <div class="row">
     <div class="col-12 col-md-3" v-for="(l,key) in pssp" :key="key">
@@ -93,9 +67,11 @@
     </div>
     </div>
     </div>
-    </div>
+</div>
 
-
+<div class="card-body text-center p-5" v-if="pssp.length==0 && number.length==0">
+<h4>No search results found</h4>
+</div>
 
 
 

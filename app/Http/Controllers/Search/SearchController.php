@@ -36,9 +36,6 @@ $data['response']=[
 'search'=>$search,
 'pssp'=>$search_request->search_by_names($user, $search),
 'number'=>$search_request->search_by_dasuns_number($number,$search),
-// 'service'=>$search_request->search_by_support_service($service,$search),
-// 'location'=>$search_request->search_by_location($location,$search),
-
 ];
 
 return Inertia::render('SearchPage',$data);
