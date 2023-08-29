@@ -181,13 +181,6 @@ $get_services=ServiceProviderServicesModel::select('support_service.name','suppo
 ->get();
 
 
-// $dasuns=DasunsUserNumberModel::select('pssp_interview_rejection.title','pssp_interview_rejection.comment','pssp_interview_rejection.created_at','pssp_interview_rejection.id')
-// ->join('pssp_interview_schedule','dasuns_user_number.id','=','pssp_interview_schedule.applicationID')
-// ->join('pssp_interview_rejection','pssp_interview_schedule.id','=','pssp_interview_rejection.interviewID')
-// ->where('dasuns_user_number.userID',Auth::user()->id)
-// ->get();
-
-
 
 //request
 $requests=AppointmentModel::select('appointment.date',
@@ -259,52 +252,8 @@ return [
 
 }else{
 
-//appointments content
-$appointments=[];
-$get=AppointmentModel::select('users.firstname','users.lastname',
-'appointment.end_date',
-'appointment.date',
-'appointment.from',
-'appointment.to',
-'appointment.location',
-'appointment.comment',
-'appointment.status',
-'appointment.id',
-'appointment.created_at')
-->where('appointment.providerID',Auth::user()->id)
-->where('appointment.status','pending')
-->orwhere('appointment.status','accepted')
-->join('users','appointment.userID','=','users.id')
-->orderby('appointment.status','DESC')
-->orderby('appointment.date','DESC')
-->get();
-if(count($get)>0){
-foreach($get as $a){
-$services=AppointmentServiceModel::select('*')
-->join('support_service','appointment_service.serviceID','=','support_service.id')
-->where('appointment_service.appointmentID',$a->id)->get();
-$appointments[]=[
-'firstname'=>$a->firstname,
-'lastname'=>$a->lastname,
-'date'=>$a->date,
-'end_date'=>$a->end_date,
-'location'=>$a->location,
-'comment'=>$a->comment,
-'status'=>$a->status,
-'from'=>$a->from,
-'to'=>$a->to,
-'created_at'=>$a->created_at,
-'services'=>$services,
-'id'=>$a->id
-];
-}
-
-}
-
-
-
-
-
+//appointments
+$appointment=new AppointmentModel;
 
 
 
@@ -324,7 +273,7 @@ return [
 ->where('service_provider_services.userID',Auth::user()->id)
 ->join('support_service','service_provider_services.serviceID','=','support_service.id')
 ->get(),
-'appointments'=>$appointments,
+'appointments'=>$appointment->pssp_appointment(),
 'recommendations'=>DasunsRecommendationsModel::where('userID',Auth::user()->id)->limit(2)->get(),
 'activities'=>[]
 

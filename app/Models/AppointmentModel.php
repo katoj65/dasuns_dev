@@ -58,6 +58,7 @@ return $query->select('appointment.date','appointment.id','appointment.end_date'
 ->join('dasuns_user_number','users.id','=','dasuns_user_number.userId')
 ->join('support_service','appointment.serviceID','=','support_service.id')
 ->where('appointment.userID',Auth::user()->id)
+->orwhere('appointment.providerID',Auth::user()->id)
 ->where('appointment.id',$id)
 ->get();
 }
@@ -145,6 +146,48 @@ return $query->select('users.firstname',
 
 
 //my 5 appointments
+public function scopeUpcoming_appointments($query){
+return $query->where('userID',Auth::user()->id)
+->orwhere('providerID',Auth::user()->id)
+->where('status','accepted')
+->where('date','>=',date('Y-m-d'))
+->get();
+}
+
+
+
+
+
+//pssp appointment
+public function scopePssp_appointment($query){
+return $query->select('appointment.date',
+'appointment.end_date',
+'appointment.from',
+'appointment.to',
+'support_service.name',
+'appointment.status',
+'appointment.location',
+'users.email',
+'users.tel',
+'appointment.id',
+'appointment.status')
+->join('appointment_service','appointment.id','=','appointment_service.appointmentID')
+->join('support_service','appointment_service.serviceID','=','support_service.ID')
+->join('users','appointment.providerID','=','users.id')
+->where('appointment.providerID',Auth::user()->id)
+->where('appointment.status','accepted')
+->orderby('appointment.date','DESC')
+->get();
+}
+
+
+
+
+
+
+
+
+
 
 
 

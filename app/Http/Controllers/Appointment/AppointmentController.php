@@ -163,6 +163,8 @@ $data['response']=[
 'service_amount'=>number_format($appointment->service_amount($row->id)),
 'amount_int'=>$appointment->service_amount($row->id)
 ];
+
+
 return Inertia::render('ShowAppointment',$data);
 }else{
 return redirect('/')->with('error','No appointment details.');

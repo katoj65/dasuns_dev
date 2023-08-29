@@ -1,10 +1,5 @@
 <template>
 <div class="nk-block pt-0">
-
-
-
-
-
 <div>
 <div class="section-body mt-3">
 <div class="container-fluid">
@@ -41,22 +36,6 @@
 <div class="card h-100">
 <div class="card-header">
 <h3 class="card-title bold">Appointments</h3>
-<!-- <div class="card-options">
-
-<div class="item-action dropdown ml-2">
-<a href="javascript:void(0)" data-toggle="dropdown" aria-expanded="false"><i class="fe fe-more-vertical"></i></a>
-<div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; transform: translate3d(-174px, 25px, 0px); top: 0px; left: 0px; will-change: transform;">
-<a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fa fa-eye"></i> View Details </a>
-
-<a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fa fa-share-alt"></i> Share </a>
-
-<a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fa fa-cloud-download"></i> Download</a>
-
-
-
-</div>
-</div>
-</div> -->
 </div>
 <div class="table-responsive">
 <table class="table table-hover table-vcenter mb-0 mt-2">

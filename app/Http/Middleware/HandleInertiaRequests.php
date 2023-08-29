@@ -18,6 +18,7 @@ use App\Models\DasunsUserNumberModel;
 use App\Models\SystemModel;
 use App\Models\ActivityLogModel;
 use App\Models\SupportServiceModel;
+use App\Models\AppointmentModel;
 
 
 class HandleInertiaRequests extends Middleware
@@ -195,8 +196,10 @@ return [
 
 //shared data
 'data'=>function()use($request){
+$appointment=new AppointmentModel;
 return[
 'services'=>SupportServiceModel::get(),
+'appointment'=>Auth::user()!=null?$appointment->upcoming_appointments():null,
 
 ];
 }
