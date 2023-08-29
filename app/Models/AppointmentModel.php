@@ -50,7 +50,21 @@ return $query->select('appointment.date','appointment.id','appointment.end_date'
 
 //show my appointment
 public function scopeShow($query,$id){
-return $query->select('appointment.date','appointment.id','appointment.end_date','appointment.from','appointment.to','appointment.location','appointment.comment','users.firstname','users.lastname','users.tel','users.email','users.gender','users.dob','appointment.status','dasuns_user_number.number','support_service.name as service',
+if(Auth::user()->role=='pssp'){
+$get=$query->select('appointment.date','appointment.id','appointment.end_date','appointment.from','appointment.to','appointment.location','appointment.comment','users.firstname','users.lastname','users.tel','users.email','users.gender','users.dob','appointment.status','dasuns_user_number.number','support_service.name as service',
+'appointment.created_at',
+'users.id as providerID',
+'support_service.id as serviceID')
+->join('users','appointment.providerID','=','users.id')
+->join('dasuns_user_number','users.id','=','dasuns_user_number.userId')
+->join('support_service','appointment.serviceID','=','support_service.id')
+->where('appointment.providerID',Auth::user()->id)
+->where('appointment.id',$id)
+->get();
+
+}elseif(Auth::user()->role=='pssu'){
+
+$get=$query->select('appointment.date','appointment.id','appointment.end_date','appointment.from','appointment.to','appointment.location','appointment.comment','users.firstname','users.lastname','users.tel','users.email','users.gender','users.dob','appointment.status','dasuns_user_number.number','support_service.name as service',
 'appointment.created_at',
 'users.id as providerID',
 'support_service.id as serviceID')
@@ -58,9 +72,12 @@ return $query->select('appointment.date','appointment.id','appointment.end_date'
 ->join('dasuns_user_number','users.id','=','dasuns_user_number.userId')
 ->join('support_service','appointment.serviceID','=','support_service.id')
 ->where('appointment.userID',Auth::user()->id)
-->orwhere('appointment.providerID',Auth::user()->id)
 ->where('appointment.id',$id)
 ->get();
+}
+
+return $get;
+
 }
 
 
@@ -181,8 +198,10 @@ return $query->select('appointment.date',
 }
 
 
-
-
+//pssp appointment requests
+public function scopePssp_requests_count($query){
+return $query->where('providerID',Auth::user()->id)->where('status','pending')->count();
+}
 
 
 

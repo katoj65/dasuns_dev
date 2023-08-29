@@ -261,7 +261,7 @@ $appointment=new AppointmentModel;
 return [
 //
 'counts'=>[
-'requests'=>AppointmentModel::where('providerID',Auth::user()->id)->where('status','pending')->count(),
+'requests'=>$appointment->pssp_requests_count(),
 'appointments'=>AppointmentModel::where('providerID',Auth::user()->id)->where('status','accepted')->count(),
 'services'=>ServiceProviderServicesModel::where('userID',Auth::user()->id)->count(),
 'wallet'=>WalletController::get_wallet_balance()->amount,
