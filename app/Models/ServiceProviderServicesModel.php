@@ -12,8 +12,19 @@ class ServiceProviderServicesModel extends Model
 
 
 
-//get appointment 
+//count pssp services.
+public function scopeCount_pssp_services($query,$id){
+return $query->where('userID',$id)->count();
+}
 
+
+//list pssp services.
+public function scopeList_pssp_services($query,$id){
+return $query->select('*')
+->join('support_service','service_provider_services.serviceID','=','support_service.id')
+->where('service_provider_services.userID',$id)
+->get();
+}
 
 
 

@@ -17,6 +17,7 @@ use App\Models\EmployeeModel;
 use App\Models\DasunsUserNumberModel;
 use App\Models\SystemModel;
 use App\Models\ActivityLogModel;
+use App\Models\SupportServiceModel;
 
 
 class HandleInertiaRequests extends Middleware
@@ -189,6 +190,15 @@ return [
 
 ];
 }
+},
+
+
+//shared data
+'data'=>function()use($request){
+return[
+'services'=>SupportServiceModel::get(),
+
+];
 }
 
 

@@ -1,17 +1,128 @@
 <template>
 <app-layout>
 <div class="row m-2 pt-2">
-<div class="card">
-<class="card-header">
-<divclass="card-title">
-<h4></h4>
+<div class="card" style="min-height:800px;">
+<div class="card-header">
+<div class="card-title">
+<h6 class="bold">Search results</h6>
 </div>
 </div>
 
 
+
+<!-- {{ location }} -->
+
+
+<div class="card-body" v-if="number.length>0">
+<div class="row">
+<div class="col-12 col-md-3" v-for="(n,key) in number" :key="key">
+<div class="card border">
+<div class="card-body text-center">
+
+<div class="text-center">
+<em class="icon ni ni-user-circle-fill" style="font-size:50px;">
+</em>
+</div>
+
+<h6 class="mt-3 mb-0 text-transform mb-2">{{ n.firstname }} {{ n.lastname }}</h6>
+<span style="font-size:13px;"><strong>Service No:</strong> {{ n.number }} </span>
+<div class="mt-3">
+<Inertia-link class="btn btn-default btn-sm" :href="route('profile.pssp',{id:n.id})">View Profile</Inertia-link>
+<Inertia-link class="btn btn-default btn-sm" :href="route('messages',{id:n.id})">Message</Inertia-link>
+</div>
+<div class="row text-center mt-4">
+<div class="col-lg-12">
+<label class="mb-0 text-muted" style="font-size:13px;">
+{{ n.services>1?n.services+' Professional Services':n.services+' Professional Service' }}
+</label>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="card-body" v-if="pssp.length>0">
+
+{{ pssp }}
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="card-body" v-if="service.length>0">
+
+{{ service }}
+
+</div>
+
+
+
+
+<div class="card-body" v-if="location.length>0">
+    <div class="row">
+    <div class="col-12 col-md-3" v-for="(l,key) in location" :key="key">
+    <div class="card border">
+    <div class="card-body text-center">
+
+    <div class="text-center">
+    <em class="icon ni ni-user-circle-fill" style="font-size:50px;">
+    </em>
+    </div>
+
+    <h6 class="mt-3 mb-0 text-transform mb-2">{{ l.firstname }} {{ l.lastname }}</h6>
+    <span style="font-size:13px;"><strong>Service No:</strong> {{ l.number }} </span>
+    <div class="mt-3">
+    <Inertia-link class="btn btn-default btn-sm" :href="route('profile.pssp',{id:l.id})">View Profile</Inertia-link>
+    <Inertia-link class="btn btn-default btn-sm" :href="route('messages',{id:l.id})">Message</Inertia-link>
+    </div>
+    <div class="row text-center mt-4">
+    <div class="col-lg-12">
+    <label class="mb-0 text-muted" style="font-size:13px;">
+    {{ l.services>1?l.services+' Professional Services':l.services+' Professional Service' }}
+    </label>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+
+
+
+
+
+
+</div>
 </div>
 </app-layout>
 </template>
@@ -42,7 +153,12 @@ return this.response.number;
 
 service(){
 return this.response.service;
+},
+
+location(){
+return this.response.location;
 }
+
 
 
 

@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\UserSupportServiceModel;
 use App\Http\Requests\SearchRequest;
 use App\Models\DasunsUserNumberModel;
+use App\Models\ServiceProviderProfileModel;
+
 
 
 
@@ -27,13 +29,15 @@ public function index(Request $request, SearchRequest $search_request){
 $user=new User;
 $number=new DasunsUserNumberModel;
 $service=new SupportServiceModel;
+$location=new ServiceProviderProfileModel;
 $search=$request->segment(2);
 $data['title']='search';
 $data['response']=[
 'search'=>$search,
 'pssp'=>$search_request->search_by_names($user, $search),
 'number'=>$search_request->search_by_dasuns_number($number,$search),
-'service'=>$search_request->search_by_support_service($service,$search),
+// 'service'=>$search_request->search_by_support_service($service,$search),
+// 'location'=>$search_request->search_by_location($location,$search),
 
 ];
 

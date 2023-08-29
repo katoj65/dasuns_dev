@@ -342,3 +342,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/messages/{id}',[MessageCo
 Route::middleware(['auth:sanctum', 'verified'])->post('/search/store',[SearchController::class,'store'])->name('search.store');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/search/{any}',[SearchController::class,'index'])->name('search.found');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('search/{any}/{any}',function () {
+return(1235);
+});

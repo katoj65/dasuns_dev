@@ -1,44 +1,34 @@
 <template>
 <div>
 
-
-
-
-<form class="" style="position:fixed;width:100%;left:0;top:0;z-index:10000;height:100%;background-color: hsla(210, 29%, 18%, 0.3);" v-if="current_route=='dashboard/create-appointment'" @submit.prevent="submit">
+<form class="" style="position:fixed;width:100%;left:0;top:0;z-index:10000;height:100%;background-color: hsla(210, 29%, 18%, 0.3);" @submit.prevent="submit" v-if="show==true">
 <div class="modal-dialog" role="document">
 <div class="modal-content">
 <div class="modal-header">
-<h5 class="modal-title">
+<h6 class="modal-title">
 Request for professional support services
-</h5>
-<Inertia-link :href="route('dashboard')" class="close">
-<em class="icon ni ni-cross"></em>
-</Inertia-link>
+</h6>
+<a href="#" class="close" @click="show=false">
+</a>
 </div>
 <div class="modal-body">
-
-
-
-
 
 <div class="row gy-4">
 <div class="col-sm-12">
 <div class="form-group">
 <label class="form-label" for="default-01">Select service
-
 <input-error :error="errors.service" class="ml-1"/>
 </label>
 <div class="form-control-wrap">
 <select class="form-control" id="default-01" placeholder="Input placeholder" @change="select_service($event)">
 <option value="">Select</option>
-<option v-for="s in services" :key="s.id" :value="s.value">
-{{ s.text }}
+<option v-for="s in services" :key="s.id" :value="s.id">
+{{ s.name }}
 </option>
 </select>
 </div>
 </div>
 </div>
-
 
 <div class="col-sm-12">
 <div class="form-group">
@@ -51,11 +41,7 @@ Request for professional support services
 </div>
 </div>
 
-
-
-
-
-<div class="col-sm-12">
+<!-- <div class="col-sm-12">
 <div class="form-group">
 <label class="form-label" for="default-01">Country
 
@@ -65,43 +51,8 @@ Request for professional support services
 <input type="text" class="form-control" id="default-01" placeholder="Enter service provision location" v-model="form.country"/>
 </div>
 </div>
+</div> -->
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 </div>
 <div class="modal-footer bg-light">
@@ -115,19 +66,11 @@ Request for professional support services
 
 
 
+<button style="border-radius:0 10px 10px 0;background:#f8f9fa;padding:16px;outline:none;" @click="show=true" type="button">
+<em class="icon ni ni-opt-dot-alt  mr-1" style="font-size:20px;"></em>
+</button>
 
 
-
-
-<div style="position:fixed;bottom:0;right:0;padding:20px;margin-bottom:50px;">
-    <a href="#" class="btn btn-round btn-xl btn-success shadow" @click="navigate()">
-        <em class="icon ni ni-edit mr-1" style="font-size:20px;color:white;"></em>
-       <span style="font-size:14px;"> Request Service</span>
-    </a>
-<!-- <el-button circle style="width:70px;height:70px;background:#0B5345;" class="shadow" @click="navigate()">
-
-</el-button> -->
-</div>
 </div>
 </template>
 
@@ -151,6 +94,7 @@ country:'',
 
 }),
 
+show:false,
 
 
 
@@ -164,15 +108,10 @@ country:'',
 
 
 methods:{
-//
-navigate(){
-this.$inertia.get(this.route('dashboard-create-appointment'));
-},
 
 //submit
 submit(){
 this.form.post(this.route('request-service'),{
-
 });
 },
 
@@ -203,7 +142,7 @@ return this.$page.props.system.current_route.uri;
 
 //services
 services(){
-return this.$page.props.response.services;
+return this.$page.props.data.services;
 },
 
 //error

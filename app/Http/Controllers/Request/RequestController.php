@@ -143,8 +143,7 @@ return Inertia::render('RequestPage',$data);
 
 //request services
 public function request_service(Request $request){
-$request->validate(['service'=>['required'],'location'=>['required'],
-'country'=>['required']],['required'=>'* Field is required.']);
+$request->validate(['service'=>['required'],'location'=>['required']],['required'=>'* Field is required.']);
 // $location=ProfileController::get_user_profile_information();
 $get=ServiceProviderProfileModel::select('*')
 ->join('users','service_provider_profile.userID','=','users.id')

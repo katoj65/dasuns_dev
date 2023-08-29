@@ -484,19 +484,18 @@
 </div>
 </div>
 
-<!------------>
-<create-appointment/>
+
 </div>
 </template>
 <script>
-import CreateAppointment from '../Components/CreateAppointment.vue';
+
 import DepositWithdrawComponent from '@/Components/DepositWithdrawComponent';
 import CalendarComponent from '@/Components/CalendarComponent';
 export default {
 components:{
 DepositWithdrawComponent,
 CalendarComponent,
-CreateAppointment
+
 },
 
 

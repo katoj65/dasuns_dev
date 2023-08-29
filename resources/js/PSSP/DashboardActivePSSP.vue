@@ -313,7 +313,6 @@
 
 <!-----Booking--->
 
-<create-appointment></create-appointment>
 
 <!-----------FORM MODAL-->
 
@@ -398,17 +397,6 @@ No service requested
 
 
 
-<!-- <div class="dropdown">
-<a href="#" class="btn btn-success" data-toggle="dropdown" aria-expanded="false"><span>Appointment Confirmation</span><em class="icon ni ni-chevron-down"></em></a>
-<div class="dropdown-menu dropdown-menu-right dropdown-menu-auto mt-1" style="">
-<ul class="link-list-plain">
-<li v-if="content.status=='pending'"><a href="#" @click="submit('accepted')">Accept</a></li>
-<li><a href="#" v-if="content.status=='pending'" @click="submit('declined')">Decline</a></li>
-<li><a href="#" v-if="content.status=='accepted'" @click="submit('cancelled')">Cancel</a></li>
-</ul>
-</div>
-</div> -->
-
 
 </span>
 </div>
@@ -431,12 +419,12 @@ No service requested
 <script>
 import TableComponent1 from '../Components/TableComponent1.vue';
 import DepositWithdrawComponent from '../Components/DepositWithdrawComponent.vue';
-import CreateAppointment from '../Components/CreateAppointment.vue';
+// import CreateAppointment from '../Components/CreateAppointment.vue';
 export default {
 components: {
 TableComponent1,
 DepositWithdrawComponent,
-CreateAppointment
+// CreateAppointment
 },
 props:{
 title:{},
