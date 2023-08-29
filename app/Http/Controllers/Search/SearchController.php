@@ -238,10 +238,6 @@ $get=SupportServiceModel::where('id',$request->segment(3))->get();
 if(count($get)==1){
 foreach($get as $row);
 
-
-
-
-
 $data['title']='Show';
 $data['response']=[
 'service'=>$row,
@@ -286,4 +282,64 @@ return Inertia::render('SearchResults',$data);
     {
         //
     }
+
+
+
+
+//advanced filter
+public function advanced_search(Request $request,ServiceProviderProfileModel $search){
+$results=[];
+$services=new ServiceProviderServicesModel;
+$service=$request->segment(2);
+$location=$request->segment(3);
+$get=$search->select('users.firstname',
+'users.lastname',
+'dasuns_user_number.number',
+'users.id','users.gender',
+'service_provider_profile.location')
+->join('users','service_provider_profile.userID','=','users.id')
+->join('service_provider_services','users.id','=','service_provider_services.userID')
+->join('dasuns_user_number','users.id','=','dasuns_user_number.userID')
+->where('service_provider_services.serviceID',$service)
+->where('service_provider_profile.location','LIKE','%'.$location.'%')
+->limit(20)
+->get();
+//search formation
+if(count($get)>0){
+foreach($get as $row){
+$results[]=[
+'firstname'=>$row->firstname,
+'lastname'=>$row->lastname,
+'number'=>$row->number,
+'id'=>$row->id,
+'gender'=>$row->gender,
+'location'=>$row->location,
+'services'=>$services->count_pssp_services($row->id)
+];
+
+}
+}
+
+$data['title']='advanced search';
+$data['response']=[
+'pssp'=>$results,
+
+];
+
+return Inertia::render('SearchAdvancedPage',$data);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

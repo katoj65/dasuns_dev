@@ -112,6 +112,9 @@ methods:{
 //submit
 submit(){
 this.form.post(this.route('request-service'),{
+onSuccess:()=>{
+this.show=false;
+}
 });
 },
 
