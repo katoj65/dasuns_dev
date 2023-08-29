@@ -143,18 +143,19 @@ return Inertia::render('RequestPage',$data);
 
 //request services
 public function request_service(Request $request){
-$request->validate(['service'=>['required'],'location'=>['required']],['required'=>'* Field is required.']);
+$request->validate(['service'=>['required'],'location'=>['required']],
+['required'=>'* Field is required.']);
 // $location=ProfileController::get_user_profile_information();
-$get=ServiceProviderProfileModel::select('*')
-->join('users','service_provider_profile.userID','=','users.id')
-->join('service_provider_services','users.id','=','service_provider_services.userID')
-->where('service_provider_services.serviceID',$request->service)
-->where('service_provider_profile.location','LIKE','%'.$request->location.'%')
-->limit(20)
-->get();
+// $get=ServiceProviderProfileModel::select('*')
+// ->join('users','service_provider_profile.userID','=','users.id')
+// ->join('service_provider_services','users.id','=','service_provider_services.userID')
+// ->where('service_provider_services.serviceID',$request->service)
+// ->where('service_provider_profile.location','LIKE','%'.$request->location.'%')
+// ->limit(20)
+// ->get();
 $format_url='request/service/'.$request->service.'/location/'.$request->location;
 //format Url
-return redirect($format_url);
+return redirect('/search/'.$request->service.'/'.$request->location);
 
 
 }

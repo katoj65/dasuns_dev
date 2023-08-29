@@ -293,11 +293,13 @@ this.form.search=this.$page.props.response.search;
 
 //
 submit(){
+if(this.form.search.length>=2){
 this.form.post(this.route('search.store'),{
 onSuccess:()=>{
 
 }
 });
+}
 },
 
 

@@ -10,9 +10,6 @@
 
 
 
-<!-- {{ location }} -->
-
-
 <div class="card-body" v-if="number.length>0">
 <div class="row">
 <div class="col-12 col-md-3" v-for="(n,key) in number" :key="key">
@@ -58,38 +55,19 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
 <div class="card-body" v-if="pssp.length>0">
-
-{{ pssp }}
-
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="card-body" v-if="service.length>0">
-
-{{ service }}
-
-</div>
-
-
-
-
-<div class="card-body" v-if="location.length>0">
     <div class="row">
-    <div class="col-12 col-md-3" v-for="(l,key) in location" :key="key">
+    <div class="col-12 col-md-3" v-for="(l,key) in pssp" :key="key">
     <div class="card border">
     <div class="card-body text-center">
 

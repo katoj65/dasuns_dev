@@ -33,6 +33,8 @@ class SearchRequest extends FormRequest
 //search by names, dasuns number or support service name.
 
 public function search_by_names($user, $search){
+$data=[];
+$services=new ServiceProviderServicesModel;
 $get=$user->select('users.firstname',
 'users.lastname',
 'dasuns_user_number.number',
@@ -45,7 +47,27 @@ $get=$user->select('users.firstname',
 ->where('users.status','active')
 ->where('users.firstname','LIKE','%'.$search.'%')
 ->get();
-return $get;
+
+if(count($get)>0){
+    foreach($get as $row){
+    $data[]=[
+    'id'=>$row->id,
+    'firstname'=>$row->firstname,
+    'lastname'=>$row->lastname,
+    'number'=>$row->number,
+    'services'=>$services->count_pssp_services($row->id)
+    ];
+    }
+
+    }
+
+
+
+
+
+
+
+return $data;
 }
 
 

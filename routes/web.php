@@ -343,6 +343,6 @@ Route::middleware(['auth:sanctum', 'verified'])->post('/search/store',[SearchCon
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/search/{any}',[SearchController::class,'index'])->name('search.found');
 
-Route::middleware(['auth:sanctum', 'verified'])->get('search/{any}/{any}',function () {
+Route::middleware(['auth:sanctum', 'verified'])->get('search/{id}/{any}',function () {
 return(1235);
 });
