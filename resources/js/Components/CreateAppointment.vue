@@ -57,7 +57,7 @@ Request for professional support services
 </div>
 <div class="modal-footer bg-light">
 <span class="sub-text">
-<button type="submit" class="btn btn-success button" style="font-size:15px;">Submit</button>
+<button type="submit" class="btn button" style="font-size:15px;">Search</button>
 </span>
 </div>
 </div>
