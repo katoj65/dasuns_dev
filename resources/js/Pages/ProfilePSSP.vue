@@ -26,17 +26,13 @@
 </div>
 <h3 class="mt-3 mb-0 text-transform">{{ user.firstname }} {{ user.lastname }} </h3>
 <span><strong class="mr-2">Service Number: </strong>{{ user.service_number.number }} </span>
-<ul class="mt-3 list-unstyled d-flex justify-content-center">
-<li><a class="p-3" target="_blank" href="#"><i class="fa fa-facebook"></i></a></li>
-<li><a class="p-3" target="_blank" href="#"><i class="fa fa-slack"></i></a></li>
-<li><a class="p-3" target="_blank" href="#"><i class="fa fa-linkedin"></i></a></li>
-</ul>
+<div class="mt-3">
 <button class="btn btn-default btn-sm" style="background:#37BEA7;color:white;font-weight:bold;border:none;" @click="show=true">
 <em class="icon ni ni-edit"></em> Make Appointment</button>
 <Inertia-link class="btn btn-default btn-sm" :href="route('messages',{id:user.id})">
 <em class="icon ni ni-mail-fill"></em>
 </Inertia-link>
-
+</div>
 </div>
 </div>
 

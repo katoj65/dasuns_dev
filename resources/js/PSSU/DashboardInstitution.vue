@@ -17,7 +17,7 @@
 <div class="card">
 <div class="card-body">
 <h6> <em :class="t.icon" style="font-size:30px;color:#07372F;"></em></h6>
-<h3 class="pt-3"><span class="counter">{{ t.count }}</span></h3>
+<h3 class="pt-3" style="font-weight:normal;"><span class="counter">{{ t.count }}</span></h3>
 <span>
 <Inertia-link :href="route(t.url)">
 <strong style="color:black;">{{ t.title }} </strong>
@@ -41,7 +41,7 @@
 <div class="card h-100">
 <div class="card-header">
 <h3 class="card-title bold">Appointments</h3>
-<div class="card-options">
+<!-- <div class="card-options">
 
 <div class="item-action dropdown ml-2">
 <a href="javascript:void(0)" data-toggle="dropdown" aria-expanded="false"><i class="fe fe-more-vertical"></i></a>
@@ -56,18 +56,17 @@
 
 </div>
 </div>
-</div>
+</div> -->
 </div>
 <div class="table-responsive">
-<table class="table table-hover table-vcenter mb-0">
+<table class="table table-hover table-vcenter mb-0 mt-2">
 <thead>
-
-<tr >
-<th class="bold text-transform" style="font-weight:bold;">Appointment Request</th>
-<th class="bold text-transform" style="font-weight:bold;">Date</th>
-<th class="bold text-transform" style="font-weight:bold;">Start</th>
-<th class="bold text-transform" style="font-weight:bold;">End</th>
-<th class="bold text-transform" style="font-weight:bold;">Status</th>
+<tr>
+<th class="bold text-transform">Appointment Request</th>
+<th class="bold text-transform">Date</th>
+<th class="bold text-transform">Start</th>
+<th class="bold text-transform">End</th>
+<th class="bold text-transform">Status</th>
 <th class="bold text-transform"></th>
 </tr>
 </thead>
@@ -180,7 +179,7 @@
 </div>
 <div class="card-body">
 <h6>Ballance</h6>
-<h3 class="pt-3"><span class="counter">{{ wallet_balance }}</span></h3>
+<h3 class="pt-3" style="font-weight:normal;"><span class="counter">{{ wallet_balance }}</span></h3>
 <span><span class="text-danger mr-2"></span>
 
 </span>

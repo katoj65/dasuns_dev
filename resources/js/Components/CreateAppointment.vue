@@ -41,17 +41,7 @@ Request for professional support services
 </div>
 </div>
 
-<!-- <div class="col-sm-12">
-<div class="form-group">
-<label class="form-label" for="default-01">Country
 
-<input-error :error="errors.country" class="ml-1"/>
-</label>
-<div class="form-control-wrap">
-<input type="text" class="form-control" id="default-01" placeholder="Enter service provision location" v-model="form.country"/>
-</div>
-</div>
-</div> -->
 </div>
 
 </div>
