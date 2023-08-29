@@ -131,7 +131,6 @@ return[
 'dasuns_number'=>DasunsNumberController::get_dasuns_number_byUserID($id),
 'service_provider_count'=>User::where('status','active')->where('role','pssp')->count(),
 'count_recommendations'=>DasunsRecommendationsModel::count(),
-
 'count_appointments'=>$appoint->count_my_appointments(),
 'account_balance'=>WalletController::get_wallet_balance()->amount,
 'appointments'=>$appointment,
@@ -144,8 +143,6 @@ return[
 ->get(),
 'recommendations'=>DasunsRecommendationsModel::get(),
 'tasks'=>$appoint->my_accepted_appointments(),
-
-
 
 
 ];

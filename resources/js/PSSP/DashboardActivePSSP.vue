@@ -245,28 +245,36 @@
             <div class="col-12 col-md-4">
             <div shadow="never" class="h-100 card">
             <div class="card-header">
-            <h4 class="card-title bold">Activities</h4>
+            <h4 class="card-title bold">Tasks</h4>
             </div>
-            <div style="min-height:200px;" class="card-body">
+            <div style="min-height:200px;" class="card-body p-0">
 
-            <div class="timeline">
-            <h6 class="timeline-head">November, 2019</h6>
-            <ul class="timeline-list">
-            <li class="timeline-item" v-for="n in 3" :key="n">
-            <div class="timeline-status bg-primary is-outline"></div>
-            <div class="timeline-date">13 Nov <em class="icon ni ni-alarm-alt"></em></div>
-            <div class="timeline-data">
-            <h6 class="timeline-title">Submited KYC Application</h6>
-            <div class="timeline-des">
+                <table style="width:100%;" class="table card-table">
+                    <thead>
+                    <tr>
+                    <th>Date</th>
+                    <!-- <th>Time</th> -->
+                    <th>Appointment</th>
+                    </tr>
 
-            <span class="time">09:30am</span>
-            </div>
-            </div>
-            </li>
+                    </thead>
 
+                    <tbody v-if="tasks.length>0">
+                    <tr v-for="(t,key) in tasks" :key="key">
+                    <td class="text-muted">{{t.date.split('-').reverse().join('/')}} </td>
+                    <!-- <td>{{t.from}} <span>{{t.to  }} </span> </td> -->
+                    <td>{{t.name}} </td>
+                    </tr>
 
-            </ul>
-            </div>
+                    </tbody>
+
+                    <tbody v-else>
+                    <tr>
+                    <td colspan="3">No content</td>
+                    </tr>
+                    </tbody>
+                    </table>
+
 
 
 
@@ -426,7 +434,7 @@ return this.response.user_data.pssp_attributes.lists.recommendations;
 
 
 //recommendations
-activities(){
+tasks(){
 return this.response.user_data.pssp_attributes.lists.activities;
 },
 

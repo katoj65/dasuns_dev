@@ -24,6 +24,7 @@ use App\Models\AppointmentServiceModel;
 use App\Models\DasunsRecommendationsModel;
 use App\Http\Controllers\User\UserController;
 use App\Models\PSSPRatingModel;
+use App\Models\DasunsWalletModel;
 
 
 
@@ -254,6 +255,7 @@ return [
 
 //appointments
 $appointment=new AppointmentModel;
+$wallet=new DasunsWalletModel;
 
 
 
@@ -262,9 +264,9 @@ return [
 //
 'counts'=>[
 'requests'=>$appointment->pssp_requests_count(),
-'appointments'=>AppointmentModel::where('providerID',Auth::user()->id)->where('status','accepted')->count(),
+'appointments'=>$appointment->pssp_appointments_count(),
 'services'=>ServiceProviderServicesModel::where('userID',Auth::user()->id)->count(),
-'wallet'=>WalletController::get_wallet_balance()->amount,
+'wallet'=>$wallet->my_balance(),
 ],
 
 //lists
@@ -275,7 +277,7 @@ return [
 ->get(),
 'appointments'=>$appointment->pssp_appointment(),
 'recommendations'=>DasunsRecommendationsModel::where('userID',Auth::user()->id)->limit(2)->get(),
-'activities'=>[]
+'activities'=>$appointment->pssp_appointment(),
 
 
 ],
