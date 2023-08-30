@@ -276,7 +276,7 @@ return [
 ->where('service_provider_services.userID',Auth::user()->id)
 ->join('support_service','service_provider_services.serviceID','=','support_service.id')
 ->get(),
-'appointments'=>$appointment->all_appointments(),
+'appointments'=>$appointment->all_pssp_appointments(),
 'recommendations'=>DasunsRecommendationsModel::where('userID',Auth::user()->id)->limit(2)->get(),
 'activities'=>$appointment->pssp_appointment(),
 

@@ -343,6 +343,38 @@ return $query->select('*')
 
 
 
+//all appointments
+public function scopeAll_pssp_appointments($query){
+    return $query->select('*')
+    ->select('appointment.date',
+    'appointment.end_date',
+    'appointment.from',
+    'appointment.to',
+    'support_service.name',
+    'appointment.status',
+    'appointment.location',
+    'users.email',
+    'users.tel',
+    'appointment.id',
+    'users.firstname',
+    'users.lastname',
+    'dasuns_user_number.number',
+    'users.id as userID',
+    'appointment.providerID as providerID')
+    ->join('users','appointment.providerID','=','users.id')
+    ->join('support_service','appointment.serviceID','=','support_service.ID')
+    ->join('dasuns_user_number','users.id','=','dasuns_user_number.userID')
+    ->where('appointment.providerID',Auth::user()->id)
+    ->where('appointment.status','=','paid')
+    ->orwhere('appointment.status','=','cancelled')
+    ->orwhere('appointment.status','=','completed')
+    ->orderby('appointment.created_at','DESC')
+    ->get();
+
+    }
+
+
+
 
 }
 
