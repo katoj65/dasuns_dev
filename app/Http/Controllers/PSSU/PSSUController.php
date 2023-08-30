@@ -128,12 +128,13 @@ $appointment=AppointmentModel::select('appointment.date',
 $appoint=new AppointmentModel;
 
 return[
+'role'=>Auth::user()->role,
 'dasuns_number'=>DasunsNumberController::get_dasuns_number_byUserID($id),
 'service_provider_count'=>User::where('status','active')->where('role','pssp')->count(),
 'count_recommendations'=>DasunsRecommendationsModel::count(),
 'count_appointments'=>$appoint->count_my_appointments(),
 'account_balance'=>WalletController::get_wallet_balance()->amount,
-'appointments'=>$appoint->All_appointments(),
+'appointments'=>$appoint->all_appointments(),
 'activity'=>ActivityLogModel::where('userID',Auth::user()->id)->orderby('created_at','DESC')->limit(5)->get(),
 'pssp'=>AppointmentModel::select('users.firstname','users.lastname','users.id','users.email')
 ->join('users','appointment.providerID','=','users.id')

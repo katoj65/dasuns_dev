@@ -261,6 +261,7 @@ $wallet=new DasunsWalletModel;
 
 //
 return [
+'providerID'=>Auth::user()->id,
 //
 'counts'=>[
 'requests'=>$appointment->pssp_requests_count(),
@@ -275,7 +276,7 @@ return [
 ->where('service_provider_services.userID',Auth::user()->id)
 ->join('support_service','service_provider_services.serviceID','=','support_service.id')
 ->get(),
-'appointments'=>$appointment->pssp_appointment(),
+'appointments'=>$appointment->all_appointments(),
 'recommendations'=>DasunsRecommendationsModel::where('userID',Auth::user()->id)->limit(2)->get(),
 'activities'=>$appointment->pssp_appointment(),
 

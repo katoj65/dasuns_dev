@@ -6,8 +6,6 @@
 <div class="tab-pane fade show active" id="Payroll-Salary" role="tabpanel">
 
 
-
-
 <div class="row clearfix">
 <div class="col-md-3" v-for="t in tab" :key="t.id">
 <div class="card  card-full h-100">
@@ -78,7 +76,9 @@
 {{ a.status }}
 </td>
 <td style="width:50px;">
-<Inertia-link :href="route('appointment.details',{id:a.id})" class="btn btn-default btn-sm text-primary" style="border:none;margin:0;">View</Inertia-link>
+<Inertia-link :href="route(a.providerID===providerID?'request.show':'appointment.details',{id:a.id})" class="btn btn-default btn-sm text-primary" style="border:none;margin:0;">View
+
+</Inertia-link>
 </td>
 </tr>
 </tbody>
@@ -415,7 +415,10 @@ tasks(){
 return this.response.user_data.pssp_attributes.lists.activities;
 },
 
-
+//get user ID
+providerID(){
+return this.response.user_data.pssp_attributes.providerID;
+}
 
 
 

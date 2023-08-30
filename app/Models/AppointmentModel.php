@@ -325,11 +325,14 @@ return $query->select('*')
 'appointment.id',
 'users.firstname',
 'users.lastname',
-'dasuns_user_number.number')
+'dasuns_user_number.number',
+'users.id as userID',
+'appointment.providerID as providerID')
 ->join('users','appointment.providerID','=','users.id')
 ->join('support_service','appointment.serviceID','=','support_service.ID')
 ->join('dasuns_user_number','users.id','=','dasuns_user_number.userID')
 ->where('appointment.userID',Auth::user()->id)
+->orwhere('appointment.providerID',Auth::user()->id)
 ->orderby('appointment.created_at','DESC')
 ->get();
 
