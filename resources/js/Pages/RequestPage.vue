@@ -1,62 +1,78 @@
 <template>
 <AppLayout>
-<div class="row mt-2 mb-2">
-<div class="col-12 col-md-8">
-<div class="card mb-3" style="min-height:700px;">
+<div class="nk-block pt-0">
+<div class="section-body mt-3 mb-3">
+<div class="container-fluid">
+
+
+
+
+
+
+
+
+
+<div class="card">
 <div class="card-header">
-<h4 class="title pt-2" style="font-size:18px;">
-{{ pending.length>0?pending.length:''  }}
-
-Requests
-
-</h4>
+<h3 class="card-title bold">Requests</h3>
 </div>
 <div class="card-body">
-<table class="table">
-<thead class="border-0">
+<div class="table-responsive">
+<table class="table table-hover table-striped text-nowrap table-vcenter mb-0">
+<thead>
 <tr>
-<th scope="col" class="border-0">Date</th>
-<th scope="col" class="border-0">Time</th>
-<th scope="col" class="border-0">Location</th>
-<th scope="col" class="border-0">Appointment Names</th>
-<th scope="col" class="border-0"></th>
-
+<th>Service Requested</th>
+<th>Date</th>
+<th>Time</th>
+<th>Location</th>
+<th>Telephone</th>
+<th>Service Number</th>
+<th>Amount</th>
 </tr>
 </thead>
-<tbody v-if="pending.length>0">
-<tr v-for="p in pending" :key="p.id">
-<td scope="row" :class="p.status=='pending'?'text-warning':'text-success'" style="cursor:pointer;">
-{{ p.date.substring(0,10).split('-').reverse().join('/') }}
-</td>
+
+
+<tbody v-if="requests.length>0">
+<tr v-for="(r,key) in requests" :key="key">
+<td><Inertia-link :href="route('request.show',{id:r.id})" class="text-black">
+    {{ r.name }}
+</Inertia-link></td>
 <td>
-{{ p.from.split(':').reverse().join(':').substring(0,5) }}
+{{ r.date.split('-').reverse().join('/') }} - {{ r.end_date!=null?r.end_date.split('-').reverse().join('/'):null }}
 </td>
-<td class="text-transform">{{ p.location }} </td>
-<td class="text-transform">{{ p.firstname }} {{ p.lastname }} </td>
-<td style="width:20px;">
-<em class="icon ni ni-check-circle-fill text-success" v-if="p.status=='accepted'" style="font-size:20px;"></em>
-<em class="icon ni ni-alert-circle-fill text-warning" v-else-if="p.status=='pending'"  style="font-size:20px;"></em>
+<td>{{ r.from.substring(0,5)}} - {{r.to.substring(0,5)}}</td>
+<td>{{ r.location }} </td>
+<td>{{ r.tel }}</td>
+<td>{{ r.number }} </td>
+<td>
+{{ r.amount }}
 </td>
 </tr>
-
 </tbody>
 <tbody v-else>
 <tr>
-<td colspan="4">No Requests</td>
+<td colspan="4">No requests</td>
 </tr>
 </tbody>
 </table>
-
-
+</div>
+</div>
 </div>
 
-</div>
-</div>
-<div class="col-12 col-md-4">
-<div class="card h-100">
-<div class="card-body">
-<CalendarComponent/>
-</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </div>
 </div>
 </div>
@@ -82,15 +98,13 @@ response:{},
 
 computed:{
 //pending
-pending(){
-return this.response.pending;
-},
-//accepted
-accepted(){
-return this.response.accepted;
+
+requests(){
+return this.response.requests;
 },
 
-//
+
+
 
 },
 
@@ -138,7 +152,9 @@ padding:10px;
 table tbody tr:hover{
 background:#F8F9F9;
 }
-
+table td{
+text-transform: capitalize;
+}
 
 
 </style>

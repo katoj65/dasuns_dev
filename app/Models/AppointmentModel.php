@@ -223,6 +223,71 @@ return $query->where('providerID',Auth::user()->id)->where('status','accepted')-
 }
 
 
+//get pssp requests
+public function scopePssp_requests($query){
+
+return $query->select('users.firstname','users.lastname',
+'appointment.end_date',
+'appointment.date',
+'appointment.from',
+'appointment.to',
+'appointment.location',
+'appointment.comment',
+'appointment.status',
+'appointment.id',
+'support_service.name',
+'users.role',
+'dasuns_user_number.number',
+'payment.amount',
+'users.tel')
+->join('users','appointment.userID','=','users.id')
+->join('support_service','appointment.serviceID','=','support_service.id')
+->join('dasuns_user_number','users.id','=','dasuns_user_number.userID')
+->join('payment','appointment.id','=','payment.appointmentID')
+->where('appointment.providerID',Auth::user()->id)
+->where('appointment.status','paid')
+->orderby('appointment.status','DESC')
+->orderby('appointment.date','DESC')
+->get();
+
+}
+
+
+
+
+//show pssp request
+public function scopeShow_pssp_request($query,$id){
+    return $query->select('users.firstname','users.lastname',
+    'appointment.end_date',
+    'appointment.date',
+    'appointment.from',
+    'appointment.to',
+    'appointment.location',
+    'appointment.comment',
+    'appointment.status',
+    'appointment.id',
+    'support_service.name',
+    'users.role',
+    'dasuns_user_number.number',
+    'payment.amount',
+    'users.tel',
+    'users.email',
+    'users.dob',
+    'appointment.created_at')
+    ->join('users','appointment.userID','=','users.id')
+    ->join('support_service','appointment.serviceID','=','support_service.id')
+    ->join('dasuns_user_number','users.id','=','dasuns_user_number.userID')
+    ->join('payment','appointment.id','=','payment.appointmentID')
+    ->where('appointment.providerID',Auth::user()->id)
+    ->where('appointment.status','paid')
+    ->where('appointment.id',$id)
+    ->orderby('appointment.status','DESC')
+    ->orderby('appointment.date','DESC')
+    ->get();
+
+}
+
+
 
 
 

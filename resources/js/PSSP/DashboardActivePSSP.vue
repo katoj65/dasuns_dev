@@ -1,41 +1,41 @@
 <template>
 <div class="nk-block pt-0">
-<div class="section-body mt-3">
+<div class="section-body mt-3 mb-3">
 <div class="container-fluid">
 <div class="tab-content mt-3">
 <div class="tab-pane fade show active" id="Payroll-Salary" role="tabpanel">
 <div class="row clearfix">
-    <div class="col-md-3" v-for="t in tab" :key="t.id">
-        <div class="card  card-full h-100">
-        <div class="card-inner">
-        <div class="card-title-group align-start mb-0">
-        <div class="card-title">
-        <h6 class="subtitle">
-        <em :class="t.icon" style="font-size:50px;color:#07372F;"></em>
-        </h6>
-        </div>
-        </div>
+<div class="col-md-3" v-for="t in tab" :key="t.id">
+<div class="card  card-full h-100">
+<div class="card-inner">
+<div class="card-title-group align-start mb-0">
+<div class="card-title">
+<h6 class="subtitle">
+<em :class="t.icon" style="font-size:50px;color:#07372F;"></em>
+</h6>
+</div>
+</div>
 
-        <div class="card-amount mb-2 mt-3">
-        <span class="amount"><span class="currency currency-usd" style="color:#07372F;">{{ t.count }} </span>
-        </span>
-        </div>
+<div class="card-amount mb-2 mt-3">
+<span class="amount"><span class="currency currency-usd" style="color:#07372F;">{{ t.count }} </span>
+</span>
+</div>
 
-        <div class="invest-data mt-3">
-        <div class="invest-data-amount g-2">
-        <div class="invest-data-history">
+<div class="invest-data mt-3">
+<div class="invest-data-amount g-2">
+<div class="invest-data-history">
 
-        <div class="amount"> <span class="currency currency-usd" style="font-size:15px;color:#07372F;">
-        <Inertia-link :href="route(t.url)" class="text-black"><strong>{{ t.title }} </strong></Inertia-link>
-        </span></div>
-        </div>
+<div class="amount"> <span class="currency currency-usd" style="font-size:15px;color:#07372F;">
+<Inertia-link :href="route(t.url)" class="text-black"><strong>{{ t.title }} </strong></Inertia-link>
+</span></div>
+</div>
 
-        </div>
+</div>
 
-        </div>
-        </div>
-        </div><!-- .card -->
-        </div>
+</div>
+</div>
+</div><!-- .card -->
+</div>
 
 
 </div>
@@ -74,9 +74,6 @@
 {{ a.status }}
 </td>
 <td style="width:50px;">
-<!-- <span class="badge badge-dot badge-warning text-transform" v-if="a.status=='pending'">{{ a.status }} </span>
-<span class="badge badge-dot badge-success text-transform" v-else-if="a.status=='accepted'">{{ a.status }} </span> -->
-
 <Inertia-link :href="route('appointment.details',{id:a.id})" class="btn btn-default btn-sm text-primary" style="border:none;margin:0;">View</Inertia-link>
 </td>
 </tr>
@@ -100,27 +97,27 @@
 
 
 <div class="col-md-4">
-    <div  class="h-100 card">
-    <div class="card-header">
-    <h1 class="card-title bold">Services I Provide</h1>
-    </div>
-    <div class="card-body">
-    <div v-if="services.length>0">
+<div  class="h-100 card">
+<div class="card-header">
+<h1 class="card-title bold">Services I Provide</h1>
+</div>
+<div class="card-body">
+<div v-if="services.length>0">
 
-    <div class="user-card mb-2" v-for="s in services" :key="s.id">
-    <div class="user-avatar user-avatar-xs bg-azure-dim">
-    <span><em class="icon ni ni-bookmark-fill"></em></span>
-    </div>
-    <div class="user-name">
-    <span class="tb-lead" style="font-size:15px;font-weight:normal">{{ s.name }} </span>
-    </div>
-    </div>
+<div class="user-card mb-2" v-for="s in services" :key="s.id">
+<div class="user-avatar user-avatar-xs bg-azure-dim">
+<span><em class="icon ni ni-bookmark-fill"></em></span>
+</div>
+<div class="user-name">
+<span class="tb-lead" style="font-size:15px;font-weight:normal">{{ s.name }} </span>
+</div>
+</div>
 
-    </div>
-    <div v-else> No services</div>
-    </div>
-    </div>
-    </div>
+</div>
+<div v-else> No services</div>
+</div>
+</div>
+</div>
 
 
 
@@ -149,7 +146,7 @@
 
 
 <div class="tab-pane fade show active mt-3" id="Payroll-Salary" role="tabpanel">
-    <div class="row clearfix">
+<div class="row clearfix">
 
 
 
@@ -158,42 +155,26 @@
 
 
 
-        <div class="col-12 col-md-4">
-            <div  class="h-100 card">
-            <div class="card-header">
-            <h4 class="card-title bold">Wallet</h4>
-            </div>
-            <div style="min-height:200px;" class="card-body p-0">
-            <div class="card-inner">
-            <div class="card-title-group align-start mb-0">
-            <div class="card-title">
-            <h6 class="subtitle">Your account balance</h6>
-            </div>
-            <div class="card-tools">
-            <em class="icon ni ni-wallet-fill" style="font-size:30px;"></em>
-            </div>
-            </div>
-            <div class="card-amount">
-            <span class="amount"> {{ wallet_balance }} <span class="currency currency-usd">UGX</span>
-            </span>
-            <!-- <span class="change up text-danger"><em class="icon ni ni-arrow-long-up"></em>1.93%</span> -->
-            </div>
-            <div class="invest-data">
-            <div class="invest-data-amount g-2">
-            <div class="invest-data-history mt-4">
-            <div class="title"> Withdraw and Deposit Funds</div>
-            <div class="mt-2">
-            </div>
-            </div>
-            </div>
+<div class="col-12 col-md-4 pb-3">
+<div class="card h-100">
+<div class="card-header">
+<h3 class="card-title bold"><em class="icon ni ni-wallet-fill" style="font-size:30px;"></em> Wallet</h3>
 
-            </div>
-            </div>
-
-            </div>
-            <div class="card-footer bg-white"><deposit-withdraw-component/></div>
-            </div>
-            </div>
+</div>
+<div class="card-body">
+<h6>Ballance</h6>
+<h3 class="pt-3" style="font-weight:normal;"><span class="counter">{{ wallet_balance }}</span></h3>
+<span><span class="text-danger mr-2"></span>
+</span>
+</div>
+<div class="card-footer border-0">
+<div class="list-group border-0 list-widget" style="border:none;">
+<Inertia-link :href="route('wallet.deposit')" class="list-group-item" style="font-size:16px;color:black;"><em class="icon ni ni-wallet-out"></em> Deposit Funds</Inertia-link>
+<Inertia-link :href="route('wallet.withdraw')" class="list-group-item" style="font-size:16px;color:black"><em class="icon ni ni-wallet-in"></em> Withdraw Funds</Inertia-link>
+</div>
+</div>
+</div>
+</div>
 
 
 
@@ -201,79 +182,74 @@
 
 
 
+<div class="col-12 col-md-4">
+<div  class="h-100 card">
+<div class="card-header">
+<h4 class="card-title bold">Recommendations</h4>
+</div>
+<div style="min-height:200px;" class="card-body p-0">
+
+<ul class="nk-support p-0 m-0">
+<li class="nk-support-item border-0" v-for="r in recommendations" :key="r.id">
+<div class="user-avatar bg-purple-dim">
+<span><em class="icon ni ni-user-alt-fill"></em></span>
+</div>
+<div class="nk-support-content">
+<div class="title">
+<span>
+{{ r.names }}
+</span>
+
+</div>
+<p class="text-transform" style="font-size:13px;height:40px;overflow:hidden;">{{ r.message }} </p>
+<span class="time">{{ r.created_at.substring(0,10).split('-').reverse().join('/') }} </span>
+</div>
+</li>
+</ul>
+
+
+
+
+</div>
+</div>
+</div>
 
 
 
 
 
-            <div class="col-12 col-md-4">
-            <div  class="h-100 card">
-            <div class="card-header">
-            <h4 class="card-title bold">Recommendations</h4>
-            </div>
-            <div style="min-height:200px;" class="card-body p-0">
+<div class="col-12 col-md-4">
+<div shadow="never" class="h-100 card">
+<div class="card-header">
+<h4 class="card-title bold">Tasks</h4>
+</div>
+<div style="min-height:200px;" class="card-body p-0">
 
-            <ul class="nk-support p-0 m-0">
-            <li class="nk-support-item border-0" v-for="r in recommendations" :key="r.id">
-            <div class="user-avatar bg-purple-dim">
-            <span><em class="icon ni ni-user-alt-fill"></em></span>
-            </div>
-            <div class="nk-support-content">
-            <div class="title">
-            <span>
-            {{ r.names }}
-            </span>
-            <!-- <span class="badge badge-dot badge-dot-xs badge-info ml-1">Open</span> -->
-            </div>
-            <p class="text-transform" style="font-size:13px;height:40px;overflow:hidden;">{{ r.message }} </p>
-            <span class="time">{{ r.created_at.substring(0,10).split('-').reverse().join('/') }} </span>
-            </div>
-            </li>
-            </ul>
+<table style="width:100%;" class="table card-table" >
+<thead>
+<tr>
+<th>Date</th>
+<!-- <th>Time</th> -->
+<th>Appointment</th>
+</tr>
 
+</thead>
 
+<tbody v-if="tasks.length>0">
+<tr v-for="(t,key) in tasks" :key="key">
+<td class="text-muted">{{t.date.split('-').reverse().join('/')}} </td>
 
+<td>{{t.name}} </td>
+</tr>
 
-            </div>
-            </div>
-            </div>
+</tbody>
 
-
-
-
-
-            <div class="col-12 col-md-4">
-            <div shadow="never" class="h-100 card">
-            <div class="card-header">
-            <h4 class="card-title bold">Tasks</h4>
-            </div>
-            <div style="min-height:200px;" class="card-body p-0">
-
-                <table style="width:100%;" class="table card-table">
-                    <thead>
-                    <tr>
-                    <th>Date</th>
-                    <!-- <th>Time</th> -->
-                    <th>Appointment</th>
-                    </tr>
-
-                    </thead>
-
-                    <tbody v-if="tasks.length>0">
-                    <tr v-for="(t,key) in tasks" :key="key">
-                    <td class="text-muted">{{t.date.split('-').reverse().join('/')}} </td>
-                    <!-- <td>{{t.from}} <span>{{t.to  }} </span> </td> -->
-                    <td>{{t.name}} </td>
-                    </tr>
-
-                    </tbody>
-
-                    <tbody v-else>
-                    <tr>
-                    <td colspan="3">No content</td>
-                    </tr>
-                    </tbody>
-                    </table>
+<tbody v-else>
+<tr>
+<td colspan="3">No tasks</td>
+</tr>
+</tbody>
+</table>
 
 
 
@@ -281,9 +257,9 @@
 
 
 
-            </div>
-            </div>
-            </div>
+</div>
+</div>
+</div>
 
 
 
@@ -303,13 +279,10 @@
 </template>
 <script>
 import TableComponent1 from '../Components/TableComponent1.vue';
-import DepositWithdrawComponent from '../Components/DepositWithdrawComponent.vue';
-// import CreateAppointment from '../Components/CreateAppointment.vue';
 export default {
 components: {
 TableComponent1,
-DepositWithdrawComponent,
-// CreateAppointment
+
 },
 props:{
 title:{},

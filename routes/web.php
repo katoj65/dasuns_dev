@@ -344,3 +344,5 @@ Route::middleware(['auth:sanctum', 'verified'])->post('/search/store',[SearchCon
 Route::middleware(['auth:sanctum', 'verified'])->get('/search/{any}',[SearchController::class,'index'])->name('search.found');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('search/{id}/{any}',[SearchController::class,'advanced_search'])->name('search.advanced');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/request/{id}',[RequestController::class,'show'])->name('request.show');

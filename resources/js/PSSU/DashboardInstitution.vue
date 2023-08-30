@@ -219,12 +219,6 @@
 </ul>
 
 
-
-
-
-
-
-
 <div v-else>No content</div>
 </div>
 </div>
