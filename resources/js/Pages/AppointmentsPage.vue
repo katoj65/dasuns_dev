@@ -11,11 +11,6 @@
 <div class="card-body">
 <div>
 
-
-
-
-
-
 <table class="table mb-0">
 <thead>
 <tr>
@@ -24,6 +19,7 @@
 <th>Time</th>
 <th>Location</th>
 <th>Telephone</th>
+<th>Service Provider</th>
 <th>Status</th>
 </tr>
 </thead>
@@ -49,6 +45,9 @@
 </td>
 <td>
     {{ a.tel }}
+</td>
+<td class="text-transform">
+{{ a.firstname  }} {{ a.lastname }}
 </td>
 <td>
     {{ a.status }}

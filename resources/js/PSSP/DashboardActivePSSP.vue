@@ -4,6 +4,10 @@
 <div class="container-fluid">
 <div class="tab-content mt-3">
 <div class="tab-pane fade show active" id="Payroll-Salary" role="tabpanel">
+
+
+
+
 <div class="row clearfix">
 <div class="col-md-3" v-for="t in tab" :key="t.id">
 <div class="card  card-full h-100">

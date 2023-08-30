@@ -641,60 +641,11 @@ return $response;
 
 
 //show appointments
-public function list_appointments(){
-$row=[];
-$get=AppointmentModel::select(
-'users.firstname',
-'users.lastname',
-'appointment.end_date',
-'appointment.date',
-'appointment.from',
-'appointment.to',
-'appointment.location',
-'appointment.comment',
-'appointment.status',
-'appointment.id')
-->where('appointment.providerID',Auth::user()->id)
-->where('appointment.status','accepted')
-->join('users','appointment.userID','=','users.id')
-->orderby('appointment.status','DESC')
-->orderby('appointment.date','DESC')
-->get();
-
-
-if(count($get)>0){
-//
-foreach($get as $r){
-$service=[];
-$get=AppointmentServiceModel::where('appointment_service.appointmentID',$r->id)
-->join('support_service','appointment_service.serviceID','=','support_service.id')
-->get();
-if(count($get)>0){
-foreach($get as $s){
-$service[]=$s;
-}
-}
-
-//
-$row[]=[
-'firstname'=>$r->firstname,
-'lastname'=>$r->lastname,
-'date'=>$r->date,
-'end_date'=>$r->end_date,
-'location'=>$r->location,
-'comment'=>$r->comment,
-'status'=>$r->status,
-'from'=>$r->from,
-'to'=>$r->to,
-'services'=>$service];
-
-}
-}
-
+public function list_appointments(AppointmentModel $appointments){
 //
 $data['title']='Appointments';
 $data['response']=[
-'appointments'=>$row,
+'appointments'=>$appointments->pssp_appointment(),
 
 ];
 return Inertia::render('PSSPAppointmentPage',$data);

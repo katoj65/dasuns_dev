@@ -37,10 +37,6 @@ public function index(AppointmentModel $appointments)
 $data['title']='Appointment';
 $data['response']=[
 'appointments'=>$appointments->my_accepted_appointments(),
-
-
-
-
 ];
 return Inertia::render('AppointmentsPage',$data);
 //
@@ -614,16 +610,17 @@ public function update_appointment_status(Request $request){
 $request->validate(['option'=>['required']]);
 AppointmentModel::where('id',$request->id)->update(['status'=>$request->option]);
 return redirect('/appointment/'.$request->id)->with('success','Appointment is '.$request->option);
-
-
 }
 
 
 
+// update appointment status
 
+public function update_appointment_status_as_request(Request $request, AppointmentModel $appointment){
+$appointment->where('id',$request->id)->update(['status'=>$request->status]);
+return redirect('/request/'.$request->id)->with('success','Appointment has been '.$request->status);
 
-
-
+}
 
 
 

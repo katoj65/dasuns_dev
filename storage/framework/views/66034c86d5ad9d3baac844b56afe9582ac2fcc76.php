@@ -114,6 +114,10 @@ color:#001713;
  border-radius: 5px;
  color:white;
 }
+.button-danger{
+background:red;
+ color:white;
+}
 
 .light-text{
  color:#37BEA7;
@@ -376,8 +380,10 @@ background:#37BEA7;
 }
 
 .green-dark{background:#07372F;}
-
-
+.button-success{
+background:   #45B39D;
+color:white;
+}
 
 </style>
 

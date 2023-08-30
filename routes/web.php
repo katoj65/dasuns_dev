@@ -346,3 +346,5 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/search/{any}',[SearchCont
 Route::middleware(['auth:sanctum', 'verified'])->get('search/{id}/{any}',[SearchController::class,'advanced_search'])->name('search.advanced');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/request/{id}',[RequestController::class,'show'])->name('request.show');
+
+Route::middleware(['auth:sanctum', 'verified'])->put('/appointment/update',[AppointmentController::class,'update_appointment_status_as_request'])->name('appointment.update');

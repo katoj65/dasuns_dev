@@ -17,7 +17,7 @@ return $query->find(1)->service_amount;
 }
 
 //get percentage_charge
-public function scopeGet_charge_percentage($query){
+public function scopeGet_charged_percentage($query){
 return $query->find(1)->charge_percentage;
 }
 
