@@ -579,11 +579,7 @@ $content[]=[
 'number'=>$row->number,
 'tel'=>$row->tel,
 'email'=>$row->email,
-'service'=>AppointmentServiceModel::select('support_service.name')
-->join('support_service','appointment_service.serviceID','=','support_service.id')
-->where('appointmentID',$row->id)
-->limit(1)
-->get(),
+'service'=>$row->name
 
 ];
 

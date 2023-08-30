@@ -165,22 +165,27 @@ return $query->select('*')
 
 //get my appointment details
 public function scopeMy_appointment_details($query,$request){
-return $query->select('users.firstname',
-'users.lastname',
-'appointment.status',
-'appointment.id',
-'appointment.date',
-'appointment.end_date',
-'dasuns_user_number.number',
-'users.tel',
-'users.email',
-'appointment.from',
-'appointment.to',
-'appointment.location')
-->join('users','appointment.providerID','=','users.id')
-->join('dasuns_user_number','users.id','=','dasuns_user_number.userID')
-->where('appointment.id',$request->segment(2))
-->get();
+    return $query->select('appointment.date',
+    'appointment.end_date',
+    'appointment.from',
+    'appointment.to',
+    'support_service.name',
+    'appointment.status',
+    'appointment.location',
+    'users.email',
+    'users.tel',
+    'appointment.id',
+    'payment.amount',
+    'users.firstname',
+    'users.lastname',
+    'dasuns_user_number.number')
+    ->join('users','appointment.providerID','=','users.id')
+    ->join('support_service','appointment.serviceID','=','support_service.ID')
+    ->join('payment','appointment.id','=','payment.appointmentID')
+    ->join('dasuns_user_number','users.id','=','dasuns_user_number.userID')
+    ->where('appointment.userID',Auth::user()->id)
+    ->where('appointment.id',$request->segment(2))
+    ->get();
 }
 
 
@@ -302,6 +307,33 @@ $data=$row;
 return $data;
 }
 
+
+
+
+//all appointments
+public function scopeAll_appointments($query){
+return $query->select('*')
+->select('appointment.date',
+'appointment.end_date',
+'appointment.from',
+'appointment.to',
+'support_service.name',
+'appointment.status',
+'appointment.location',
+'users.email',
+'users.tel',
+'appointment.id',
+'users.firstname',
+'users.lastname',
+'dasuns_user_number.number')
+->join('users','appointment.providerID','=','users.id')
+->join('support_service','appointment.serviceID','=','support_service.ID')
+->join('dasuns_user_number','users.id','=','dasuns_user_number.userID')
+->where('appointment.userID',Auth::user()->id)
+->orderby('appointment.created_at','DESC')
+->get();
+
+}
 
 
 

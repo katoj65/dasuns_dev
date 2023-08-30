@@ -2,8 +2,8 @@
 <app-layout>
 <div class="nk-content p-4">
 <div class="row">
-<div class="col-12 col-md-2"></div>
-<div class="col-12 col-md-8" v-if="appointment">
+<div class="col-12 col-md-3"></div>
+<div class="col-12 col-md-6" v-if="appointment">
 
 
 <div class="card" v-for="(a,key) in appointment" :key="key">
@@ -13,26 +13,17 @@
 
 <div class="card-body" style="border:none;">
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <ul class="data-list is-compact">
 
+
+    <li class="data-item">
+        <div class="data-col">
+        <div class="data-label">Service Requested</div>
+        <div class="data-value text-transform">
+        {{ a.service }}
+        </div>
+        </div>
+        </li>
 
 
     <li class="data-item">
@@ -56,16 +47,7 @@
 
 
 
-<li class="data-item">
-<div class="data-col">
-<div class="data-label">Service Requested</div>
-<div class="data-value" v-if="a.service.length==1">
-<p v-for="(s,key) in a.service" :key="key">
-{{ s.name }}
-</p>
-</div>
-</div>
-</li>
+
 <li class="data-item">
 <div class="data-col">
 <div class="data-label">Service Provider</div>
@@ -105,9 +87,10 @@
     </li>
     <li class="data-item">
         <div class="data-col">
-            <div class="data-label"></div>
-            <div class="data-value">
-                <button type="button" class="btn btn-primary text-transform" @click="show=true">{{ a.status }} </button>
+            <div class="data-label">Status</div>
+            <div class="data-value text-transform text-red">
+                <!-- <button type="button" class="btn btn-primary text-transform" @click="show=true">{{ a.status }} </button> -->
+                {{ a.status }}
             </div>
         </div>
     </li>
@@ -123,6 +106,12 @@
 
 </div>
 
+<div class="card-footer">
+<div class="float-right">
+    <button class="btn button-danger" style="font-size:16px;" @click="submit()" v-if="a.status=='cancelled'" disabled>Cancel</button>
+<button class="btn button-danger" style="font-size:16px;" @click="submit()" v-else>Cancel</button>
+</div>
+</div>
 
 
 </div>
@@ -134,7 +123,7 @@
 
 
 </div>
-<div class="col-12 col-md-2"></div>
+<div class="col-12 col-md-3"></div>
 </div>
 </div>
 
@@ -242,7 +231,9 @@ this.form.option=event.target.value;
 submit(){
 this.response.appointment.forEach(element=>{
 this.form.id=element.id;
+this.form.option='cancelled';
 });
+
 this.form.post(this.route('appoinment.update_status'),{
 onSuccess:()=>{
 this.show=false;
@@ -278,5 +269,8 @@ font-size:15px;
 p{
 font-weight: bold;
 
+}
+.data-item{
+border:none;
 }
 </style>
