@@ -348,3 +348,5 @@ Route::middleware(['auth:sanctum', 'verified'])->get('search/{id}/{any}',[Search
 Route::middleware(['auth:sanctum', 'verified'])->get('/request/{id}',[RequestController::class,'show'])->name('request.show');
 
 Route::middleware(['auth:sanctum', 'verified'])->put('/appointment/update',[AppointmentController::class,'update_appointment_status_as_request'])->name('appointment.update');
+
+Route::middleware(['auth:sanctum','verified'])->get('/tasks',[AppointmentController::class, 'tasks_view'])->name('tasks');

@@ -88,7 +88,7 @@
     <li class="data-item">
         <div class="data-col">
             <div class="data-label">Status</div>
-            <div class="data-value text-transform text-red">
+            <div class="data-value text-transform">
                 <!-- <button type="button" class="btn btn-primary text-transform" @click="show=true">{{ a.status }} </button> -->
                 {{ a.status }}
             </div>

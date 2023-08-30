@@ -622,6 +622,16 @@ return redirect('/request/'.$request->id)->with('success','Appointment has been 
 
 
 
+//tasks
+public function tasks_view(AppointmentModel $appointment){
+$data['title']='Task';
+$data['response']=[
+'task'=>$appointment->accepted_appointments(),
+];
+return Inertia::render('TaskPage',$data);
+}
+
+
 
 
 

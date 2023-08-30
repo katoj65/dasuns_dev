@@ -76,9 +76,9 @@ reception_menu:[
 
 pssp_menu:[
 {name:'Dashboard',url:'dashboard',icon:'icon ni ni-layout'},
-{name:'Appointments',url:'dashboard',icon:'icon ni ni-calender-date-fill'},
-{name:'Requests',url:'dashboard',icon:'icon ni ni-layout'},
-{name:'Tasks',url:'dashboard',icon:'icon ni ni-layout'},
+{name:'Appointments',url:'list_appointments',icon:'icon ni ni-calender-date-fill'},
+{name:'Requests',url:'requests',icon:'icon ni ni-layout'},
+{name:'Tasks',url:'tasks',icon:'icon ni ni-layout'},
 {name:'Recommendations',url:'dashboard',icon:'icon ni ni-layout'},
 {name:'Wallet',url:'dashboard',icon:'icon ni ni-wallet-alt'},
 

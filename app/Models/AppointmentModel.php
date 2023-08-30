@@ -165,27 +165,34 @@ return $query->select('*')
 
 //get my appointment details
 public function scopeMy_appointment_details($query,$request){
-    return $query->select('appointment.date',
-    'appointment.end_date',
-    'appointment.from',
-    'appointment.to',
-    'support_service.name',
-    'appointment.status',
-    'appointment.location',
-    'users.email',
-    'users.tel',
-    'appointment.id',
-    'payment.amount',
-    'users.firstname',
-    'users.lastname',
-    'dasuns_user_number.number')
-    ->join('users','appointment.providerID','=','users.id')
-    ->join('support_service','appointment.serviceID','=','support_service.ID')
-    ->join('payment','appointment.id','=','payment.appointmentID')
-    ->join('dasuns_user_number','users.id','=','dasuns_user_number.userID')
-    ->where('appointment.userID',Auth::user()->id)
-    ->where('appointment.id',$request->segment(2))
-    ->get();
+if(Auth::user()->role=='pssu'){
+$condition="appointment.userID";
+}elseif(Auth::user()->role=='pssp'){
+$condition="appointment.providerID";
+}
+
+return $query->select('appointment.date',
+'appointment.end_date',
+'appointment.from',
+'appointment.to',
+'support_service.name',
+'appointment.status',
+'appointment.location',
+'users.email',
+'users.tel',
+'appointment.id',
+'payment.amount',
+'users.firstname',
+'users.lastname',
+'dasuns_user_number.number')
+->join('users','appointment.providerID','=','users.id')
+->join('support_service','appointment.serviceID','=','support_service.ID')
+->join('payment','appointment.id','=','payment.appointmentID')
+->join('dasuns_user_number','users.id','=','dasuns_user_number.userID')
+->where('appointment.id',$request->segment(2))
+->where($condition,Auth::user()->id)
+->get();
+
 }
 
 
@@ -372,6 +379,53 @@ public function scopeAll_pssp_appointments($query){
     ->get();
 
     }
+
+
+
+//accepted appointments only
+public function scopeAccepted_appointments($query){
+return $query->select(
+'users.firstname',
+'users.lastname',
+'appointment.end_date',
+'appointment.date',
+'appointment.from',
+'appointment.to',
+'appointment.location',
+'appointment.comment',
+'appointment.status',
+'appointment.id',
+'support_service.name',
+'users.role',
+'dasuns_user_number.number',
+'payment.amount',
+'users.tel')
+->join('users','appointment.userID','=','users.id')
+->join('support_service','appointment.serviceID','=','support_service.id')
+->join('dasuns_user_number','users.id','=','dasuns_user_number.userID')
+->join('payment','appointment.id','=','payment.appointmentID')
+->where('appointment.status','accepted')
+->where('appointment.providerID',Auth::user()->id)
+->orwhere('appointment.userID',Auth::user()->id)
+->orderby('appointment.status','DESC')
+->orderby('appointment.date','DESC')
+->get();
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
