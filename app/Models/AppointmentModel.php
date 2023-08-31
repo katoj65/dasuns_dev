@@ -279,8 +279,7 @@ return $query->select('users.firstname','users.lastname',
 
 //show pssp request
 public function scopeShow_pssp_request($query,$id){
-$data=[];
-$get=$query->select('users.firstname','users.lastname',
+return $query->select('users.firstname','users.lastname',
 'appointment.end_date',
 'appointment.date',
 'appointment.from',
@@ -307,11 +306,7 @@ $get=$query->select('users.firstname','users.lastname',
 ->orderby('appointment.status','DESC')
 ->orderby('appointment.date','DESC')
 ->get();
-if(count($get)==1){
-foreach($get as $row);
-$data=$row;
-}
-return $data;
+
 }
 
 
@@ -419,22 +414,28 @@ return $query->select(
 
 
 //todays appointments
-public function scopePssp_today_appointment($query,$id){
+public function scopePssp_schedule_count($query,$id){
 $data=[];
 $date=date('Ymd');
 $time=date('Hi');
-$get=$query->select('date','to','from','end_date')->where('providerID',$id)
-->where('status','accepted')->get();
+$get=$query->select('date','to','from','end_date')
+->where('providerID',$id)
+->where('status','accepted')
+->get();
+
 if(count($get)>0){
+//
 foreach($get as $row){
 $dd=date_create($row->date);
 $dd=date_format($dd,'Ymd');
-if($date==$dd and $row->end_date==null){
+if($row->end_date==null){
+if($dd==$date){
 $data[]=$row;
+}
 }else{
 $de=date_create($row->end_date);
 $de=date_format($de,'Ymd');
-if($date>=$dd and $date<=$de){
+if($de>=$date and $dd<=$date){
 $data[]=$row;
 }
 }

@@ -3,7 +3,7 @@
 <div class="nk-block">
 <div class="row p-3">
 
-{{ busy }}
+
 
 
 
@@ -24,7 +24,8 @@
 <div>
 <em class="icon ni ni-user-circle-fill" style="font-size:100px;padding:10px;"></em>
 </div>
-<h3 class="mt-3 mb-0 text-transform">{{ user.firstname }} {{ user.lastname }} </h3>
+<h3 class="mt-3 mb-3 text-transform">{{ user.firstname }} {{ user.lastname }} </h3>
+
 <span><strong class="mr-2">Service Number: </strong>{{ user.service_number.number }} </span>
 <div class="mt-3">
 
@@ -452,7 +453,7 @@ return this.response.profile;
 },
 
 busy(){
-return this.response.profile.today_appointments;
+return this.response.profile.schedule_count;
 }
 
 

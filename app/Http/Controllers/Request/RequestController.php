@@ -51,17 +51,19 @@ public function show(Request $request,AppointmentModel $appointment)
 {
 //
 $clock=new OngoingAppointment;
-$item=$appointment->show_pssp_request($request->segment(2));
+$get=$appointment->show_pssp_request($request->segment(2));
+if(count($get)==1){
+foreach($get as $row);
+
 $data['title']='Request';
 $data['response']=[
-'request'=>$item,
-'clock'=>$clock->appointment_clock($item),
-
+'request'=>$row,
 ];
 
-
-
 return Inertia::render('RequestShowPage',$data);
+}else{
+return redirect('/');
+}
 
 }
 
