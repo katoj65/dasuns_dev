@@ -3,7 +3,7 @@
 <div class="nk-block">
 <div class="row p-3">
 
-
+{{ busy }}
 
 
 
@@ -27,8 +27,22 @@
 <h3 class="mt-3 mb-0 text-transform">{{ user.firstname }} {{ user.lastname }} </h3>
 <span><strong class="mr-2">Service Number: </strong>{{ user.service_number.number }} </span>
 <div class="mt-3">
-<button class="btn btn-default btn-sm" style="background:#37BEA7;color:white;font-weight:bold;border:none;" @click="show=true">
+
+
+
+
+
+<button class="btn btn-default btn-sm" style="background:#37BEA7;color:white;font-weight:bold;border:none;" @click="show=true" v-if="busy==0">
 <em class="icon ni ni-edit"></em> Make Appointment</button>
+
+
+
+<button class="btn btn-default btn-sm" style="background:#37BEA7;color:white;font-weight:bold;border:none;" v-else>
+<em class="icon ni ni-clock-fill"></em> Busy</button>
+
+
+
+
 <Inertia-link class="btn btn-default btn-sm" :href="route('messages',{id:user.id})">
 <em class="icon ni ni-mail-fill"></em>
 </Inertia-link>
@@ -435,7 +449,15 @@ location:null,
 computed:{
 user(){
 return this.response.profile;
+},
+
+busy(){
+return this.response.profile.today_appointments;
 }
+
+
+
+
 },
 
 

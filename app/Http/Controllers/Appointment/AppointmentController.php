@@ -353,7 +353,6 @@ return redirect('/appointment-details/'.$request->id)->with('warning','Invalid d
  */
 public function destroy(Request $request)
 {
-//
 AppointmentModel::where('id',$request->id)->delete();
 return redirect('/')->with('success','Appointent has been deleted.');
 

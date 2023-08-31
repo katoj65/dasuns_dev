@@ -128,7 +128,8 @@ $profile=[
 'service_number'=>$user->show_dasuns_number($get->id),
 'rating'=>$rate->sum_rating($get->id),
 'recommendations'=>$recommend->count_recommendations($get->id),
-'tasks_complete'=>$appointment->count_pssp_tasks_completed($get->id)
+'tasks_complete'=>$appointment->count_pssp_tasks_completed($get->id),
+'today_appointments'=>$appointment->pssp_today_appointment($get->id),
 
 ];
 

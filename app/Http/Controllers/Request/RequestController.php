@@ -11,6 +11,7 @@ use App\Models\AppointmentServiceModel;
 use App\Models\ServiceProviderProfileModel;
 use App\Http\Controllers\Profile\ProfileController;
 use App\Models\SupportServiceModel;
+use App\Http\Controllers\Appointment\OngoingAppointment;
 
 class RequestController extends Controller
 {
@@ -49,10 +50,12 @@ public function store(Request $request)
 public function show(Request $request,AppointmentModel $appointment)
 {
 //
-
+$clock=new OngoingAppointment;
+$item=$appointment->show_pssp_request($request->segment(2));
 $data['title']='Request';
 $data['response']=[
-'request'=>$appointment->show_pssp_request($request->segment(2)),
+'request'=>$item,
+'clock'=>$clock->appointment_clock($item),
 
 ];
 

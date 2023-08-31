@@ -418,7 +418,30 @@ return $query->select(
 
 
 
-
+//todays appointments
+public function scopePssp_today_appointment($query,$id){
+$data=[];
+$date=date('Ymd');
+$time=date('Hi');
+$get=$query->select('date','to','from','end_date')->where('providerID',$id)
+->where('status','accepted')->get();
+if(count($get)>0){
+foreach($get as $row){
+$dd=date_create($row->date);
+$dd=date_format($dd,'Ymd');
+if($date==$dd and $row->end_date==null){
+$data[]=$row;
+}else{
+$de=date_create($row->end_date);
+$de=date_format($de,'Ymd');
+if($date>=$dd and $date<=$de){
+$data[]=$row;
+}
+}
+}
+}
+return count($data);
+}
 
 
 
