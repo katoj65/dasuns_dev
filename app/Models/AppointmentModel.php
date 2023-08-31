@@ -223,8 +223,7 @@ return $query->select('appointment.date',
 'appointment.status',
 'dasuns_user_number.number',
 'payment.amount')
-->join('appointment_service','appointment.id','=','appointment_service.appointmentID')
-->join('support_service','appointment_service.serviceID','=','support_service.ID')
+->join('support_service','appointment.serviceID','=','support_service.ID')
 ->join('users','appointment.providerID','=','users.id')
 ->join('dasuns_user_number','users.id','=','dasuns_user_number.userID')
 ->join('payment','appointment.id','=','payment.appointmentID')
