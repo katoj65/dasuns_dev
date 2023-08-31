@@ -32,7 +32,7 @@ Appointment
 
 <el-button-group class="ml-3" v-if="appointment.status=='pending'">
 <el-button type="success" @click="show=true">Edit</el-button>
-<el-button type="danger" @click="delete_appoointment(appointment.id)">Delete</el-button>
+<el-button type="danger" @click="delete_appointment(appointment.id)">Delete</el-button>
 </el-button-group>
 <el-button-group class="ml-3" v-else-if="appointment.status!='cancelled'">
 <el-button type="danger" @click="cancel_appointment(appointment.id)">Cancel</el-button>
@@ -501,6 +501,11 @@ errors:{},
 },
 
 data(){return{
+form_delete:this.$inertia.form({
+id:null,
+}),
+
+
 //
 show:false,
 show2:false,
@@ -552,6 +557,23 @@ this.form.end_date=null;
 
 //
 methods:{
+delete_appointment(id){
+this.form_delete.id=id;
+this.form_delete.post(this.route('appointment.delete'),{
+onSuccess:()=>{
+this.$notify({
+title:'Successful',
+message:this.$page.props.flash.success,
+position:'bottom-right',
+type:'success'
+});
+}
+});
+},
+
+
+
+
 submit2(){
 this.form2.post(this.route('appointment.pay'),{
 onSuccess:()=>{
@@ -712,3 +734,9 @@ return this.response.services;
 
 }
 </script>
+
+<style scoped>
+.data-item{
+border:none;
+}
+</style>
