@@ -21,6 +21,7 @@ use App\Models\SupportServiceModel;
 use App\Models\AppointmentModel;
 
 
+
 class HandleInertiaRequests extends Middleware
 {
 /**
@@ -200,6 +201,7 @@ $appointment=new AppointmentModel;
 return[
 'services'=>SupportServiceModel::get(),
 'appointment'=>Auth::user()!=null?$appointment->upcoming_appointments():null,
+'ongoing_appointment'=>Auth::user()!=null?$appointment->user_has_appoitment():null,
 
 ];
 }

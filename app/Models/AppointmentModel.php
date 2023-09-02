@@ -447,6 +447,74 @@ return count($data);
 
 
 
+//User has an appointment
+public function scopeUser_has_appoitment($query){
+$data='';
+$date=date('Ymd');
+$time=date('Hi');
+//user is ordinary user
+if(Auth::user()->role=='pssu'){
+$where='userID';
+//user is service provider
+}elseif(Auth::user()->role=='pssp'){
+$where='providerID';
+}
+
+//
+$get=$query->select('date','to','from','end_date','user_confirm','provider_confirm')
+->where($where,Auth::user()->id)
+->where('status','accepted')
+->orderby('date','ASC')
+->get();
+
+if(count($get)>0){
+
+foreach($get as $row){
+    
+$dd=date_create($row->date);
+$dd=date_format($dd,'Ymd');
+if($row->end_date==null){
+if($dd==$date){
+$data=[
+'start_date'=>$row->date,
+'end_date'=>null,
+'start_time'=>$row->from,
+'end_time'=>$row->to,
+'title'=>'You have an appointment',
+'role'=>Auth::user()->role,
+];
+}
+}else{
+$de=date_create($row->end_date);
+$de=date_format($de,'Ymd');
+if($de>=$date and $dd<=$date){
+$data=[
+'start_date'=>$row->date,
+'end_date'=>$row->end_date,
+'start_time'=>$row->from,
+'end_time'=>$row->to,
+'title'=>'You have an appointment',
+'role'=>Auth::user()->role,
+];
+}
+
+
+}
+
+
+
+}
+}
+return $data;
+}
+
+
+
+
+
+
+
+
 
 
 
