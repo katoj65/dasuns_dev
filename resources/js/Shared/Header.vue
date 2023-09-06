@@ -231,13 +231,6 @@
 
 
 
-<!-----------Search functionality goes here-->
-
-
-
-
-
-
 
 
 </div>
@@ -361,7 +354,9 @@ pending_notification(){
 return this.$page.props.notification.pending;
 },
 
-
+ongoing(){
+return this.$page.props.data.ongoing_appointment;
+}
 
 
 

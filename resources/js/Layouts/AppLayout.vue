@@ -30,22 +30,7 @@
 
 
 <!----------Ongoing-------->
-<div v-if="ongoing!=''" style="margin-top:5px;">
-<div class="alert alert-success alert-icon" style="border-radius:0;">
-<em class="icon ni ni-check-circle"></em>
-<strong class="mr-3">{{ ongoing.title }}</strong>
-<span class="mr-3"><em class="icon ni ni-calendar-booking" style="font-size:20px;"></em>
-{{ ongoing.start_date }}
-</span>
-<span>
-{{ ongoing.end_date }}
-</span>
-<span class="float-right mr-3">
-<a href="">Click</a>
-</span>
-</div>
-</div>
-
+<task-confirmation :ongoing="ongoing"></task-confirmation>
 
 
 
@@ -100,6 +85,7 @@
 </template>
 <script>
 
+import TaskConfirmation from '@/Components/TaskConfirmation';
 import Header from '@/Shared/Header';
 import Sidebar from '@/Shared/Sidebar';
 let d=new Date();
@@ -109,6 +95,7 @@ export default {
 components:{
 Sidebar,
 Header,
+TaskConfirmation
 
 
 },
@@ -152,12 +139,6 @@ mounted(){
 
 },
 
-computed:{
-ongoing(){
-return this.$page.props.data.ongoing_appointment;
-}
-
-}
 
 
 
