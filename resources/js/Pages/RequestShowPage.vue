@@ -5,6 +5,7 @@
 <div class="col-md-3 col-12"></div>
 <div class="col-md-6 col-12">
 
+ 
 
 
 <div class="card" v-if="request!=null">
@@ -164,14 +165,11 @@ flash:{},
 errors:{}
 },
 
-data(){
-return{
-form:this.$inertia.form({
-id:null,
-status:null,
-}),
-}
-},
+
+data(){return{
+form:this.$inertia.form({id:null})
+}},
+
 
 
 computed:{

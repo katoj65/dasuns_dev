@@ -30,7 +30,7 @@
 
 
 <!----------Ongoing-------->
-<task-confirmation :ongoing="ongoing"></task-confirmation>
+<task-confirmation></task-confirmation>
 
 
 

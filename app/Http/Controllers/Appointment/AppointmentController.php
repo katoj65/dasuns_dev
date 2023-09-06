@@ -610,14 +610,11 @@ return redirect('/appointment/'.$request->id)->with('success','Appointment is '.
 
 
 // update appointment status
-
 public function update_appointment_status_as_request(Request $request, AppointmentModel $appointment){
 $appointment->where('id',$request->id)->update(['status'=>$request->status]);
 return redirect('/request/'.$request->id)->with('success','Appointment has been '.$request->status);
 
 }
-
-
 
 
 
@@ -629,6 +626,42 @@ $data['response']=[
 ];
 return Inertia::render('TaskPage',$data);
 }
+
+
+
+
+
+//user and provider confirmation
+public function user_provider_confirmation(Request $request,AppointmentModel $appointment){
+if(Auth::user()->role=='pssu'){
+$update=['user_confirm'=>'done'];
+$where='userID';
+}elseif(Auth::user()->role=='pssp'){
+$update=['provider_confirm'=>'done'];
+$where='providerID';
+}
+$appointment->where('id',$request->id)->where($where,Auth::user()->id)->update($update);
+//update status
+$get=$appointment->where('id',$request->id)
+->where('user_confirm','done')
+->where('provider_confirm','done')
+->get();
+if(count($get)==1){
+$appointment->where('id',$request->id)->update(['status'=>'completed']);
+//transfer funds
+
+}
+return redirect('/appointment/'.$request->id)->with('success','Service provided successfully.');
+}
+
+
+
+
+
+
+
+
+
 
 
 
