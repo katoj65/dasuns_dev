@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use App\Models\DasunsPaymentFeeModel;
+use App\Models\User;
 
 class AppointmentModel extends Model
 {
@@ -457,6 +458,8 @@ public function scopeUser_has_appoitment($query){
 $data='';
 $date=date('Ymd');
 $time=date('Hi');
+$user=new User;
+
 //user is ordinary user
 if(Auth::user()->role=='pssu'){
 $where='userID';
@@ -464,9 +467,8 @@ $where='userID';
 }elseif(Auth::user()->role=='pssp'){
 $where='providerID';
 }
-
 //
-$get=$query->select('id','date','to','from','end_date','user_confirm','provider_confirm')
+$get=$query->select('id','date','to','from','end_date','user_confirm','provider_confirm','userID','providerID')
 ->where($where,Auth::user()->id)
 ->where('status','accepted')
 ->orderby('date','ASC')
@@ -474,13 +476,32 @@ $get=$query->select('id','date','to','from','end_date','user_confirm','provider_
 
 
 if(count($get)>0){
-
 foreach($get as $row){
-
+//dates
 $dd=date_create($row->date);
 $dd=date_format($dd,'Ymd');
+$ed=date_create($row->end_date);
+$ed=date_format($ed,'Ymd');
+
+//from time to tome.
+$from=date_create($row->from);
+$to=date_create($row->to);
+//
+$from=date_format($from,'Hi');
+$to=date_format($to,'Hi');
+//provider and user details
+$user_names=$user->find($row->userID);
+$provider_names=$user->find($row->providerID);
+//
+$user_names=$user_names->firstname;
+$provider_names=$provider_names->firstname;
+
+
+
 if($row->end_date==null){
 if($dd==$date){
+//check if end date is today and time
+
 $data=[
 'start_date'=>$row->date,
 'end_date'=>null,
@@ -492,7 +513,16 @@ $data=[
 'date'=>date('Ymi'),
 'id'=>$row->id,
 'user_confirm'=>$row->user_confirm,
-'provider_confirm'=>$row->user_confirm
+'provider_confirm'=>$row->provider_confirm,
+'status'=>date('Hi')>$to?'past':'ongoing',
+'role'=>Auth::user()->role,
+'role_onfirmation'=>Auth::user()->role=='pssu'?$row->user_confirm:$row->provider_confirm,
+'provider_names'=>$provider_names,
+'user_names'=>$user_names,
+'other_party_status'=>null,
+'button'=>true,
+
+
 ];
 }
 
@@ -501,6 +531,8 @@ $data=[
 $de=date_create($row->end_date);
 $de=date_format($de,'Ymd');
 if($de>=$date and $dd<=$date){
+
+
 
 $data=[
 'start_date'=>$row->date,
@@ -513,7 +545,18 @@ $data=[
 'date'=>date('Ymd'),
 'id'=>$row->id,
 'user_confirm'=>$row->user_confirm,
-'provider_confirm'=>$row->user_confirm
+'provider_confirm'=>$row->provider_confirm,
+'status'=>date('Hi')>$to?'past':'ongoing',
+'role'=>Auth::user()->role,
+'role_confirm'=>Auth::user()->role=='pssu'?$row->user_confirm:$row->provider_confirm,
+'provider_names'=>$provider_names,
+'user_names'=>$user_names,
+'other_party_confirmation'=>Auth::user()->role=='pssu'?$row->provider_confirm:$row->user_confirm,
+
+'other_party_names'=>Auth::user()->role=='pssu'?$provider_names:$user_names,
+'button'=>date('Ymd')==$ed?true:false
+
+
 
 ];
 
