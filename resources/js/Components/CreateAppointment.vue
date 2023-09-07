@@ -41,7 +41,6 @@ Request for professional support services
 </div>
 </div>
 
-
 </div>
 
 </div>
@@ -143,13 +142,6 @@ errors(){
 return this.$page.props.errors;
 },
 
-
-
-//location
-location(){
-const item=this.$page.props;
-return item.profile;
-},
 
 
 

@@ -237,7 +237,7 @@
 </template>
 <script>
 import SearchPanel from '@/Components/SearchPanel';
-import CreateAppointment from '../Components/CreateAppointment.vue';
+import CreateAppointment from '@/Components/CreateAppointment';
 export default {
 components:{
 SearchPanel,

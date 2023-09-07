@@ -68,7 +68,7 @@ if(count($get)==1){
 foreach($get as $row);
 return $row;
 }else{
-return [];
+return[];
 }
 
 }
@@ -81,109 +81,26 @@ return [];
 
 //index method
 public function index(){
-
-//create dasuns number
-
-$list=SupportServiceModel::get();
-$user=Auth::user();
-
-if($user->role=='pssp'){
-ProfileController::PSSP_account_message();
-$docs=new DocumentsController;
-$user_data=[
-'security_documents'=>$docs->get_security_documents(),
-'reference'=>ServiceProviderReferenceModel::where('userID',$user->id)->get(),
-'identification'=>ServiceProviderSecurityDetailsModel::where('userID',$user->id)->get(),
-'requirements'=>$this->get_pssp_additional_requirements(),
-'list_services'=>$list,
-'experience'=>ServiceProviderExperienceModel::where('userID',$user->id)->get(),
-'interview_status'=>PSSPController::get_interview_status(),
-'account_status_message'=>PSSPController::account_status_message(),
-// 'interview'=>PSSPController::interview_scheduled(),
-];
-
-
-
-
-}elseif($user->role=='panelist'){
-
-$user_data=[
-'profile'=>PanelistController::profile(),
-];
-
-}elseif($user->role=='pssu'){
-
-$user_data=[
-'list_services'=>$list,
-'list_disabilities'=>DisabilityModel::get(),
-'profile'=>PSSUController::profile()
-];
-
-
-
-
-
-
-
-
-
-}elseif($user->role=='reception'){
-$user_data['profile']=ReceptionController::reception_profile();
-$user_data['country']=CountryModel::get();
-
-
-
-}elseif($user->role=='admin'){
-
- $user_data['profile']=AdministrationController::profile();
-
+$role=Auth::user()->role;
+if($role=='admin'){
+$data['response']=null;
+}elseif($role=='pssp'){
+$data['response']=null;
+}elseif($role=='pssu'){
+$data['response']=null;
+}elseif($role=='reception'){
+$data['response']=null;
+}elseif($role=='panelist'){
+$data['response']=null;
 }
-
-
-
-
-else{
-
-$user_data=['list_services'=>$list,
-'list_disabilities'=>DisabilityModel::get(),
-'institutional_contact_person'=>Auth::user()->account_type?OrganisationContactPersonModel::where('organisationID',Auth::user()->id)->get():null,
-'organisation_profile'=>Auth::user()->account_type=='institutional'?$this->get_institution_profile():null,
-
-
-];
-
-
-}
-
-
-
-
-
-//
-$data['title']='Profile';
-$data['response']=[
-'user'=>$user,
-'profile'=>$user->role=='pssu'?$this->user_profile():$this->profile_PSSP(),
-
-'services'=>$user->role=='pssu'?UserSupportServiceModel::select('user_support_service.id','support_service.name','support_service.id as sid')
-->join('support_service','user_support_service.serviceID','=','support_service.id')
-->where('user_support_service.userID',$user->id)
-->get():ServiceProviderServicesModel::select('service_provider_services.id','support_service.name','support_service.id as sid')
-->join('support_service','service_provider_services.serviceID','=','support_service.id')
-->where('service_provider_services.userID',$user->id)
-->get(),
-
-'disabilities'=>Auth::user()->account_type=='personal'?UserDisabilityModel::select('*')->where('user_disability.userID',$user->id)->join('disability','user_disability.disabilityID','=','disability.id')
-->get():[],
-'user_data'=>$user_data,
-
-
-
-];
-
+$data['title']="Profile";
 return Inertia::render('ProfilePage',$data);
-
 }
+
+
+
+
+
 
 
 //update pssp account information if the pssp has created an account but not filled in teh profile
