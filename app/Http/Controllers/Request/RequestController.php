@@ -55,9 +55,21 @@ $get=$appointment->show_pssp_request($request->segment(2));
 if(count($get)==1){
 foreach($get as $row);
 
+//
+$start_date=date_create($row->date);
+$start_date=date_format($start_date,'Ymd');
+if($start_date==date('Ymd')){
+$state=true;
+}else{
+$state=false;
+}
+
+//
+
 $data['title']='Request';
 $data['response']=[
 'request'=>$row,
+'state'=>$state,
 ];
 
 return Inertia::render('RequestShowPage',$data);

@@ -1,9 +1,11 @@
 <template>
 <app-layout>
 
+
+
 <div class="row mt-4">
-<div class="col-12 col-md-2"></div>
-<div class="col-12 col-md-8">
+<div class="col-12 col-md-3"></div>
+<div class="col-12 col-md-6">
 
 <div class="card">
 <div class="card-header bold" v-if="appointment.status=='pending'" style="background:#D5F5E3;">
@@ -20,16 +22,19 @@ Appointment was cancelled.
 
 
 
-
 <div class="card-header">
 <div class="card-title bold">
 Appointment
 </div>
 
 
-<div class="card-options">
 
 
+<div class="card-options" v-if="response.state==false">
+<div v-if="appointment.status=='completed'">
+<em class="icon ni ni-user-check-fill" style="font-size:30px;color:#37BEA7;"></em>
+</div>
+<div v-else>
 <el-button-group class="ml-3" v-if="appointment.status=='pending'">
 <el-button type="success" @click="show=true">Edit</el-button>
 <el-button type="danger" @click="delete_appointment(appointment.id)">Delete</el-button>
@@ -37,16 +42,17 @@ Appointment
 <el-button-group class="ml-3" v-else-if="appointment.status!='cancelled'">
 <el-button type="danger" @click="cancel_appointment(appointment.id)">Cancel</el-button>
 </el-button-group>
-
 </div>
+</div>
+
+
+
 
 
 
 </div>
 
 <div class="card-body">
-
-
 
 
 
@@ -199,7 +205,7 @@ Make Payment
 </div>
 
 </div>
-<div class="col-12 col-md-2"></div>
+<div class="col-12 col-md-3"></div>
 </div>
 
 

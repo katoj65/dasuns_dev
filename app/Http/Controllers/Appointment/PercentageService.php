@@ -16,6 +16,7 @@ public function calculate_dasuns_percentage($id){
 $payment=new PaymentModel;
 $get=$payment->where('appointmentID',$id)->limit(1)->get();
 $amount=0;
+$row=0;
 if(count($get)==1){
 foreach($get as $row);
 //amount

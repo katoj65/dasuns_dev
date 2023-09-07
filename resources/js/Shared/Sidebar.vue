@@ -80,7 +80,7 @@ pssp_menu:[
 {name:'Requests',url:'requests',icon:'icon ni ni-layout'},
 {name:'Tasks',url:'tasks',icon:'icon ni ni-layout'},
 {name:'Recommendations',url:'dashboard',icon:'icon ni ni-layout'},
-{name:'Wallet',url:'dashboard',icon:'icon ni ni-wallet-alt'},
+{name:'Wallet',url:'wallet',icon:'icon ni ni-wallet-alt'},
 
 
 

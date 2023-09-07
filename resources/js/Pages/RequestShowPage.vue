@@ -5,7 +5,6 @@
 <div class="col-md-3 col-12"></div>
 <div class="col-md-6 col-12">
 
- 
 
 
 <div class="card" v-if="request!=null">
@@ -16,6 +15,7 @@
 <div class="card-options">
     <em class="icon ni ni-check-circle-fill" style="color:#45B39D;font-size:30px;" v-if="request.status=='accepted'"></em>
     <em class="icon ni ni-alert-circle-fill"  style="font-size:30px;" v-else-if="request.status=='paid'"></em>
+    <em class="icon ni ni-user-check-fill" style="font-size:30px;color:#45B39D;" v-else-if="request.status=='completed'"></em>
     <em class="icon ni ni-alert-circle-fill"  style="color:red;font-size:30px;" v-else></em>
 </div>
 </div>
@@ -119,23 +119,46 @@
 
 </div>
 
-<div class="card-footer">
-<div>
+<div class="card-footer" v-if="response.state==false">
 <div v-if="request.status=='paid'" class="float-right">
 <button class="btn button-success" style="font-size:16px;" @click="submit(request.id,'accepted')">Accept</button>
 <button class="btn button-danger"  style="font-size:16px;" @click="submit(request.id,'declined')">Decline</button>
 </div>
 <div v-else-if="request.status=='accepted'" class="float-right">
+
 <button class="btn button-danger" style="font-size:16px;" @click="submit(request.id,'cancelled')">Cancel</button>
+
+
 </div>
 <div v-else-if="request.status=='cancelled'" class="text-red">
 Appointment Cancelled
 </div>
+<div v-else-if="request.status=='completed'" style="color:#0B5345;font-weight:bold;">
+Service is been provided successfully
+</div>
+</div>
+
+
+
+
+
+
 
 
 
 </div>
-</div>
+
+
+
+
+
+
+
+
+
+
+
+
 </div>
 
 
@@ -167,7 +190,10 @@ errors:{}
 
 
 data(){return{
-form:this.$inertia.form({id:null})
+form:this.$inertia.form({
+id:null,
+status:null,
+})
 }},
 
 

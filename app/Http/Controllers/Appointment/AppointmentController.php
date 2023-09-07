@@ -151,8 +151,23 @@ $fees=new DasunsPaymentFeesModel;
 $fee=$fees->service_fee();
 $appointment=new AppointmentModel;
 foreach($get as $row);
+
+//date
+$start_date=date_create($row->date);
+$start_date=date_format($start_date,'Ymd');
+
+//state
+if($start_date==date('Ymd')){
+$state=true;
+}else{
+$state=false;
+}
+
+//appointment days
 $days=$appointment->number_of_days($row->id);
 $data['title']='Appointment';
+
+//response
 $data['response']=[
 'appointment'=>$row,
 'services'=>$user->pssp_services($row->providerID),
@@ -160,7 +175,9 @@ $data['response']=[
 'dasuns_fees'=>number_format($fee),
 'balance'=>number_format($balance),
 'service_amount'=>number_format($appointment->service_amount($row->id)),
-'amount_int'=>$appointment->service_amount($row->id)
+'amount_int'=>$appointment->service_amount($row->id),
+'state'=>$state,
+
 ];
 
 
@@ -617,7 +634,6 @@ return redirect('/appointment/'.$request->id)->with('success','Appointment is '.
 public function update_appointment_status_as_request(Request $request, AppointmentModel $appointment){
 $appointment->where('id',$request->id)->update(['status'=>$request->status]);
 return redirect('/request/'.$request->id)->with('success','Appointment has been '.$request->status);
-
 }
 
 
