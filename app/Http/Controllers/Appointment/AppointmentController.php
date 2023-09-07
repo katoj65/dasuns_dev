@@ -21,6 +21,9 @@ use App\Http\Controllers\Wallet\WalletController;
 use App\Models\User;
 use App\Models\PaymentModel;
 use App\Http\Requests\PaymentRequest;
+use App\Models\SettingsModel;
+use App\Http\Controllers\Appointment\PercentageService;
+use App\Http\Controllers\Appointment\MakePaymentService;
 
 
 
@@ -578,7 +581,8 @@ $content[]=[
 'number'=>$row->number,
 'tel'=>$row->tel,
 'email'=>$row->email,
-'service'=>$row->name
+'service'=>$row->name,
+
 
 ];
 
@@ -647,12 +651,32 @@ $get=$appointment->where('id',$request->id)
 ->where('provider_confirm','done')
 ->get();
 if(count($get)==1){
+//appointment
+foreach($get as $row);
+$providerID=$row->providerID;
 $appointment->where('id',$request->id)->update(['status'=>'completed']);
+
 //transfer funds
+$percentage=new PercentageService;
+$percentage_amount=$percentage->calculate_dasuns_percentage($request->id);
+//
+$make_payment=new MakePaymentService;
+$make_payment1=$make_payment->pay_service_provider($request->id,$providerID,$percentage_amount);
+//
+
+
+
+
 
 }
 return redirect('/appointment/'.$request->id)->with('success','Service provided successfully.');
 }
+
+
+
+//Dasuns percentage services
+
+
 
 
 

@@ -351,4 +351,4 @@ Route::middleware(['auth:sanctum', 'verified'])->put('/appointment/update',[Appo
 
 Route::middleware(['auth:sanctum','verified'])->get('/tasks',[AppointmentController::class, 'tasks_view'])->name('tasks');
 
-Route::middleware(['auth:sanctum', 'verified'])->put('/appointment/pssp-pssu-conform',[AppointmentController::class,'user_provider_confirmation'])->name('appointment.pssp_pssu_confirm');
+Route::middleware(['auth:sanctum', 'verified'])->put('/appointment/pssp-pssu-confirm',[AppointmentController::class,'user_provider_confirmation'])->name('appointment.pssp_pssu_confirm');

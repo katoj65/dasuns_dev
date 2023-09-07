@@ -105,13 +105,18 @@
 
 
 </div>
+<div class="card-footer header_bg text-white" v-if="a.success!='completed'">
+Service has been provided successfully
+</div>
 
-<div class="card-footer">
+<div class="card-footer" v-else>
 <div class="float-right">
     <button class="btn button-danger" style="font-size:16px;" @click="submit()" v-if="a.status=='cancelled'" disabled>Cancel</button>
 <button class="btn button-danger" style="font-size:16px;" @click="submit()" v-else>Cancel</button>
 </div>
 </div>
+
+
 
 
 </div>
