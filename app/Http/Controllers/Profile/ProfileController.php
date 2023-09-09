@@ -990,7 +990,7 @@ return redirect('/profile')->with('success','Profile was updated.');
 
 
 //update institution contact person information
-public function update_contact_person(Request $request){
+public function update_contact_person(Request $request,OrganisationContactPersonModel $contact){
 $request->validate(['firstname'=>'required',
 'lastname'=>'required',
 'gender'=>'required',
@@ -999,9 +999,35 @@ $request->validate(['firstname'=>'required',
 'role'=>'required'
 ],['required'=>'Field is required.']);
 
+//
+$get=$contact->select('id')->where('organisationID',Auth::user()->id)->get();
+if(count($get)==1){
+foreach($get as $row);
+$collect=$contact->find($row->id);
 
+//
+if($collect->firstname!=$request->firstname or
+$collect->lastname!=$request->lastname or
+$collect->gender!=$request->gender or
+$collect->tel!=$request->tel or
+$collect->email!=$request->email){
+//
+$collect->firstname=$request->firstname;
+$collect->lastname=$request->lastname;
+$collect->gender=$request->gender;
+$collect->tel=$request->tel;
+$collect->email=$request->email;
+$collect->role=$request->role;
 
+$collect->save();
 
+return redirect('/profile')->with('success','Contact person information edited.');
+}else{
+return redirect('/profile')->with('warning','Contact person information was not edited.');
+}
+}else{
+return redirect('/profile')->with('error','No contact person information found');
+}
 }
 
 

@@ -352,7 +352,7 @@ Edit institution details
 
 
 <!---------->
-<form style="position:fixed;width:100%;left:0;top:0;z-index:10000;height:100%;background-color: hsla(210, 29%, 18%, 0.3);" v-if="show2==true" @submit2.prevent="submit">
+<form style="position:fixed;width:100%;left:0;top:0;z-index:10000;height:100%;background-color: hsla(210, 29%, 18%, 0.3);" v-if="show2==true" @submit.prevent="submit2">
 <div class="modal-dialog" role="document">
 <div class="modal-content">
 <div class="modal-header" style="background: #37BEA7;border:none;">
@@ -365,7 +365,7 @@ Edit institution contact person details
 </div>
 <div class="modal-body" style="max-height:500px;overflow:auto">
 
-
+{{ form2 }}
 
 <div class="form-group">
 <label class="form-label" for="default-01">
@@ -384,7 +384,7 @@ Edit institution contact person details
 <input-error :error="errors.lastname"></input-error>
 </label>
 <div class="form-control-wrap">
-<input type="text" class="form-control" id="default-01" placeholder="Enter last name" v-model="form2.laname">
+<input type="text" class="form-control" id="default-01" placeholder="Enter last name" v-model="form2.lastname">
 </div>
 </div>
 
@@ -397,10 +397,14 @@ Edit institution contact person details
 <input-error :error="errors.gender"></input-error>
 </label>
 <div class="form-control-wrap">
-<select class="form-control" id="default-01">
-<option value="">--Select gender--</option>
-<option value="male">Male</option>
-<option value="female">Female</option>
+<select class="form-control" id="default-01" @change="set_gender($event)">
+<option :value="form2.gender">{{ form2.gender }} </option>
+<option value="male" v-if="form2.gender=='female'">
+Male
+</option>
+<option value="female" v-else-if="form2.gender=='male'">
+Female
+</option>
 </select>
 </div>
 </div>
@@ -414,7 +418,7 @@ Edit institution contact person details
 <input-error :error="errors.tel"></input-error>
 </label>
 <div class="form-control-wrap">
-<input type="text" class="form-control" id="default-01" placeholder="Enter telephone number" v-model="form2.tel">
+<input type="number" class="form-control" id="default-01" placeholder="Enter telephone number" v-model="form2.tel">
 </div>
 </div>
 
@@ -482,6 +486,8 @@ errors:{},
 
 data(){
 return{
+
+gender:[{name:'male'},{name:'female'}],
 //flash
 flash:this.$page.props.flash,
 //
@@ -546,6 +552,17 @@ data.push(el);
 }
 });
 return data;
+},
+
+//selected gender
+select_contact_gender(){
+const data=[];
+this.gender.forEach(el=>{
+if(this.response.user.contact_gender!=el.name){
+data.push(el);
+}
+});
+return data;
 }
 
 
@@ -554,6 +571,10 @@ return data;
 },
 
 methods:{
+set_gender(event){
+this.form2.gender=event.target.value;
+},
+
 //
 submit(){
 this.form.put(this.route('profile.edit_institution'),{
@@ -571,7 +592,17 @@ type:this.$page.props.flash.success!=null?'success':'warning'
 
 //
 submit2(){
-this.form2.post();
+this.form2.put(this.route('profile.update_contact_person'),{
+onSuccess:()=>{
+this.show2=false;
+this.$notify({
+title:this.$page.props.flash.success!=null?'Successful':'Warning',
+message:this.$page.props.flash.success!=null?this.$page.props.flash.success:this.$page.props.flash.warning,
+position:'bottom-right',
+type:this.$page.props.flash.success!=null?'success':'warning'
+});
+}
+});
 },
 
 //
@@ -594,7 +625,14 @@ this.form.tel=user.tel;
 this.form.country=user.countryID;
 this.form.id=user.id;
 this.form2.id=user.id;
+this.form2.firstname=user.contact_firstname;
+this.form2.lastname=user.contact_lastname;
+this.form2.gender=user.contact_gender;
+this.form2.email=user.contact_email;
+this.form2.role=user.contact_role;
+this.form2.tel=user.contact_tel;
 },
+//format gender
 
 
 

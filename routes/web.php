@@ -354,5 +354,6 @@ Route::middleware(['auth:sanctum','verified'])->get('/tasks',[AppointmentControl
 Route::middleware(['auth:sanctum', 'verified'])->put('/appointment/pssp-pssu-confirm',[AppointmentController::class,'user_provider_confirmation'])->name('appointment.pssp_pssu_confirm');
 
 
-Route::middleware(['auth:sanctum', 'verified'])->put('/profile/edit/institution',[ProfileController::class,'update_institution_profile'])->name('profile.edit_institution');
+Route::middleware(['auth:sanctum', 'verified'])->put('/profile/update/institution',[ProfileController::class,'update_institution_profile'])->name('profile.edit_institution');
 
+Route::middleware(['auth:sanctum', 'verified'])->put('/profile/update-contact-person',[ProfileController::class,'update_contact_person'])->name('profile.update_contact_person');

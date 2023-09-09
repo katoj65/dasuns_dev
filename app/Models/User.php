@@ -210,11 +210,6 @@ $get=$query->select('*')
 }
 
 
-
-
-
-
-
 if(count($get)==1){
 foreach($get as $row);
 $row=$row;
