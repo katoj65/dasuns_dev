@@ -9,4 +9,5 @@ class OrganisationProfileModel extends Model
 {
     use HasFactory;
     protected $table='organisation_profile';
+    protected $fillable=['userID','institution_typeID','location','countryID','logo'];
 }

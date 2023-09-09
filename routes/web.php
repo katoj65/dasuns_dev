@@ -337,7 +337,7 @@ Route::middleware(['auth:sanctum', 'verified'])->post('/appointment/pay',[Appoin
 
 Route::middleware(['auth:sanctum', 'verified'])->post('/appointment/cancel',[AppointmentController::class,'cancel_appointment'])->name('appointment.cancel');
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/messages/{id}',[MessageController::class,'show'])->name('messages');
+Route::middleware(['auth:sanctum', 'verified'])->get('/messages',[MessageController::class,'index'])->name('messages');
 
 Route::middleware(['auth:sanctum', 'verified'])->post('/search/store',[SearchController::class,'store'])->name('search.store');
 
@@ -352,3 +352,7 @@ Route::middleware(['auth:sanctum', 'verified'])->put('/appointment/update',[Appo
 Route::middleware(['auth:sanctum','verified'])->get('/tasks',[AppointmentController::class, 'tasks_view'])->name('tasks');
 
 Route::middleware(['auth:sanctum', 'verified'])->put('/appointment/pssp-pssu-confirm',[AppointmentController::class,'user_provider_confirmation'])->name('appointment.pssp_pssu_confirm');
+
+
+Route::middleware(['auth:sanctum', 'verified'])->put('/profile/edit/institution',[ProfileController::class,'update_institution_profile'])->name('profile.edit_institution');
+

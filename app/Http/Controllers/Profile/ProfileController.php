@@ -35,6 +35,8 @@ use App\Http\Controllers\PSSP\PSSPController;
 use App\Http\Controllers\Administration\AdministrationController;
 use App\Models\AccountStatusMessageModel;
 use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\Profile\PSSU;
+
 
 
 
@@ -81,17 +83,32 @@ return[];
 
 //index method
 public function index(){
+
 $role=Auth::user()->role;
 if($role=='admin'){
+
 $data['response']=null;
+
 }elseif($role=='pssp'){
+
 $data['response']=null;
+
 }elseif($role=='pssu'){
-$data['response']=null;
+
+$pssu=new PSSU;
+$data['response']=$pssu->profile();
+
+
+
+
 }elseif($role=='reception'){
+
 $data['response']=null;
+
 }elseif($role=='panelist'){
+
 $data['response']=null;
+
 }
 $data['title']="Profile";
 return Inertia::render('ProfilePage',$data);
@@ -893,30 +910,97 @@ return redirect('/profile')->with('success','Organisation contact person has bee
 //user profile information
 static function get_user_profile_information(){
 if(Auth::user()->role=='pssp'){
-
 $get=ServiceProviderProfileModel::select('service_provider_profile.location',
 'country.name as country')
 ->join('users','service_provider_profile.userID','=','users.id')
 ->join('country','service_provider_profile.countryID','=','country.id')
 ->where('users.id',auth::user()->id)
 ->get();
-
 }else{
-
 $get=UserProfileModel::select('user_profile.location',
 'country.name as country')
 ->join('users','user_profile.userID','=','users.id')
 ->join('country','user_profile.countryID','=','country.id')
 ->where('users.id',auth::user()->id)
 ->get();
-
 }
-
 $row=[];
 if(count($get)>0){
 foreach($get as $row);
 }
 return $row;
+}
+
+
+
+
+//edit profile
+public function update_institution_profile(Request $request){
+$user=User::find(Auth::user()->id);
+$request->validate(['name'=>'required',
+'tel'=>'required',
+'dob'=>'required',
+'type'=>'required',
+'location'=>'required',
+'country'=>'required'],['required'=>'Field is required.']);
+
+$error1=false;
+$error2=false;
+//
+if($user->firstname!=$request->name or
+$user->dob!=$request->dob or
+$user->tel!=$request->tel){
+//
+$user->firstname=$request->name;
+$user->dob=$request->dob;
+$user->tel=$request->tel;
+$user->save();
+$error1=false;
+}else{
+$error1=true;
+}
+
+//
+$get=OrganisationProfileModel::where('userID',Auth::user()->id)->get();
+if(count($get)==1){
+foreach($get as $locate);
+if($request->location!=$locate->location or
+$request->type!=$locate->institution_typeID or
+$request->country!=$locate->countryID){
+//
+$collect=OrganisationProfileModel::find($locate->id);
+$collect->countryID=$request->country;
+$collect->institution_typeID=$request->type;
+$collect->location=$request->location;
+$collect->save();
+$error2=false;
+}else{
+$error2=true;
+}
+//
+}
+//error formation
+if($error1==true and $error2==true){
+return redirect('/profile')->with('warning','Profile was not updated.');
+}else{
+return redirect('/profile')->with('success','Profile was updated.');
+}
+}
+
+
+
+//update institution contact person information
+public function update_contact_person(Request $request){
+$request->validate(['firstname'=>'required',
+'lastname'=>'required',
+'gender'=>'required',
+'tel'=>'required',
+'email'=>'required',
+'role'=>'required'
+],['required'=>'Field is required.']);
+
+
+
 
 }
 

@@ -16,10 +16,43 @@ class MessageController extends Controller
  *
  * @return \Illuminate\Http\Response
  */
-public function index()
+public function index(User $user)
 {
-//
 
+//
+$user_details=Auth::user();
+if($user_details){
+$messages=[];
+$chat=new ChatModel;
+$message=$chat->user_messages($user_details->id);
+if(count($message)>0){
+foreach($message as $row){
+$messages[]=[
+'id'=>$row->id,
+'message'=>$row->message,
+'senderID'=>$row->senderID,
+'receiverID'=>$row->receiverID,
+'created_at'=>$row->created_at,
+'sender_details'=>$chat->sender($row->senderID),
+'myID'=>Auth::user()->id,
+
+];
+}
+}
+
+$data['title']='Messages';
+$data['response']=[
+'message'=>$messages,
+'user'=>$user_details,
+'number'=>$user->show_dasuns_number($user_details->id),
+'current_user'=>Auth::user()->id
+
+];
+
+return Inertia::render('MessagePage',$data);
+}else{
+return redirect('/')->with('error','Could not find user messages.');
+}
 
 }
 
@@ -44,9 +77,10 @@ public function store(Request $request)
  */
 public function show(Request $request, User $user)
 {
+
 //
-$user_details=$user->show($request->segment(2));
-if($user!=null){
+$user_details=Auth::user();
+if($user_details){
 $messages=[];
 $chat=new ChatModel;
 $message=$chat->user_messages($user_details->id);
@@ -64,10 +98,6 @@ $messages[]=[
 ];
 }
 }
-
-
-
-
 
 $data['title']='Messages';
 $data['response']=[

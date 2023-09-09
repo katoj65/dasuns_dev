@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
@@ -145,6 +146,83 @@ foreach($get as $row);
 }
 return $row;
 }
+
+
+
+//user details
+public function scopeUser_details($query){
+$row=null;
+
+
+if(Auth::user()->role=='pssu'){
+
+if(Auth::user()->account_type=='institutional'){
+
+$get=$query->select('users.id',
+'users.firstname',
+'users.lastname',
+'users.gender',
+'users.dob',
+'users.tel',
+'users.email',
+'users.status',
+'users.role',
+'users.created_at',
+'users.account_type as type',
+'organisation_profile.location',
+'organisation_profile.logo',
+'country.name as country',
+'country.id as countryID',
+'organisation_contact_person.firstname as contact_firstname',
+'organisation_contact_person.lastname as contact_lastname',
+'organisation_contact_person.gender as contact_gender',
+'organisation_contact_person.role as contact_role',
+'organisation_contact_person.tel as contact_tel',
+'organisation_contact_person.email as contact_email',
+'institution_type.name as institution',
+'institution_type.id as institutionID',
+
+)
+->where('users.id',Auth::user()->id)
+->join('organisation_profile','users.id','=','organisation_profile.userID')
+->join('country','organisation_profile.countryID','=','country.id')
+->join('organisation_contact_person','users.id','=','organisation_contact_person.organisationID')
+->join('institution_type','organisation_profile.institution_typeID','=','institution_type.id')
+->get();
+
+}else{
+
+$get=$query->select('*')
+->where('users.id',Auth::user()->id)
+->join('user_profile','users.id','=','user_profile.userID')
+->get();
+
+}
+
+
+
+}else{
+
+$get=$query->select('*')
+->where('users.id',Auth::user()->id)
+->get();
+
+}
+
+
+
+
+
+
+
+if(count($get)==1){
+foreach($get as $row);
+$row=$row;
+}
+return $row;
+}
+
+
 
 
 

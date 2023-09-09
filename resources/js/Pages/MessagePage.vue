@@ -1,5 +1,6 @@
 <template>
 <app-layout style="overflow:hidden;">
+
 <div class="card p-0" style="overflow:hidden;">
 <div class="card-body p-0">
 <div class="nk-ibx  border-0">
@@ -14,34 +15,13 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 <div class="card">
 <div class="card-body text-center">
 <em class="icon ni ni-user-circle-fill" style="font-size:50px;"></em>
 <h5 class="mt-3 mb-0 text-transform mb-2">{{ user.firstname }} {{ user.lastname }} </h5>
 <strong>Service Number:</strong> <span>{{ response.number.number }} </span>
 <Inertia-link :href="route('profile.pssp',{id:user.id})" class="btn btn-default btn-sm mt-2">View Profile</Inertia-link>
-<!-- <button class="btn btn-default btn-sm">Message</button> -->
-<!-- <div class="row text-center mt-4">
-<div class="col-lg-6 border-right">
-<label class="mb-0">Project</label>
-<h4 class="font-18">31</h4>
-</div>
-<div class="col-lg-6">
-<label class="mb-0">Deal</label>
-<h4 class="font-18">$45,510</h4>
-</div>
-</div> -->
+
 </div>
 </div>
 
@@ -53,7 +33,7 @@
 
 
 </div></div></div></div><div class="simplebar-placeholder" style="width: auto; height: 907px;"></div></div><div class="simplebar-track simplebar-horizontal" style="visibility: hidden;"><div class="simplebar-scrollbar" style="width: 0px; display: none;"></div></div><div class="simplebar-track simplebar-vertical" style="visibility: visible;"><div class="simplebar-scrollbar" style="height: 186px; transform: translate3d(0px, 0px, 0px); display: block;"></div></div></div>
-</div><!-- .nk-ibx-aside -->
+</div>
 <div class="nk-ibx-body bg-white">
 <div class="nk-ibx-head">
 <div class="nk-ibx-head-actions">
@@ -105,8 +85,8 @@
 <input type="text" class="form-control border-transparent form-focus-none" placeholder="Search by user or message">
 <button class="search-submit btn btn-icon"><em class="icon ni ni-search"></em></button>
 </div>
-</div><!-- .search-wrap -->
-</div><!-- .nk-ibx-head -->
+</div>
+</div>
 <div class="nk-ibx-list" data-simplebar="init"><div class="simplebar-wrapper" style="margin: 0px;background:#F4F6F6;"><div class="simplebar-height-auto-observer-wrapper"><div class="simplebar-height-auto-observer"></div></div><div class="simplebar-mask"><div class="simplebar-offset" style="right: 0px; bottom: 0px;"><div class="simplebar-content-wrapper" style="height: 100%; overflow: hidden scroll;">
 <div class="simplebar-content" style="padding: 0px;background:#F4F6F6;min-height:500px;">
 
@@ -132,7 +112,7 @@
 <div class="nk-ibx-item-elem nk-ibx-item-user">
 <div class="user-card">
 <div class="user-avatar">
-<!-- <img src="./images/avatar/a-sm.jpg" alt=""> -->
+
 </div>
 <div class="user-name">
 <div class="lead-text">Abu Bin Ishtiyak </div>
@@ -181,7 +161,7 @@
 </ul>
 </div>
 </div>
-</div><!-- .nk-ibx-item -->
+</div>
 
 
 
@@ -194,7 +174,7 @@
 
 
 
-</div></div></div></div><div class="simplebar-placeholder" style="width: auto; height: 1810px;"></div></div><div class="simplebar-track simplebar-horizontal" style="visibility: hidden;"><div class="simplebar-scrollbar" style="width: 0px; display: none; transform: translate3d(0px, 0px, 0px);"></div></div><div class="simplebar-track simplebar-vertical" style="visibility: visible;"><div class="simplebar-scrollbar" style="height: 93px; transform: translate3d(0px, 132px, 0px); display: block;"></div></div></div><!-- .nk-ibx-list -->
+</div></div></div></div><div class="simplebar-placeholder" style="width: auto; height: 1810px;"></div></div><div class="simplebar-track simplebar-horizontal" style="visibility: hidden;"><div class="simplebar-scrollbar" style="width: 0px; display: none; transform: translate3d(0px, 0px, 0px);"></div></div><div class="simplebar-track simplebar-vertical" style="visibility: visible;"><div class="simplebar-scrollbar" style="height: 93px; transform: translate3d(0px, 132px, 0px); display: block;"></div></div></div>
 <div class="nk-ibx-view show-ibx">
 <div class="nk-ibx-head">
 <div class="nk-ibx-head-actions">
@@ -231,15 +211,9 @@
 <input type="text" class="form-control border-transparent form-focus-none" placeholder="Search by user or message">
 <button class="search-submit btn btn-icon"><em class="icon ni ni-search"></em></button>
 </div>
-</div><!-- .search-wrap -->
-</div><!-- .nk-ibx-head -->
+</div>
+</div>
 <div class="nk-ibx-reply nk-reply" data-simplebar="init"><div class="simplebar-wrapper" style="margin: 0px;"><div class="simplebar-height-auto-observer-wrapper"><div class="simplebar-height-auto-observer"></div></div><div class="simplebar-mask"><div class="simplebar-offset" style="right: 0px; bottom: 0px;"><div class="simplebar-content-wrapper" style="height: 100%; overflow: hidden scroll;"><div class="simplebar-content" style="padding: 0px;background:#F4F6F6;height:700px;">
-
-
-
-
-<!--
-{{ messages }} -->
 
 
 
@@ -257,34 +231,6 @@
 
 
 
-
-
-<!-- <div class="nk-ibx-reply-item nk-reply-item border-0" v-for="(m,key) in messages" :key="key">
-
-
-
-<div class="nk-reply-header nk-ibx-reply-header is-collapsed border-0">
-<div class="nk-reply-desc border-0">
-<div class="nk-reply-avatar user-avatar bg-blue">
-<span>AB</span>
-</div>
-<div class="nk-reply-info">
-<div class="nk-reply-author lead-text text-transform">{{ m.sender_details.firstname }}  <span v-if="m.sender_details.account_type!='institutional'">{{ m.sender_details.lastname }}</span> <span class="date d-sm-none">14 Jan, 2020</span></div>
-
-<div class="nk-reply-msg-excerpt chat-msg bg-info-dim"> {{m.message}} </div>
-</div>
-</div>
-<ul class="nk-reply-tools g-1">
-<li class="date-msg"><span class="date">{{ m.created_at.substring(0,10).split('-').reverse().join('/') }} </span></li>
-</ul>
-</div>
-
-
-
-
-
-
-</div> -->
 
 
 
@@ -354,9 +300,9 @@ No Content
 
 
 
-</div></div></div></div><div class="simplebar-placeholder" style="width: auto; height: 1062px;"></div></div><div class="simplebar-track simplebar-horizontal" style="visibility: hidden;"><div class="simplebar-scrollbar" style="width: 0px; display: none; transform: translate3d(0px, 0px, 0px);"></div></div><div class="simplebar-track simplebar-vertical" style="visibility: visible;"><div class="simplebar-scrollbar" style="height: 159px; transform: translate3d(0px, 0px, 0px); display: block;"></div></div></div><!-- .nk-reply -->
+</div></div></div></div><div class="simplebar-placeholder" style="width: auto; height: 1062px;"></div></div><div class="simplebar-track simplebar-horizontal" style="visibility: hidden;"><div class="simplebar-scrollbar" style="width: 0px; display: none; transform: translate3d(0px, 0px, 0px);"></div></div><div class="simplebar-track simplebar-vertical" style="visibility: visible;"><div class="simplebar-scrollbar" style="height: 159px; transform: translate3d(0px, 0px, 0px); display: block;"></div></div></div>
 </div>
-</div><!-- .nk-ibx-body -->
+</div>
 </div>
 
 
@@ -373,6 +319,11 @@ No Content
 
 </div>
 </div>
+
+
+
+
+
 </app-layout>
 </template>
 <script>
