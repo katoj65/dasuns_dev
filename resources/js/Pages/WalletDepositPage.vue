@@ -9,7 +9,7 @@
 </div>
 <div class="card-body">
 
-
+{{ api_data }}
 
 <div class="card-inner border-radius p-3 m-0">
 <ul class="nav nav-tabs mt-n3">
@@ -130,7 +130,7 @@ Deposit to Wallet
 <script>
 import AppLayout from '../Layouts/AppLayout.vue';
 import InputError from '../Alerts/InputError.vue';
-
+import axios from 'axios';
 export default {
 props:{
 title:{},
@@ -149,6 +149,7 @@ InputError
 data(){return{
 modal:false,
 flash:null,
+api_data:null,
 
 
 
@@ -228,20 +229,55 @@ methods:{
 submit1(){
 this.flash=this.$page.props.flash;
 this.errors=this.$page.props.errors;
-this.form1.post(this.route('wallet-deposit'),{
-onSuccess:()=>{
-this.modal=false;
-this.form1.reset();
-this.$notify({
-title:'Successful',
-message:flash.success,
-type:'success',
-position:'bottom-right'
 
+// this.form1.post(this.route('wallet-deposit'),{
+// onSuccess:()=>{
+// this.modal=false;
+// this.form1.reset();
+// this.$notify({
+// title:'Successful',
+// message:flash.success,
+// type:'success',
+// position:'bottom-right'
+
+// });
+
+// }
+// });
+
+
+const data = JSON.stringify({
+"consumer_key": "8gZ6+scc8ndQ/RtfLIoh3UMG0xX5EO2x",
+"consumer_secret": "hBUJkdS5VjPl1Ovu/06IFtT4GT4="
 });
 
-}
+const config = {
+method: 'post',
+maxBodyLength: Infinity,
+url: 'https://cybqa.pesapal.com/pesapalv3/api/Auth/RequestToken',
+headers: {
+'Content-Type': 'application/json',
+'Accept': 'application/json'
+},
+data : data
+};
+
+
+
+// axios.post('https://cybqa.pesapal.com/pesapalv3').
+// then(response=>{
+// this.api_data=response;
+// }).catch(error=>{alert(error)});
+
+axios(config)
+.then(function (response) {
+  console.log(JSON.stringify(response.data));
+})
+.catch(function (error) {
+  console.log(error);
 });
+
+
 },
 
 

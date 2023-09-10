@@ -680,10 +680,6 @@ $make_payment=new MakePaymentService;
 $make_payment1=$make_payment->pay_service_provider($request->id,$providerID,$percentage_amount);
 //
 
-
-
-
-
 }
 return redirect('/appointment/'.$request->id)->with('success','Service provided successfully.');
 }

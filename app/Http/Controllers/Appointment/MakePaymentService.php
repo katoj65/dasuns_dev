@@ -13,34 +13,30 @@ class MakePaymentService extends Controller
 {
     //
 public function pay_service_provider($id,$providerID,$percentage_amount){
-$account=new EscrowAccountModel;
-$funds=$account->find(1)->amount;
-if($funds>$percentage_amount){
+$account_model=new EscrowAccountModel;
+$account=$account_model->find(1);
+$dasuns_bal=$account->amount;
+if($dasuns_bal>$percentage_amount){
 //deduct funds from dasuns escrow account
-
-$new_funds=$funds-$percentage_amount;
-$account->where('id',1)->update(['amount'=>$new_funds]);
-
-//credit provider account
-$wallet=new DasunsWalletModel;
-$get_wallet=$wallet->where('userID',$providerID)->limit(1)->get();
-foreach($get_wallet as $w);
-$wallet_balance=$w->amount;
-
-//new balance
-$new_bal=$wallet_balance+$percentage_amount;
-$wallet->where('id',$w->id)->where('userID',$providerID)
-->update(['amount'=>$new_bal]);
-
-//recording payment to payment table
-$payment=new PaymentModel;
-$payment->insert(['userID'=>$providerID,
-'amount'=>$new_bal,
-'paid_to'=>'pssp',
-'service_status'=>'completed']);
-
-//
-
+$new_dasuns_bal=$dasuns_bal-$percentage_amount;
+$account->amount=$new_dasuns_bal;
+$account->save();
+//provider wallet
+$wallet_model=new DasunsWalletModel;
+$wallet=$wallet_model->where('userID',$providerID)
+->first();
+$wallet_balance=$wallet->amount+$percentage_amount;
+$wallet->amount=$wallet_balance;
+$wallet->save();
+//update payment table
+$payment_model=new PaymentModel;
+$payment_model->amount=$percentage_amount;
+$payment_model->userID=$providerID;
+$payment_model->appointmentID=$id;
+$payment_model->paid_to='pssp';
+$payment_model->status='success';
+$payment_model->service_status='completed';
+$payment_model->save();
 
 }else{
 return null;
