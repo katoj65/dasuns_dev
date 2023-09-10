@@ -57,8 +57,7 @@ Wallet
 <div class="item-action dropdown ml-2">
 <a href="javascript:void(0)" data-toggle="dropdown"><i class="fe fe-more-vertical"></i></a>
 <div class="dropdown-menu dropdown-menu-right">
-<a href="javascript:void(0)" class="dropdown-item" @click="show=true">Edit institution information</a>
-<a href="javascript:void(0)" class="dropdown-item" @click="show2=true">Edit contact person information</a>
+<a href="javascript:void(0)" class="dropdown-item" @click="show=true">Edit user details</a>
 </div>
 </div>
 </div>

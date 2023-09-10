@@ -1049,54 +1049,31 @@ $request->validate(['firstname'=>'required',
 $user=new User;
 $collect=$user->find(Auth::user()->id);
 //user details
-$error1=false;
-$erro2=false;
-//
-if($collect->firstname!=$request->firstname or
-$collect->lastname!=$request->lastname or
-$collect->gender!=$request->gender or
-$collect->tel!=$request->tel or
-$collect->email!=$request->email or
-$collect->dob!=$request->dob){
-
-//
 $collect->firstname=$request->firstname;
 $collect->lastname=$request->lastname;
 $collect->gender=$request->gender;
 $collect->dob=$request->dob;
 $collect->tel=$request->tel;
 $collect->email=$request->email;
-
-//
-$error1=false;
 $collect->save();
-}else{
-$error1=true;
-}
-
+$user_status=$collect->wasChanged();
 $get=new ServiceProviderProfileModel;
 $collect1=$get->where('userID',Auth::user()->id)->first();
-
-if($collect1->about!=$request->about or
-$collect1->location!=$request->location or
-$collect1->country!=$request->country){
-$error2=false;
 //update the collection
 $collect1->about=$request->about;
 $collect1->location=$request->location;
 $collect1->countryID=$request->country;
 $collect1->save();
-$error2=false;
+$profile_status=$collect1->wasChanged();
+if($user_status==true or $profile_status==true){
+return redirect('/profile')->with('success','Your profile has been updated.');
 }else{
-$error2=true;
+return redirect('/profile')->with('warning','Your profile was not updated.');
 }
 
-//
-if($error1==true and $error2==true){
-return redirect('/profile')->with('warning','Profile was not updated.');
-}else{
-return redirect('/profile')->with('success','Profile has been updated.');
-}
+
+
+
 
 }
 

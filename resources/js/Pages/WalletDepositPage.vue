@@ -5,7 +5,7 @@
 <div class="col-12 col-md-6 p-3">
 <div class="card">
 <div class="card-header">
-<h3 class="card-title">Deposit Funds</h3>
+<h6 class="card-title bold">Deposit Funds</h6>
 </div>
 <div class="card-body">
 
@@ -39,9 +39,7 @@
 
 
 
-<!-- <p class="p-3">
-{{payment_option.mobile.instructions}}
-</p> -->
+
 </div>
 <div class="col-sm-12">
 <div class="form-group">

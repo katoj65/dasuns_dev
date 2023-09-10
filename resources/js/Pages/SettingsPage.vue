@@ -1,13 +1,13 @@
 <template>
 <app-layout>
-<div style="min-height:600px;" class="mt-1 card">
+<div style="min-height:600px;">
 <div class="row p-4">
 <div class="col-12 col-md-3"></div>
 
 <div class="col-12 col-md-6">
-<el-card shadow="never" class="mt-2">
-<div slot="header" class="clearfix text-center">
-<h3>User Settings </h3>
+<div class="mt-2 card">
+<div  class="clearfix text-center card-header">
+<h6>User Settings </h6>
 </div>
 <div class="card-body pt-0">
 
@@ -18,16 +18,15 @@
 <div class="data-value">
 <span v-if="m.item=='email'">{{ m.value }}</span>
 <span v-else class="text-transform">
-
 <span v-if="m.value=='change'">
 <button class="btn btn-dim btn-primary" @click="dialog.change=true">Change Password</button>
 </span>
-<span v-else-if="m.value=='deactivate'">
+<!-- <span v-else-if="m.value=='deactivate'">
 <delete-account></delete-account>
-</span>
-<span v-else>
+</span> -->
+<!-- <span v-else>
 {{ m.value }}
-</span>
+</span> -->
 
 </span>
 </div>
@@ -42,7 +41,7 @@
 
 
 </div>
-</el-card>
+</div>
 </div>
 <div class="col-12 col-md-3"></div>
 </div>
@@ -174,7 +173,7 @@ const item=[
 {id:7,item:'Account Type',value:user.account_type},
 {id:8,item:'Account Status',value:user.status},
 {id:9,item:'Password',value:'change'},
-{id:10,item:'Deactivate Account',value:'deactivate'}
+{id:10,item:'Deactivate Account',value:'.......'}
 
 ];
 

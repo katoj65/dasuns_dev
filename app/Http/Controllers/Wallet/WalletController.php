@@ -137,15 +137,6 @@ $password=Hash::make($request->password);
 $user_password=Auth::user()->password;
 $get=DasunsWalletModel::where('userID',$id)->limit(1)->get();
 
-// if(count($get)==1){
-// foreach($get as $row);
-// $amount=$row->amount;
-// $total=$request->amount+$amount;
-// DasunsWalletModel::where('userID',$id)->update(['amount'=>$total]);
-// return redirect('/wallet')->with('success','Deposited has been created');
-// }else{
-// return redirect('/');
-// }
 
 
 if(count($get)==1){
