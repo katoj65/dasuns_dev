@@ -3,11 +3,10 @@
 <div class="nk-block">
 <page-header :title="title"></page-header>
 
-
 <div class="row p-3">
 <div class="col-12 col-md-3" v-for="p in pssp" :key="p.id">
 
-<Inertia-link :href="route('show.pssp',[p.id])">
+<Inertia-link>
     <div class="card p-0">
         <div class="card-body text-center p-0 mt-5">
             <div class="user-card user-card-s2 mt-3">

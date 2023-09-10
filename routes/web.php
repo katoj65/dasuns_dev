@@ -357,3 +357,10 @@ Route::middleware(['auth:sanctum', 'verified'])->put('/appointment/pssp-pssu-con
 Route::middleware(['auth:sanctum', 'verified'])->put('/profile/update/institution',[ProfileController::class,'update_institution_profile'])->name('profile.edit_institution');
 
 Route::middleware(['auth:sanctum', 'verified'])->put('/profile/update-contact-person',[ProfileController::class,'update_contact_person'])->name('profile.update_contact_person');
+
+Route::middleware(['auth:sanctum', 'verified'])->put('/profile/update-pssp',[ProfileController::class,'update_pssp_profile'])->name('profile.update_pssp');
+
+Route::middleware(['auth:sanctum', 'verified'])->put('/profile/update-pssu-personal',[ProfileController::class,'update_pssu_personal'])->name('profile.update-pssu-personal');
+
+
+

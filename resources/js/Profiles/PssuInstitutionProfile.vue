@@ -138,7 +138,7 @@ Wallet
 <li class="data-item">
 <div class="data-col">
 <div class="data-label" style="font-weight:bold;">
-ORGANISATION'S CONTACT PERSON
+ORGANISATION'S CONTACT PERSON DETAILS
 </div>
 <div class="data-value text-transform">
 
@@ -364,8 +364,6 @@ Edit institution contact person details
 </a>
 </div>
 <div class="modal-body" style="max-height:500px;overflow:auto">
-
-{{ form2 }}
 
 <div class="form-group">
 <label class="form-label" for="default-01">

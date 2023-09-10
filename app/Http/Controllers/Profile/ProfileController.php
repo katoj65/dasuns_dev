@@ -36,6 +36,7 @@ use App\Http\Controllers\Administration\AdministrationController;
 use App\Models\AccountStatusMessageModel;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Profile\PSSU;
+use App\Http\Controllers\Profile\PSSP;
 
 
 
@@ -90,16 +91,13 @@ if($role=='admin'){
 $data['response']=null;
 
 }elseif($role=='pssp'){
-
-$data['response']=null;
+$pssp=new PSSP;
+$data['response']=$pssp->profile();
 
 }elseif($role=='pssu'){
 
 $pssu=new PSSU;
 $data['response']=$pssu->profile();
-
-
-
 
 }elseif($role=='reception'){
 
@@ -888,15 +886,15 @@ $request->validate([
 ],['required'=>'* Field is required.']);
 
 OrganisationContactPersonModel::insert([
-    'organisationID'=>Auth::user()->id,
-    'firstname'=>$request->firstname,
-    'lastname'=>$request->lastname,
-    'gender'=>$request->gender,
-    'tel'=>$request->tel,
-    'email'=>$request->email,
-    'role'=>$request->role
+'organisationID'=>Auth::user()->id,
+'firstname'=>$request->firstname,
+'lastname'=>$request->lastname,
+'gender'=>$request->gender,
+'tel'=>$request->tel,
+'email'=>$request->email,
+'role'=>$request->role
 
-    ]);
+]);
 
 return redirect('/profile')->with('success','Organisation contact person has been added.');
 }
@@ -989,6 +987,8 @@ return redirect('/profile')->with('success','Profile was updated.');
 
 
 
+
+
 //update institution contact person information
 public function update_contact_person(Request $request,OrganisationContactPersonModel $contact){
 $request->validate(['firstname'=>'required',
@@ -1029,6 +1029,128 @@ return redirect('/profile')->with('warning','Contact person information was not 
 return redirect('/profile')->with('error','No contact person information found');
 }
 }
+
+
+
+
+//update pssp user details
+public function update_pssp_profile(Request $request){
+$request->validate(['firstname'=>'required',
+'lastname'=>'required',
+'gender'=>'required',
+'dob'=>'required',
+'tel'=>'required',
+'email'=>'required',
+'location'=>'required',
+'country'=>'required',
+'about'=>'required'
+],['required'=>'Field is required.']);
+//
+$user=new User;
+$collect=$user->find(Auth::user()->id);
+//user details
+$error1=false;
+$erro2=false;
+//
+if($collect->firstname!=$request->firstname or
+$collect->lastname!=$request->lastname or
+$collect->gender!=$request->gender or
+$collect->tel!=$request->tel or
+$collect->email!=$request->email or
+$collect->dob!=$request->dob){
+
+//
+$collect->firstname=$request->firstname;
+$collect->lastname=$request->lastname;
+$collect->gender=$request->gender;
+$collect->dob=$request->dob;
+$collect->tel=$request->tel;
+$collect->email=$request->email;
+
+//
+$error1=false;
+$collect->save();
+}else{
+$error1=true;
+}
+
+$get=new ServiceProviderProfileModel;
+$collect1=$get->where('userID',Auth::user()->id)->first();
+
+if($collect1->about!=$request->about or
+$collect1->location!=$request->location or
+$collect1->country!=$request->country){
+$error2=false;
+//update the collection
+$collect1->about=$request->about;
+$collect1->location=$request->location;
+$collect1->countryID=$request->country;
+$collect1->save();
+$error2=false;
+}else{
+$error2=true;
+}
+
+//
+if($error1==true and $error2==true){
+return redirect('/profile')->with('warning','Profile was not updated.');
+}else{
+return redirect('/profile')->with('success','Profile has been updated.');
+}
+
+}
+
+
+
+
+
+
+
+
+
+//update pssu personal infromation
+public function update_pssu_personal(Request $request){
+//
+$user=User::find(Auth::user()->id);
+$request->validate([
+'firstname'=>'required',
+'lastname'=>'required',
+'tel'=>'required',
+'dob'=>'required',
+'gender'=>'required',
+'location'=>'required',
+'country'=>'required'],['required'=>'Field is required.']);
+//update model
+$user->firstname=$request->firstname;
+$user->lastname=$request->lastname;
+$user->gender=$request->gender;
+$user->dob=$request->dob;
+$user->tel=$request->tel;
+$user->save();
+$user_status=$user->wasChanged();
+//profile model
+$profile=new UserProfileModel;
+$profile=$profile->where('userID',$user->id)->first();
+//update model
+$profile->location=$request->location;
+$profile->countryID=$request->country;
+$profile->save();
+$profile_status=$profile->wasChanged();
+if($profile_status==true or $user_status==true){
+return redirect('/profile')->with('success','User information has been updated.');
+}else{
+return redirect('/profile')->with('warning','User information was not changed.');
+}
+
+}
+
+
+
+
+
+
+
+
 
 
 

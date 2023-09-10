@@ -1,17 +1,32 @@
 <template>
 <app-layout>
+
+
+<!-- {{ response }} -->
+
+
 <pssu-institution-profile v-if="role=='pssu' && account_type=='institutional'" :response="response" :errors="errors"/>
+<pssu-perssonal v-else-if="role=='pssu' && account_type=='personal'" :response="response" :errors="errors"></pssu-perssonal>
+<pssp-profile v-else-if="role=='pssp'" :response="response" :errors="errors"></pssp-profile>
+
+
+
+
+
 </app-layout>
 </template>
 <script>
 import AppLayout from '@/Layouts/AppLayout';
+import PsspProfile from '@/Profiles/PsspProfile';
 import PssuInstitutionProfile from '@/Profiles/PssuInstitutionProfile';
+import PssuPerssonal from '@/Profiles/PssuPerssonal';
 
 export default {
 components:{
 AppLayout,
-PssuInstitutionProfile
-
+PssuInstitutionProfile,
+PsspProfile,
+PssuPerssonal
 },
 
 props:{

@@ -501,7 +501,7 @@ url:'appointments'},
 title:'SERVICE PROVIDERS',
 count:this.response.user_data.dashboard.service_provider_count,
 id:1,
-url:'service-providers'},
+url:'user.service-providers'},
 
 {icon:'icon ni ni-bar-chart-fill',
 title:'RECOMMENDATIONS',

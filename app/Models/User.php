@@ -116,7 +116,7 @@ return $query->select('service_provider_experience.organisation_name',
 'service_provider_experience.position',
 'service_provider_experience.from_date',
 'service_provider_experience.to_date')
-->join('users','service_provider_experience.userID','=','users.id')
+->join('service_provider_experience','users.id','=','service_provider_experience.userID')
 ->get();
 }
 
@@ -192,20 +192,32 @@ $get=$query->select('users.id',
 
 }else{
 
-$get=$query->select('*')
+$get=$query->select('users.id',
+'users.firstname',
+'users.lastname',
+'users.gender',
+'users.dob',
+'users.tel',
+'users.email',
+'users.status',
+'users.role',
+'users.created_at',
+'country.name as country',
+'country.id as countryID',
+'user_profile.location',
+'users.account_type'
+
+
+
+)
 ->where('users.id',Auth::user()->id)
 ->join('user_profile','users.id','=','user_profile.userID')
+->join('country','user_profile.countryID','=','country.id')
 ->get();
 
 }
 
 
-
-}else{
-
-$get=$query->select('*')
-->where('users.id',Auth::user()->id)
-->get();
 
 }
 
@@ -219,7 +231,35 @@ return $row;
 
 
 
+//get pssp Profile
+public function scopeProfile_pssp($query){
+$row=[];
+$get=$query->select('users.firstname',
+'users.lastname',
+'users.gender',
+'users.tel',
+'users.email',
+'users.dob',
+'users.id',
+'users.created_at',
+'users.account_type',
+'users.status',
+'service_provider_profile.location',
+'country.name as country',
+'country.id as countryID',
+'service_provider_profile.about')
 
+//
+->where('users.id',Auth::user()->id)
+->join('service_provider_profile','users.id','=','service_provider_profile.userID')
+->join('country','service_provider_profile.countryID','=','country.id')
+->get();
+if(count($get)==1){
+foreach($get as $row);
+$row=$row;
+}
+return $row;
+}
 
 
 

@@ -14,7 +14,7 @@ use App\Models\InstitutionTypeModel;
 
 class PSSU extends Controller
 {
-    
+
 //
 public function profile(){
 $user=new User;
