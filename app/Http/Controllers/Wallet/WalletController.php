@@ -16,6 +16,7 @@ use App\Models\EscrowAccountModel;
 use App\Http\Controllers\Role\RoleController;
 
 
+
 class WalletController extends Controller{
     /**
      * Display a listing of the resource.
@@ -258,9 +259,26 @@ return Inertia::render('WalletWithdrawPage',$data);
 
 
 //wallet histroy
-public function wallet_history(Request $request){
+public function wallet_history(PaymentModel $payment){
+if(Auth::user()->role=='pssp'){
+$model=$payment->select('*')
+->where('payment.userID',Auth::user()->id)
+->join('appointment','payment.userID','=','appointment.userID')
+->get();
+}else{
+$model=$payment->select('payment.amount',
+'support_service.name',
+'payment.created_at')
+->where('payment.userID',Auth::user()->id)
+->join('appointment','payment.userID','=','appointment.userID')
+->join('support_service','appointment.serviceID','=','support_service.id')
+->orderby('payment.created_at','DESC')
+->get();
+}
+
+
 $data['title']='Wallet history';
-$data['response']=[];
+$data['response']=['payments'=>$model];
 return Inertia::render('WalletHistoryPage',$data);
 }
 
@@ -310,6 +328,9 @@ return redirect('/');
 
 }
 }
+
+
+
 
 
 

@@ -10,16 +10,9 @@
 
 
 
-
-
-
-
-
-
-
     <div class="card" style="min-height:600px;">
         <div class="card-header">
-            <h3 class="card-title bold">Wallet History</h3>
+            <h3 class="card-title bold">Payment History</h3>
             <div class="card-options">
                 <Inertia-link :href="route('wallet')" style="font-size:13px;">
 Wallet
@@ -37,16 +30,19 @@ Wallet
 <tr>
 <th>Date</th>
 <th>Item</th>
-<th>Status</th>
+<th>amount</th>
 </tr>
 </thead>
-<tbody>
-<tr v-for="n in 40" :key="n">
-<td>Mark</td>
-<td>Otto</td>
-<td>@mdo</td>
+<tbody v-if="response.payments.length>0">
+<tr v-for="(p,key) in response.payments" :key="key">
+<td>{{ p.created_at.substring(0,10).split('-').reverse().join('/') }} </td>
+<td>{{ p.name }} </td>
+<td>{{ p.amount }} </td>
 </tr>
 
+</tbody>
+<tbody>
+<tr><td colspan="3">No content</td></tr>
 </tbody>
 </table>
 
