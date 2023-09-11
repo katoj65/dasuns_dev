@@ -37,6 +37,11 @@ $payment_model->paid_to='pssp';
 $payment_model->status='success';
 $payment_model->service_status='completed';
 $payment_model->save();
+//update appointment
+$appointment_model=new AppointmentModel;
+$appointment=$appointment_model->find($id);
+$appointment->status='completed';
+$appointment->save();
 
 }else{
 return null;

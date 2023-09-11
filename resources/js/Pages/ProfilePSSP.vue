@@ -4,7 +4,7 @@
 <div class="row p-3">
 
 
-
+<!-- {{ response.profile }} -->
 
 
 <div class="col-12 col-md-12"></div>
@@ -33,13 +33,13 @@
 
 
 
-<button class="btn btn-default btn-sm" style="background:#37BEA7;color:white;font-weight:bold;border:none;" @click="show=true" v-if="busy==0">
+<button class="btn btn-default btn-sm" style="background:#37BEA7;color:white;font-weight:bold;border:none;" @click="show=true">
 <em class="icon ni ni-edit"></em> Make Appointment</button>
 
 
 
-<button class="btn btn-default btn-sm" style="background:#37BEA7;color:white;font-weight:bold;border:none;" v-else>
-<em class="icon ni ni-clock-fill"></em> Busy</button>
+<!-- <button class="btn btn-default btn-sm" style="background:#37BEA7;color:white;font-weight:bold;border:none;" v-else>
+<em class="icon ni ni-clock-fill"></em> Busy</button> -->
 
 
 
@@ -250,7 +250,7 @@
 
 
     <div class="row mb-3">
-    <div class="col-12 col-md-6">
+    <div class="col-12 col-md-12">
 
     <div class="form-group">
     <label class="form-label" for="default-01">
@@ -264,7 +264,7 @@
 
 
     </div>
-    <div class="col-12 col-md-6">
+    <div class="col-12 col-md-12 mt-3">
 
 
 
@@ -335,6 +335,11 @@
     </div>
 
     </div>
+
+
+
+
+
     <div class="col-12 col-md-6">
     <div class="form-group">
     <label class="form-label" for="default-01"> To Time

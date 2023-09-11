@@ -20,7 +20,7 @@
 <em class="icon ni ni-user-circle-fill" style="font-size:50px;"></em>
 <h5 class="mt-3 mb-0 text-transform mb-2">{{ user.firstname }} {{ user.lastname }} </h5>
 <strong>Service Number:</strong> <span>{{ response.number.number }} </span>
-<Inertia-link :href="route('profile.pssp',{id:user.id})" class="btn btn-default btn-sm mt-2">View Profile</Inertia-link>
+<!-- <Inertia-link :href="route('profile.pssp',{id:user.id})" class="btn btn-default btn-sm mt-2">View Profile</Inertia-link> -->
 
 </div>
 </div>

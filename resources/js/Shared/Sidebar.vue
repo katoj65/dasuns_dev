@@ -96,6 +96,7 @@ admin_menu:[
 {name:'Dasuns Services',url:'services',icon:'icon ni ni-brick'},
 {name:'Payments',url:'wallet.admin',icon:'icon ni ni-wallet-alt'},
 {name:'Pages',url:'sections',icon:'icon ni ni-article'},
+{name:'Approvals',url:'approvals',icon:'icon ni ni-note-add-fill'},
 ],
 
 

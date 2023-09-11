@@ -61,6 +61,7 @@ $request->validate([
 'end'=>['required'],
 'location'=>['required']],
 ['required'=>'* Required.']);
+
 //
 $date=explode('-',$request->date);
 $date=join($date);
@@ -68,6 +69,10 @@ $end_date=explode('-',$request->end_date);
 $end_date=join($end_date);
 $curdate=date('Ymd');
 //
+
+
+
+
 if($date>=$curdate){
 if($date<=$end_date or $end_date==null){
 
@@ -83,6 +88,8 @@ AppointmentModel::insert([
 'location'=>$request->location,
 'comment'=>$request->comment]);
 $get=$appointment->get_created_appointment($request);
+
+
 
 if(count($get)==1){
 foreach($get as $row);
@@ -679,14 +686,11 @@ $percentage_amount=$percentage->calculate_dasuns_percentage($request->id);
 $make_payment=new MakePaymentService;
 $make_payment1=$make_payment->pay_service_provider($request->id,$providerID,$percentage_amount);
 //
-
 }
 return redirect('/appointment/'.$request->id)->with('success','Service provided successfully.');
 }
 
 
-
-//Dasuns percentage services
 
 
 

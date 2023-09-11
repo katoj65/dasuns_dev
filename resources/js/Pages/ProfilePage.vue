@@ -2,7 +2,6 @@
 <app-layout>
 
 
-<!-- {{ response }} -->
 
 
 <pssu-institution-profile v-if="role=='pssu' && account_type=='institutional'" :response="response" :errors="errors"/>

@@ -428,21 +428,71 @@ if(count($get)>0){
 foreach($get as $row){
 $dd=date_create($row->date);
 $dd=date_format($dd,'Ymd');
+$from=date_create($row->from);
+$from=date_format($from,'Hi');
+$to=date_create($row->to);
+$to=date_format($to,'Hi');
+$cur_time=date('Hi');
+
+
+
 if($row->end_date==null){
 if($dd==$date){
-$data[]=$row;
-}
+
+//curtime formation
+if($cur_time>=$from and $cur_time<$to){
+$status='ongoing';
 }else{
+$status='ended';
+}
+
+
+
+//responnse
+$data[]=['date'=>$row->date,
+'end_date'=>$row->end_date,
+'to'=>$row->to,
+'from'=>$from,
+'status'=>$status];
+}
+
+
+}else{
+
 $de=date_create($row->end_date);
 $de=date_format($de,'Ymd');
 if($de>=$date and $dd<=$date){
-$data[]=$row;
+
+
+//curtime formation
+if($cur_time>=$from and $cur_time<$to){
+$status='ongoing';
+}else{
+$status='ended';
+}
+
+
+//response
+$data[]=['date'=>$row->date,
+'end_date'=>$row->end_date,
+'to'=>$row->to,
+'from'=>$from,
+'status'=>$status];
+}
+
+
 }
 }
 }
+$data;
 }
-return count($data);
-}
+
+
+
+
+
+
+
 
 
 
@@ -466,7 +516,12 @@ $where='userID';
 //user is service provider
 }elseif(Auth::user()->role=='pssp'){
 $where='providerID';
+}else{
+$where='userID';
 }
+
+
+
 //
 $get=$query->select('id','date','to','from','end_date','user_confirm','provider_confirm','userID','providerID')
 ->where($where,Auth::user()->id)

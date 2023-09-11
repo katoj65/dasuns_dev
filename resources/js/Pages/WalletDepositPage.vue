@@ -31,7 +31,7 @@
 <span>Bank Transfer</span></a>
 </li>
 </ul>
-<div class="tab-content" style="max-height:450px;overflow-y:auto;">
+<div class="tab-content" style="max-height:450px;overflow:hidden;">
 <div class="tab-pane active" id="tabItem5">
 <form @submit.prevent="submit1">
 <div class="row gy-4">
@@ -263,11 +263,6 @@ data : data
 };
 
 
-
-// axios.post('https://cybqa.pesapal.com/pesapalv3').
-// then(response=>{
-// this.api_data=response;
-// }).catch(error=>{alert(error)});
 
 axios(config)
 .then(function (response) {

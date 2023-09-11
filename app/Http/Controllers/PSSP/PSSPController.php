@@ -113,8 +113,42 @@ $rate=new PSSPRatingModel;
 $appointment=new AppointmentModel;
 $recommend=new DasunsRecommendationsModel;
 
-//pssp details
 
+//check appointments
+$app=$appointment->select('date','end_date')->where('providerID',$request->segment(2))->where('status','accepted')->get();
+$items=[];
+if(count($app)>0){
+foreach($app as $a){
+$start_date=date_create($a->date);
+$start_date=date_format($start_date,'Ymd');
+$end_date=date_create($a->end_date);
+$end_date=date_format($end_date,'Ymd');
+$cur_date=date('Ymd');
+if($a->end_date=null){
+
+if($cur_date<=$start_date and $cur_date<=$end_date){
+
+$items[]=$a;
+
+}
+}else{
+if($cur_date==$start_date){
+
+$items[]=$a;
+
+}
+}
+}
+}
+
+
+
+
+
+
+
+
+//pssp details
 $profile=[
 'id'=>$get->id,
 'firstname'=>$get->firstname,
@@ -128,8 +162,9 @@ $profile=[
 'service_number'=>$user->show_dasuns_number($get->id),
 'rating'=>$rate->sum_rating($get->id),
 'recommendations'=>$recommend->count_recommendations($get->id),
-'tasks_complete'=>$appointment->count_pssp_tasks_completed($get->id),
-'schedule_count'=>$appointment->pssp_schedule_count($get->id),
+'tasks_complete'=>$appointment->where('providerID',$get->id)->where('status','completed')->count(),
+'schedule_count'=>$appointment->pssp_schedule_count($get->id)->get(),
+'test'=>$items,
 
 ];
 

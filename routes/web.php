@@ -31,7 +31,7 @@ use App\Http\Controllers\Pages\PageController;
 use App\Http\Controllers\Notification\NotificationController;
 use App\Http\Controllers\Chat\ChatController;
 use App\Http\Controllers\Messages\MessageController;
-
+use App\Http\Controllers\Approval\ApprovalController;
 
 
 
@@ -362,5 +362,7 @@ Route::middleware(['auth:sanctum', 'verified'])->put('/profile/update-pssp',[Pro
 
 Route::middleware(['auth:sanctum', 'verified'])->put('/profile/update-pssu-personal',[ProfileController::class,'update_pssu_personal'])->name('profile.update-pssu-personal');
 
+Route::middleware(['auth:sanctum', 'verified'])->get('/approvals',[ApprovalController::class,'index'])->name('approvals');
 
+Route::middleware(['auth:sanctum', 'verified'])->put('/approval/status-approve',[ApprovalController::class,'update'])->name('approval.status_approve');
 
