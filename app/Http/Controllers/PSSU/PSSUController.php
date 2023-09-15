@@ -65,17 +65,35 @@ return Inertia::render('ServiceUserPage',$data);
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
+public function show(Request $request, User $user)
+{
+//
+$profile=$user->select('users.firstname',
+'users.lastname',
+'users.gender',
+'users.email',
+'users.tel',
+'users.dob',
+'users.created_at',
+'country.name as country',
+'dasuns_user_number.number as number',
+'user_profile.location')
+->where('users.id',$request->segment(2))
+->where('users.role','pssu')
+->where('users.status','active')
+->join('dasuns_user_number','users.id','=','dasuns_user_number.userID')
+->join('user_profile','users.id','=','user_profile.userID')
+->join('country','user_profile.countryID','=','country.id')
+->first();
+
+
 $data['title']='profile';
 $data['response']=[
-'profile'=>null
-
+'profile'=>$profile,
 ];
 
 
-return Inertia::render('ProfilePSSP',$data);
+return Inertia::render('ProfileUserPage',$data);
 
 }
 

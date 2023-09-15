@@ -30,8 +30,16 @@
 <tbody v-if="response.users.length>0">
 <tr v-for="(u,key) in response.users" :key="key">
 
-<td class="text-transform">{{ u.firstname }} </td>
-<td class="text-transform">{{ u.lastname=='none'?'-':u.lastname }} </td>
+<td class="text-transform">
+<Inertia-link :href="route('user.profile',{id:u.id})" class="text-black">{{ u.firstname }}</Inertia-link>
+</td>
+<td class="text-transform">
+<div v-if="u.lastname=='none'">
+</div>
+<div v-else>
+<Inertia-link :href="route('user.profile',{id:u.id})" class="text-black">{{ u.lastname }}</Inertia-link>
+</div>
+</td>
 <td class="text-transform">{{ u.gender }} </td>
 <td>{{ u.number}} </td>
 <td>{{ u.tel }} </td>

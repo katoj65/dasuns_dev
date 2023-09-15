@@ -374,3 +374,5 @@ Route::middleware(['auth:sanctum', 'verified'])->put('/profile/update-biodata',[
 Route::middleware(['auth:sanctum', 'verified'])->put('profile/update/empolyee',[ProfileController::class,'update_employee_profile'])->name('profile.update_employee');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/service-users',[PSSUController::class,'index'])->name('service.users');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/profile/{id}/user',[PSSUController::class,'show'])->name('user.profile');
