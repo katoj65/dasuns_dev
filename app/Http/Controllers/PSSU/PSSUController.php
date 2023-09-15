@@ -17,6 +17,7 @@ use App\Http\Controllers\Wallet\WalletController;
 use App\Models\ActivityLogModel;
 use App\Models\DasunsRecommendationsModel;
 use App\Models\DisabilityModel;
+use Inertia\Inertia;
 
 
 
@@ -29,9 +30,22 @@ class PSSUController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(User $user)
     {
         //
+
+$data['title']='Service user';
+$data['response']=['users'=>$user->select('users.id',
+'users.firstname',
+'users.lastname',
+'users.gender',
+'users.tel',
+'users.email',
+'dasuns_user_number.number')
+->join('dasuns_user_number','users.id','=','dasuns_user_number.userID')
+->where('users.role','pssu')->where('users.status','active')->get()];
+return Inertia::render('ServiceUserPage',$data);
+
     }
 
     /**

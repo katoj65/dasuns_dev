@@ -63,7 +63,9 @@ $user_data['statistics']=[
 'count_user'=>count(User::get()),
 'count_PSSP'=>count(User::where('role','pssp')->get()),
 'count_admin'=>count(User::where('role','!=','pssu')->where('role','!=','pssp')->get()),
-'count_services'=>count(SupportServiceModel::get()),
+
+'count_service_users'=>User::where('role','pssu')->where('status','active')->count(),
+
 $user_data['get_pssp_services']=$this->get_registered_positions(),
 ];
 
@@ -74,8 +76,10 @@ $user_data['wallet']=number_format(DasunsWalletModel::select('amount')->sum('amo
 $user_data['counts']=[
 'pssp'=>number_format(DasunsWalletModel::select('amount')->join('users','dasuns_wallet.userID','=','users.id')
 ->where('users.role','pssp')->sum('amount')),
+
 'pssu'=>number_format(DasunsWalletModel::select('amount')->join('users','dasuns_wallet.userID','=','users.id')
 ->where('users.role','pssu')->sum('amount')),
+
 'other'=>number_format(DasunsWalletModel::select('amount')->join('users','dasuns_wallet.userID','=','users.id')
 ->where('users.role','!=','pssu')
 ->where('users.role','!=','pssp')

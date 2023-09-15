@@ -1118,10 +1118,6 @@ return redirect('/profile')->with('success','Your profile has been updated.');
 return redirect('/profile')->with('warning','Your profile was not updated.');
 }
 
-
-
-
-
 }
 
 
@@ -1132,7 +1128,7 @@ return redirect('/profile')->with('warning','Your profile was not updated.');
 
 
 
-//update pssu personal infromation
+//update pssu personal infromation.
 public function update_pssu_personal(Request $request){
 //
 $user=User::find(Auth::user()->id);
@@ -1144,7 +1140,7 @@ $request->validate([
 'gender'=>'required',
 'location'=>'required',
 'country'=>'required'],['required'=>'Field is required.']);
-//update model
+//update model.
 $user->firstname=$request->firstname;
 $user->lastname=$request->lastname;
 $user->gender=$request->gender;
@@ -1152,10 +1148,10 @@ $user->dob=$request->dob;
 $user->tel=$request->tel;
 $user->save();
 $user_status=$user->wasChanged();
-//profile model
+//profile model.
 $profile=new UserProfileModel;
 $profile=$profile->where('userID',$user->id)->first();
-//update model
+//update model.
 $profile->location=$request->location;
 $profile->countryID=$request->country;
 $profile->save();
@@ -1173,15 +1169,14 @@ return redirect('/profile')->with('warning','User information was not changed.')
 
 
 
-//update user location
+//update user location.
 public function update_employee_profile(Request $request, EmployeeProfileModel $profile){
 $request->validate(['country'=>'required','location'=>'required']);
-//
+//collect.
 $collect=$profile->where('userID',$request->id)->first();
 $collect->location=$request->location;
 $collect->countryID=$request->country;
 $collect->save();
-
 if($collect->wasChanged()){
 return redirect('/profile')->with('success','Profile was updated.');
 }else{
@@ -1192,8 +1187,7 @@ return redirect('/profile')->with('warning','Profile was not changed.');
 
 
 
-
-
+//
 
 
 

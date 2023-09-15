@@ -614,10 +614,6 @@ type:this.$page.props.flash.success!=null?'success':'warning'
 },
 
 
-
-
-
-
 //
 submit(){
 this.form.put(this.route('profile.update_biodata'),{
@@ -643,8 +639,6 @@ this.form3.country=event.target.value;
 },
 
 
-
-
 //
 select_country(event){
 this.form.country=event.target.value;
@@ -665,13 +659,11 @@ this.form.id=user.id;
 //format gender
 
 
-
 },
+
 mounted(){
 this.set_fields();
 this.set_form3_attributes();
-
-
 
 
 }
