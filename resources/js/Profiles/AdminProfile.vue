@@ -1,6 +1,8 @@
 <template>
 <div class="section-body mt-3 mb-3">
 
+
+
 <div class="container-fluid" v-if="auth.status=='active'">
 <div class="row clearfix">
 <div class="col-lg-4 col-md-12 mb-3">
@@ -64,8 +66,9 @@ Wallet
 <a href="javascript:void(0)" data-toggle="dropdown"><i class="fe fe-more-vertical"></i></a>
 <div class="dropdown-menu dropdown-menu-right">
 <a href="javascript:void(0)" class="dropdown-item" @click="show=true">Edit profile</a>
-
+<a href="javascript:void(0)" class="dropdown-item" @click="show2=true">Edit location</a>
 </div>
+
 </div>
 </div>
 </div>
@@ -128,6 +131,11 @@ Wallet
 </div>
 </div>
 </div>
+
+
+
+
+
 <div class="container-fruid" v-else-if="auth.status=='pending'">
 <div class="row">
 <div class="col-12 col-md-3"></div>
@@ -187,9 +195,9 @@ Fill in your profile information
 
 <div class="form-group">
 <div class="form-control-wrap">
-    <label class="form-label" for="default-01">
-        <input-error :error="errors.location"></input-error>
-        </label>
+<label class="form-label" for="default-01">
+<input-error :error="errors.location"></input-error>
+</label>
 <input type="text" class="form-control form-control-outlined" id="outlined" placeholder="Enter your location" v-model="form2.location"/>
 
 </div>
@@ -235,16 +243,6 @@ Fill in your profile information
 
 </div>
 </div>
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -392,6 +390,66 @@ Male
 
 
 
+<form style="position:fixed;width:100%;left:0;top:0;z-index:10000;height:100%;background-color: hsla(210, 29%, 18%, 0.3);" v-if="show2==true" @submit.prevent="submit3">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-header" style="background: #37BEA7;border:none;">
+<h5 class="modal-title" style="color:white;">
+Edit user location
+</h5>
+<a href="javascript:void(0)" class="close" data-dismiss="modal" aria-label="Close" @click="show2=false">
+
+</a>
+</div>
+<div class="modal-body" style="max-height:500px;overflow:auto">
+
+
+<div class="form-group">
+<label class="form-label" for="default-01">
+<input-error :error="errors.location"></input-error>
+</label>
+<div class="form-control-wrap">
+<input type="text" class="form-control" id="default-01" placeholder="Enter location" v-model="form3.location">
+</div>
+</div>
+
+
+
+<div class="form-group">
+<div class="form-control-wrap">
+<label class="form-label" for="default-01">
+<input-error :error="errors.country"></input-error>
+</label>
+<select class="form-control form-control-outlined" id="outlined" @change="select_country3($event)">
+<option :value="user.countryID">{{ user.country }} </option>
+<option v-for="(c,key) in country" :key="key" :value="c.id">
+{{ c.name }}
+</option>
+</select>
+</div>
+</div>
+
+
+
+
+</div>
+<div class="modal-footer bg-light">
+<span class="sub-text">
+<input type="submit" class="button" value="Save" style="border-radius:10px"/>
+</span>
+</div>
+</div>
+</div>
+</form>
+
+
+
+
+
+
+
+
+
 
 
 
@@ -420,6 +478,9 @@ errors:{},
 data(){
 return{
 
+
+//
+show2:false,
 gender:[{name:'male'},{name:'female'}],
 //flash
 flash:this.$page.props.flash,
@@ -436,12 +497,26 @@ dob:'',
 }),
 //
 show:false,
+
 //form2
 form2:this.$inertia.form({
 location:'',
 country:'',
 id:null,
 }),
+
+
+//set content
+set_country:null,
+//
+form3:this.$inertia.form({
+location:'',
+country:'',
+id:null,
+}),
+
+
+
 
 
 
@@ -452,24 +527,6 @@ id:null,
 //
 
 computed:{
-submit2(){
-const id=this.response.auth.id;
-this.form2.id=id;
-this.form2.post(this.route('profile.complete_profile'),{
-onSuccess:()=>{
-this.$notify({
-title:'Successful',
-message:this.$page.props.flash.success,
-position:'bottom-right',
-type:'success'
-
-});
-}
-});
-},
-
-
-
 
 user(){
 return this.response.user;
@@ -510,14 +567,60 @@ return this.response.auth;
 
 },
 
+
+
+
+
 methods:{
+//format country
+set_form3_attributes(){
+this.form3.id=this.response.user.id;
+this.form3.country=this.response.user.countryID;
+this.form3.location=this.response.user.location;
+},
+
+
+//
+submit2(){
+const id=this.response.auth.id;
+this.form2.id=id;
+this.form2.post(this.route('profile.complete_profile'),{
+onSuccess:()=>{
+this.$notify({
+title:'Successful',
+message:this.$page.props.flash.success,
+position:'bottom-right',
+type:'success'
+
+});
+}
+});
+},
+
+
+//
+submit3(){
+this.form3.put(this.route('profile.update_employee'),{
+onSuccess:()=>{
+this.show2=false;
+this.$notify({
+title:this.$page.props.flash.success!=null?'Successful':'Warning',
+message:this.$page.props.flash.success!=null?this.$page.props.flash.success:this.$page.props.flash.warning,
+position:'bottom-right',
+type:this.$page.props.flash.success!=null?'success':'warning'
+});
+}
+});
+},
+
+
 
 
 
 
 //
 submit(){
-this.form.put(this.route('profile.update-pssu-personal'),{
+this.form.put(this.route('profile.update_biodata'),{
 onSuccess:()=>{
 this.show=false;
 this.$notify({
@@ -533,6 +636,10 @@ type:this.$page.props.flash.success!=null?'success':'warning'
 
 select_country2(event){
 this.form2.country=event.target.value;
+},
+
+select_country3(event){
+this.form3.country=event.target.value;
 },
 
 
@@ -562,6 +669,11 @@ this.form.id=user.id;
 },
 mounted(){
 this.set_fields();
+this.set_form3_attributes();
+
+
+
+
 }
 
 

@@ -196,10 +196,32 @@ return $request;
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
         //
-    }
+
+$request->validate(['firstname'=>'required',
+'lastname'=>'required',
+'gender'=>'required',
+'dob'=>'required',
+'tel'=>'required'],['required'=>'Field is required.']);
+
+//model
+$collect=$user->find(Auth::user()->id);
+$collect->firstname=$request->firstname;
+$collect->lastname=$request->lastname;
+$collect->gender=$request->gender;
+$collect->tel=$request->tel;
+$collect->dob=$request->dob;
+$collect->save();
+
+if($collect->wasChanged()==true){
+return redirect('/profile')->with('success','Profile has been updated.');
+}else{
+return redirect('/profile')->with('warning','Profile was not updated.');
+}
+
+}
 
     /**
      * Remove the specified resource from storage.
@@ -1149,6 +1171,24 @@ return redirect('/profile')->with('warning','User information was not changed.')
 
 
 
+
+
+//update user location
+public function update_employee_profile(Request $request, EmployeeProfileModel $profile){
+$request->validate(['country'=>'required','location'=>'required']);
+//
+$collect=$profile->where('userID',$request->id)->first();
+$collect->location=$request->location;
+$collect->countryID=$request->country;
+$collect->save();
+
+if($collect->wasChanged()){
+return redirect('/profile')->with('success','Profile was updated.');
+}else{
+return redirect('/profile')->with('warning','Profile was not changed.');
+}
+
+}
 
 
 

@@ -54,7 +54,22 @@ public function scopeShow($query,$id){
 
 if(Auth::user()->role=='pssp'){
 //
-$get=$query->select('appointment.date','appointment.id','appointment.end_date','appointment.from','appointment.to','appointment.location','appointment.comment','users.firstname','users.lastname','users.tel','users.email','users.gender','users.dob','appointment.status','dasuns_user_number.number','support_service.name as service',
+$get=$query->select('appointment.date',
+'appointment.id',
+'appointment.end_date',
+'appointment.from',
+'appointment.to',
+'appointment.location',
+'appointment.comment',
+'users.firstname',
+'users.lastname',
+'users.tel',
+'users.email',
+'users.gender',
+'users.dob',
+'appointment.status',
+'dasuns_user_number.number',
+'support_service.name as service',
 'appointment.created_at',
 'users.id as providerID',
 'support_service.id as serviceID')

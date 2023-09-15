@@ -27,7 +27,8 @@ $get=$user->select(
 'users.status',
 'users.role',
 'employee_profile.location',
-'country.name as country')
+'country.name as country',
+'country.id as countryID')
 
 ->where('users.id',Auth::user()->id)
 ->join('employee_profile','users.id','=','employee_profile.userID')
@@ -51,3 +52,5 @@ return [
 
 
 }
+
+

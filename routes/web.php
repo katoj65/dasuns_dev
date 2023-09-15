@@ -367,3 +367,8 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/approvals',[ApprovalContr
 Route::middleware(['auth:sanctum', 'verified'])->put('/approval/status-approve',[ApprovalController::class,'update'])->name('approval.status_approve');
 
 Route::middleware(['auth:sanctum', 'verified'])->post('/profile/admin/complete',[ProfileController::class,'store'])->name('profile.complete_profile');
+
+
+Route::middleware(['auth:sanctum', 'verified'])->put('/profile/update-biodata',[ProfileController::class,'update'])->name('profile.update_biodata');
+
+Route::middleware(['auth:sanctum', 'verified'])->put('profile/update/empolyee',[ProfileController::class,'update_employee_profile'])->name('profile.update_employee');
