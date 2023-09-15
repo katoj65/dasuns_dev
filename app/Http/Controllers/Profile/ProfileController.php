@@ -37,6 +37,11 @@ use App\Models\AccountStatusMessageModel;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Profile\PSSU;
 use App\Http\Controllers\Profile\PSSP;
+use App\Http\Controllers\Profile\Admin;
+use App\Models\EmployeeProfileModel;
+
+
+
 
 
 
@@ -87,8 +92,8 @@ public function index(){
 
 $role=Auth::user()->role;
 if($role=='admin'){
-
-$data['response']=null;
+$admin=new Admin;
+$data['response']=$admin->profile();
 
 }elseif($role=='pssp'){
 $pssp=new PSSP;
@@ -151,7 +156,27 @@ AccountStatusMessageModel::insert(['userID'=>Auth::user()->id,'message'=>'Fill i
     public function store(Request $request)
     {
         //
-    }
+$request->validate(['location'=>'required','country'=>'required']);
+if(Auth::user()->role=='admin'){
+$model=new EmployeeProfileModel;
+$model->location=$request->location;
+$model->countryID=$request->country;
+$model->designation='';
+$model->userID=$request->id;
+$model->save();
+$user=new User;
+$get=$user->find($request->id);
+$get->status='active';
+$get->save();
+return redirect('/profile')->with('success','Profile has been save.');
+return $request;
+}else{
+
+
+
+}
+
+}
 
     /**
      * Display the specified resource.
@@ -1120,6 +1145,20 @@ return redirect('/profile')->with('warning','User information was not changed.')
 }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

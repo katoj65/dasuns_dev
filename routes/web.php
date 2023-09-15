@@ -366,3 +366,4 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/approvals',[ApprovalContr
 
 Route::middleware(['auth:sanctum', 'verified'])->put('/approval/status-approve',[ApprovalController::class,'update'])->name('approval.status_approve');
 
+Route::middleware(['auth:sanctum', 'verified'])->post('/profile/admin/complete',[ProfileController::class,'store'])->name('profile.complete_profile');

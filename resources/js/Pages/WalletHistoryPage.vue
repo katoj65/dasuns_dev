@@ -41,7 +41,7 @@ Wallet
 </tr>
 
 </tbody>
-<tbody>
+<tbody v-else>
 <tr><td colspan="3">No content</td></tr>
 </tbody>
 </table>

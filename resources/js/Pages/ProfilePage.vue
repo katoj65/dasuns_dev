@@ -2,12 +2,10 @@
 <app-layout>
 
 
-
-
 <pssu-institution-profile v-if="role=='pssu' && account_type=='institutional'" :response="response" :errors="errors"/>
 <pssu-perssonal v-else-if="role=='pssu' && account_type=='personal'" :response="response" :errors="errors"></pssu-perssonal>
 <pssp-profile v-else-if="role=='pssp'" :response="response" :errors="errors"></pssp-profile>
-
+<admin-profile :response="response" :errors="errors" v-else-if="role=='admin'"></admin-profile>
 
 
 
@@ -15,6 +13,7 @@
 </app-layout>
 </template>
 <script>
+import AdminProfile from '@/Profiles/AdminProfile';
 import AppLayout from '@/Layouts/AppLayout';
 import PsspProfile from '@/Profiles/PsspProfile';
 import PssuInstitutionProfile from '@/Profiles/PssuInstitutionProfile';
@@ -25,7 +24,9 @@ components:{
 AppLayout,
 PssuInstitutionProfile,
 PsspProfile,
-PssuPerssonal
+PssuPerssonal,
+AdminProfile,
+
 },
 
 props:{

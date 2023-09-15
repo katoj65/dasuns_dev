@@ -170,6 +170,9 @@ $state=true;
 $state=false;
 }
 
+//editable
+$edit_date=$start_date-1;
+
 //appointment days
 $days=$appointment->number_of_days($row->id);
 $data['title']='Appointment';
@@ -184,6 +187,7 @@ $data['response']=[
 'service_amount'=>number_format($appointment->service_amount($row->id)),
 'amount_int'=>$appointment->service_amount($row->id),
 'state'=>$state,
+'edit'=>$edit_date<=date('Ymd')?true:false,
 
 ];
 

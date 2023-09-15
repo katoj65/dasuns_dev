@@ -7,7 +7,7 @@
 <div class="col-12 col-md-6">
 <div class="mt-2 card">
 <div  class="clearfix text-center card-header">
-<h6>User Settings </h6>
+<h6>Settings </h6>
 </div>
 <div class="card-body pt-0">
 
@@ -57,7 +57,7 @@
 <div class="modal-header" style="background: #37BEA7;border:none;">
     <h5 class="modal-title" style="color:white;">Change Password</h5>
     <a href="#" class="close" data-dismiss="modal" aria-label="Close" @click="dialog.change=false">
-        <em class="icon ni ni-cross"></em>
+     
     </a>
 </div>
 <div class="modal-body" style="max-height:500px;overflow:auto">
