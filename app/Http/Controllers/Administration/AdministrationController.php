@@ -16,6 +16,7 @@ use App\Models\ServiceProviderEmploymentHistoryModel;
 use App\Models\ServiceProviderReferenceModel;
 use App\Models\ServiceProviderEducationModel;
 use App\Models\DasunsUserNumberModel;
+use App\Http\Controllers\AuthorisationController;
 
 class AdministrationController extends Controller
 {
@@ -24,8 +25,26 @@ class AdministrationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request){
-        //
+
+// private $auth;
+// private $class;
+
+
+
+// protected function setup(){
+// parrent::setup();
+// $class=new AuthorisationController;
+// $this->role=authorize(['admin','reception']);
+// }
+
+
+
+
+
+
+
+public function index(Request $request){
+//
 $data['title']='Administrators';
 $data['response']=[];
 
@@ -58,7 +77,7 @@ $request->validate([
 //Hash::make($request->password)
 ],['required'=>'* Field is required.']);
 
-UserModel::inser([
+UserModel::insert([
 'firstname'=>$request->firstname,
 'lastname'=>$request->lastname,
 'gender'=>$request->gender,
@@ -204,7 +223,8 @@ return redirect('/employee/'.$request->id)->with('success','Status was changed.'
 
 //admin accounts
 public function accounts(Request $request){
-if(Auth::user()->role=='admin'){
+
+if(Auth::user()->role=='admin' or Auth::user()->role=='reception'){
 //formation
 $row=[];
 $get=User::select('users.firstname',
@@ -242,7 +262,7 @@ return redirect('/');
 
 //show admins
 public function show_admins(Request $request){
-if(Auth::user()->role=='admin'){
+if(Auth::user()->role=='admin' or Auth::user()->role=='reception'){
 $data['title']='Administrator';
 $data['response']=[
 'user'=>User::where('id',$request->segment(2))->get(),
@@ -261,7 +281,7 @@ return redirect('/');
 
 //admin service providers
 public function service_providers(Request $request){
-if(Auth::user()->role=='admin'){
+if(Auth::user()->role=='admin' or Auth::user()->role=='reception'){
 $data['title']='';
 $data['response']=[
 'users'=>User::select('users.firstname',
@@ -275,6 +295,7 @@ $data['response']=[
 'users.status')
 ->join('dasuns_user_number','users.id','=','dasuns_user_number.userID')
 ->where('users.role','pssp')
+->where('status','active')
 ->orderby('users.status','DESC')
 ->get()
 ];
@@ -290,7 +311,7 @@ return redirect('/');
 
 //service providers
 public function show_service_providers(Request $request){
-if(Auth::user()->role=='admin'){
+if(Auth::user()->role=='admin' or Auth::user()->role=='reception'){
 $data['title']='Administrator';
 $data['response']=[
 'user'=>User::select('users.firstname',
@@ -333,19 +354,13 @@ where('userID',$request->segment(2))
 where('userID',$request->segment(2))
 ->get(),
 
-'education'=>ServiceProviderEducationModel::where('userID',$request->segment(2))->get(),
-
-
-
-];
+'education'=>ServiceProviderEducationModel::where('userID',$request->segment(2))->get()];
 
 return Inertia::render('PSSPPage',$data);
 }else{
 return redirect('/');
 }
 }
-
-
 //
 public function destroy_pssp(Request $request){
 User::where('id',$request->segment(2))->delete();
@@ -356,7 +371,8 @@ return redirect('/service/providers')->with('success','Account has been deleted'
 
 //active users
 public function active_users(Request $request, User $user){
-if(Auth::user()->role=='admin'){
+
+if(Auth::user()->role=='admin' or Auth::user()->role=='reception'){
 $row=[];
 $get=User::select(
 'users.firstname',
@@ -369,13 +385,13 @@ $get=User::select(
 'users.id',
 'users.account_type',
 'dasuns_user_number.number')
-->where('users.status','active')
+->where('users.status','active')->where('users.role','pssp')->orwhere('users.role','pssu')
 ->join('dasuns_user_number','users.id','=','dasuns_user_number.userID')
 ->get();
 if(count($get)>0){
 foreach($get as $l){
 
-    
+
 //
 $role=$l->role;
 if($role=='pssu'){

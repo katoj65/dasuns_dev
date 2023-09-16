@@ -21,6 +21,20 @@ return $data;
 }
 
 
+//authorize access
+public function authorize($array){
+$collect=collect($array);
+if($collect->search(Auth::user()->role)!=null){
+return true;
+}else{
+return false;
+}
+}
+
+
+
+
+
 
 
 

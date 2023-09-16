@@ -1,121 +1,96 @@
 <template>
-<div>
-<account-approval v-if="status==='pending'" :response="response"></account-approval>
-<div class="nk-content p-0" v-else-if="status==='active'">
-<div class="container-fluid pt-0">
-<div class="nk-content-inner pt-0">
-<div class="nk-content-body pt-0">
-<div class="nk-block pt-0">
-<div class="row g-gs">
-
-
-
-
-<div class="col-md-3" v-for="m in menu" :key="m.id">
-<el-card class="card  card-full" shadow="never">
-<div class="card-inner">
-<div class="card-title-group align-start mb-0">
-<div class="card-title">
-<h6 class="subtitle">
-<em :class="m.icon" style="font-size:50px;color:#07372F;"></em>
-</h6>
-</div>
-</div>
-
-<div class="card-amount mb-2 mt-3">
-<span class="amount">
-<span class="currency currency-usd" style="color:#07372F;">{{ m.count }} </span>
-</span>
-</div>
-
-<div class="invest-data mt-3">
-<div class="invest-data-amount g-2">
-<div class="invest-data-history">
-<!-- <div class="title">This Month</div> -->
-<div class="amount"> <span class="currency currency-usd" style="font-size:15px;color:#07372F;">
-<strong>{{ m.title }} </strong>
-</span></div>
-</div>
-<!-- <div class="invest-data-history">
-<div class="title">This Week</div>
-<div class="amount">1,259.28 <span class="currency currency-usd">USD</span></div>
-</div> -->
-</div>
-
-</div>
-</div>
-</el-card><!-- .card -->
-</div><!-- .col -->
-</div>
-
-
-
-
-
-<div class="row g-gs">
-
-<div class="col-md-8 col-xxl-4">
-<el-card class="card card-full p-0" shadow="never">
-<div class="card-inner border-0 p-0">
-<div class="card-title-group">
-<div class="card-title">
-<h6 class="title">
-Service Provider Applications
-</h6>
-</div>
-<div class="card-tools">
-<span class="badge badge-outline-success">
-</span>
-</div>
-</div>
-</div>
-
-<div class="pt-4">
-<table class="table table-borderless">
-<thead>
-<tr>
-<th scope="col" colspan="2" class="border-0">Names of Service Provider</th>
-<th scope="col" class="border-0">Service Number</th>
-<th scope="col" colspan="2" class="border-0">Application Date</th>
-</tr>
-</thead>
-<tbody v-if="applicants.length>0">
-<tr  v-for="item in applicants" :key="item.id">
-<td>
-<div class="user-avatar user-avatar-sm bg-success-dim">
-<span>
-<em class="icon ni ni-user-list-fill"></em>
-</span>
-</div></td>
-<td class="text-transform">
-<div>{{ item.firstname }} {{ item.lastname }}</div>
-<div class="text-success" style="font-size:14px;">
-{{ item.count_services>1?item.count_services+' Profession Services':item.count_services+' Profession Service' }}
-</div>
-</td>
-<td>
-{{ item.number }}
-</td>
-<td>
-{{ item.date.substring(0,10).split('-').reverse().join('/') }}
-</td>
-<td>
-<Inertia-link :href="route('application_preview',[item.id])" class="btn btn-outline-success"> Review </Inertia-link>
-</td>
-</tr>
+    <div class="nk-content p-4">
+    <div class="row g-gs">
+    <div class="col-md-3" v-for="t in tabs" :key="t.id">
+    <div class="card  card-full h-100">
+    <div class="card-inner">
+    <div class="card-title-group align-start mb-0">
+    <div class="card-title">
+    <h6 class="subtitle">
+    <em :class="t.icon" style="font-size:50px;color:#07372F;"></em>
+    </h6>
+    </div>
+    </div>
+
+    <div class="card-amount mb-2 mt-3">
+    <span class="amount"><span class="currency currency-usd" style="color:#07372F;">{{ t.count }} </span>
+    </span>
+    </div>
+
+    <div class="invest-data mt-3">
+    <div class="invest-data-amount g-2">
+    <div class="invest-data-history">
+
+    <div class="amount"> <span class="currency currency-usd" style="font-size:15px;color:#07372F;">
+    <Inertia-link :href="route(t.url)" style="color:#07372F;"><strong>{{ t.title }} </strong></Inertia-link>
+    </span></div>
+    </div>
+
+    </div>
+
+    </div>
+    </div>
+    </div><!-- .card -->
+    </div>
+
+    </div>
+
+    <div class="row g-gs mt-2">
+    <div class="col-12 col-md-8 p-0">
+
+
+
+
+    <div class="card h-100" style="min-height:500px;">
+    <div class="card-header">
+    <h3 class="card-title" style="text-transform:capitalize;">Appointment Requests</h3>
+    <div class="card-options">
+    <!-- <a href="#" class="btn btn-primary btn-sm">Action 1</a>
+    <a href="#" class="btn btn-secondary btn-sm ml-2">Action 2</a> -->
+    </div>
+    </div>
+    <div class="card-body">
+    <table class="table card-table">
+    <thead>
+    <tr>
+    <th>Service Provider</th>
+    <th>Service Requested</th>
+    <th>Dates</th>
+    <th>status</th>
+    </tr>
+    </thead>
+    <tbody v-if="appointments.length>0">
+    <tr v-for="(a,key) in appointments" :key="key">
+    <td class="text-muted text-transform">
+        <em class="icon ni ni-label-fill mr-2"></em>
+    {{ a.firstname }} {{ a.lastname }}
+    </td>
+    <td class="text-muted">
+    <ul v-if="a.service.length>0">
+    <li v-for="(l,key) in a.service" :key="key">
+    <Inertia-link class="text-muted" :href="route('appoitment.show',{id:a.id})">{{ l.name }}</Inertia-link>
+    </li>
+    </ul>
+    <div v-else>
+    No service
+    </div>
+    </td>
+    <td class="text-muted">
+    {{ a.date.substring(0,10).split('-').reverse().join('/') }}
+    </td>
+    <td class="text-muted text-transform">
+    {{ a.status }}
+    </td>
+    </tr>
+
+    </tbody>
+    <tbody v-else>
+    <tr>
+    <td colspan="4">No content</td>
+    </tr>
+    </tbody>
+    </table>
 
-</tbody>
-<tbody v-else>
-<tr>
-<td colspan="3" class="text-muted">
-No applications
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</el-card>
-</div>
 
 
 
@@ -124,239 +99,78 @@ No applications
 
 
 
+    </div>
+    </div>
+    </div>
 
 
-<div class="col-md-4 col-xxl-4">
+    <div class="col-12 col-md-4">
+    <div class="card h-100">
+    <div class="card-header">
+    <h3 class="card-title text-transform">Interviews</h3>
 
+    </div>
+    <div class="card-body">
 
-<el-card class="card card-full" shadow="never" style="padding:0;">
-<div slot="header" class="clearfix">
-<strong>Interviews </strong>
-<!-- <el-button style="float: right; padding: 3px 0" type="text">Operation button</el-button> -->
-</div>
-<div style="margin:-20px">
-<table class="table table-borderless m-0 p-0">
-<thead>
-<tr>
-<th scope="col" class="border-0" colspan="3">Interview Date and Time</th>
-</tr>
-</thead>
-<tbody v-if="interview.length>0">
-<tr v-for="i in interview" :key="i.id">
-<td style="width:50px;">
-<div class="user-avatar  bg-light user-avatar xs">
-<em class="icon ni ni-calender-date"></em>
-</div>
-</td>
-<td>
-<Inertia-link :href="route('interview',[i.id])">
-<div>
-{{ i.date.split('-').reverse().join('/') }} <span class="pl-2"><em class="icon ni ni-clock"></em> {{ i.time.substring(0,5) }}</span> </div>
-<div class="text-success">
-Service Number: <strong>{{ i.number }}</strong>
-</div>
-</Inertia-link>
-</td>
-
-</tr>
-</tbody>
-<tbody v-else>
-<tr>
-<td colspan="2" class="text-muted">No interview</td>
-</tr>
-</tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
+        <div class="row text-center">
+            <div class="col-sm-4 border-right pb-4 pt-4">
+                <label class="mb-0">Scheduled</label>
+                <h4 class="font-30 font-weight-bold text-col-blue counter">
+                    {{ interview.all }}
+                </h4>
+            </div>
+            <div class="col-sm-4 border-right pb-4 pt-4">
+                <label class="mb-0">Accepted</label>
+                <h4 class="font-30 font-weight-bold text-col-blue counter">
+                    {{ interview.success }}
+                </h4>
+            </div>
+            <div class="col-sm-4 pb-4 pt-4">
+                <label class="mb-0">Failed</label>
+                <h4 class="font-30 font-weight-bold text-col-blue counter">
+                    {{ interview.fail }}
+                </h4>
+            </div>
+        </div>
 
-</div>
-</el-card>
-</div>
-</div>
 
 
 
-<div class="row g-gs">
 
+    <table class="table card-table">
+    <thead>
+    <th>Service No.</th>
+    <th>Date</th>
+    <th>Status</th>
+    </thead>
 
+    <tbody v-if="interview.latest.length>0">
+    <tr v-for="(i,key) in interview.latest" :key="key">
+    <td>
+    <inertia-link class="text-muted" :href="route('interview',{id:i.id})">
+    {{ i.number }}
+    </inertia-link>
+    </td>
+    <td>
+    {{ i.date.split('-').reverse().join('/') }}
+    </td>
+    <td class="text-right">
+    <span class="tag tag-default text-transform">
+    {{ i.status }}
+    </span>
+    </td>
+    </tr>
 
+    </tbody>
+    <tbody v-else>
+    <tr>
+    <td>
+    No content
+    </td>
+    </tr>
+    </tbody>
+    </table>
 
-<div class="col-md-4 col-xxl-4">
-<el-card class="card card-full" shadow="never">
-<div class="card-inner d-flex flex-column h-100">
-<div class="card-title-group mb-3">
-<div class="card-title">
-<h6 class="title">
-<em class="icon ni ni-wallet-fill" style="font-size:30px;"></em>
-Payments</h6>
-<p>In last 30 days top invested schemes.</p>
-</div>
-<div class="card-tools mt-n4 mr-n1">
-<div class="drodown">
-<a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
-<div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
-<ul class="link-list-opt no-bdr">
-<li><a href="#"><span>15 Days</span></a></li>
-<li><a href="#" class="active"><span>30 Days</span></a></li>
-<li><a href="#"><span>3 Months</span></a></li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div class="progress-list gy-3">
-<div class="progress-wrap">
-<div class="progress-text">
-<div class="progress-label">Strater Plan</div>
-<div class="progress-amount">58%</div>
-</div>
-<div class="progress progress-md">
-<div class="progress-bar" data-progress="58" style="width: 58%;"></div>
-</div>
-</div>
-<div class="progress-wrap">
-<div class="progress-text">
-<div class="progress-label">Silver Plan</div>
-<div class="progress-amount">18.49%</div>
-</div>
-<div class="progress progress-md">
-<div class="progress-bar bg-orange" data-progress="18.49" style="width: 18.49%;"></div>
-</div>
-</div>
-<div class="progress-wrap">
-<div class="progress-text">
-<div class="progress-label">Dimond Plan</div>
-<div class="progress-amount">16%</div>
-</div>
-<div class="progress progress-md">
-<div class="progress-bar bg-teal" data-progress="16" style="width: 16%;"></div>
-</div>
-</div>
-<div class="progress-wrap">
-<div class="progress-text">
-<div class="progress-label">Platinam Plan</div>
-<div class="progress-amount">29%</div>
-</div>
-<div class="progress progress-md">
-<div class="progress-bar bg-pink" data-progress="29" style="width: 29%;"></div>
-</div>
-</div>
-<div class="progress-wrap">
-<div class="progress-text">
-<div class="progress-label">Vibranium Plan</div>
-<div class="progress-amount">33%</div>
-</div>
-<div class="progress progress-md">
-<div class="progress-bar bg-azure" data-progress="33" style="width: 33%;"></div>
-</div>
-</div>
-</div>
-<div class="invest-top-ck mt-auto">
-<canvas class="iv-plan-purchase" id="planPurchase"></canvas>
-</div>
-</div>
-</el-card>
-</div><!-- .col -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="col-md-4 col-xxl-4">
-<el-card class="card card-full" shadow="never">
-<div class="card-inner d-flex flex-column h-100">
-<div class="card-title-group mb-3">
-<div class="card-title">
-<h6 class="title">Top Invested Plan</h6>
-<p>In last 30 days top invested schemes.</p>
-</div>
-<div class="card-tools mt-n4 mr-n1">
-<div class="drodown">
-<a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
-<div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
-<ul class="link-list-opt no-bdr">
-<li><a href="#"><span>15 Days</span></a></li>
-<li><a href="#" class="active"><span>30 Days</span></a></li>
-<li><a href="#"><span>3 Months</span></a></li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div class="progress-list gy-3">
-<div class="progress-wrap">
-<div class="progress-text">
-<div class="progress-label">Strater Plan</div>
-<div class="progress-amount">58%</div>
-</div>
-<div class="progress progress-md">
-<div class="progress-bar" data-progress="58" style="width: 58%;"></div>
-</div>
-</div>
-<div class="progress-wrap">
-<div class="progress-text">
-<div class="progress-label">Silver Plan</div>
-<div class="progress-amount">18.49%</div>
-</div>
-<div class="progress progress-md">
-<div class="progress-bar bg-orange" data-progress="18.49" style="width: 18.49%;"></div>
-</div>
-</div>
-<div class="progress-wrap">
-<div class="progress-text">
-<div class="progress-label">Dimond Plan</div>
-<div class="progress-amount">16%</div>
-</div>
-<div class="progress progress-md">
-<div class="progress-bar bg-teal" data-progress="16" style="width: 16%;"></div>
-</div>
-</div>
-<div class="progress-wrap">
-<div class="progress-text">
-<div class="progress-label">Platinam Plan</div>
-<div class="progress-amount">29%</div>
-</div>
-<div class="progress progress-md">
-<div class="progress-bar bg-pink" data-progress="29" style="width: 29%;"></div>
-</div>
-</div>
-<div class="progress-wrap">
-<div class="progress-text">
-<div class="progress-label">Vibranium Plan</div>
-<div class="progress-amount">33%</div>
-</div>
-<div class="progress progress-md">
-<div class="progress-bar bg-azure" data-progress="33" style="width: 33%;"></div>
-</div>
-</div>
-</div>
-<div class="invest-top-ck mt-auto">
-<canvas class="iv-plan-purchase" id="planPurchase"></canvas>
-</div>
-</div>
-</el-card>
-</div><!-- .col -->
 
 
 
@@ -370,75 +184,60 @@ Payments</h6>
 
 
 
+    </div>
+    </div>
 
+    </div>
+    </div>
 
 
 
 
 
-<div class="col-md-4 col-xxl-4">
-<el-card class="card card-full" shadow="never">
-<div class="card-body p-0">
-<div class="card-title">
-<h4>
-Declined Applications
-</h4>
-</div>
-<div>
-<div>
-<table class="table table-borderless">
-<thead>
-<tr>
-<th scope="col" colspan="2">Date and Time</th>
-</tr>
-</thead>
-<tbody v-if="declined_application.length>0">
+    <div class="row g-gs mt-2">
+    <div class="col-12 col-md-4">
 
-<tr v-for="d in declined_application" :key="d.id">
-<td style="width:20px;">
-<div class="user-avatar xs bg-dark">
-<span><em class="icon ni ni-calendar-booking"></em></span>
-</div>
-</td>
-<td>
-<div>
-{{ d.date }}
-<span class="pl-2">
-<em class="icon ni ni-clock"></em>
-{{ d.time }}</span>
-</div>
-<div>
-Service Number:
-<strong>{{ d.number }}</strong>
-</div>
 
-</td>
-</tr>
 
+    <div class="card h-100">
+    <div class="card-header">
+    <h3 class="card-title text-transform">Wallet</h3>
+    </div>
+    <div class="card-body">
+    <span>Balance</span>
+    <h4>Shs.<span class="counter ml-3">{{ wallet }} </span></h4>
 
+    <div class="form-group">
+    <label class="d-block">Service Providers<span class="float-right">Shs.<span class="counter">{{ counts.pssp }} </span></span></label>
+    <div class="progress progress-xs">
 
+    </div>
+    </div>
+    <div class="form-group">
+    <label class="d-block">Service Users <span class="float-right">Shs. <span class="counter">{{ counts.pssu }}</span></span></label>
+    <div class="progress progress-xs">
+    </div>
+    </div>
+    <div class="form-group">
+    <label class="d-block">Others <span class="float-right">Shs.<span class="counter">
+    {{ counts.other }}</span></span></label>
+    <div class="progress progress-xs">
 
+    </div>
+    </div>
+    </div>
+    <div class="card-footer">
+    <Inertia-link :href="route('wallet.admin')" class="btn btn-block btn-info btn-sm">Transaction History </Inertia-link>
+    </div>
+    </div>
 
+    </div>
 
-</tbody>
-<tbody v-else>
-<tr>
-<td colspan="2" class="text-muted">
-No declined application
-</td>
-</tr>
-</tbody>
-</table>
-</div>
 
 
 
 
 
-</div>
-</div>
-</el-card>
-</div><!-- .col -->
 
 
 
@@ -448,92 +247,155 @@ No declined application
 
 
 
+    <div class="col-12 col-md-4">
+    <div class="card h-100">
+    <div class="card-header">
+    <h3 class="card-title text-transform">Transactions</h3>
+    </div>
+    <div class="card-body p-0">
+    <div v-if="transactions.length>0">
 
+    <table class="table table-hover mb-0">
+    <thead>
+    <tr>
+    <th>Date</th>
+    <th>Amount</th>
+    <th>Transaction</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr v-for="(t,key) in transactions" :key="key">
+    <td><em class="icon ni ni-wallet-fill mr-2"></em>{{t.created_at.substring(0,10).split('-').reverse().join('/')}} </td>
+    <td>{{t.amount}} </td>
+    <td class="text-transform">{{t.transaction}} </td>
+    </tr>
+    </tbody>
+    </table>
 
+    </div>
+    <div v-else class="p-3">No Content</div>
+    </div>
+    </div>
+    </div>
 
 
 
-</div>
 
 
 
 
 
+    <div class="col-12 col-md-4">
+    <div class="card h-100">
+    <div class="card-header">
+    <h3 class="card-title text-transform">Support Services</h3>
+    </div>
+    <div class="card-body p-0">
+    <div v-if="services.length>0">
+    <table class="table card-table">
+    <tbody>
+    <tr v-for="(s,key) in services" :key="key">
+    <td><em class="icon ni ni-grid-fill mr-2"></em> {{ s.name }} </td>
+    <td class="text-right">
+    <span class="tag tag-default">30</span>
+    </td>
+    </tr>
+    </tbody>
+    </table>
+    </div>
+    <div v-else class="p-3">No Content</div>
 
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</template>
-<script>
 
-import AccountApproval from '@/Reception/AccountApproval';
-export default {
-components:{
-AccountApproval,
 
-},
-props:{
-response:{},
-},
+    </div>
+    </div>
 
-computed:{
 
 
-//menu
-menu(){
-const menu = [
-{icon:'icon ni ni-user-list-fill',title:'APPLICANTIONS',count:this.response.user_data.application_pending,id:2},
-{icon:'icon ni ni-users-fill',title:'ACTIVE SERVICE PROVIDERS',count:this.response.user_data.active_service_providers,id:1},
-{icon:'icon ni ni-shield-check-fill',title:'ACTIVE USERS',count:this.response.user_data.active_users,id:3},
-{icon:'icon ni ni-swap-alt-fill',title:'REGISTERED SERVICES',count:this.response.user_data.services,id:4},
-];
-return menu;
-},
 
 
-status(){
-return this.$page.props.auth.user.status;
-},
+    </div>
 
-interview(){
-return this.response.user_data.interviews;
-},
 
-applicants(){
-return this.response.user_data.applicants;
-},
 
-declined_application(){
-return this.response.user_data.declined_applications;
-}
+    </div>
 
 
 
 
 
-}
 
+    </div>
+    </template>
+    <script>
+    export default {
+    props:{
+    response:{},
+    },
+    data(){return{
+    tabs:[
+    {icon:'icon ni ni-users-fill',title:'TOTAL ACTIVE USERS',count:this.response.user_data.statistics.count_user,id:1,url:'users.active'},
+    {icon:'icon ni ni-user-list-fill',title:'SERVICE PROVIDERS',count:this.response.user_data.statistics.count_PSSP,id:2,url:'service.providers'},
+    {icon:'icon ni ni-shield-check-fill',title:'ADMIN ACCOUNTS',count:this.response.user_data.statistics.count_admin,id:3,url:'admin.accounts'},
+    {icon:'icon ni ni-user-check-fill',title:'SERVICE USERS',count:this.response.user_data.statistics.count_service_users,id:4,url:'service.users'},
+    ],
 
+    positions:this.response.user_data.get_pssp_services,
 
 
 
+    }},
 
 
 
 
 
 
+    computed:{
+    appointments(){
+    return this.response.user_data.appointments;
+    },
 
+    wallet(){
+    return this.response.user_data.wallet;
+    },
 
+    counts(){
+    return this.response.user_data.counts;
+    },
 
 
-}
-</script>
-<style scoped>
-table thead th{
-border:none;
-}
-</style>
+    interview(){
+    return this.response.user_data.interview;
+    },
+
+    services(){
+    return this.response.user_data.services;
+    },
+
+    transactions(){
+    return this.response.user_data.transactions;
+    }
+
+
+    }
+
+
+    }
+    </script>
+    <style scoped>
+    table tr td{
+    padding:10px;
+    }
+
+    table tr td ul li{
+    padding:0;
+    margin:0;
+    }
+    table tr td ul{
+        padding:0;
+        margin:0;
+        }
+
+
+    </style>

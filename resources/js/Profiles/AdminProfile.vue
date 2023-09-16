@@ -3,6 +3,7 @@
 
 
 
+
 <div class="container-fluid" v-if="auth.status=='active'">
 <div class="row clearfix">
 <div class="col-lg-4 col-md-12 mb-3">
@@ -11,7 +12,7 @@
 <em class="icon ni ni-user-circle-fill" style="font-size:100px;"></em>
 
 <h6 class="mt-3 mb-0 text-transform">{{ user.firstname }} {{ account_type=='institutional'?null:user.lastname }} </h6>
-<!-- <span><strong>Service No: </strong>{{ response.dasuns_number }} </span> -->
+
 <ul class="mt-3 list-unstyled d-flex justify-content-center">
 
 </ul>

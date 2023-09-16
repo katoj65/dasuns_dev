@@ -104,8 +104,11 @@ Route::middleware(['auth:sanctum', 'verified'])->post('/delete-pssp-identificati
 
 Route::middleware(['auth:sanctum', 'verified'])->post('/delete-pssp-services',[ProfileController::class,'delete_PSSP_services'])->name('delete_pssp_services');
 
-Route::middleware(['auth:sanctum', 'verified'])->post('/test',function () {
-    return 'mmdjndm';
+Route::middleware(['auth:sanctum', 'verified'])->get('/test',function () {
+$col=collect([1,2,3,4,5]);
+return $col->search(2);
+
+
     })->name('test12');
 
 

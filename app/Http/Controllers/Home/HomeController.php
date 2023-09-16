@@ -59,10 +59,15 @@ $user_data['number']=null;
 //admin account
 
 elseif($role=='admin'){
+
+//
+
 $user_data['statistics']=[
-'count_user'=>count(User::get()),
-'count_PSSP'=>count(User::where('role','pssp')->get()),
-'count_admin'=>count(User::where('role','!=','pssu')->where('role','!=','pssp')->get()),
+'count_user'=>User::where('users.status','active')->where('users.role','pssp')->orwhere('users.role','pssu')
+->join('dasuns_user_number','users.id','=','dasuns_user_number.userID')
+->count(),
+'count_PSSP'=>User::where('role','pssp')->where('status','active')->count(),
+'count_admin'=>User::where('role','!=','pssu')->where('role','!=','pssp')->count(),
 
 'count_service_users'=>User::where('role','pssu')->where('status','active')->count(),
 
@@ -108,8 +113,49 @@ $user_data['transactions']=LogWalletModel::orderby('created_at','DESC')->limit(5
 
 //reception account
 elseif($role=='reception'){
-$reception_controller=new ReceptionController;
-$user_data=$reception_controller->dashboard();
+    $user_data['statistics']=[
+        'count_user'=>User::where('users.status','active')->where('users.role','pssp')->orwhere('users.role','pssu')
+        ->join('dasuns_user_number','users.id','=','dasuns_user_number.userID')
+        ->count(),
+        'count_PSSP'=>User::where('role','pssp')->where('status','active')->count(),
+        'count_admin'=>User::where('role','!=','pssu')->where('role','!=','pssp')->count(),
+
+        'count_service_users'=>User::where('role','pssu')->where('status','active')->count(),
+
+        $user_data['get_pssp_services']=$this->get_registered_positions(),
+        ];
+
+        $user_data['appointments']=HomeController::admin_appointment_formation();
+        $user_data['transactions']=LogWalletModel::select('*')->get();
+        $user_data['wallet']=number_format(DasunsWalletModel::select('amount')->sum('amount'));
+
+        $user_data['counts']=[
+        'pssp'=>number_format(DasunsWalletModel::select('amount')->join('users','dasuns_wallet.userID','=','users.id')
+        ->where('users.role','pssp')->sum('amount')),
+
+        'pssu'=>number_format(DasunsWalletModel::select('amount')->join('users','dasuns_wallet.userID','=','users.id')
+        ->where('users.role','pssu')->sum('amount')),
+
+        'other'=>number_format(DasunsWalletModel::select('amount')->join('users','dasuns_wallet.userID','=','users.id')
+        ->where('users.role','!=','pssu')
+        ->where('users.role','!=','pssp')
+        ->sum('amount'))];
+
+
+        $user_data['interview']=[
+        'all'=>PSSPInterviewScheduleModel::count(),
+        'success'=>PSSPInterviewScheduleModel::where('status','accepted')->count(),
+        'fail'=>PSSPInterviewScheduleModel::where('status','failed')->count(),
+        'latest'=>PSSPInterviewScheduleModel::select('dasuns_user_number.number','pssp_interview_schedule.date',
+        'pssp_interview_schedule.id',
+        'pssp_interview_schedule.status')
+        ->join('dasuns_user_number','pssp_interview_schedule.service_providerID','=','dasuns_user_number.userID')
+        ->orderby('pssp_interview_schedule.date','DESC')
+        ->limit(10)
+        ->get()];
+        $user_data['services']=SupportServiceModel::get();
+        $user_data['transactions']=LogWalletModel::orderby('created_at','DESC')->limit(5)->get();
+
 }
 
 //finance
