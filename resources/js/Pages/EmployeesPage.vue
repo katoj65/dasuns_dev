@@ -1,60 +1,77 @@
 <template>
 <app-layout>
-<el-card class="card card-full h-100 mt-1" shadow="never">
-<div slot="header" class="clearfix">
-<span style="font-weight:bold;">Employees</span>
+<div class="nk-block">
+<div class="row p-3">
 
-<el-dropdown trigger="click" style="float: right; padding: 3px 0;margin-top:-20px;">
-<span class="el-dropdown-link btn-success btn mt-2">
-<span style="font-weight:bold;"> New</span>
-<em class="icon ni ni-user-add-fill" style="font-size:20px;"></em>
-</span>
-<el-dropdown-menu slot="dropdown" style="margin-top:-1px;">
-<el-dropdown-item>
-<a href="#" @click="open=true" style="padding:10px;width:100%;"> Add system Administrator</a>
-</el-dropdown-item>
-</el-dropdown-menu>
-</el-dropdown>
+
+
+<div class="col-12 col-md-12">
+<div class="card card-full h-100 mt-1">
+<div class="card-header">
+<h3 class="card-title bold">Employees</h3>
+<div class="card-options">
+<div class="item-action dropdown ml-2">
+<a href="javascript:void(0)" data-toggle="dropdown"><i class="fe fe-more-vertical"></i></a>
+<div class="dropdown-menu dropdown-menu-right">
+<a href="javascript:void(0)" class="dropdown-item" @click="open=true"><i class="dropdown-icon fa fa-eye"></i> Search </a>
+
 </div>
-
-<div class="card-body p-0" style="min-height:700px;">
-<table class="table table-sm">
-<thead>
-<tr>
-<th scope="col">First name</th>
-<th scope="col">Last name</th>
-<th scope="col">Gender</th>
-<th scope="col">Email</th>
-<th scope="col">Role</th>
-<th style="width:200px;"></th>
-
-</tr>
-</thead>
-<tbody>
-<tr  v-for="e in employee" :key="e.id">
-<td><Inertia-link :href="route('employee.show',[e.id])">{{ e.firstname }}</Inertia-link> </td>
-<td><Inertia-link :href="route('employee.show',[e.id])">{{ e.lastname }}</Inertia-link> </td>
-<td>{{ e.gender }} </td>
-<td class="text">{{ e.email }} </td>
-<td>{{ e.role }} </td>
-<td>
-<Inertia-link :href="route('employee.show',[e.id])" class="btn btn-dim btn-success">View Profile</Inertia-link>
-</td>
-</tr>
-
-</tbody>
-</table>
-
+</div>
+</div>
 </div>
 
 
 
-</el-card>
 
 
 
 
 
+
+        <div class="card-body p-0" style="min-height:700px;">
+        <table class="table table-sm">
+        <thead>
+        <tr>
+        <th scope="col">First name</th>
+        <th scope="col">Last name</th>
+        <th scope="col">Gender</th>
+        <th scope="col">Email</th>
+        <th scope="col">Role</th>
+        <th style="width:200px;"></th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr  v-for="e in employee" :key="e.id">
+        <td><Inertia-link :href="route('employee.show',[e.id])" class="text-black">{{ e.firstname }}</Inertia-link> </td>
+        <td><Inertia-link :href="route('employee.show',[e.id])" class="text-black">{{ e.lastname }}</Inertia-link> </td>
+        <td>{{ e.gender }} </td>
+        <td class="text">{{ e.email }} </td>
+        <td>{{ e.role }} </td>
+        <td>
+        <Inertia-link :href="route('employee.show',[e.id])" class="btn btn-dim btn-success">View Profile</Inertia-link>
+        </td>
+        </tr>
+
+        </tbody>
+        </table>
+
+        </div>
+
+
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+</div>
 
 
 
@@ -72,7 +89,6 @@
 <div class="modal-header">
 <h5 class="modal-title">Search for email address</h5>
 <a href="#" class="close" data-dismiss="modal" aria-label="Close" @click="open=false">
-<em class="icon ni ni-cross"></em>
 </a>
 </div>
 <div class="modal-body">
@@ -110,7 +126,8 @@
 </form>
 
 
-
+</div>
+</div>
 </app-layout>
 </template>
 <script>
