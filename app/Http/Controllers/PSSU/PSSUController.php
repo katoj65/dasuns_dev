@@ -67,13 +67,18 @@ return Inertia::render('ServiceUserPage',$data);
      */
 public function show(Request $request, User $user)
 {
-//
+
+
+//role
+$account_type=$user->find($request->segment(2))->account_type;
+if($account_type=='personal'){
 $profile=$user->select('users.firstname',
 'users.lastname',
 'users.gender',
 'users.email',
 'users.tel',
 'users.dob',
+'users.account_type',
 'users.created_at',
 'country.name as country',
 'dasuns_user_number.number as number',
@@ -85,6 +90,28 @@ $profile=$user->select('users.firstname',
 ->join('user_profile','users.id','=','user_profile.userID')
 ->join('country','user_profile.countryID','=','country.id')
 ->first();
+
+}else{
+
+$profile=$user->select('users.firstname',
+'users.lastname',
+'users.gender',
+'users.email',
+'users.tel',
+'users.dob',
+'users.account_type',
+'users.created_at',
+'dasuns_user_number.number as number',
+'organisation_profile.location',
+'country.name as country')
+->where('users.id',$request->segment(2))
+->where('users.role','pssu')
+->where('users.status','active')
+->join('dasuns_user_number','users.id','=','dasuns_user_number.userID')
+->join('organisation_profile','users.id','=','organisation_profile.userID')
+->join('country','organisation_profile.countryID','=','country.id')
+->first();
+}
 
 $data['title']='profile';
 $data['response']=[

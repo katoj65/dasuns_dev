@@ -6,6 +6,8 @@
 <div class="col-12 col-md-3"></div>
 <div class="col-12 col-md-6">
 
+
+
 <div class="card" v-if="response.profile">
 <div class="card-body text-center">
 <div class="circle">
@@ -13,7 +15,7 @@
 </div>
 <h4 class="mt-3 mb-0 text-transform">
 
-{{ user.firstname }} {{ user.lastname }}
+{{ user.firstname }} {{ user.account_type=='personal'?user.lastname:null }}
 
 </h4>
 <span>
@@ -82,7 +84,7 @@
 <li class="data-item">
 <div class="data-col">
 <div class="data-label">Account created on</div>
-<div class="data-value">{{ user.created_at }} </div>
+<div class="data-value">{{ user.created_at.substring(0,10).split('-').reverse().join('/') }} </div>
 </div>
 </li>
 

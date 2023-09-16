@@ -5,7 +5,7 @@
 <div class="nk-content p-3">
 <div class="card">
 <div class="card-header">
-<h3 class="card-title text-transform">Active Users</h3>
+<h3 class="card-title text-transform bold">Active Users</h3>
 </div>
 <div class="card-body">
 <div class="table-responsive">
@@ -24,12 +24,9 @@
 </tr>
 </thead>
 <tbody v-if="active.length>0">
-
 <tr v-for="(a,key) in active" :key="key">
-
 <td class="text-transform">
-<Inertia-link class="text-black">
-<em class="icon ni ni-user-circle-fill mr-2"></em> {{ a.firstname }} {{ a.lastname }}</Inertia-link>
+<em class="icon ni ni-user-circle-fill mr-2"></em> {{ a.firstname }} {{ a.lastname }}
 </td>
 <td class="text-transform">
 {{ a.gender }}
@@ -37,35 +34,22 @@
 <td class="text-transform">
 {{ a.number }}
 </td>
-
 <td class="text-transform">
  {{ a.tel }}
 </td>
-
 <td>
 {{ a.email }}
 </td>
-
-
 <td class="text-transform">
-
 <span v-if="a.role=='pssp'">Service Provider </span>
 <span v-if="a.role=='pssu'">Service User</span>
 <span v-if="a.role=='admin'">Administrator </span>
 <span v-if="a.role=='panelist'"> Panelist</span>
-
-
-
-
 </td>
 <td class="text-transform">
 {{ a.status }}
 </td>
-
-
-
 </tr>
-
 </tbody>
 <tbody v-else>
 <tr>
