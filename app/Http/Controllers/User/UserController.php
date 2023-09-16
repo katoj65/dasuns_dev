@@ -39,7 +39,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-public function show(Request $request){
+public function show(Request $request, User $user){
         //
 
 $data['title']='';
@@ -79,12 +79,7 @@ User::where('id',Auth::user()->id)
 'dob'=>$request->dob,
 'tel'=>$request->tel]);
 
-
-
-
 return redirect('/profile')->with('success','Some information');
-
-
 
 }
 

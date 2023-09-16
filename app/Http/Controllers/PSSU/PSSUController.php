@@ -86,7 +86,6 @@ $profile=$user->select('users.firstname',
 ->join('country','user_profile.countryID','=','country.id')
 ->first();
 
-
 $data['title']='profile';
 $data['response']=[
 'profile'=>$profile,
@@ -119,12 +118,6 @@ return Inertia::render('ProfileUserPage',$data);
     {
         //
     }
-
-
-
-
-
-
 
 
 

@@ -346,10 +346,6 @@ return redirect('/');
 }
 
 
-
-
-
-
 //
 public function destroy_pssp(Request $request){
 User::where('id',$request->segment(2))->delete();
@@ -358,37 +354,26 @@ return redirect('/service/providers')->with('success','Account has been deleted'
 
 
 
-
-
-
-
 //active users
-public function active_users(Request $request){
+public function active_users(Request $request, User $user){
 if(Auth::user()->role=='admin'){
 $row=[];
 $get=User::select(
-'firstname',
-'lastname',
-'gender',
-'tel',
-'email',
-'role',
-'status',
-'id'
-
-)
-->where('status','active')
+'users.firstname',
+'users.lastname',
+'users.gender',
+'users.tel',
+'users.email',
+'users.role',
+'users.status',
+'users.id',
+'dasuns_user_number.number')
+->where('users.status','active')
+->join('dasuns_user_number','users.id','=','dasuns_user_number.userID')
 ->get();
 if(count($get)>0){
 foreach($get as $l){
-$num='none';
-$get1=DasunsUserNumberModel::select('number')->where('userID',$l->id)->limit(1)->get();
-if(count($get1)==1){
-foreach($get1 as $row1){
-$num=$row1->number;
-}
-}
-
+//
 $row[]=[
 'firstname'=>$l->firstname,
 'lastname'=>$l->lastname,
@@ -398,13 +383,11 @@ $row[]=[
 'role'=>$l->role,
 'status'=>$l->status,
 'id'=>$l->id,
-'number'=>$num
+'number'=>$l->number
 ];
 
-
 }
 }
-
 
 
 $data['title']='active users';
