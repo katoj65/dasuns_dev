@@ -369,6 +369,14 @@ return redirect('/service/providers')->with('success','Account has been deleted'
 
 
 
+
+
+
+
+
+
+
+
 //active users
 public function active_users(Request $request, User $user){
 

@@ -377,3 +377,5 @@ Route::middleware(['auth:sanctum', 'verified'])->put('profile/update/empolyee',[
 Route::middleware(['auth:sanctum', 'verified'])->get('/service-users',[PSSUController::class,'index'])->name('service.users');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/profile/{id}/user',[PSSUController::class,'show'])->name('user.profile');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/service-provider/{id}/pending',[PSSPController::class,'show_pending'])->name('service_provider.pending');

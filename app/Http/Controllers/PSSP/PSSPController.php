@@ -30,6 +30,7 @@ use App\Models\DasunsWalletModel;
 
 
 
+
 class PSSPController extends Controller
 {
     /**
@@ -714,10 +715,60 @@ $data['response']=[
 ->join('support_service','service_provider_services.serviceID','=','support_service.id')
 ->where('service_provider_services.userID',Auth::user()->id)
 ->get(),
-
 ];
 return Inertia::render('PSSPServices',$data);
 }
+
+
+
+
+
+//show pending pssp applications
+public function show_pending(Request $request, User $user){
+$data['response']=null;
+$collection=$user->find($request->segment(2));
+if($collection){
+$data['title']='Pending';
+$data['response']=[
+'user'=>$collection,
+'number'=>DasunsUserNumberModel::where('userID',$collection->id)->first()!=null?ullDasunsUserNumberModel::where('userID',$collection->id)->first()->number:'Missing',
+'documents'=>PSSPController::get_security_documents($collection->id),
+'profile'=>$this->profile_pssp($collection->id),
+'profession'=>$user->professionExperience($collection->id),
+'education'=>$user->Education_history($collection->id),
+'experience'=>$user->professionExperience($collection->id),
+'recommendation'=>ServiceProviderReferenceModel::where('userID',$collection->id)->get(),
+'services'=>$user->pssp_services($collection->id),
+'status'=>'pending',
+];
+}
+
+return Inertia::render('ShowPendingPSSP',$data);
+}
+
+
+
+
+
+
+
+//profile pssp
+public function profile_pssp($id){
+return User::select(
+'service_provider_profile.location',
+'country.name as country',
+'country.id as countryID',
+'service_provider_profile.about')
+->where('users.id',$id)
+->join('service_provider_profile','users.id','=','service_provider_profile.userID')
+->join('country','service_provider_profile.countryID','=','country.id')
+->first();
+
+}
+
+
+
+
 
 
 

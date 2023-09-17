@@ -1,6 +1,11 @@
 <template>
     <div class="nk-content p-4">
     <div class="row g-gs">
+
+
+
+
+
     <div class="col-md-3" v-for="t in tabs" :key="t.id">
     <div class="card  card-full h-100">
     <div class="card-inner">
@@ -43,7 +48,7 @@
 
     <div class="card h-100" style="min-height:500px;">
     <div class="card-header">
-    <h3 class="card-title" style="text-transform:capitalize;">Appointment Requests</h3>
+    <h3 class="card-title bold" style="text-transform:capitalize;">Applicants</h3>
     <div class="card-options">
     <!-- <a href="#" class="btn btn-primary btn-sm">Action 1</a>
     <a href="#" class="btn btn-secondary btn-sm ml-2">Action 2</a> -->
@@ -53,8 +58,8 @@
     <table class="table card-table">
     <thead>
     <tr>
-    <th>Service Provider</th>
-    <th>Service Requested</th>
+    <th>Names</th>
+    <th>Service No.</th>
     <th>Dates</th>
     <th>status</th>
     </tr>
@@ -62,21 +67,14 @@
     <tbody v-if="appointments.length>0">
     <tr v-for="(a,key) in appointments" :key="key">
     <td class="text-muted text-transform">
-        <em class="icon ni ni-label-fill mr-2"></em>
-    {{ a.firstname }} {{ a.lastname }}
+        <em class="icon ni ni-user-alt-fill"></em>
+    <Inertia-link :href="route('service_provider.pending',{id:a.id})" class="text-black">{{ a.firstname }} {{ a.lastname }}</Inertia-link>
     </td>
     <td class="text-muted">
-    <ul v-if="a.service.length>0">
-    <li v-for="(l,key) in a.service" :key="key">
-    <Inertia-link class="text-muted" :href="route('appoitment.show',{id:a.id})">{{ l.name }}</Inertia-link>
-    </li>
-    </ul>
-    <div v-else>
-    No service
-    </div>
+    {{ a.number }}
     </td>
     <td class="text-muted">
-    {{ a.date.substring(0,10).split('-').reverse().join('/') }}
+{{ a.created_at.substring(0,10).split('-').reverse().join('/') }}
     </td>
     <td class="text-muted text-transform">
     {{ a.status }}
