@@ -1,63 +1,66 @@
 <template>
-<app-layout>
+    <app-layout>
 
 
-<pssu-institution-profile v-if="role=='pssu' && account_type=='institutional'" :response="response" :errors="errors"/>
-<pssu-perssonal v-else-if="role=='pssu' && account_type=='personal'" :response="response" :errors="errors"></pssu-perssonal>
-<pssp-profile v-else-if="role=='pssp'" :response="response" :errors="errors"></pssp-profile>
-<admin-profile :response="response" :errors="errors" v-else-if="role=='admin'"></admin-profile>
-
-
-
-
-</app-layout>
-</template>
-<script>
-import AdminProfile from '@/Profiles/AdminProfile';
-import AppLayout from '@/Layouts/AppLayout';
-import PsspProfile from '@/Profiles/PsspProfile';
-import PssuInstitutionProfile from '@/Profiles/PssuInstitutionProfile';
-import PssuPerssonal from '@/Profiles/PssuPerssonal';
-
-export default {
-components:{
-AppLayout,
-PssuInstitutionProfile,
-PsspProfile,
-PssuPerssonal,
-AdminProfile,
-
-},
-
-props:{
-response:{},
-title:{},
-errors:{},
-
-},
-
-data(){
-return{
-
-
-}
-},
-
-//
-
-computed:{
-account_type(){
-return this.response.type;
-},
-
-role(){
-return this.response.role;
-}
+    <pssu-institution-profile v-if="role=='pssu' && account_type=='institutional'" :response="response" :errors="errors"/>
+    <pssu-perssonal v-else-if="role=='pssu' && account_type=='personal'" :response="response" :errors="errors"></pssu-perssonal>
+    <pssp-profile v-else-if="role=='pssp'" :response="response" :errors="errors"></pssp-profile>
+    <admin-profile :response="response" :errors="errors" v-else-if="role=='admin'"></admin-profile>
+    <reception-profile v-else-if="role=='reception'" :response="response" :errors="errors"></reception-profile>
 
 
 
 
-}
+    </app-layout>
+    </template>
+    <script>
+    import AdminProfile from '@/Profiles/AdminProfile';
+    import AppLayout from '@/Layouts/AppLayout';
+    import PsspProfile from '@/Profiles/PsspProfile';
+    import PssuInstitutionProfile from '@/Profiles/PssuInstitutionProfile';
+    import PssuPerssonal from '@/Profiles/PssuPerssonal';
+    import ReceptionProfile from '@/Profiles/ReceptionProfile';
+
+    export default {
+    components:{
+    AppLayout,
+    PssuInstitutionProfile,
+    PsspProfile,
+    PssuPerssonal,
+    AdminProfile,
+    ReceptionProfile
+
+    },
+
+    props:{
+    response:{},
+    title:{},
+    errors:{},
+
+    },
+
+    data(){
+    return{
+
+
+    }
+    },
+
+    //
+
+    computed:{
+    account_type(){
+    return this.response.type;
+    },
+
+    role(){
+    return this.response.role;
+    }
+
+
+
+
+    }
 
 
 
@@ -67,49 +70,49 @@ return this.response.role;
 
 
 
-}
-</script>
+    }
+    </script>
 
-<style scoped>
-table thead tr td{
-border-bottom:solid thin #F2F3F4;
-}
+    <style scoped>
+    table thead tr td{
+    border-bottom:solid thin #F2F3F4;
+    }
 
-table thead tr th{
-border-bottom:solid thin #F2F3F4;
-}
+    table thead tr th{
+    border-bottom:solid thin #F2F3F4;
+    }
 
-table tbody tr td{
-padding:10px;
-border:none;
-}
-.word-transform{
-text-transform: capitalize;
-}
+    table tbody tr td{
+    padding:10px;
+    border:none;
+    }
+    .word-transform{
+    text-transform: capitalize;
+    }
 
-table tbody tr th{
-border:none;
-text-transform: capitalize;
-}
+    table tbody tr th{
+    border:none;
+    text-transform: capitalize;
+    }
 
-table tbody tr td{
-border:none;
-text-transform: capitalize;
-}
+    table tbody tr td{
+    border:none;
+    text-transform: capitalize;
+    }
 
-.ul ul li{
-list-style-type: circle;
+    .ul ul li{
+    list-style-type: circle;
 
-}
+    }
 
-.bold{
-font-weight: bold
-;
-}
+    .bold{
+    font-weight: bold
+    ;
+    }
 
-ul li{
-border:none;
-}
+    ul li{
+    border:none;
+    }
 
 
-</style>
+    </style>

@@ -38,7 +38,9 @@ use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Profile\PSSU;
 use App\Http\Controllers\Profile\PSSP;
 use App\Http\Controllers\Profile\Admin;
+use App\Http\Controllers\Profile\Reception;
 use App\Models\EmployeeProfileModel;
+
 
 
 
@@ -105,14 +107,18 @@ $pssu=new PSSU;
 $data['response']=$pssu->profile();
 
 }elseif($role=='reception'){
-
-$data['response']=null;
+$recept=new Reception;
+$data['response']=$recept->profile();
 
 }elseif($role=='panelist'){
 
 $data['response']=null;
 
 }
+
+
+
+
 $data['title']="Profile";
 return Inertia::render('ProfilePage',$data);
 }
@@ -157,7 +163,6 @@ AccountStatusMessageModel::insert(['userID'=>Auth::user()->id,'message'=>'Fill i
     {
         //
 $request->validate(['location'=>'required','country'=>'required']);
-if(Auth::user()->role=='admin'){
 $model=new EmployeeProfileModel;
 $model->location=$request->location;
 $model->countryID=$request->country;
@@ -169,13 +174,6 @@ $get=$user->find($request->id);
 $get->status='active';
 $get->save();
 return redirect('/profile')->with('success','Profile has been save.');
-return $request;
-}else{
-
-
-
-}
-
 }
 
     /**
