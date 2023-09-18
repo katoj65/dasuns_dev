@@ -31,6 +31,7 @@ use App\Models\DasunsWalletModel;
 
 
 
+
 class PSSPController extends Controller
 {
     /**
@@ -692,9 +693,6 @@ return Inertia::render('PSSPAppointmentPage',$data);
 
 
 
-
-
-
 //update status of the appointment
 public function update_appointment_status(Request $request){
 $id=Auth::user()->id;
@@ -723,15 +721,37 @@ return Inertia::render('PSSPServices',$data);
 
 
 
+
+
 //show pending pssp applications
 public function show_pending(Request $request, User $user){
+$permission=new Controller;
+if($permission->has_permission(['reception','admin'])==false){
+return redirect('/');
+}
+//
 $data['response']=null;
 $collection=$user->find($request->segment(2));
 if($collection){
+//status
+$status='pending';
+//
+$profile=$this->profile_pssp($collection->id);
+$profession=$user->professionExperience($collection->id);
+$education=$user->Education_history($collection->id);
+$recommend=ServiceProviderReferenceModel::where('userID',$collection->id)->get();
+$services=$user->pssp_services($collection->id);
+
+//
+if($profile!=null and count($profession)>0 and count($education)>0 and count($recommend) and count($services)){
+$status='interview';
+}
+
+
 $data['title']='Pending';
 $data['response']=[
 'user'=>$collection,
-'number'=>DasunsUserNumberModel::where('userID',$collection->id)->first()!=null?ullDasunsUserNumberModel::where('userID',$collection->id)->first()->number:'Missing',
+'number'=>DasunsUserNumberModel::where('userID',$collection->id)->first()!=null?DasunsUserNumberModel::where('userID',$collection->id)->first()->number:'Missing',
 'documents'=>PSSPController::get_security_documents($collection->id),
 'profile'=>$this->profile_pssp($collection->id),
 'profession'=>$user->professionExperience($collection->id),
@@ -739,11 +759,15 @@ $data['response']=[
 'experience'=>$user->professionExperience($collection->id),
 'recommendation'=>ServiceProviderReferenceModel::where('userID',$collection->id)->get(),
 'services'=>$user->pssp_services($collection->id),
-'status'=>'pending',
+'status'=>$status,
 ];
 }
-
 return Inertia::render('ShowPendingPSSP',$data);
+
+
+
+
+
 }
 
 

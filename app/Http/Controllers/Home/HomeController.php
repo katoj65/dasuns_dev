@@ -132,7 +132,7 @@ $user_data['appointments']=User::select(
 'dasuns_user_number.number',
 'users.created_at',
 'users.status')
-->join('dasuns_user_number','users.id','=','dasuns_user_number.id')
+->join('dasuns_user_number','users.id','=','dasuns_user_number.userID')
 ->where('users.role','pssp')
 ->where('users.status','pending')
 ->get()
