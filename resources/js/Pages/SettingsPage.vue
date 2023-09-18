@@ -7,35 +7,67 @@
 <div class="col-12 col-md-6">
 <div class="mt-2 card">
 <div  class="clearfix text-center card-header">
-<h6>Settings </h6>
+<h5>Settings </h5>
 </div>
 <div class="card-body pt-0">
 
-<ul class="data-list is-compact">
-<li class="data-item" v-for="m in menu" :key="m.item">
-<div class="data-col">
-<div class="data-label text-transform">{{ m.item }} </div>
-<div class="data-value">
-<span v-if="m.item=='email'">{{ m.value }}</span>
-<span v-else class="text-transform">
-<span v-if="m.value=='change'">
-<button class="btn btn-dim btn-primary" @click="dialog.change=true">Change Password</button>
-</span>
-<!-- <span v-else-if="m.value=='deactivate'">
-<delete-account></delete-account>
-</span> -->
-<!-- <span v-else>
-{{ m.value }}
-</span> -->
 
-</span>
-</div>
-</div>
-</li>
+
+
+<ul class="data-list is-compact" v-if="response.user!=null">
+    <li class="data-item">
+        <div class="data-col">
+            <div class="data-label">First Name</div>
+            <div class="data-value text-transform">{{response.user.firstname}} </div>
+        </div>
+    </li>
+    <li class="data-item">
+        <div class="data-col">
+            <div class="data-label">Last Name</div>
+            <div class="data-value text-transform">{{response.user.lastname}}</div>
+        </div>
+    </li>
+    <li class="data-item">
+        <div class="data-col">
+            <div class="data-label">Gender</div>
+            <div class="data-value text-transform">{{response.user.gender}}</div>
+        </div>
+    </li>
+    <li class="data-item">
+        <div class="data-col">
+            <div class="data-label">Date of Birth</div>
+            <div class="data-value text-soft">{{response.user.dob.split('-').reverse().join('/')}}</div>
+        </div>
+    </li>
+    <li class="data-item">
+        <div class="data-col">
+            <div class="data-label">Telephone</div>
+            <div class="data-value">{{response.user.tel}}</div>
+        </div>
+    </li>
+    <li class="data-item">
+        <div class="data-col">
+            <div class="data-label">Email Address</div>
+            <div class="data-value">{{response.user.email}}</div>
+        </div>
+    </li>
+    <li class="data-item">
+        <div class="data-col">
+            <div class="data-label">Registered on </div>
+            <div class="data-value">
+                {{response.user.created_at.substring(0,10).split('-').reverse().join('/')}}
+            </div>
+        </div>
+    </li>
+    <li class="data-item">
+        <div class="data-col">
+            <div class="data-label">Password</div>
+            <div class="data-value">******** <a href="javascript:void(0)" class="ml-3" @click="show=true">Change</a></div>
+        </div>
+    </li>
+
 
 </ul>
-
-
 
 
 
@@ -51,13 +83,13 @@
 
 
 <!---------Dialog Box-------->
-<form class=""  v-if="dialog.change==true" style="position:fixed;width:100%;left:0;top:0;z-index:10000;height:100%;background-color: hsla(210, 29%, 18%, 0.3);" @submit.prevent="submit">
+<form class=""  v-if="show==true" style="position:fixed;width:100%;left:0;top:0;z-index:10000;height:100%;background-color: hsla(210, 29%, 18%, 0.3);" @submit.prevent="submit">
 <div class="modal-dialog" role="document">
 <div class="modal-content">
 <div class="modal-header" style="background: #37BEA7;border:none;">
     <h5 class="modal-title" style="color:white;">Change Password</h5>
-    <a href="#" class="close" data-dismiss="modal" aria-label="Close" @click="dialog.change=false">
-     
+    <a href="#" class="close" data-dismiss="modal" aria-label="Close" @click="show=false">
+
     </a>
 </div>
 <div class="modal-body" style="max-height:500px;overflow:auto">
@@ -145,33 +177,23 @@ InputError,
 },
 
 props:{
+response:{},
 errors:{}
 },
 
 
 computed:{
 menu(){
-const user=this.$page.props.auth.user;
-let role=user.role;
-if(role=='pssp'){
-role='Service Provider';
-}else if(role=='pssu'){
-role='Service User';
-}else if(role=='reception'){
-role='Receptionist';
-}else{
-role=user.role;
-}
 
 const item=[
-{id:1,item:'User names',value:user.firstname+' '+user.lastname},
-{id:2,item:'email',value:user.email},
-{id:3,item:'Telephone Number',value:user.tel},
-{id:4,item:'Designation',value:role},
-{id:5,item:'Date of Birth',value:user.dob.split('-').reverse().join('/')},
-{id:6,item:'Gender',value:user.gender},
-{id:7,item:'Account Type',value:user.account_type},
-{id:8,item:'Account Status',value:user.status},
+{id:1,item:'User names',value:this.response.user.firstname},
+{id:2,item:'email',value:''},
+{id:3,item:'Telephone Number',value:''},
+{id:4,item:'Designation',value:''},
+{id:5,item:'Date of Birth',value:''},
+{id:6,item:'Gender',value:''},
+{id:7,item:'Account Type',value:''},
+{id:8,item:'Account Status',value:''},
 {id:9,item:'Password',value:'change'},
 {id:10,item:'Deactivate Account',value:'.......'}
 
@@ -186,6 +208,7 @@ return item;
 
 
 data(){return{
+show:false,
 dialog:{
 change:false,
 deactivate:false,
@@ -240,3 +263,8 @@ this.payload();
 
 }
 </script>
+<style scoped>
+.data-item{
+border: none;
+}
+</style>

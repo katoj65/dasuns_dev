@@ -106,9 +106,6 @@ $user_data['services']=SupportServiceModel::get();
 $user_data['transactions']=LogWalletModel::orderby('created_at','DESC')->limit(5)->get();
 
 
-
-
-
 }
 
 //reception account
