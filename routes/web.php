@@ -379,3 +379,9 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/service-users',[PSSUContr
 Route::middleware(['auth:sanctum', 'verified'])->get('/profile/{id}/user',[PSSUController::class,'show'])->name('user.profile');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/service-provider/{id}/pending',[PSSPController::class,'show_pending'])->name('service_provider.pending');
+
+Route::middleware(['auth:sanctum', 'verified'])->post('interview/store',[InterviewController::class,'store'])->name('interview.post');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/interview/{id}/panelists',[InterviewController::class,'create_panelists'])->name('interview.create_panelists');
+
+Route::middleware(['auth:sanctum', 'verified'])->post('/interview/add-panelists',[InterviewController::class,'store_panelist'])->name('interview.add_panelists');

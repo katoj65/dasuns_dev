@@ -88,10 +88,45 @@ return redirect('/');
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, PSSPInterviewScheduleModel $interview)
     {
         //
-    }
+
+$request->validate(['date'=>'required',
+'time'=>'required',
+'id'=>'required',
+'type'=>'required',
+'comment'=>'required'],
+['required'=>'* Field is required.']);
+//format date
+$date_interview=date_create($request->date);
+$date_interview=date_format($date_interview,'Ymd');
+$today=date('Ymd')+1;
+//
+if($today<=$date_interview){
+$create=[
+'date'=>$request->date,
+'time'=>$request->time,
+'type'=>$request->type,
+'comment'=>$request->comment,
+'service_providerID'=>$request->id
+];
+
+//create interview
+$model=$interview->create($create);
+
+//update pssp status
+$user_model=new User;
+$user=$user_model->find($model->service_providerID);
+$user->status='interview';
+$user->save();
+
+return redirect('/interview/'.$model->id.'/panelists')->with('success','Interview has been created');
+}else{
+return redirect('/service-provider/'.$request->id.'/pending')->with('warning','Invalid date.');
+}
+
+}
 
     /**
      * Display the specified resource.
@@ -556,6 +591,85 @@ return $row;
 return [];
 }
 }
+
+
+
+
+
+
+
+
+
+
+//interview panelists.
+public function create_panelists(Request $request, PSSPInterviewScheduleModel $interview){
+$permission=new Controller;
+if($permission->has_permission(['admin','reception'])==false){
+return redirect('/');
+}
+
+$panelist=new InterviewPanelistModel;
+$data['title']='Add panelists';
+$get=$interview->select(
+'users.id as providerID',
+'users.firstname',
+'users.lastname',
+'pssp_interview_schedule.date',
+'pssp_interview_schedule.time',
+'pssp_interview_schedule.comment',
+'pssp_interview_schedule.status',
+'pssp_interview_schedule.type',
+'dasuns_user_number.number',
+'pssp_interview_schedule.created_at',
+'pssp_interview_schedule.id')
+->join('users','pssp_interview_schedule.service_providerID','=','users.id')
+->join('dasuns_user_number','users.id','=','dasuns_user_number.userID')
+->where('pssp_interview_schedule.id',$request->id)
+->first();
+//
+$user=new User;
+if($get!=null){
+$data['response']=[
+'interview'=>$get,
+'panelists'=>$panelist->select('users.firstname','users.lastname')
+->where('interview_panelist.interviewID',$get->id)
+->where('users.role','panelist')
+->join('users','interview_panelist.userID','=','users.id')
+->get(),
+'panelist_list'=>$user->where('status','active')
+->where('role','panelist')->get(),
+];
+}else{
+$data['response']=null;
+}
+return Inertia::render('AddPanelists',$data);
+}
+
+
+
+
+
+
+
+
+//add panelist to interview
+public function store_panelist(Request $request,  InterviewPanelistModel $panelist){
+$request->validate(['pid'=>'required'],['required'=>'* Field is required.']);
+$model=$panelist->where('userID',$request->pid)
+->where('interviewID',$request->id)
+->join('users','interview_panelist.userID','=','users.id')
+->first();
+if($model==null){
+$panelist->create(['userID'=>$request->pid,'interviewID'=>$request->id]);
+return redirect('/interview/'.$request->id.'/panelists')->with('success','Panelist has been added.');
+}else{
+$message=ucfirst($model->firstname).' '.ucfirst($model->lastname);
+return redirect('/interview/'.$request->id.'/panelists')->with('warning',$message.' is alrady among the panelist for this interview.');
+}
+}
+
+
+
 
 
 

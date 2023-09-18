@@ -747,7 +747,6 @@ if($profile!=null and count($profession)>0 and count($education)>0 and count($re
 $status='interview';
 }
 
-
 $data['title']='Pending';
 $data['response']=[
 'user'=>$collection,

@@ -22,7 +22,7 @@
 {{ response.number }}
 </span>
 <div class="text-center mt-3">
-<button class="btn btn-default btn-sm" v-if="response.status=='interview'">
+<button class="btn btn-default btn-sm" v-if="response.status=='interview'" @click="show=true">
 Schedule Interview</button>
 <button class="btn btn-default btn-sm">Message</button>
 </div>
@@ -395,16 +395,6 @@ Identification Documents
 </div>
 </el-drawer>
 
-
-
-
-
-
-
-
-
-
-
 <el-drawer title=""
 :visible.sync="drawer5"
 :with-header="false">
@@ -434,26 +424,114 @@ Profession Services
 
 
 
+<!-------dialog----------->
+<form class=""  v-if="show==true" style="position:fixed;width:100%;left:0;top:0;z-index:10000;height:100%;background-color: hsla(210, 29%, 18%, 0.3);" @submit.prevent="submit">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-header" style="background: #37BEA7;border:none;">
+<h5 class="modal-title" style="color:white;">Schedule interview</h5>
+<a href="#" class="close" data-dismiss="modal" aria-label="Close" @click="show=false" style="color:black;">
+</a>
+</div>
+<div class="modal-body" style="max-height:500px;overflow:auto">
 
+
+
+
+
+<div class="form-group">
+<label class="form-label" for="default-01"></label>
+<div class="form-control-wrap">
+<input type="text" class="form-control text-transform" id="default-01" placeholder="Enter names" :value="response.user.firstname+' '+response.user.lastname" disabled>
+</div>
 </div>
 
 
-<div v-else class="text-center p-5">
-    No results found
-    </div>
+
+
+<div class="form-group">
+<label class="form-label" for="default-01">
+<input-error :error="errors.date"></input-error>
+</label>
+<div class="form-control-wrap">
+<input type="date" class="form-control" id="default-01" placeholder="Enter date" v-model="form.date">
+</div>
+</div>
+
+
+
+<div class="form-group">
+<label class="form-label" for="default-01">
+<input-error :error="errors.time"></input-error>
+</label>
+<div class="form-control-wrap">
+<input type="time" class="form-control" id="default-01" placeholder="Enter time" v-model="form.time">
+</div>
+</div>
+
+
+
+<div class="form-group">
+<label class="form-label" for="default-01">
+<input-error :error="errors.type"></input-error>
+</label>
+<div class="form-control-wrap">
+<select type="text" class="form-control" id="default-01" @change="set_type($event)">
+<option>--Select--</option>
+<option value="physical">Physical </option>
+<option value="online">Online </option>
+</select>
+</div>
+</div>
+
+<div class="form-group">
+<label class="form-label" for="default-01">
+    <input-error :error="errors.comment"></input-error>
+</label>
+<div class="form-control-wrap">
+<textarea type="text" class="form-control" id="default-01" placeholder="Enter comment" v-model="form.comment">
+</textarea>
+</div>
+</div>
+
+</div>
+<div class="modal-footer bg-light">
+<span class="sub-text">
+<input type="submit" class="button" value="Save" style="border-radius:10px"/>
+</span>
+</div>
+</div>
+</div>
+</form>
+
+
+
+
+
+
+
+
+
+
+</div>
+<div v-else class="text-center p-5">No results found</div>
 </app-layout>
 </template>
 <script>
-import AppLayout from '@/Layouts/AppLayout.vue';
+import AppLayout from '@/Layouts/AppLayout';
+import InputError from '@/Alerts/InputError';
 export default {
 components:{
-AppLayout
+AppLayout,
+InputError
 
 },
 
 props:{
 title:{},
 response:{},
+errors:{},
+flash:{},
 
 },
 
@@ -463,6 +541,15 @@ drawer2:false,
 drawer3:false,
 drawer4:false,
 drawer5:false,
+show:false,
+//interview form
+form:this.$inertia.form({
+id:null,
+date:'',
+time:'',
+comment:'',
+type:'',
+}),
 
 
 }},
@@ -471,12 +558,37 @@ computed:{
 },
 
 methods:{
+submit(){
+this.form.post(this.route('interview.post'),{
+onSuccess:()=>{
+const flash=this.$page.props.flash;
+this.show=false;
+this.$notify({
+title:flash.success!=null?'Successful':'Warning',
+message:flash.success!=null?flash.success:flash.warning,
+type:flash.success!=null?'success':'warning',
+position:'bottom-right'
+});
+}
+});
 
 
+},
+
+set_type(event){
+this.form.type=event.target.value;
+},
 
 
+set_id(){
+const id=this.response.user.id;
+this.form.id=id;
+}
 
 
+},
+mounted(){
+this.set_id();
 }
 
 

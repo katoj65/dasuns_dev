@@ -9,4 +9,5 @@ class InterviewPanelistModel extends Model
 {
     use HasFactory;
     protected $table='interview_panelist';
+    protected $fillable=['interviewID','userID'];
 }

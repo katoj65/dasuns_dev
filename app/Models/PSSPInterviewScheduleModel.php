@@ -9,4 +9,5 @@ class PSSPInterviewScheduleModel extends Model
 {
     use HasFactory;
     protected $table='pssp_interview_schedule';
+    protected $fillable=['date','time','service_providerID','type','comment'];
 }
