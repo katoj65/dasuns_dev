@@ -183,6 +183,8 @@ $user_data=[];
 elseif($role=='panelist'){
 //Statistics details
 $profile=new PanelistProfessionProfileModel;
+$appointments=new AppointmentModel;
+
 $user_data['statistics']=[
 'count_user'=>User::where('users.status','active')->where('users.role','pssp')->orwhere('users.role','pssu')
 ->join('dasuns_user_number','users.id','=','dasuns_user_number.userID')
@@ -234,8 +236,9 @@ $user_data['failed']=$panelist->select('pssp_interview_schedule.id',
 ->where('pssp_interview_schedule.status','failed')
 ->get();
 //Wallet details.
-$user_data['wallet']=number_format(DasunsWalletModel::select('amount')->sum('amount'));
 
+$user_data['wallet']=number_format(DasunsWalletModel::select('amount')->sum('amount'));
+$user_data['appointments']=$appointments->where('userID',Auth::user()->id)->get();
 
 
 

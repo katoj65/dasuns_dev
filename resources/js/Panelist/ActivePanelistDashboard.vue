@@ -173,20 +173,31 @@ No approved interviews
 <div class="col-12 col-md-4">
 <div class="card h-100">
 <div class="card-header">
-<div class="card-title">
-<h6>
-Wallet
-</h6>
-</div>
-</div>
-<div class="card-body" style="min-height:200px;">
+<h3 class="card-title bold"><em class="icon ni ni-wallet-fill" style="font-size:30px;"></em> Wallet</h3>
 
-
+</div>
+<div class="card-body">
+<h6>Ballance</h6>
+<h3 class="pt-3" style="font-weight:normal;"><span class="counter">{{ response.wallet }} </span></h3>
+<span><span class="text-danger mr-2"></span>
+</span>
+</div>
+<div class="card-footer border-0">
+<div class="list-group border-0 list-widget" style="border:none;">
+<Inertia-link :href="route('wallet.deposit')" class="list-group-item" style="font-size:16px;color:black;"><em class="icon ni ni-wallet-out"></em> Deposit Funds</Inertia-link>
+<Inertia-link :href="route('wallet.withdraw')" class="list-group-item" style="font-size:16px;color:black"><em class="icon ni ni-wallet-in"></em> Withdraw Funds</Inertia-link>
+</div>
 </div>
 </div>
 
 </div>
 <div class="col-12 col-md-4">
+
+
+
+
+
+
 <div class="card h-100">
 <div class="card-header">
 <div class="card-title">
@@ -196,6 +207,36 @@ Appointments
 </div>
 </div>
 <div class="card-body" style="min-height:200px;">
+
+<div class="table-responsive">
+<table class="table mb-0">
+<thead>
+<tr>
+
+<th>Date</th>
+<th>Time</th>
+<th>Location</th>
+</tr>
+</thead>
+<tbody v-if="response.appointments.length>0">
+<tr v-for="(a,key) in response.appointments" :key="key">
+<td><Inertia-link :href="route('interview',{id:a.id})" class="text-black"> {{ a.date.split('-').reverse().join('/') }}</Inertia-link> </td>
+<td><Inertia-link :href="route('interview',{id:a.id})" class="text-black">{{ a.time.substring(0,5) }}</Inertia-link> </td>
+<td class="text-transform">
+{{ a.location }}
+</td>
+</tr>
+
+</tbody>
+<tbody v-else>
+<tr>
+<td colspan="3">
+No appointments
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 
 
 </div>
