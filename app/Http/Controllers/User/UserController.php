@@ -219,6 +219,31 @@ return $request;
 
 
 
+//update user status
+public function update_status(Request $request, User $user){
+$model=$user->find(Auth::user()->id);
+$model->status=$request->status;
+$model->save();
+if($model->wasChanged()){
+return redirect('/dashboard')->with('success','Profile successfully creatd.');
+}else{
+return redirect('/dashboard')->with('warning','Profile was not created.');
+}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }

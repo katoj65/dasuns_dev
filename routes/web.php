@@ -385,3 +385,7 @@ Route::middleware(['auth:sanctum', 'verified'])->post('interview/store',[Intervi
 Route::middleware(['auth:sanctum', 'verified'])->get('/interview/{id}/panelists',[InterviewController::class,'create_panelists'])->name('interview.create_panelists');
 
 Route::middleware(['auth:sanctum', 'verified'])->post('/interview/add-panelists',[InterviewController::class,'store_panelist'])->name('interview.add_panelists');
+
+Route::middleware(['auth:sanctum', 'verified'])->post('/profile/store-panelist',[PanelistController::class,'store'])->name('profile.post_panelist');
+
+Route::middleware(['auth:sanctum', 'verified'])->put('/user/update-status',[UserController::class,'update_status'])->name('user.update_status');

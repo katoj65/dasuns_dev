@@ -23,8 +23,6 @@ use App\Models\DasunsRecommendationsModel;
 
 
 
-
-
 class PanelistController extends Controller
 {
 /**
@@ -43,9 +41,20 @@ public function index()
  * @param  \Illuminate\Http\Request  $request
  * @return \Illuminate\Http\Response
  */
-public function store(Request $request)
+public function store(Request $request, PanelistProfessionProfileModel $panelist)
 {
 //
+$request->validate(['pid'=>'required','description'=>'required','years'=>'required'],['required'=>'* Field is required.']);
+$get=$panelist->where('userID',Auth::user()->id)->where('professionID',$request->pid)->count();
+if($get==0){
+$model=$panelist->create(['professionID'=>$request->pid,
+'userID'=>Auth::user()->id,
+'description'=>$request->description,
+'number_years'=>$request->years]);
+return redirect('/dashboard')->with('success','Profession details added.');
+}else{
+return redirect('/dashboard')->with('warning','Selected profession is already added.');
+}
 }
 
 /**
@@ -525,7 +534,6 @@ return redirect('/profile')->with('success','Your profile information has been u
 }else{
 return redirect('/profile')->with('warning','Your profile information was not changed.');
 }
-
 
 }
 

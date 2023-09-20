@@ -9,4 +9,5 @@ class PanelistProfessionProfileModel extends Model
 {
     use HasFactory;
     protected $table='panelist_profession_profile';
+    protected $fillable=['userID','professionID','description','number_years'];
 }

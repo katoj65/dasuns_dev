@@ -1,198 +1,162 @@
 <template>
 <div class="nk-block">
-<active-panelist-dashboard :response="response" :flash="flash" errors="errors" v-if="status=='active'"></active-panelist-dashboard>
-
-
-
-
-
-<div class="row g-gs" v-else>
-<div class="col-12 col-md-12">
-<el-card class="card p-4" shadow="never">
-<div class="row">
+<active-panelist-dashboard :response="response" :flash="flash" errors="errors" v-if="response.user.status=='active'"/>
+<div class="nk-content" v-else>
+<div class="row g-gs">
 <div class="col-12 col-md-3"></div>
 <div class="col-12 col-md-6">
-<div class="card card-full" style="min-height:600px;">
-<div class="card-inner">
-<div class="card-title-group">
-<div class="card-title" style="width:100%;">
-<h6  style="text-align:center;width:100%;"></h6>
-</div>
-
-</div>
-</div>
-<div>
-
-
-<div class="card mb-10 mt-2 border" style="border-radius:5px;">
-<div class="card-inner">
-<div class="team">
-
-<div class="user-card user-card-s2">
-<div class="user-avatar lg bg-success">
-<span><em class="icon ni ni-user-alt-fill"></em></span>
-
-</div>
-<div class="user-info">
-<h6 class="text-transform">{{ user.firstname }} {{ user.lastname }} </h6>
-<span class="sub-text">Panelist</span>
+<div class="card">
+<div class="card-header">
+<div class="card-title">
+<h6>
+Complete your profile
+</h6>
 </div>
 </div>
-
-<div class="team-view">
-<button class="btn btn-block btn-dim btn-success" @click="close_dialog1()"><span>Add Profession Experience </span></button>
+<div class="card-body text-center">
+<em class="icon ni ni-user-circle-fill" style="font-size:100px;"></em>
+<h4 class="mt-3 mb-0 text-transform">{{ response.user.firstname }} {{ response.user.lastname }} </h4>
+<span>{{ response.user.email }} </span>
+<div class="mt-3">
+<button class="btn btn-default btn-sm">View Profile</button>
+<button class="btn btn-default btn-sm">Message</button>
 </div>
 
-<div>
+
+<div class="text-left mt-4">
+
 
 <ul class="data-list is-compact">
+
+
 <li class="data-item">
 <div class="data-col">
 <div class="data-label">Gender</div>
-<div class="data-value text-transform">{{ user.gender }} </div>
+<div class="data-value text-transform">{{ response.user.gender }} </div>
 </div>
 </li>
+
+
 <li class="data-item">
 <div class="data-col">
 <div class="data-label">Date of Birth</div>
-<div class="data-value">{{ user.dob }} </div>
+<div class="data-value text-transform">{{ response.user.dob.split('-').reverse().join('/') }}</div>
 </div>
 </li>
+
+<li class="data-item">
+<div class="data-col">
+<div class="data-label">Telephone</div>
+<div class="data-value">{{ response.user.tel }}</div>
+</div>
+</li>
+
+
 <li class="data-item">
 <div class="data-col">
 <div class="data-label">Email Address</div>
-<div class="data-value">{{ user.email }} </div>
+<div class="data-value">{{ response.user.email }}</div>
 </div>
 </li>
+
+
 <li class="data-item">
 <div class="data-col">
-<div class="data-label">Telephone Number </div>
-<div class="data-value">{{ user.tel }} </div>
+<div class="data-label">Designation</div>
+<div class="data-value text-transform">{{ response.user.role }} </div>
 </div>
 </li>
-<li class="data-item border-0 mt-2">
+
+
+<li class="data-item">
 <div class="data-col">
-<div class="data-label"><strong>PROFESSION EXPERIENCE </strong></div>
-<!-- <div class="data-value">info@softnio.com</div> -->
-
+<div class="data-label">Joined at </div>
+<div class="data-value">
+{{ response.user.created_at.substring(0,10).split('-').reverse().join('/') }}
+</div>
 </div>
 </li>
-<li class="data-item border-0 p-0" style="width:100%;">
 
-<div class="card  card-full" style="width:100%;">
-<div class="card-inner-group" v-if="my_profile.length>0">
-<div class="data-item" v-for="x in  my_profile" :key="x.id">
-<div class="data-col">
-<span class="data-label text-transform" style="width:250px;">{{ x.name }} </span>
-<span class="data-value" style="width:100px;">{{ x.number_years>1?x.number_years+' Years':x.number_years+' Year' }}  </span>
-</div>
-<div class="data-col data-col-end">
-<el-dropdown trigger="click">
-<span class="el-dropdown-link">
-<em class="icon ni ni-more-h"></em>
-</span>
-<el-dropdown-menu slot="dropdown">
-<el-dropdown-item>
-<a href="#" style="padding:5px;" @click="submit2(x.id)">Delete</a>
-</el-dropdown-item>
-</el-dropdown-menu>
-</el-dropdown>
-</div>
-</div>
-
-</div>
-<div v-else>
-No content
-</div>
-</div>
-
-</li>
 </ul>
 
 
 
-<div class="border-top" style="width:100%;" v-if="$page.props.response.user_data.dashboard.panelist_professions.length>0">
-<button  class="btn btn-block btn-dim btn-success mt-2" @click="submit3()">
-FINISH
-</button>
-</div>
-
 
 </div>
-
-</div><!-- .team -->
-</div><!-- .card-inner -->
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-</div>
-
-
-
-
-
 
 </div>
 
 
-<div class="col-12 col-md-3"></div>
+<div class="card-body">
+
+<table style="width:100%;">
+<thead>
+<tr>
+<th colspan="3">
+<h5>
+Profession Experience
+</h5>
+</th>
+</tr>
+<tr>
+<th>
+Profession
+</th>
+<th>
+Description
+</th>
+<th>
+No. Years
+</th>
+</tr>
+</thead>
+<tbody v-if="response.profile.length>0">
+<tr v-for="(t,key) in response.profile" :key="key">
+<td>
+{{ t.name }}
+</td>
+<td>
+{{ t.description }}
+</td>
+<td>
+{{ t.number_years }}
+</td>
+</tr>
+</tbody>
+<tbody v-else>
+<tr>
+<td colspan="2">
+No content
+</td>
+</tr>
+</tbody>
+</table>
+
+
+
 
 </div>
-</el-card>
-</div>
-</div>
 
 
 
+<div class="card-body">
 
-<!------Dialog Panels-->
+<h6 class="mb-3">Fill in profile information</h6>
 
+<form @submit.prevent="submit">
 
-<form class="" v-if="dialog.experience==true" style="position:fixed;width:100%;left:0;top:0;z-index:10000;height:100%;background-color: hsla(210, 29%, 18%, 0.3);" @submit.prevent="submit">
-<div class="modal-dialog" role="document">
-
-<div class="modal-content">
-<div class="modal-header" style="background: #37BEA7;border:none;">
-<h5 class="modal-title" style="color:white;">Panelist Profession Experience</h5>
-<a href="#" class="close"  aria-label="Close" @click="close_dialog1()">
-<em class="icon ni ni-cross"></em>
-</a>
-</div>
-<div class="modal-body">
 
 <div class="form-group">
 <label class="form-label" for="default-01">
-<input-error :error="errors.experience"></input-error>
+<input-error :error="errors.pid"></input-error>
 </label>
 <div class="form-control-wrap">
-<select class="form-control" id="default-01" @change="select_exp($event)">
-<option>-- Select Profession--</option>
-<option v-for="p in profession" :key="p.id" :value="p.id">{{ p.name }}</option>
+<select type="text" class="form-control" id="default-01" @change="set_profession($event)">
+<option value="">--Select profession--</option>
+<option v-for="(p,key) in response.professions" :key="key" :value="p.id">
+{{ p.name }}
+</option>
+
 </select>
 </div>
 </div>
@@ -201,11 +165,13 @@ FINISH
 
 
 
-
 <div class="form-group">
-<label class="form-label" for="default-01"></label>
+<label class="form-label" for="default-01">
+<input-error :error="errors.description"></input-error>
+</label>
 <div class="form-control-wrap">
-<textarea class="form-control" id="default-01" placeholder="Enter profession description" v-model="form.description"></textarea>
+<textarea class="form-control" id="default-01" placeholder="Enter profession description" v-model="form.description">
+</textarealass>
 </div>
 </div>
 
@@ -218,28 +184,39 @@ FINISH
 <input-error :error="errors.years"></input-error>
 </label>
 <div class="form-control-wrap">
-<select class="form-control" id="default-01" placeholder="Enter telephone contact" @change="select_years($event)">
-<option>-- Select Number of Years --</option>
-<option :value="x" v-for="x in 30" :key="x">
-{{ x }} {{ x==1?'Year':'Years' }}
-</option>
-</select>
+<input type="number" class="form-control" id="default-01" placeholder="Enter of years of experience" v-model="form.years">
 </div>
 </div>
 
-</div>
-<div class="modal-footer bg-light">
-<span class="sub-text">
+
+
+<div class="form-group">
+<label class="form-label" for="default-01"></label>
+<div class="form-control-wrap">
 <input type="submit" class="button" value="Save" style="border-radius:10px"/>
-</span>
+<a href="javascript:void(0)" class="buttom btn-default btn-sm text-black" style="border-radius:10px;float:right;padding:15px;font-size:17px;" v-if="response.profile.length>0" @click="submit2('active')">Continue <em class="icon ni ni-arrow-long-right"></em></a>
+
 </div>
 </div>
-</div>
+
 </form>
 
+</div>
+</div>
 
 
 
+
+
+
+
+
+
+
+</div>
+<div class="col-12 col-md-3"></div>
+</div>
+</div>
 </div>
 </template>
 <script>
@@ -262,31 +239,16 @@ flash:{}
 
 data(){
 return{
-interviews:this.response.dashboard.interviews,
-profile:this.response.dashboard.profile,
-profession:this.response.dashboard.profession,
-panelist_professions:this.$page.props.response.user_data.dashboard.panelist_professions,
-recommend:this.response.dashboard.recommended,
-
-
-dialog:{
-experience:false,
-},
-
 form:this.$inertia.form({
-experience:null,
-description:null,
-years:null,
-}
-),
+pid:null,
+description:'',
+years:''
 
-
-
-//
-form2:this.$inertia.form({
-id:null,
 }),
 
+form2:this.$inertia.form({
+status:null,
+})
 
 
 
@@ -301,89 +263,63 @@ id:null,
 
 
 methods:{
-
-close_dialog1(){
-if(this.dialog.experience==false){
-this.dialog.experience=true;
-}else if(this.dialog.experience==true){
-this.dialog.experience=false;
-}
+set_profession(event){
+this.form.pid=event.target.value;
 },
-
-
-//select
-select_exp(event){
-this.form.experience=event.target.value;
-},
-
-//select
-select_years(event){
-this.form.years=event.target.value;
-},
-
-
 
 submit(){
-this.form.post(this.route('store.profession_profile'),{
+this.form.post(this.route('profile.post_panelist'),{
 onSuccess:()=>{
-this.dialog.experience=false;
+const flash=this.$page.props.flash;
+this.form.reset();
 this.$notify({
-    position: 'bottom-right',
-title: 'Success',
-message:this.flash.success!=null?this.flash.success:this.flash.warning,
-type: this.flash.success!=null?'success':'warning'
-});
+title:flash.success!=null?'Successful':'Warning',
+message:flash.success!=null?flash.success:flash.warning,
+position:'bottom-right',
+type:flash.success!=null?'success':'warning'});
+
 }
+
 });
 },
 
+submit2(status){
+this.form2.status=status;
+this.form2.put(this.route('user.update_status'),{
 
-
-//
-submit2(id){
-this.form2.id=id;
-this.form2.post(route('delete.profession_attributes'),{
 onSuccess:()=>{
+const flash=this.$page.props.flash;
+this.form.reset();
 this.$notify({
-    position: 'bottom-right',
-title: 'Success',
-message:this.flash.success,
-type:'success'
-});
-}
-});
+title:flash.success!=null?'Successful':'Warning',
+message:flash.success!=null?flash.success:flash.warning,
+position:'bottom-right',
+type:flash.success!=null?'success':'warning'});
 
-},
-
-//
-submit3(){
-this.$inertia.post(this.route('panelist.finish'));
 }
 
 
+});
+}
 
 
 
 
 
 },
+
+
+
 
 
 computed:{
 user(){
-return this.$page.props.auth.user;
+return this.response.user_data.user;
 },
 
-status(){
-return this.$page.props.auth.user.status;
-},
-
-my_profile(){
-return this.$page.props.response.user_data.dashboard.panelist_professions;
+profile(){
+return this.response.user_data.profile;
 }
-
-
-
 
 
 
@@ -396,5 +332,8 @@ return this.$page.props.response.user_data.dashboard.panelist_professions;
 <style scoped>
 table tr th, table tr td{
 padding:10px;
+}
+.data-item{
+border:none;
 }
 </style>

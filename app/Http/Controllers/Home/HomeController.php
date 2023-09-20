@@ -26,6 +26,8 @@ use App\Models\AppointmentServiceModel;
 use App\Models\LogWalletModel;
 use App\Models\DasunsWalletModel;
 use App\Models\PSSPInterviewScheduleModel;
+use App\Models\PanelistProfessionProfileModel;
+use App\Models\EmployeeProfessionModel;
 
 
 class HomeController extends Controller
@@ -110,6 +112,8 @@ $user_data['transactions']=LogWalletModel::orderby('created_at','DESC')->limit(5
 
 //reception account
 elseif($role=='reception'){
+
+
 $user_data['statistics']=[
 'count_user'=>User::where('users.status','active')->where('users.role','pssp')->orwhere('users.role','pssu')
 ->join('dasuns_user_number','users.id','=','dasuns_user_number.userID')
@@ -132,16 +136,7 @@ $user_data['appointments']=User::select(
 ->join('dasuns_user_number','users.id','=','dasuns_user_number.userID')
 ->where('users.role','pssp')
 ->where('users.status','pending')
-->get()
-;
-
-
-
-
-
-
-
-
+->get();
 
 
 $user_data['transactions']=LogWalletModel::select('*')->get();
@@ -179,11 +174,35 @@ $user_data['transactions']=LogWalletModel::orderby('created_at','DESC')->limit(5
 //finance
 elseif($role=='finance'){
 $user_data=[];
+
+
+
 }
 
 //panelist
 elseif($role=='panelist'){
-$user_data=['dashboard'=>PanelistController::dashboard()];
+$profile=new PanelistProfessionProfileModel;
+$user_data['statistics']=[
+'count_user'=>User::where('users.status','active')->where('users.role','pssp')->orwhere('users.role','pssu')
+->join('dasuns_user_number','users.id','=','dasuns_user_number.userID')
+->count(),
+'count_PSSP'=>User::where('role','pssp')->where('status','active')->count(),
+'count_admin'=>User::where('role','!=','pssu')->where('role','!=','pssp')->count(),
+'count_service_users'=>User::where('role','pssu')->where('status','active')->count(),
+$user_data['get_pssp_services']=$this->get_registered_positions(),
+];
+//
+$user_data['user']=Auth::user();
+$user_data['profile']=$profile->select('panelist_profession_profile.description',
+'panelist_profession_profile.number_years',
+'panelist_profession_profile.id',
+'employee_profession.name')
+->where('panelist_profession_profile.userID',Auth::user()->id)
+->join('employee_profession','panelist_profession_profile.professionID','=','employee_profession.id')
+->get();
+$user_data['professions']=EmployeeProfessionModel::get();
+
+
 }
 
 //else side

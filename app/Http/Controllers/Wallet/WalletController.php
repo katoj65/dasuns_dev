@@ -296,7 +296,7 @@ return Inertia::render('WalletHistoryPage',$data);
 
 
 //admin wallet method
-public function admin_wallet(Request $request){
+public function admin_wallet(Request $request, PaymentModel $payment){
 $permission=RoleController::permission(['admin','reception']);
 if($permission!=null){
 
@@ -321,8 +321,14 @@ $data['response']=[
 ->orwhere('users.role','secretary')
 ->sum('dasuns_wallet.amount')),
 
-'log'=>LogWalletModel::select('*')
-->orderby('log_wallet.created_at','DESC')
+'payments'=>$payment->select('users.firstname',
+'users.lastname',
+'payment.amount',
+'payment.paid_to',
+'payment.created_at')
+->join('users','payment.userID','=','users.id')
+// ->join('appointment','payment.appointmentID','=','appointment.id')
+->orderby('payment.created_at','DESC')
 ->get(),
 
 ];

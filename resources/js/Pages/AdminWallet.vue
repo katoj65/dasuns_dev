@@ -6,11 +6,12 @@
 <div class="col-12 col-md-8">
 
 
-
-
 <div class="card">
 <div class="card-header">
-<h3 class="card-title text-transform">Payments</h3>
+<h3 class="card-title text-transform bold">
+    <em class="icon ni ni-wallet-fill"></em>
+    Payments
+</h3>
 </div>
 <div class="card-body">
 <span>Balance</span>
@@ -35,34 +36,32 @@
 </div>
 </div>
 </div>
-<div class="card-footer">
+<div class="card-footer border-0">
 
-<h6>
+<h6><em class="icon ni ni-view-list-fill"></em>
 Transaction Details
 </h6>
 
 <table class="table mb-0">
 <thead>
-
 <tr>
-
 <th>Date</th>
-<th>Transaction</th>
+<th>Names</th>
 <th>Amount</th>
-
 </tr>
 </thead>
-<tbody v-if="log.length>0">
-<tr v-for="(l,key) in log" :key="key">
-<td><em class="icon ni ni-calender-date-fill mr-2"></em> {{ l.created_at.substring(0,10).split('-').reverse().join('/') }} </td>
+<tbody v-if="payments.length>0">
+<tr v-for="(p,key) in payments" :key="key">
+<td><em class="icon ni ni-calender-date-fill mr-2"></em>
+{{ p.created_at.substring(0,10).split('-').reverse().join('/') }}
+</td>
 <td class="text-transform">
-{{ l.transaction }}
+{{ p.firstname }} {{ p.lastname }}
 </td>
 <td>
-{{ l.amount }}
+{{ p.amount }}
 </td>
 </tr>
-
 </tbody>
 <tbody v-else>
 <tr>
@@ -70,9 +69,6 @@ Transaction Details
 </tr>
 </tbody>
 </table>
-
-
-
 
 
 </div>
@@ -118,9 +114,7 @@ other(){
 return this.response.other;
 },
 
-log(){
-return this.response.log;
-}
+
 
 
 
@@ -145,3 +139,7 @@ this.payload();
 
 }
 </script>
+<style scoped>
+table tr td{border:none}
+table tr th{border:none}
+</style>
