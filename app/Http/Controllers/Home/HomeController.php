@@ -28,6 +28,7 @@ use App\Models\DasunsWalletModel;
 use App\Models\PSSPInterviewScheduleModel;
 use App\Models\PanelistProfessionProfileModel;
 use App\Models\EmployeeProfessionModel;
+use App\Models\InterviewPanelistModel;
 
 
 class HomeController extends Controller
@@ -154,7 +155,6 @@ $user_data['counts']=[
 ->where('users.role','!=','pssp')
 ->sum('amount'))];
 
-
 $user_data['interview']=[
 'all'=>PSSPInterviewScheduleModel::count(),
 'success'=>PSSPInterviewScheduleModel::where('status','accepted')->count(),
@@ -192,15 +192,44 @@ $user_data['statistics']=[
 $user_data['get_pssp_services']=$this->get_registered_positions(),
 ];
 //
+
+
 $user_data['user']=Auth::user();
 $user_data['profile']=$profile->select('panelist_profession_profile.description',
 'panelist_profession_profile.number_years',
 'panelist_profession_profile.id',
-'employee_profession.name')
-->where('panelist_profession_profile.userID',Auth::user()->id)
-->join('employee_profession','panelist_profession_profile.professionID','=','employee_profession.id')
-->get();
+'employee_profession.name')->where('panelist_profession_profile.userID',Auth::user()->id)
+->join('employee_profession','panelist_profession_profile.professionID','=','employee_profession.id')->get();
 $user_data['professions']=EmployeeProfessionModel::get();
+
+//
+$panelist=new InterviewPanelistModel;
+$user_data['interviews']=$panelist->select('pssp_interview_schedule.id',
+'pssp_interview_schedule.date',
+'pssp_interview_schedule.time',
+'pssp_interview_schedule.created_at',
+// 'pssp_interview_schedule.comment',
+'users.firstname',
+'users.lastname')
+->join('pssp_interview_schedule','interview_panelist.interviewID','=','pssp_interview_schedule.id')
+->join('users','pssp_interview_schedule.service_providerID','=','users.id')
+->where('interview_panelist.userID',Auth::user()->id)
+->where('pssp_interview_schedule.status','scheduled')
+->get();
+
+$user_data['passed']=$panelist->select('pssp_interview_schedule.id',
+'pssp_interview_schedule.date',
+'pssp_interview_schedule.time',
+'pssp_interview_schedule.created_at',)
+->join('pssp_interview_schedule','interview_panelist.interviewID','=','pssp_interview_schedule.id')
+->where('interview_panelist.userID',Auth::user()->id)
+->where('pssp_interview_schedule.status','passed')
+->get();
+
+
+
+
+
 
 
 }

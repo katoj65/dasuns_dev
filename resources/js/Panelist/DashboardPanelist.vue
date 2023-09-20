@@ -87,6 +87,8 @@ Complete your profile
 </div>
 
 
+
+
 <div class="card-body">
 
 <table style="width:100%;">
@@ -248,7 +250,10 @@ years:''
 
 form2:this.$inertia.form({
 status:null,
-})
+}),
+
+
+
 
 
 
