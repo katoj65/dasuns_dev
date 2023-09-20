@@ -107,14 +107,57 @@ No interviews
 </div>
 <div class="col-12 col-md-4">
 
-    <div class="card">
-        <div class="card-header">
-        <div class="card-title">
-        <h6>Approved Interviews</h6>
-        </div>
-        </div>
-        <div class="card-body"></div>
-        </div>
+<div class="card">
+<div class="card-header">
+<div class="card-title">
+<h6>Approved Interviews</h6>
+</div>
+</div>
+<div class="card-body">
+
+
+
+
+
+<div class="table-responsive">
+<table class="table mb-0">
+<thead>
+<tr>
+
+<th>Date</th>
+<th>Time</th>
+<!-- <th>Created at</th> -->
+</tr>
+</thead>
+<tbody v-if="response.passed.length>0">
+<tr v-for="(i,key) in response.interviews" :key="key">
+<td><Inertia-link :href="route('interview',{id:i.id})" class="text-black"> {{ i.date.split('-').reverse().join('/') }}</Inertia-link> </td>
+<td><Inertia-link :href="route('interview',{id:i.id})" class="text-black">{{ i.time.substring(0,5) }}</Inertia-link> </td>
+<!-- <td>
+{{ i.created_at.substring(0,10).split('-').reverse().join('/') }}
+</td> -->
+</tr>
+
+</tbody>
+<tbody v-else>
+<tr>
+<td colspan="3">
+No interviews
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+
+
+
+
+
+
+</div>
+</div>
 
 
 
