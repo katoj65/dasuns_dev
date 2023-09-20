@@ -34,7 +34,7 @@
 </div>
 </div>
 
-<div class="row g-gs">
+<div class="row g-gs mt-2">
 <div class="col-12 col-md-8">
 
 <!-- {{ response.interviews }} -->
@@ -142,7 +142,7 @@ No interviews
 <tbody v-else>
 <tr>
 <td colspan="3">
-No interviews
+No approved interviews
 </td>
 </tr>
 </tbody>
@@ -169,7 +169,84 @@ No interviews
 </div>
 
 
+<div class="row g-gs" style="margin-top:-5px;">
+<div class="col-12 col-md-4">
+<div class="card h-100">
+<div class="card-header">
+<div class="card-title">
+<h6>
+Wallet
+</h6>
+</div>
+</div>
+<div class="card-body" style="min-height:200px;">
 
+
+</div>
+</div>
+
+</div>
+<div class="col-12 col-md-4">
+<div class="card h-100">
+<div class="card-header">
+<div class="card-title">
+<h6>
+Appointments
+</h6>
+</div>
+</div>
+<div class="card-body" style="min-height:200px;">
+
+
+</div>
+</div>
+
+</div>
+<div class="col-12 col-md-4">
+<div class="card h-100">
+<div class="card-header">
+<div class="card-title">
+<h6>
+Failed Interviews
+</h6>
+</div>
+</div>
+<div class="card-body" style="min-height:200px;">
+
+    <div class="table-responsive">
+        <table class="table mb-0">
+        <thead>
+        <tr>
+
+        <th>Date</th>
+        <th>Time</th>
+        <!-- <th>Created at</th> -->
+        </tr>
+        </thead>
+        <tbody v-if="response.failed.length>0">
+        <tr v-for="(f,key) in response.interviews" :key="key">
+        <td><Inertia-link :href="route('interview',{id:f.id})" class="text-black"> {{ f.date.split('-').reverse().join('/') }}</Inertia-link> </td>
+        <td><Inertia-link :href="route('interview',{id:f.id})" class="text-black">{{ f.time.substring(0,5) }}</Inertia-link> </td>
+        <!-- <td>
+        {{ i.created_at.substring(0,10).split('-').reverse().join('/') }}
+        </td> -->
+        </tr>
+
+        </tbody>
+        <tbody v-else>
+        <tr>
+        <td colspan="3">
+        No failed interviews
+        </td>
+        </tr>
+        </tbody>
+        </table>
+        </div>
+
+</div>
+</div>
+</div>
+</div>
 
 
 

@@ -179,8 +179,9 @@ $user_data=[];
 
 }
 
-//panelist
+//Panelist.
 elseif($role=='panelist'){
+//Statistics details
 $profile=new PanelistProfessionProfileModel;
 $user_data['statistics']=[
 'count_user'=>User::where('users.status','active')->where('users.role','pssp')->orwhere('users.role','pssu')
@@ -191,9 +192,7 @@ $user_data['statistics']=[
 'count_service_users'=>User::where('role','pssu')->where('status','active')->count(),
 $user_data['get_pssp_services']=$this->get_registered_positions(),
 ];
-//
-
-
+//Logged in user details.
 $user_data['user']=Auth::user();
 $user_data['profile']=$profile->select('panelist_profession_profile.description',
 'panelist_profession_profile.number_years',
@@ -202,13 +201,13 @@ $user_data['profile']=$profile->select('panelist_profession_profile.description'
 ->join('employee_profession','panelist_profession_profile.professionID','=','employee_profession.id')->get();
 $user_data['professions']=EmployeeProfessionModel::get();
 
-//
+//Interview details.
 $panelist=new InterviewPanelistModel;
 $user_data['interviews']=$panelist->select('pssp_interview_schedule.id',
 'pssp_interview_schedule.date',
 'pssp_interview_schedule.time',
 'pssp_interview_schedule.created_at',
-// 'pssp_interview_schedule.comment',
+// Pssp_interview_schedule.comment.
 'users.firstname',
 'users.lastname')
 ->join('pssp_interview_schedule','interview_panelist.interviewID','=','pssp_interview_schedule.id')
@@ -216,7 +215,7 @@ $user_data['interviews']=$panelist->select('pssp_interview_schedule.id',
 ->where('interview_panelist.userID',Auth::user()->id)
 ->where('pssp_interview_schedule.status','scheduled')
 ->get();
-
+//passed interviw.
 $user_data['passed']=$panelist->select('pssp_interview_schedule.id',
 'pssp_interview_schedule.date',
 'pssp_interview_schedule.time',
@@ -225,6 +224,17 @@ $user_data['passed']=$panelist->select('pssp_interview_schedule.id',
 ->where('interview_panelist.userID',Auth::user()->id)
 ->where('pssp_interview_schedule.status','passed')
 ->get();
+//failed interview.
+$user_data['failed']=$panelist->select('pssp_interview_schedule.id',
+'pssp_interview_schedule.date',
+'pssp_interview_schedule.time',
+'pssp_interview_schedule.created_at',)
+->join('pssp_interview_schedule','interview_panelist.interviewID','=','pssp_interview_schedule.id')
+->where('interview_panelist.userID',Auth::user()->id)
+->where('pssp_interview_schedule.status','failed')
+->get();
+//Wallet details.
+$user_data['wallet']=number_format(DasunsWalletModel::select('amount')->sum('amount'));
 
 
 
